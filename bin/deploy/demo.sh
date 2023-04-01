@@ -17,8 +17,8 @@ processRepo() {
     echo "Clone repo '${NAME}' to '${DIR_OWN}'."
     git clone "${REPO}" "${DIR_OWN}/${NAME}"
   fi
-  echo "Link sources from '${NAME}' to '${DIR_NODE}'."
-  rm -fr "${DIR_NODE:?}/${NAME}" && ln -s "${DIR_OWN}/${NAME}" "${DIR_NODE}/${NAME}"
+  echo "Move sources from '${NAME}' to '${DIR_NODE}'."
+  rm -fr "${DIR_NODE:?}/${NAME}" && mv "${DIR_OWN}/${NAME}" "${DIR_NODE}/${NAME}"
 }
 
 ##
