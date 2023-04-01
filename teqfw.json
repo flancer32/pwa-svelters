@@ -1,0 +1,15 @@
+{
+  "@teqfw/di": {
+    "autoload": {
+      "ns": "Svelters",
+      "path": "./src"
+    }
+  },
+  "@teqfw/core": {
+    "commands": [],
+    "plugin": {
+      "onInit": "Svelters_Back_Plugin_Init",
+      "onStop": "Svelters_Back_Plugin_Stop"
+    }
+  }
+}

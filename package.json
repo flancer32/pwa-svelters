@@ -1,0 +1,40 @@
+{
+  "name": "@flancer32/pwa-svelters",
+  "version": "0.1.0",
+  "description": "Image Search PWA.",
+  "homepage": "https://github.com/flancer32/pwa-svelters/",
+  "bugs": {
+    "url": "https://github.com/flancer32/pwa-svelters/issues",
+    "email": "alex@flancer32.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Alex Gusev",
+    "email": "alex@flancer64.com",
+    "url": "https://github.com/flancer64"
+  },
+  "repository": "github:flancer32/pwa-svelters",
+  "scripts": {
+    "db-reset": "node ./bin/tequila.mjs db-init",
+    "help": "node ./bin/tequila.mjs -h",
+    "start": "node ./bin/tequila.mjs web-server-start",
+    "stop": "node ./bin/tequila.mjs web-server-stop"
+  },
+  "dependencies": {
+    "@teqfw/core": "^0.9.0",
+    "@teqfw/db": "^0.6.0",
+    "@teqfw/di": "^0.12.0",
+    "@teqfw/test": "^0.3.0",
+    "@teqfw/ui-quasar": "^0.4.0",
+    "@teqfw/vue": "^0.4.0",
+    "@teqfw/web": "^0.8.0",
+    "@teqfw/web-event": "^0.1.0",
+    "mysql2": "^3.2.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
