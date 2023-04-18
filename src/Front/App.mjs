@@ -123,8 +123,8 @@ export default class Svelters_Front_App {
             try {
                 // await initEventListeners(container);
                 // _print(`Event listeners are created.`);
-                // await connReverseOpen();
-                // _print(`Stream for backend events is opened.`);
+                await connReverseOpen();
+                _print(`Stream for backend events is opened.`);
                 initQuasarUi(_root, quasar);
                 _print(`Quasar UI is initialized.`);
                 initRouter(_root, DEF, container);

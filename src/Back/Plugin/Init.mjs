@@ -17,10 +17,10 @@ export default function Factory(spec) {
     // FUNCS
     async function init() {
         // create event listeners synchronously to prevent doubling of singletons in container
-        // await container.get('Svelters_Back_Listen_Trans_Image_List$');
-        // await container.get('Svelters_Back_Listen_Trans_Image_Upload$');
-        // run scheduled tasks
-        // cronFrontClean.start().catch(logger.error);
+        await container.get('Svelters_Back_Listen_Trans_SignIn_Challenge$');
+        await container.get('Svelters_Back_Listen_Trans_SignIn_Validate$');
+        await container.get('Svelters_Back_Listen_Trans_SignUp_Attestation$');
+        await container.get('Svelters_Back_Listen_Trans_SignUp_Challenge$');
     }
 
     // MAIN

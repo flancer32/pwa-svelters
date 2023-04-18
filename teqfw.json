@@ -11,5 +11,8 @@
       "onInit": "Svelters_Back_Plugin_Init",
       "onStop": "Svelters_Back_Plugin_Stop"
     }
+  },
+  "@teqfw/web": {
+    "statics": {}
   }
 }
