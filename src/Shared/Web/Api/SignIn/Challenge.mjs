@@ -1,12 +1,12 @@
 /**
- * Generate sign up challenge.
+ * Get challenge for user authentication from backend.
  */
 // MODULE'S VARS
-const NS = 'Svelters_Shared_Web_Api_SignUp_Challenge';
+const NS = 'Svelters_Shared_Web_Api_SignIn_Challenge';
 
 // MODULE'S CLASSES
 /**
- * @memberOf Svelters_Shared_Web_Api_SignUp_Challenge
+ * @memberOf Svelters_Shared_Web_Api_SignIn_Challenge
  */
 class Request {
     static namespace = NS;
@@ -15,33 +15,23 @@ class Request {
 }
 
 /**
- * @memberOf Svelters_Shared_Web_Api_SignUp_Challenge
+ * @memberOf Svelters_Shared_Web_Api_SignIn_Challenge
  */
 class Response {
     static namespace = NS;
+    /** @type {string} */
+    attestationId;
     /**
-     * base64url encoded binary data.
+     * Base64 url encoded challenge.
      * @type {string}
      */
     challenge;
-    /** @type {string} */
-    relyingPartyName;
-    /**
-     * Unique identifier for the user (login, email, phone, ...).
-     * @type {string}
-     */
-    userName;
-    /**
-     * UUID for the user.
-     * @type {string}
-     */
-    userUuid;
 }
 
 /**
  * @implements TeqFw_Web_Api_Shared_Api_Endpoint
  */
-export default class Svelters_Shared_Web_Api_SignUp_Challenge {
+export default class Svelters_Shared_Web_Api_SignIn_Challenge {
     constructor(spec) {
         // DEPS
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
@@ -59,16 +49,14 @@ export default class Svelters_Shared_Web_Api_SignUp_Challenge {
 
         /**
          * @param {*} data
-         * @returns {Svelters_Shared_Web_Api_SignUp_Challenge.Response}
+         * @returns {Svelters_Shared_Web_Api_SignIn_Challenge.Response}
          */
         this.createRes = function (data) {
             // create new DTO
             const res = new Response();
             // cast known attributes
+            res.attestationId = castString(data?.attestationId);
             res.challenge = castString(data?.challenge);
-            res.relyingPartyName = castString(data?.relyingPartyName);
-            res.userName = castString(data?.userName);
-            res.userUuid = castString(data?.userUuid);
             return res;
         };
     }

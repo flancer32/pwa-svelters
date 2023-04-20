@@ -17,6 +17,9 @@
   },
   "@teqfw/web-api": {
     "services": [
+      "Svelters_Back_Web_Api_SignIn_Challenge",
+      "Svelters_Back_Web_Api_SignIn_Validate",
+      "Svelters_Back_Web_Api_SignUp_Attestation",
       "Svelters_Back_Web_Api_SignUp_Challenge"
     ]
   }
