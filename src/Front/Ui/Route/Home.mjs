@@ -24,8 +24,8 @@ export default function (spec) {
     const b64UrlToBin = spec['Svelters_Front_Util_Codec.b64UrlToBin'];
     /** @type {Svelters_Front_Mod_Authn} */
     const modAuthn = spec['Svelters_Front_Mod_Authn$'];
-    /** @type {TeqFw_Web_Api_Front_Mod_Connect} */
-    const webApi = spec['TeqFw_Web_Api_Front_Mod_Connect$'];
+    /** @type {TeqFw_Web_Api_Front_Web_Connect} */
+    const webApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
     /** @type {Svelters_Shared_Web_Api_SignUp_Challenge} */
     const apiSignUpChallenge = spec['Svelters_Shared_Web_Api_SignUp_Challenge$'];
 
@@ -174,7 +174,7 @@ export default function (spec) {
             async onTest() {
                 const req = apiSignUpChallenge.createReq({userName: 'alex'});
                 const res = await webApi.send(req, apiSignUpChallenge, {});
-
+                console.log(JSON.stringify(res));
             },
         },
         mounted() { },
