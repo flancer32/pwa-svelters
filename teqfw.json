@@ -14,5 +14,10 @@
   },
   "@teqfw/web": {
     "statics": {}
+  },
+  "@teqfw/web-api": {
+    "services": [
+      "Svelters_Back_Web_Api_SignUp_Challenge"
+    ]
   }
 }

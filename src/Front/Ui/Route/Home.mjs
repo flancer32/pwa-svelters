@@ -24,6 +24,10 @@ export default function (spec) {
     const b64UrlToBin = spec['Svelters_Front_Util_Codec.b64UrlToBin'];
     /** @type {Svelters_Front_Mod_Authn} */
     const modAuthn = spec['Svelters_Front_Mod_Authn$'];
+    /** @type {TeqFw_Web_Api_Front_Mod_Connect} */
+    const webApi = spec['TeqFw_Web_Api_Front_Mod_Connect$'];
+    /** @type {Svelters_Shared_Web_Api_SignUp_Challenge} */
+    const apiSignUpChallenge = spec['Svelters_Shared_Web_Api_SignUp_Challenge$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -31,6 +35,7 @@ export default function (spec) {
     const template = `
 <div>
     <div class="row q-gutter-xs">
+        <q-btn label="Test" color="${DEF.COLOR_Q_PRIMARY}" v-on:click="onTest"/>
         <q-btn label="Sign Up" color="${DEF.COLOR_Q_PRIMARY}" v-on:click="onSignUp"/>
         <q-btn label="Verify" color="${DEF.COLOR_Q_PRIMARY}" v-on:click="onVerify"/>
     </div>
@@ -165,6 +170,11 @@ export default function (spec) {
                     this.log(`User is authenticated on backend. Sign in is succeed.`);
                 else
                     this.log(`User is NOT authenticated on backend.`);
+            },
+            async onTest() {
+                const req = apiSignUpChallenge.createReq({userName: 'alex'});
+                const res = await webApi.send(req, apiSignUpChallenge, {});
+
             },
         },
         mounted() { },

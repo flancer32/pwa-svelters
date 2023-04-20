@@ -21,14 +21,13 @@
     "stop": "node ./bin/tequila.mjs web-server-stop"
   },
   "dependencies": {
-    "@teqfw/core": "^0.10.0",
+    "@teqfw/core": "*",
     "@teqfw/db": "^0.6.0",
     "@teqfw/di": "^0.12.0",
     "@teqfw/test": "^0.3.0",
     "@teqfw/ui-quasar": "^0.4.0",
     "@teqfw/vue": "^0.4.0",
     "@teqfw/web": "^0.8.0",
-    "@teqfw/web-event": "^0.1.0",
     "cbor": "^8.1.0",
     "mysql2": "^3.2.0",
     "parse-cosekey": "^1.0.2"

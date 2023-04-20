@@ -11,8 +11,8 @@ export default class Svelters_Front_Mod_Authn {
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {Svelters_Front_Util_Codec.binToB64Url|function} */
         const binToB64Url = spec['Svelters_Front_Util_Codec.binToB64Url'];
-        /** @type {TeqFw_Web_Event_Front_Act_Trans_Call.act|function} */
-        const callTrans = spec['TeqFw_Web_Event_Front_Act_Trans_Call$'];
+        // /** @type {TeqFw_Web_Event_Front_Act_Trans_Call.act|function} */
+        // const callTrans = spec['TeqFw_Web_Event_Front_Act_Trans_Call$'];
         /** @type {Svelters_Shared_Event_Front_SignUp_Attestation_Request} */
         const esfReqUpAtt = spec['Svelters_Shared_Event_Front_SignUp_Attestation_Request$'];
         /** @type {Svelters_Shared_Event_Back_SignUp_Attestation_Response} */
