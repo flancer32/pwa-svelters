@@ -2,10 +2,177 @@
   "package": {
     "app": {
       "entity": {
+        "profile": {
+          "comment": "Application level profile (gender, height, ...).",
+          "attr": {
+            "user_ref": {
+              "type": "ref"
+            },
+            "date_updated": {
+              "type": "datetime",
+              "comment": "Date-time for the last update.",
+              "default": "current"
+            },
+            "name": {
+              "comment": "Name to display in profile.",
+              "type": "string"
+            },
+            "age": {
+              "comment": "Full ages for the update moment.",
+              "type": "number",
+              "options": {
+                "unsigned": true
+              }
+            },
+            "is_female": {
+              "comment": "true - for women (XX).",
+              "type": "boolean",
+              "default": true
+            },
+            "height": {
+              "comment": "Height in cm.",
+              "type": "number",
+              "options": {
+                "unsigned": true
+              }
+            }
+          },
+          "index": {
+            "PK": {"type": "primary", "attrs": ["user_ref"]}
+          },
+          "relation": {
+            "user": {
+              "attrs": ["user_ref"],
+              "ref": {"path": "/app/user", "attrs": ["bid"]}
+            }
+          }
+        },
         "user": {
           "comment": "User registry for the app.",
           "attr": {
-            "bid": {"type": "id"}
+            "bid": {"type": "id"},
+            "date_created": {
+              "comment": "Date-time for user registration.",
+              "type": "datetime",
+              "default": "current"
+            }
+          }
+        },
+        "weight": {
+          "comment": "Weight values by date (kg).",
+          "attr": {
+            "user_ref": {
+              "type": "ref"
+            },
+            "date": {
+              "type": "datetime",
+              "options": {"dateOnly": true},
+              "default": "current"
+            },
+            "type": {
+              "comment": "Weight type: current or target.",
+              "type": "enum",
+              "options": {"values": ["c", "t"]},
+              "default": "c"
+            },
+            "value": {
+              "comment": "Statistical value for the weight in kg: 75.4.",
+              "type": "number",
+              "options": {"precision": 4, "scale": 1}
+            }
+          },
+          "index": {
+            "PK": {"type": "primary", "attrs": ["user_ref", "date", "type"]}
+          },
+          "relation": {
+            "user": {
+              "attrs": ["user_ref"],
+              "ref": {"path": "/app/user", "attrs": ["bid"]}
+            }
+          }
+        }
+      },
+      "package": {
+        "user": {
+          "entity": {
+            "tree": {
+              "comment": "Referrals tree.",
+              "attr": {
+                "user_ref": {"type": "ref"},
+                "parent_ref": {"type": "ref"}
+              },
+              "index": {
+                "PK": {"type": "primary", "attrs": ["user_ref"]}
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {"path": "/app/user", "attrs": ["bid"]}
+                },
+                "parent": {
+                  "attrs": ["parent_ref"],
+                  "ref": {"path": "/app/user/tree", "attrs": ["user_ref"]}
+                }
+              }
+            }
+          },
+          "package": {
+            "auth": {
+              "entity": {
+                "pwd": {
+                  "comment": "Passwords to authenticate users.",
+                  "attr": {
+                    "user_ref": {"type": "ref"},
+                    "password_hash": {"type": "string"}
+                  },
+                  "relation": {
+                    "user": {
+                      "attrs": ["user_ref"],
+                      "ref": {
+                        "path": "/app/user", "attrs": ["bid"]
+                      }
+                    }
+                  }
+                },
+                "pk": {
+                  "comment": "Public keys to authenticate users.",
+                  "attr": {
+                    "user_ref": {"type": "ref"},
+                    "pkey": {"type": "string"}
+                  },
+                  "relation": {
+                    "user": {
+                      "attrs": ["user_ref"],
+                      "ref": {
+                        "path": "/app/user", "attrs": ["bid"]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "id": {
+              "entity": {
+                "email": {
+                  "comment": "Emails as identifiers for users.",
+                  "attr": {
+                    "email": {"type": "string"},
+                    "user_ref": {"type": "ref"}
+                  },
+                  "index": {
+                    "PK": {"type": "primary", "attrs": ["email"]}
+                  },
+                  "relation": {
+                    "user": {
+                      "attrs": ["user_ref"],
+                      "ref": {
+                        "path": "/app/user", "attrs": ["bid"]
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
