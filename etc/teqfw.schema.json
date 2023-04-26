@@ -1,0 +1,14 @@
+{
+  "package": {
+    "app": {
+      "entity": {
+        "user": {
+          "comment": "User registry for the app.",
+          "attr": {
+            "bid": {"type": "id"}
+          }
+        }
+      }
+    }
+  }
+}
