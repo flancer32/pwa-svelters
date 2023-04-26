@@ -1,0 +1,16 @@
+{
+  "btn": {
+    "ok": "OK"
+  },
+  "route": {
+    "user": {
+      "sign": {
+        "up": {
+          "fld": {
+            "email": "Email"
+          }
+        }
+      }
+    }
+  }
+}

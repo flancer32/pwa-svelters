@@ -34,6 +34,8 @@ export default class Svelters_Front_App {
         // const connReverseOpen = spec['TeqFw_Web_Event_Front_Web_Connect_Stream_Open$'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
         const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
+        /** @type {TeqFw_I18n_Front_Mod_I18n} */
+        const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
         // /** @type {TeqFw_Web_Event_Front_Mod_Identity_Front} */
         // const modIdFront = spec['TeqFw_Web_Event_Front_Mod_Identity_Front$'];
 
@@ -69,6 +71,28 @@ export default class Svelters_Front_App {
                 await container.get('Svelters_Front_Listen_Connect_Manager$');
             }
 
+            /**
+             * Setup working languages and fallback language and add translation function to the Vue.
+             *
+             * @param {Object} app
+             * @return {Promise<void>}
+             * @memberOf Ra_Mob_Front_App.init
+             */
+            async function initI18n(app) {
+                await modI18n.init(['ru', 'en'], 'en');
+                const i18n = modI18n.getI18n();
+                // add translation function to Vue
+                const appProps = app.config.globalProperties;
+                // noinspection JSPrimitiveTypeWrapperUsage
+                appProps.$t = function (key, options) {
+                    // add package name if namespace is omitted in the key
+                    // noinspection JSUnresolvedVariable
+                    const ns = this.$options.teq?.package;
+                    if (ns && key.indexOf(':') <= 0) key = `${ns}:${key}`;
+                    return i18n.t(key, options);
+                };
+            }
+
             function initQuasarUi(app, quasar) {
                 app.use(quasar, {config: {}});
                 // noinspection JSUnresolvedVariable
@@ -85,6 +109,11 @@ export default class Svelters_Front_App {
                 router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Svelters_Front_Ui_Route_Home$'),
+                    meta: {anonymous: false},
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_USER_SIGN_UP,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
                     meta: {anonymous: false},
                 });
                 //
@@ -128,6 +157,7 @@ export default class Svelters_Front_App {
                 initQuasarUi(_root, quasar);
                 _print(`Quasar UI is initialized.`);
                 initRouter(_root, DEF, container);
+                await initI18n(_root);
                 _print(`Vue app is created and initialized.`);
                 _isInitialized = true;
             } catch (e) {
