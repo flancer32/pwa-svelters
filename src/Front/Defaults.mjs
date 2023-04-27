@@ -5,6 +5,7 @@ export default class Svelters_Front_Defaults {
     COLOR_Q_PRIMARY = 'primary';
 
     ROUTE_HOME = '/';
+    ROUTE_USER_DEVICE_REGISTER = '/user/device/register';
     ROUTE_USER_SIGN_UP = '/user/sign/up';
 
     /** @type {Svelters_Shared_Defaults} */

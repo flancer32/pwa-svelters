@@ -2,6 +2,13 @@
   "btn": {
     "ok": "OK"
   },
+  "layout": {
+    "navigator": {
+      "device": "Reg. Device",
+      "home": "Home",
+      "signUp": "Sign Up"
+    }
+  },
   "route": {
     "user": {
       "sign": {

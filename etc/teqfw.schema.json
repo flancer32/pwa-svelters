@@ -50,12 +50,16 @@
         "user": {
           "comment": "User registry for the app.",
           "attr": {
-            "bid": {"type": "id"},
+            "bid": {"type": "id", "comment": "Internal ID used in foreign keys."},
+            "uuid": {"type": "string", "comment": "Universally unique identifier as public ID."},
             "date_created": {
               "comment": "Date-time for user registration.",
               "type": "datetime",
               "default": "current"
             }
+          },
+          "index": {
+            "uuid": {"type": "unique", "attrs": ["uuid"]}
           }
         },
         "weight": {
@@ -146,6 +150,33 @@
                       "ref": {
                         "path": "/app/user", "attrs": ["bid"]
                       }
+                    }
+                  }
+                }
+              }
+            },
+            "device": {
+              "comment": "User devices (smartphones, etc.)",
+              "entity": {
+                "invite": {
+                  "comment": "Invites to register new device for the user.",
+                  "attr": {
+                    "code": {"type": "string", "comment": "Unique code of the invitation (UUID v4)."},
+                    "user_ref": {"type": "ref", "comment": "User for whom invitation was created."},
+                    "date_created": {
+                      "type": "datetime",
+                      "default": "current",
+                      "comment": "UTC date when invitation was created in DB."
+                    }
+                  },
+                  "index": {
+                    "code": {"type": "primary", "attrs": ["code"]}
+                  },
+                  "relation": {
+                    "user": {
+                      "attrs": ["user_ref"],
+                      "ref": {"path": "/app/user", "attrs": ["bid"]},
+                      "action": {"delete": "cascade", "update": "cascade"}
                     }
                   }
                 }

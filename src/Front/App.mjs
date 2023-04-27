@@ -38,6 +38,8 @@ export default class Svelters_Front_App {
         const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
         // /** @type {TeqFw_Web_Event_Front_Mod_Identity_Front} */
         // const modIdFront = spec['TeqFw_Web_Event_Front_Mod_Identity_Front$'];
+        /** @type {Svelters_Front_Ui_Layout_Navigator.vueCompTmpl} */
+        const Navigator = spec['Svelters_Front_Ui_Layout_Navigator$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
@@ -109,12 +111,17 @@ export default class Svelters_Front_App {
                 router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Svelters_Front_Ui_Route_Home$'),
-                    meta: {anonymous: false},
+                    meta: {anonymous: true},
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_USER_DEVICE_REGISTER,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Device_Register$'),
+                    meta: {anonymous: true},
                 });
                 router.addRoute({
                     path: DEF.ROUTE_USER_SIGN_UP,
                     component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
-                    meta: {anonymous: false},
+                    meta: {anonymous: true},
                 });
                 //
                 app.use(router);
@@ -141,7 +148,7 @@ export default class Svelters_Front_App {
                 }
             });
             // ... and add global available components
-            // _root.component('layoutCenter', layoutCenter);
+            _root.component('Navigator', Navigator);
             // _root.component('layoutDesk', layoutDesk);
             // _root.component('uiSpinner', uiSpinner);
             // other initialization

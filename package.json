@@ -21,7 +21,7 @@
     "stop": "node ./bin/tequila.mjs web-server-stop"
   },
   "dependencies": {
-    "@teqfw/core": "*",
+    "@teqfw/core": "latest",
     "@teqfw/db": "^0.6.0",
     "@teqfw/di": "^0.12.0",
     "@teqfw/i18n": "latest",

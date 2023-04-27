@@ -34,6 +34,7 @@ export default function (spec) {
     const _textEncoder = new TextEncoder();
     const template = `
 <div>
+    <navigator/>
     <div class="row q-gutter-xs">
         <q-btn label="Test" color="${DEF.COLOR_Q_PRIMARY}" v-on:click="onTest"/>
         <q-btn label="Sign Up" color="${DEF.COLOR_Q_PRIMARY}" v-on:click="onSignUp"/>

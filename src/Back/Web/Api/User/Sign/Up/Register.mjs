@@ -2,18 +2,19 @@
  * Generate sign up challenge before new user registration.
  */
 // MODULE'S IMPORTS
+import {randomUUID} from 'node:crypto';
 
 // MODULE'S CLASSES
 /**
  * @implements TeqFw_Web_Api_Back_Api_Service
  */
-export default class Svelters_Back_Web_Api_Sign_Up_Register {
+export default class Svelters_Back_Web_Api_User_Sign_Up_Register {
     constructor(spec) {
         // DEPS
         /** @type {TeqFw_Core_Shared_Api_Logger} */
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {Svelters_Shared_Web_Api_Sign_Up_Register} */
-        const endpoint = spec['Svelters_Shared_Web_Api_Sign_Up_Register$'];
+        /** @type {Svelters_Shared_Web_Api_User_Sign_Up_Register} */
+        const endpoint = spec['Svelters_Shared_Web_Api_User_Sign_Up_Register$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
@@ -35,8 +36,8 @@ export default class Svelters_Back_Web_Api_Sign_Up_Register {
         this.init = async function () { };
 
         /**
-         * @param {Svelters_Shared_Web_Api_Sign_Up_Register.Request|Object} req
-         * @param {Svelters_Shared_Web_Api_Sign_Up_Register.Response|Object} res
+         * @param {Svelters_Shared_Web_Api_User_Sign_Up_Register.Request|Object} req
+         * @param {Svelters_Shared_Web_Api_User_Sign_Up_Register.Response|Object} res
          * @param {TeqFw_Web_Api_Back_Api_Service_Context} context
          * @returns {Promise<void>}
          */
@@ -46,7 +47,9 @@ export default class Svelters_Back_Web_Api_Sign_Up_Register {
                 // get and normalize input data
                 const email = req.email;
                 //
-                const {[A_USER.BID]: bid} = await crud.create(trx, rdbUser);
+                const dtoUser = rdbUser.createDto();
+                dtoUser.uuid = randomUUID();
+                const {[A_USER.BID]: bid} = await crud.create(trx, rdbUser, dtoUser);
                 const dtoEmail = rdbIdEmail.createDto();
                 dtoEmail.email = email.trim().toLowerCase();
                 dtoEmail.user_ref = bid;

@@ -1,19 +1,19 @@
 /**
- * New user registration.
+ * Screen to register new device (smartphone) for a user.
  *
- * @namespace Svelters_Front_Ui_Route_User_Sign_Up
+ * @namespace Svelters_Front_Ui_Route_User_Device_Register
  */
 // MODULE'S IMPORTS
 
 // MODULE'S VARS
-const NS = 'Svelters_Front_Ui_Route_User_Sign_Up';
+const NS = 'Svelters_Front_Ui_Route_User_Device_Register';
 
 // MODULE'S FUNCTIONS
 
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Svelters_Front_Ui_Route_User_Sign_Up.vueCompTmpl}
+ * @returns {Svelters_Front_Ui_Route_User_Device_Register.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Svelters_Front_Defaults} */
@@ -24,6 +24,8 @@ export default function (spec) {
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
     /** @type {Svelters_Front_Mod_User_Sign_Up} */
     const modSignUp = spec['Svelters_Front_Mod_User_Sign_Up$'];
+    /** @type {Svelters_Front_Mod_User_Device} */
+    const modDev = spec['Svelters_Front_Mod_User_Device$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -55,7 +57,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Svelters_Front_Ui_Route_User_Sign_Up
+     * @memberOf Svelters_Front_Ui_Route_User_Device_Register
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -71,7 +73,7 @@ export default function (spec) {
         methods: {
             async onOk() {
                 this.ifLoading = true;
-                const res = await modSignUp.registerEmail(this.fldEmail);
+                const res = await modDev.inviteCreate(this.fldEmail);
                 this.ifLoading = false;
                 debugger
             }
