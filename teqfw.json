@@ -21,7 +21,9 @@
       "Svelters_Back_Web_Api_SignIn_Validate",
       "Svelters_Back_Web_Api_SignUp_Attestation",
       "Svelters_Back_Web_Api_SignUp_Challenge",
+      "Svelters_Back_Web_Api_User_Device_Attest",
       "Svelters_Back_Web_Api_User_Device_Invite_Create",
+      "Svelters_Back_Web_Api_User_Device_Invite_Use",
       "Svelters_Back_Web_Api_User_Sign_Up_Register"
     ]
   }

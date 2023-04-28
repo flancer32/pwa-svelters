@@ -22,8 +22,6 @@ export default function (spec) {
     const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
     /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
-    /** @type {Svelters_Front_Mod_User_Sign_Up} */
-    const modSignUp = spec['Svelters_Front_Mod_User_Sign_Up$'];
     /** @type {Svelters_Front_Mod_User_Device} */
     const modDev = spec['Svelters_Front_Mod_User_Device$'];
 
@@ -42,7 +40,7 @@ export default function (spec) {
                      type="email"
             />
         </q-card-section>
-                <q-card-actions align="center">
+        <q-card-actions align="center">
             <q-btn :label="$t('btn.ok')"
                    color="${DEF.COLOR_Q_PRIMARY}"
                    v-on:click="onOk"
@@ -75,7 +73,11 @@ export default function (spec) {
                 this.ifLoading = true;
                 const res = await modDev.inviteCreate(this.fldEmail);
                 this.ifLoading = false;
-                debugger
+                const code = res?.code;
+                if (code) {
+                    const route = DEF.ROUTE_USER_DEVICE_ATTEST.replace(':code', code);
+                    this.$router.push(route);
+                }
             }
         },
         mounted() { },

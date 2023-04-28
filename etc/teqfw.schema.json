@@ -141,14 +141,73 @@
                 "pk": {
                   "comment": "Public keys to authenticate users.",
                   "attr": {
+                    "bid": {"type": "id", "comment": "Internal ID."},
                     "user_ref": {"type": "ref"},
-                    "pkey": {"type": "string"}
+                    "date_created": {
+                      "comment": "Date-time when record was created.",
+                      "type": "datetime",
+                      "default": "current"
+                    },
+                    "attestation_id": {"type": "string"},
+                    "public_key": {"type": "text"}
                   },
                   "relation": {
                     "user": {
                       "attrs": ["user_ref"],
                       "ref": {
                         "path": "/app/user", "attrs": ["bid"]
+                      }
+                    }
+                  }
+                }
+              },
+              "package": {
+                "chlng": {
+                  "entity": {
+                    "attest": {
+                      "comment": "Challenge to attest devises (WebAuthn API).",
+                      "attr": {
+                        "user_ref": {"type": "ref"},
+                        "challenge": {"type": "string"},
+                        "date_created": {
+                          "comment": "Date-time when record was created.",
+                          "type": "datetime",
+                          "default": "current"
+                        }
+                      },
+                      "index": {
+                        "PK": {"type": "primary", "attrs": ["challenge"]}
+                      },
+                      "relation": {
+                        "user": {
+                          "attrs": ["user_ref"],
+                          "ref": {
+                            "path": "/app/user", "attrs": ["bid"]
+                          }
+                        }
+                      }
+                    },
+                    "sign": {
+                      "comment": "Challenge to sign in users (WebAuthn API).",
+                      "attr": {
+                        "user_ref": {"type": "ref"},
+                        "challenge": {"type": "string"},
+                        "date_created": {
+                          "comment": "Date-time when record was created.",
+                          "type": "datetime",
+                          "default": "current"
+                        }
+                      },
+                      "index": {
+                        "PK": {"type": "primary", "attrs": ["challenge"]}
+                      },
+                      "relation": {
+                        "user": {
+                          "attrs": ["user_ref"],
+                          "ref": {
+                            "path": "/app/user", "attrs": ["bid"]
+                          }
+                        }
                       }
                     }
                   }
@@ -170,7 +229,7 @@
                     }
                   },
                   "index": {
-                    "code": {"type": "primary", "attrs": ["code"]}
+                    "PK": {"type": "primary", "attrs": ["code"]}
                   },
                   "relation": {
                     "user": {

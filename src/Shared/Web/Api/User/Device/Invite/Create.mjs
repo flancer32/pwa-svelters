@@ -1,5 +1,7 @@
 /**
- * Create invite to register new device for user.
+ * Create invite to register new device with WebAuthn for a user.
+ * This invite should be emailed to identification email of the user or the user will be redirected
+ * to invite usage route (if this is newly signed-up user).
  */
 // MODULE'S VARS
 const NS = 'Svelters_Shared_Web_Api_User_Device_Invite_Create';
@@ -19,7 +21,10 @@ class Request {
  */
 class Response {
     static namespace = NS;
-    /** @type {string} */
+    /**
+     *
+     * @type {string}
+     */
     code;
 }
 
