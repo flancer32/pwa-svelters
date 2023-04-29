@@ -26,6 +26,11 @@ class Request {
  */
 class Response {
     static namespace = NS;
+    /**
+     * Base64url encoded value.
+     * @type {string}
+     */
+    attestationId;
     /** @type {number} */
     publicKeyBid;
 }
@@ -65,6 +70,7 @@ export default class Svelters_Shared_Web_Api_User_Device_Attest {
             // create new DTO
             const res = new Response();
             // cast known attributes
+            res.attestationId = castString(data?.attestationId);
             res.publicKeyBid = castInt(data?.publicKeyBid);
             return res;
         };

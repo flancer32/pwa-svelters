@@ -12,6 +12,25 @@ const NS = 'Svelters_Back_Util_WebAuthn';
 const SIZE_CHALLENGE = 32;
 
 // MODULE'S FUNCTIONS
+
+/**
+ * Decode ECDSA signature in ASN.1 DER (Distinguished Encoding Rules) format.
+ * @see https://github.com/passwordless-id/webauthn/blob/main/src/server.ts#L182
+ * @param {ArrayBuffer} buf
+ * @returns {Uint8Array}
+ * @memberOf Svelters_Back_Util_WebAuthn
+ */
+function asn1toRaw(buf) {
+    // Convert signature from ASN.1 sequence to 'raw' format
+    const uint = new Uint8Array(buf);
+    const rStart = uint[4] === 0 ? 5 : 4;
+    const rEnd = rStart + 32;
+    const sStart = uint[rEnd + 2] === 0 ? rEnd + 3 : rEnd + 2;
+    const r = uint.slice(rStart, rEnd);
+    const s = uint.slice(sStart);
+    return new Uint8Array([...r, ...s]);
+}
+
 /**
  * Generate challenge for WebAuthn processes (32 bytes 'base64url' encoded).
  * @returns {string}
@@ -66,7 +85,6 @@ function decodeAuthData(data) {
     }
 }
 
-
 /**
  * Convert client data JSON from base64url to JS object.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorResponse/clientDataJSON
@@ -82,11 +100,13 @@ function decodeClientDataJSON(b64url) {
 }
 
 // finalize code components for this es6-module
+Object.defineProperty(asn1toRaw, 'namespace', {value: NS});
 Object.defineProperty(createChallenge, 'namespace', {value: NS});
 Object.defineProperty(decodeAttestationObj, 'namespace', {value: NS});
 Object.defineProperty(decodeClientDataJSON, 'namespace', {value: NS});
 
 export {
+    asn1toRaw,
     createChallenge,
     decodeAttestationObj,
     decodeAuthData,

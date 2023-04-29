@@ -1,17 +1,17 @@
 /**
  *  Metadata for RDB entity: public keys to authenticate users (WebAuthn API).
- *  @namespace Svelters_Back_RDb_Schema_User_Auth_Pk
+ *  @namespace Svelters_Back_RDb_Schema_User_Auth_Attest
  */
 // MODULE'S VARS
-const NS = 'Svelters_Back_RDb_Schema_User_Auth_Pk';
+const NS = 'Svelters_Back_RDb_Schema_User_Auth_Attest';
 /**
  * Path to the entity in plugin's DEM.
  * @type {string}
  */
-const ENTITY = '/app/user/auth/pk';
+const ENTITY = '/app/user/auth/attest';
 
 /**
- * @memberOf Svelters_Back_RDb_Schema_User_Auth_Pk
+ * @memberOf Svelters_Back_RDb_Schema_User_Auth_Attest
  * @type {Object}
  */
 const ATTR = {
@@ -25,7 +25,7 @@ Object.freeze(ATTR);
 
 // MODULE'S CLASSES
 /**
- * @memberOf Svelters_Back_RDb_Schema_User_Auth_Pk
+ * @memberOf Svelters_Back_RDb_Schema_User_Auth_Attest
  */
 class Dto {
     static namespace = NS;
@@ -45,7 +45,7 @@ class Dto {
 /**
  * @implements TeqFw_Db_Back_RDb_Meta_IEntity
  */
-export default class Svelters_Back_RDb_Schema_User_Auth_Pk {
+export default class Svelters_Back_RDb_Schema_User_Auth_Attest {
     constructor(spec) {
         /** @type {Svelters_Back_Defaults} */
         const DEF = spec['Svelters_Back_Defaults$'];
@@ -60,8 +60,8 @@ export default class Svelters_Back_RDb_Schema_User_Auth_Pk {
 
         // INSTANCE METHODS
         /**
-         * @param {Svelters_Back_RDb_Schema_User_Auth_Pk.Dto} [data]
-         * @return {Svelters_Back_RDb_Schema_User_Auth_Pk.Dto}
+         * @param {Svelters_Back_RDb_Schema_User_Auth_Attest.Dto} [data]
+         * @return {Svelters_Back_RDb_Schema_User_Auth_Attest.Dto}
          */
         this.createDto = function (data) {
             const res = new Dto();
@@ -75,7 +75,7 @@ export default class Svelters_Back_RDb_Schema_User_Auth_Pk {
 
         /**
          * Set JSDoc return type, real code is in `TeqFw_Db_Back_RDb_Schema_EntityBase`.
-         * @return {typeof Svelters_Back_RDb_Schema_User_Auth_Pk.ATTR}
+         * @return {typeof Svelters_Back_RDb_Schema_User_Auth_Attest.ATTR}
          */
         this.getAttributes = function () {};
 

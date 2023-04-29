@@ -8,6 +8,7 @@ import {b64UrlToBin} from './Codec.mjs';
 // MODULE'S VARS
 const NS = 'Svelters_Front_Util_WebAuthn';
 const CRED_ALG = -7; // 'ES256' as registered in the IANA COSE Algorithms registry
+const CRED_TRANS_INT = 'internal';
 const CRED_TYPE = 'public-key';
 const TIMEOUT = 360000;  // 6 minutes
 const TXT_ENCODER = new TextEncoder();
@@ -57,10 +58,34 @@ function composeOptPkCreate({challenge, rpName, userName, userUuid}) {
 
 }
 
+/**
+ * Compose `publicKey` options for CredentialsContainer.create() method.
+ * @param {string} challenge base64 url encoded binary (32 bytes)
+ * @param {string} attestationId
+ * @returns {Object}
+ * @memberOf Svelters_Front_Util_WebAuthn
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/get
+ */
+function composeOptPkGet({challenge, attestationId}) {
+    const challengeBin = b64UrlToBin(challenge);
+    const rawId = b64UrlToBin(attestationId);
+    return {
+        challenge: challengeBin,
+        allowCredentials: [{
+            id: rawId,
+            type: CRED_TYPE,
+            transports: [CRED_TRANS_INT]
+        }],
+    };
+
+}
+
 
 // finalize code components for this es6-module
 Object.defineProperty(composeOptPkCreate, 'namespace', {value: NS});
+Object.defineProperty(composeOptPkGet, 'namespace', {value: NS});
 
 export {
     composeOptPkCreate,
+    composeOptPkGet,
 };

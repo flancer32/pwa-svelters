@@ -26,7 +26,6 @@ export default class Svelters_Back_Web_Api_User_Sign_Up_Register {
 
         // VARS
         logger.setNamespace(this.constructor.name);
-        const A_ID_EMAIL = rdbIdEmail.getAttributes();
         const A_USER = rdbUser.getAttributes();
 
         // INSTANCE METHODS

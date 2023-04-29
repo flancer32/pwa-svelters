@@ -24,6 +24,10 @@ export default function (spec) {
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
     /** @type {Svelters_Front_Mod_User_Device} */
     const modDev = spec['Svelters_Front_Mod_User_Device$'];
+    /** @type {Svelters_Front_Mod_User_Attestation.Store} */
+    const modStore = spec['Svelters_Front_Mod_User_Attestation.Store$'];
+    /** @type {typeof Svelters_Front_Mod_User_Attestation.Dto} */
+    const DtoAtt = spec['Svelters_Front_Mod_User_Attestation.Dto'];
     /** @type {Svelters_Front_Util_WebAuthn.composeOptPkCreate|function} */
     const composeOptPkCreate = spec['Svelters_Front_Util_WebAuthn.composeOptPkCreate'];
 
@@ -34,11 +38,13 @@ export default function (spec) {
     <navigator/>
     <q-card>
         <ui-spinner :loading="ifLoading"/>
-        <div>Invitation code: {{code}}</div>
-        <div>Attestation challenge: {{resUse?.challenge}}</div>
-        <div>User name: {{resUse?.userName}}</div>
-        <div>User UUID: {{resUse?.userUuid}}</div>
-        <div>Relying party name: {{resUse?.rpName}}</div>
+        <q-card-section>
+            <div>Invitation code: {{code}}</div>
+            <div>Attestation challenge: {{resUse?.challenge}}</div>
+            <div>User name: {{resUse?.userName}}</div>
+            <div>User UUID: {{resUse?.userUuid}}</div>
+            <div>Relying party name: {{resUse?.rpName}}</div>
+        <q-card-section>
     </q-card>
 </div>
 `;
@@ -84,7 +90,11 @@ export default function (spec) {
             this.ifLoading = true;
             const resAttest = await modDev.attest(attestation);
             this.ifLoading = false;
-            debugger
+            if (resAttest?.attestationId) {
+                const dto = new DtoAtt();
+                dto.attestationId = resAttest.attestationId;
+                modStore.write(dto);
+            }
         },
     };
 }

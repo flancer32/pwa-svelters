@@ -15,9 +15,9 @@ const ENTITY = '/app/user/auth/chlng/sign';
  * @type {Object}
  */
 const ATTR = {
+    ATTEST_REF: 'attest_ref',
     CHALLENGE: 'challenge',
     DATE_CREATED: 'date_created',
-    USER_REF: 'user_ref',
 };
 Object.freeze(ATTR);
 
@@ -27,12 +27,12 @@ Object.freeze(ATTR);
  */
 class Dto {
     static namespace = NS;
+    /** @type {number} */
+    attest_ref;
     /** @type {string} */
     challenge;
     /** @type {Date} */
     date_created;
-    /** @type {number} */
-    user_ref;
 }
 
 // noinspection JSClosureCompilerSyntax
@@ -59,9 +59,9 @@ export default class Svelters_Back_RDb_Schema_User_Auth_Chlng_Sign {
          */
         this.createDto = function (data) {
             const res = new Dto();
+            res.attest_ref = castInt(data?.attest_ref);
             res.challenge = castString(data?.challenge);
             res.date_created = castDate(data?.date_created);
-            res.user_ref = castInt(data?.user_ref);
             return res;
         };
 

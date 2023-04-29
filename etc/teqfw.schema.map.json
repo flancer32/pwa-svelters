@@ -1,5 +1,6 @@
 {
   "deprecated": {
+    "/app/user/auth/pk": ["/app/user"],
     "/web/event/front": [],
     "/web/event/front/session": ["/web/event/front"],
     "/web/event/queue": ["/web/event/front"]

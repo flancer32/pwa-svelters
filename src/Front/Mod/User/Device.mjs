@@ -7,8 +7,8 @@ export default class Svelters_Front_Mod_User_Device {
         // DEPS
         /** @type {TeqFw_Core_Shared_Api_Logger} */
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-      /** @type {Svelters_Front_Util_Codec.binToB64Url|function} */
-      const binToB64Url = spec['Svelters_Front_Util_Codec.binToB64Url'];
+        /** @type {Svelters_Front_Util_Codec.binToB64Url|function} */
+        const binToB64Url = spec['Svelters_Front_Util_Codec.binToB64Url'];
         /** @type {TeqFw_Web_Api_Front_Web_Connect} */
         const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
         /** @type {Svelters_Shared_Web_Api_User_Device_Invite_Create} */
@@ -27,7 +27,7 @@ export default class Svelters_Front_Mod_User_Device {
         /**
          * Attest new device (smartphone, tablet, ...) and save publicKey in RDb.
          * @param {PublicKeyCredential|Credential} attestation
-         * @returns {Promise<Svelters_Shared_Web_Api_User_Device_Invite_Use.Response>}
+         * @returns {Promise<Svelters_Shared_Web_Api_User_Device_Attest.Response>}
          */
         this.attest = async function (attestation) {
             try {

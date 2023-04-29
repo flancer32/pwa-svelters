@@ -23,8 +23,8 @@ export default class Svelters_Back_Web_Api_User_Device_Attest {
         const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
         /** @type {Svelters_Back_RDb_Schema_User_Auth_Chlng_Attest} */
         const rdbChlng = spec['Svelters_Back_RDb_Schema_User_Auth_Chlng_Attest$'];
-        /** @type {Svelters_Back_RDb_Schema_User_Auth_Pk} */
-        const rdbPk = spec['Svelters_Back_RDb_Schema_User_Auth_Pk$'];
+        /** @type {Svelters_Back_RDb_Schema_User_Auth_Attest} */
+        const rdbPk = spec['Svelters_Back_RDb_Schema_User_Auth_Attest$'];
         /** @type {Svelters_Back_Util_WebAuthn.decodeAttestationObj|function} */
         const decodeAttestationObj = spec['Svelters_Back_Util_WebAuthn.decodeAttestationObj'];
         /** @type {Svelters_Back_Util_WebAuthn.decodeClientDataJSON|function} */
@@ -69,6 +69,7 @@ export default class Svelters_Back_Web_Api_User_Device_Attest {
                     dtoPk.public_key = JSON.stringify(pkeyJwk);
                     dtoPk.user_ref = found.user_ref;
                     const {[A_PK.BID]: pkeyBid} = await crud.create(trx, rdbPk, dtoPk);
+                    res.attestationId = req.attestationId;
                     res.publicKeyBid = pkeyBid;
                 }
                 await trx.commit();

@@ -124,6 +124,11 @@ export default class Svelters_Front_App {
                     meta: {anonymous: true},
                 });
                 router.addRoute({
+                    path: DEF.ROUTE_USER_SIGN_IN,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_In$'),
+                    meta: {anonymous: true},
+                });
+                router.addRoute({
                     path: DEF.ROUTE_USER_SIGN_UP,
                     component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
                     meta: {anonymous: true},

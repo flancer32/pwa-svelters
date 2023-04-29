@@ -138,17 +138,17 @@
                     }
                   }
                 },
-                "pk": {
-                  "comment": "Public keys to authenticate users.",
+                "attest": {
+                  "comment": "Attested public keys to authenticate users.",
                   "attr": {
-                    "bid": {"type": "id", "comment": "Internal ID."},
+                    "bid": {"type": "id", "comment": "Internal ID cause a user can have many keys."},
                     "user_ref": {"type": "ref"},
                     "date_created": {
                       "comment": "Date-time when record was created.",
                       "type": "datetime",
                       "default": "current"
                     },
-                    "attestation_id": {"type": "string"},
+                    "attestation_id": {"type": "string", "comment": "Base64url encoded binary received from device."},
                     "public_key": {"type": "text"}
                   },
                   "relation": {
@@ -190,7 +190,7 @@
                     "sign": {
                       "comment": "Challenge to sign in users (WebAuthn API).",
                       "attr": {
-                        "user_ref": {"type": "ref"},
+                        "attest_ref": {"type": "ref"},
                         "challenge": {"type": "string"},
                         "date_created": {
                           "comment": "Date-time when record was created.",
@@ -203,9 +203,9 @@
                       },
                       "relation": {
                         "user": {
-                          "attrs": ["user_ref"],
+                          "attrs": ["attest_ref"],
                           "ref": {
-                            "path": "/app/user", "attrs": ["bid"]
+                            "path": "/app/user/auth/attest", "attrs": ["bid"]
                           }
                         }
                       }
