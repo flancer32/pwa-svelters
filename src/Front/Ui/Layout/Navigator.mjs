@@ -22,7 +22,6 @@ export default function (spec) {
 <div class="row q-gutter-md">
     <router-link to="${DEF.ROUTE_HOME}">{{$t('layout.navigator.home')}}</router-link>
     <router-link to="${DEF.ROUTE_USER_SIGN_UP}">{{$t('layout.navigator.signUp')}}</router-link>
-    <router-link to="${DEF.ROUTE_USER_DEVICE_REGISTER}">{{$t('layout.navigator.device')}}</router-link>
     <router-link to="${DEF.ROUTE_USER_SIGN_IN}">{{$t('layout.navigator.signIn')}}</router-link>
 </div>
 `;

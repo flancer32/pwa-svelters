@@ -36,7 +36,6 @@ export default function (spec) {
     /** @type {Svelters_Front_Util_WebAuthn.composeOptPkCreate|function} */
     const composeOptPkCreate = spec['Svelters_Front_Util_WebAuthn.composeOptPkCreate'];
 
-
     // VARS
     logger.setNamespace(NS);
     const template = `

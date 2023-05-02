@@ -11,8 +11,6 @@ export default class Svelters_Front_Mod_User_Sign_In {
         const binToB64Url = spec['Svelters_Front_Util_Codec.binToB64Url'];
         /** @type {TeqFw_Web_Api_Front_Web_Connect} */
         const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
-        /** @type {Svelters_Shared_Web_Api_User_Sign_In_Challenge} */
-        const apiChallenge = spec['Svelters_Shared_Web_Api_User_Sign_In_Challenge$'];
         /** @type {Svelters_Shared_Web_Api_User_Sign_In_Validate} */
         const apiValidate = spec['Svelters_Shared_Web_Api_User_Sign_In_Validate$'];
         /** @type {Svelters_Shared_Dto_WebAuthn_Assert} */
@@ -24,23 +22,6 @@ export default class Svelters_Front_Mod_User_Sign_In {
         // FUNCS
 
         // INSTANCE METHODS
-        /**
-         * Request backend to generate new challenge for user authentication.
-         * @param {string} attestationId
-         * @returns {Promise<Svelters_Shared_Web_Api_User_Sign_In_Challenge.Response>}
-         */
-        this.getChallenge = async function (attestationId) {
-            try {
-                const req = apiChallenge.createReq();
-                req.attestationId = attestationId;
-                // noinspection JSValidateTypes
-                return await connApi.send(req, apiChallenge);
-            } catch (e) {
-                // timeout or error
-                logger.error(`Cannot get challenge for user sign in from backend. Error: ${e?.message}`);
-            }
-            return null;
-        };
 
         /**
          * Validate user authentication on the back using store public key.

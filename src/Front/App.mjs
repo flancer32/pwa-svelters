@@ -114,16 +114,6 @@ export default class Svelters_Front_App {
                     meta: {anonymous: true},
                 });
                 router.addRoute({
-                    path: DEF.ROUTE_USER_DEVICE_ATTEST,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Device_Attest$'),
-                    props: true,
-                });
-                router.addRoute({
-                    path: DEF.ROUTE_USER_DEVICE_REGISTER,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Device_Register$'),
-                    meta: {anonymous: true},
-                });
-                router.addRoute({
                     path: DEF.ROUTE_USER_SIGN_IN,
                     component: () => container.get('Svelters_Front_Ui_Route_User_Sign_In$'),
                     meta: {anonymous: true},

@@ -23,6 +23,7 @@ const TXT_ENCODER = new TextEncoder();
  * @returns {Object}
  * @memberOf Svelters_Front_Util_WebAuthn
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create (publicKey)
+ * TODO: move it to Svelters_Front_Mod_WebAuthn
  */
 function composeOptPkCreate({challenge, rpName, userName, userUuid}) {
     const userIdBytes = TXT_ENCODER.encode(userUuid);
@@ -65,6 +66,7 @@ function composeOptPkCreate({challenge, rpName, userName, userUuid}) {
  * @returns {Object}
  * @memberOf Svelters_Front_Util_WebAuthn
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/get
+ * TODO: move it to Svelters_Front_Mod_WebAuthn
  */
 function composeOptPkGet({challenge, attestationId}) {
     const challengeBin = b64UrlToBin(challenge);
@@ -83,6 +85,7 @@ function composeOptPkGet({challenge, attestationId}) {
 /**
  * @memberOf Svelters_Front_Util_WebAuthn
  * @return {Promise<boolean>}
+ * TODO: move it to Svelters_Front_Mod_WebAuthn
  */
 async function isPublicKeyAvailable() {
     return await window?.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();

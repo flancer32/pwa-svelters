@@ -1,6 +1,7 @@
 /**
  * Model to store attestation data on the front.
  * @namespace Svelters_Front_Mod_User_Attestation
+ * TODO: move it to WebAuthn plugin
  */
 // MODULE'S VARS
 const NS = 'Svelters_Front_Mod_User_Attestation';
