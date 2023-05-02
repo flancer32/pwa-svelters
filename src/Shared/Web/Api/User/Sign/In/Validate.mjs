@@ -10,12 +10,23 @@ const NS = 'Svelters_Shared_Web_Api_User_Sign_In_Validate';
  */
 class Request {
     static namespace = NS;
-    /** @type {string} */
+    /**
+     * @type {string}
+     * @deprecated
+     */
     authenticatorData;
-    /** @type {string} */
+    /**
+     * @type {string}
+     * @deprecated
+     */
     clientDataJSON;
-    /** @type {string} */
+    /**
+     * @type {string}
+     * @deprecated
+     */
     signature;
+    /** @type {Svelters_Shared_Dto_WebAuthn_Assert.Dto} */
+    assert;
 }
 
 /**
@@ -37,6 +48,8 @@ export default class Svelters_Shared_Web_Api_User_Sign_In_Validate {
         const castBoolean = spec['TeqFw_Core_Shared_Util_Cast.castBoolean'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
         const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
+        /** @type {Svelters_Shared_Dto_WebAuthn_Assert} */
+        const dtoAssert = spec['Svelters_Shared_Dto_WebAuthn_Assert$'];
 
         // INSTANCE METHODS
 
@@ -51,6 +64,7 @@ export default class Svelters_Shared_Web_Api_User_Sign_In_Validate {
             res.authenticatorData = castString(data?.authenticatorData);
             res.clientDataJSON = castString(data?.clientDataJSON);
             res.signature = castString(data?.signature);
+            res.assert = dtoAssert.createDto(data?.assert);
             return res;
         };
 

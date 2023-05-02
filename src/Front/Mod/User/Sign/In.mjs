@@ -15,6 +15,8 @@ export default class Svelters_Front_Mod_User_Sign_In {
         const apiChallenge = spec['Svelters_Shared_Web_Api_User_Sign_In_Challenge$'];
         /** @type {Svelters_Shared_Web_Api_User_Sign_In_Validate} */
         const apiValidate = spec['Svelters_Shared_Web_Api_User_Sign_In_Validate$'];
+        /** @type {Svelters_Shared_Dto_WebAuthn_Assert} */
+        const dtoAssert = spec['Svelters_Shared_Dto_WebAuthn_Assert$'];
 
         // MAIN
         logger.setNamespace(this.constructor.name);
@@ -48,9 +50,11 @@ export default class Svelters_Front_Mod_User_Sign_In {
         this.validate = async function (resp) {
             try {
                 const req = apiValidate.createReq();
-                req.authenticatorData = binToB64Url(resp.authenticatorData);
-                req.clientDataJSON = binToB64Url(resp.clientDataJSON);
-                req.signature = binToB64Url(resp.signature);
+                req.assert = dtoAssert.createDto();
+                req.assert.authenticatorData = binToB64Url(resp.authenticatorData);
+                req.assert.clientData = binToB64Url(resp.clientDataJSON);
+                req.assert.signature = binToB64Url(resp.signature);
+                req.assert.userHandle = binToB64Url(resp.userHandle);
                 // noinspection JSValidateTypes
                 return await connApi.send(req, apiValidate);
             } catch (e) {

@@ -1,28 +1,31 @@
 /**
- * Get challenge for user authentication from backend.
+ * Create a new challenge for user sign-in.
  */
 // MODULE'S VARS
-const NS = 'Svelters_Shared_Web_Api_SignIn_Challenge';
+const NS = 'Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge';
 
 // MODULE'S CLASSES
 /**
- * @memberOf Svelters_Shared_Web_Api_SignIn_Challenge
+ * @memberOf Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge
  */
 class Request {
     static namespace = NS;
     /** @type {string} */
-    userName;
+    attestationId;
 }
 
 /**
- * @memberOf Svelters_Shared_Web_Api_SignIn_Challenge
+ * @memberOf Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge
  */
 class Response {
     static namespace = NS;
-    /** @type {string} */
+    /**
+     * Base64url encoded value.
+     * @type {string}
+     */
     attestationId;
     /**
-     * Base64 url encoded challenge.
+     * base64url encoded binary data (32 bytes).
      * @type {string}
      */
     challenge;
@@ -31,7 +34,7 @@ class Response {
 /**
  * @implements TeqFw_Web_Api_Shared_Api_Endpoint
  */
-export default class Svelters_Shared_Web_Api_SignIn_Challenge {
+export default class Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge {
     constructor(spec) {
         // DEPS
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
@@ -39,17 +42,21 @@ export default class Svelters_Shared_Web_Api_SignIn_Challenge {
 
         // INSTANCE METHODS
 
+        /**
+         * @param {Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge.Request} [data]
+         * @return {Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge.Request}
+         */
         this.createReq = function (data) {
             // create new DTO
             const res = new Request();
             // cast known attributes
-            res.userName = castString(data?.userName);
+            res.attestationId = castString(data?.attestationId);
             return res;
         };
 
         /**
-         * @param {Svelters_Shared_Web_Api_SignIn_Challenge.Response} data
-         * @returns {Svelters_Shared_Web_Api_SignIn_Challenge.Response}
+         * @param {Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge.Response} [data]
+         * @returns {Svelters_Shared_Web_Api_WebAuthn_SignIn_Challenge.Response}
          */
         this.createRes = function (data) {
             // create new DTO

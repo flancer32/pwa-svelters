@@ -80,12 +80,21 @@ function composeOptPkGet({challenge, attestationId}) {
 
 }
 
+/**
+ * @memberOf Svelters_Front_Util_WebAuthn
+ * @return {Promise<boolean>}
+ */
+async function isPublicKeyAvailable() {
+    return await window?.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+}
 
 // finalize code components for this es6-module
 Object.defineProperty(composeOptPkCreate, 'namespace', {value: NS});
 Object.defineProperty(composeOptPkGet, 'namespace', {value: NS});
+Object.defineProperty(isPublicKeyAvailable, 'namespace', {value: NS});
 
 export {
     composeOptPkCreate,
     composeOptPkGet,
+    isPublicKeyAvailable,
 };

@@ -151,6 +151,7 @@ export default function (spec) {
             },
             async onVerify() {
                 this.log(`Authentication is started for user '${this.userName}'.`);
+                /** @type {Svelters_Shared_Event_Back_SignIn_Challenge_Response.Dto} */
                 const dto = await modAuthn.challengeIn(this.userName);
                 this.log(`Authentication challenge is received from the back: '${dto.challenge}'.`);
                 this.log(`Attestation ID to use in authentication: '${dto.attestationId}'.`);

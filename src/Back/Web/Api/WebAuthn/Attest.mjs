@@ -1,5 +1,5 @@
 /**
- * Attest new device (smartphone, tablet, ...) and save publicKey in RDb.
+ * Validate the new attestation on the backend and save the user's public key if it is validated.
  */
 // MODULE'S IMPORTS
 import {decode} from 'cbor';
@@ -10,13 +10,13 @@ import cosekey from 'parse-cosekey';
 /**
  * @implements TeqFw_Web_Api_Back_Api_Service
  */
-export default class Svelters_Back_Web_Api_User_Device_Attest {
+export default class Svelters_Back_Web_Api_WebAuthn_Attest {
     constructor(spec) {
         // DEPS
         /** @type {TeqFw_Core_Shared_Api_Logger} */
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {Svelters_Shared_Web_Api_User_Device_Attest} */
-        const endpoint = spec['Svelters_Shared_Web_Api_User_Device_Attest$'];
+        /** @type {Svelters_Shared_Web_Api_WebAuthn_Attest} */
+        const endpoint = spec['Svelters_Shared_Web_Api_WebAuthn_Attest$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
@@ -44,8 +44,8 @@ export default class Svelters_Back_Web_Api_User_Device_Attest {
         this.init = async function () { };
 
         /**
-         * @param {Svelters_Shared_Web_Api_User_Device_Attest.Request|Object} req
-         * @param {Svelters_Shared_Web_Api_User_Device_Attest.Response|Object} res
+         * @param {Svelters_Shared_Web_Api_WebAuthn_Attest.Request|Object} req
+         * @param {Svelters_Shared_Web_Api_WebAuthn_Attest.Response|Object} res
          * @param {TeqFw_Web_Api_Back_Api_Service_Context} context
          * @returns {Promise<void>}
          */
@@ -72,6 +72,12 @@ export default class Svelters_Back_Web_Api_User_Device_Attest {
                     const {[A_PK.BID]: pkeyBid} = await crud.create(trx, rdbPk, dtoPk);
                     res.attestationId = cred.attestationId;
                     res.publicKeyBid = pkeyBid;
+                    logger.info(`New public key is registered for user #${found.user_ref} and attestation '${cred.attestationId}'.`);
+                    // remove used challenge
+                    await crud.deleteOne(trx, rdbChlng, found);
+                    logger.info(`Attestation challenge '${challenge}' is deleted.`);
+                } else {
+                    logger.info(`Cannot find attestation challenge '${challenge}.`);
                 }
                 await trx.commit();
                 logger.info(`${this.constructor.name}: ${JSON.stringify(res)}'.`);

@@ -45,6 +45,10 @@ export default class Svelters_Shared_Web_Api_SignUp_Attestation {
 
         // INSTANCE METHODS
 
+        /**
+         * @param {Svelters_Shared_Web_Api_SignUp_Attestation.Request} data
+         * @return {Svelters_Shared_Web_Api_SignUp_Attestation.Request}
+         */
         this.createReq = function (data) {
             // create new DTO
             const res = new Request();

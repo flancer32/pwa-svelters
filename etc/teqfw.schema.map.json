@@ -1,6 +1,9 @@
 {
   "deprecated": {
+    "/app/profile": ["/app/user"],
     "/app/user/auth/pk": ["/app/user"],
+    "/app/user/id/email": ["/app/user"],
+    "/app/user/tree": ["/app/user"],
     "/web/event/front": [],
     "/web/event/front/session": ["/web/event/front"],
     "/web/event/queue": ["/web/event/front"]

@@ -88,6 +88,7 @@ export default function (spec) {
             /** @type {PublicKeyCredential|Credential} */
             const attestation = await navigator.credentials.create({publicKey});
             this.ifLoading = true;
+          /** @type {Svelters_Shared_Web_Api_User_Device_Attest.Response} */
             const resAttest = await modDev.attest(attestation);
             this.ifLoading = false;
             if (resAttest?.attestationId) {

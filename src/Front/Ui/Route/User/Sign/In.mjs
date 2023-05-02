@@ -28,6 +28,8 @@ export default function (spec) {
     const modSignIn = spec['Svelters_Front_Mod_User_Sign_In$'];
     /** @type {Svelters_Front_Mod_User_Attestation.Store} */
     const modStore = spec['Svelters_Front_Mod_User_Attestation.Store$'];
+    /** @type {Svelters_Front_Mod_WebAuthn} */
+    const modWebAuthn = spec['Svelters_Front_Mod_WebAuthn$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -66,10 +68,11 @@ export default function (spec) {
         methods: {},
         async mounted() {
             this.ifLoading = true;
+            /** @type {Svelters_Front_Mod_User_Attestation.Dto} */
             const dto = modStore.read();
             if (dto?.attestationId) {
                 this.attestationId = dto.attestationId;
-                const resCh = await modSignIn.getChallenge(dto.attestationId);
+                const resCh = await modWebAuthn.signInChallenge(dto.attestationId);
                 const publicKey = composeOptPkGet({challenge: resCh.challenge, attestationId: resCh.attestationId});
                 const credGet = await navigator.credentials.get({publicKey});
                 const resV = await modSignIn.validate(credGet.response);

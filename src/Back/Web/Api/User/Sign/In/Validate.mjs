@@ -52,10 +52,11 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
             const trx = await conn.startTransaction();
             try {
                 // get and normalize input data
-                const authenticatorData = b64UrlToBin(req.authenticatorData);
-                const clientData = decodeClientDataJSON(req.clientDataJSON);
-                const getClientDataJSON = b64UrlToBin(req.clientDataJSON);
-                const signature = b64UrlToBin(req.signature);
+                const cred = req.assert;
+                const authenticatorData = b64UrlToBin(cred.authenticatorData);
+                const clientData = decodeClientDataJSON(cred.clientData);
+                const getClientDataJSON = b64UrlToBin(cred.clientData);
+                const signature = b64UrlToBin(cred.signature);
                 // load corresponded challenge
                 const challenge = clientData.challenge;
                 /** @type {Svelters_Back_RDb_Schema_User_Auth_Chlng_Sign.Dto} */

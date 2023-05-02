@@ -2,11 +2,15 @@
   "package": {
     "app": {
       "entity": {
-        "profile": {
-          "comment": "Application level profile (gender, height, ...).",
+        "user": {
+          "comment": "User registry for the app.",
           "attr": {
-            "user_ref": {
-              "type": "ref"
+            "bid": {"type": "id", "comment": "Internal ID used in foreign keys."},
+            "uuid": {"type": "string", "comment": "Universally unique identifier as public ID."},
+            "date_created": {
+              "comment": "Date-time for user registration.",
+              "type": "datetime",
+              "default": "current"
             },
             "date_updated": {
               "type": "datetime",
@@ -17,17 +21,16 @@
               "comment": "Name to display in profile.",
               "type": "string"
             },
+            "email": {
+              "comment": "Every user has one email to restore access to own account.",
+              "type": "string"
+            },
             "age": {
               "comment": "Full ages for the update moment.",
               "type": "number",
               "options": {
                 "unsigned": true
               }
-            },
-            "is_female": {
-              "comment": "true - for women (XX).",
-              "type": "boolean",
-              "default": true
             },
             "height": {
               "comment": "Height in cm.",
@@ -38,27 +41,7 @@
             }
           },
           "index": {
-            "PK": {"type": "primary", "attrs": ["user_ref"]}
-          },
-          "relation": {
-            "user": {
-              "attrs": ["user_ref"],
-              "ref": {"path": "/app/user", "attrs": ["bid"]}
-            }
-          }
-        },
-        "user": {
-          "comment": "User registry for the app.",
-          "attr": {
-            "bid": {"type": "id", "comment": "Internal ID used in foreign keys."},
-            "uuid": {"type": "string", "comment": "Universally unique identifier as public ID."},
-            "date_created": {
-              "comment": "Date-time for user registration.",
-              "type": "datetime",
-              "default": "current"
-            }
-          },
-          "index": {
+            "email": {"type": "unique", "attrs": ["email"]},
             "uuid": {"type": "unique", "attrs": ["uuid"]}
           }
         },
@@ -98,28 +81,6 @@
       },
       "package": {
         "user": {
-          "entity": {
-            "tree": {
-              "comment": "Referrals tree.",
-              "attr": {
-                "user_ref": {"type": "ref"},
-                "parent_ref": {"type": "ref"}
-              },
-              "index": {
-                "PK": {"type": "primary", "attrs": ["user_ref"]}
-              },
-              "relation": {
-                "user": {
-                  "attrs": ["user_ref"],
-                  "ref": {"path": "/app/user", "attrs": ["bid"]}
-                },
-                "parent": {
-                  "attrs": ["parent_ref"],
-                  "ref": {"path": "/app/user/tree", "attrs": ["user_ref"]}
-                }
-              }
-            }
-          },
           "package": {
             "auth": {
               "entity": {
@@ -236,28 +197,6 @@
                       "attrs": ["user_ref"],
                       "ref": {"path": "/app/user", "attrs": ["bid"]},
                       "action": {"delete": "cascade", "update": "cascade"}
-                    }
-                  }
-                }
-              }
-            },
-            "id": {
-              "entity": {
-                "email": {
-                  "comment": "Emails as identifiers for users.",
-                  "attr": {
-                    "email": {"type": "string"},
-                    "user_ref": {"type": "ref"}
-                  },
-                  "index": {
-                    "PK": {"type": "primary", "attrs": ["email"]}
-                  },
-                  "relation": {
-                    "user": {
-                      "attrs": ["user_ref"],
-                      "ref": {
-                        "path": "/app/user", "attrs": ["bid"]
-                      }
                     }
                   }
                 }

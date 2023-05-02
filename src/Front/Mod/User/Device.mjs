@@ -17,6 +17,8 @@ export default class Svelters_Front_Mod_User_Device {
         const apiInviteUse = spec['Svelters_Shared_Web_Api_User_Device_Invite_Use$'];
         /** @type {Svelters_Shared_Web_Api_User_Device_Attest} */
         const apiAttest = spec['Svelters_Shared_Web_Api_User_Device_Attest$'];
+        /** @type {Svelters_Shared_Dto_WebAuthn_Attest} */
+        const dtoCred = spec['Svelters_Shared_Dto_WebAuthn_Attest$'];
 
         // MAIN
         logger.setNamespace(this.constructor.name);
@@ -38,9 +40,10 @@ export default class Svelters_Front_Mod_User_Device {
                 const clientData = response.clientDataJSON;
                 //
                 const req = apiAttest.createReq();
-                req.attestationId = attestation.id;
-                req.attestationObj = binToB64Url(attestationObj);
-                req.clientData = binToB64Url(clientData);
+                req.cred = dtoCred.createDto();
+                req.cred.attestationId = attestation.id;
+                req.cred.attestationObj = binToB64Url(attestationObj);
+                req.cred.clientData = binToB64Url(clientData);
                 // noinspection JSValidateTypes
                 return await connApi.send(req, apiAttest);
             } catch (e) {

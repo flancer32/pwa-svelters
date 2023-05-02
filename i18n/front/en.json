@@ -15,7 +15,17 @@
       "sign": {
         "up": {
           "fld": {
-            "email": "Email"
+            "age": "Your age",
+            "email": "Your email",
+            "height": "Your height",
+            "name": "Your name"
+          },
+          "msg": {
+            "attestSucceed": "Device is attested for this user.",
+            "emailNotUnique": "Email is not unique.",
+            "emailUnique": "Email is unique.",
+            "registrationFailed": "New user is not registered.",
+            "registrationSucceed": "New user is registered."
           }
         }
       }

@@ -1,37 +1,24 @@
 /**
- * Attest new device (smartphone, tablet, ...) and save publicKey in RDb.
+ * Validate the new attestation on the backend and save the user's public key if it is validated.
  */
 // MODULE'S VARS
-const NS = 'Svelters_Shared_Web_Api_User_Device_Attest';
+const NS = 'Svelters_Shared_Web_Api_WebAuthn_Attest';
 
 // MODULE'S CLASSES
 /**
- * @memberOf Svelters_Shared_Web_Api_User_Device_Attest
+ * @memberOf Svelters_Shared_Web_Api_WebAuthn_Attest
  */
 class Request {
     static namespace = NS;
     /**
-     * Base64url encoded value.
-     * @type {string}
-     * @deprecated
+     * Public key credentials to validate.
+     * @type {Svelters_Shared_Dto_WebAuthn_Attest.Dto}
      */
-    attestationId;
-    /**
-     * @type {string}
-     * @deprecated
-     */
-    attestationObj;
-    /**
-     * @type {string}
-     * @deprecated
-     */
-    clientData;
-    /** @type {Svelters_Shared_Dto_WebAuthn_Attest.Dto} */
     cred;
 }
 
 /**
- * @memberOf Svelters_Shared_Web_Api_User_Device_Attest
+ * @memberOf Svelters_Shared_Web_Api_WebAuthn_Attest
  */
 class Response {
     static namespace = NS;
@@ -47,7 +34,7 @@ class Response {
 /**
  * @implements TeqFw_Web_Api_Shared_Api_Endpoint
  */
-export default class Svelters_Shared_Web_Api_User_Device_Attest {
+export default class Svelters_Shared_Web_Api_WebAuthn_Attest {
     constructor(spec) {
         // DEPS
         /** @type {TeqFw_Core_Shared_Util_Cast.castInt|function} */
@@ -60,8 +47,8 @@ export default class Svelters_Shared_Web_Api_User_Device_Attest {
         // INSTANCE METHODS
 
         /**
-         * @param {Svelters_Shared_Web_Api_User_Device_Attest.Request} [data]
-         * @return {Svelters_Shared_Web_Api_User_Device_Attest.Request}
+         * @param {Svelters_Shared_Web_Api_WebAuthn_Attest.Request} [data]
+         * @return {Svelters_Shared_Web_Api_WebAuthn_Attest.Request}
          */
         this.createReq = function (data) {
             // create new DTO
@@ -72,8 +59,8 @@ export default class Svelters_Shared_Web_Api_User_Device_Attest {
         };
 
         /**
-         * @param {Svelters_Shared_Web_Api_User_Device_Attest.Response} [data]
-         * @returns {Svelters_Shared_Web_Api_User_Device_Attest.Response}
+         * @param {Svelters_Shared_Web_Api_WebAuthn_Attest.Response} [data]
+         * @returns {Svelters_Shared_Web_Api_WebAuthn_Attest.Response}
          */
         this.createRes = function (data) {
             // create new DTO
