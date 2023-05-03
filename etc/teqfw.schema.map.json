@@ -1,11 +1,24 @@
 {
   "deprecated": {
     "/app/profile": ["/app/user"],
+    "/app/user/auth/attest": ["/app/user"],
+    "/app/user/auth/chlng/attest": ["/app/user"],
+    "/app/user/auth/chlng/sign": ["/app/user/auth/attest"],
     "/app/user/auth/pk": ["/app/user"],
     "/app/user/id/email": ["/app/user"],
     "/app/user/tree": ["/app/user"],
     "/web/event/front": [],
     "/web/event/front/session": ["/web/event/front"],
     "/web/event/queue": ["/web/event/front"]
+  },
+  "ref": {
+    "@flancer32/teq-ant-auth": {
+      "/user": {
+        "path": "/app/user",
+        "attrs": {
+          "bid": "bid"
+        }
+      }
+    }
   }
 }

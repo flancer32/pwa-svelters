@@ -34,6 +34,7 @@ npm install --omit=optional
 echo "Clone dependencies from github to inner folders."
 mkdir -p "${DIR_OWN}/@teqfw/"
 
+processRepo "flancer32/teq-ant-auth"
 processRepo "teqfw/core"
 processRepo "teqfw/db"
 processRepo "teqfw/di"

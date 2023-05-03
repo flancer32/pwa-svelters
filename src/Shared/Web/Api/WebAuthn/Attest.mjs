@@ -12,7 +12,7 @@ class Request {
     static namespace = NS;
     /**
      * Public key credentials to validate.
-     * @type {Svelters_Shared_Dto_WebAuthn_Attest.Dto}
+     * @type {Fl32_Auth_Shared_Dto_Attest.Dto}
      */
     cred;
 }
@@ -41,8 +41,8 @@ export default class Svelters_Shared_Web_Api_WebAuthn_Attest {
         const castInt = spec['TeqFw_Core_Shared_Util_Cast.castInt'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
         const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
-        /** @type {Svelters_Shared_Dto_WebAuthn_Attest} */
-        const dtoCred = spec['Svelters_Shared_Dto_WebAuthn_Attest$'];
+        /** @type {Fl32_Auth_Shared_Dto_Attest} */
+        const dtoCred = spec['Fl32_Auth_Shared_Dto_Attest$'];
 
         // INSTANCE METHODS
 

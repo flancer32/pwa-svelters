@@ -16,12 +16,12 @@ export default class Svelters_Back_Web_Api_WebAuthn_SignIn_Challenge {
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
         const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
-        /** @type {Svelters_Back_RDb_Schema_User_Auth_Chlng_Sign} */
-        const rdbChlng = spec['Svelters_Back_RDb_Schema_User_Auth_Chlng_Sign$'];
-        /** @type {Svelters_Back_RDb_Schema_User_Auth_Attest} */
-        const rdbPk = spec['Svelters_Back_RDb_Schema_User_Auth_Attest$'];
-        /** @type {Svelters_Back_Util_WebAuthn.createChallenge|function} */
-        const createChallenge = spec['Svelters_Back_Util_WebAuthn.createChallenge'];
+        /** @type {Fl32_Auth_Back_RDb_Schema_Assert_Challenge} */
+        const rdbChlng = spec['Fl32_Auth_Back_RDb_Schema_Assert_Challenge$'];
+        /** @type {Fl32_Auth_Back_RDb_Schema_Attest} */
+        const rdbPk = spec['Fl32_Auth_Back_RDb_Schema_Attest$'];
+        /** @type {Fl32_Auth_Back_Util_WebAuthn.createChallenge|function} */
+        const createChallenge = spec['Fl32_Auth_Back_Util_WebAuthn.createChallenge'];
 
         // VARS
         logger.setNamespace(this.constructor.name);
@@ -46,7 +46,7 @@ export default class Svelters_Back_Web_Api_WebAuthn_SignIn_Challenge {
                 // get and normalize input data
                 const attestationId = req.attestationId;
                 //
-                /** @type {Svelters_Back_RDb_Schema_User_Auth_Attest.Dto} */
+                /** @type {Fl32_Auth_Back_RDb_Schema_Attest.Dto} */
                 const found = await crud.readOne(trx, rdbPk, {[A_PK.ATTESTATION_ID]: attestationId});
                 if (found) {
                     const userBid = found.user_ref;

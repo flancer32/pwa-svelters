@@ -25,7 +25,7 @@ class Request {
      * @deprecated
      */
     signature;
-    /** @type {Svelters_Shared_Dto_WebAuthn_Assert.Dto} */
+    /** @type {Fl32_Auth_Shared_Dto_Assert.Dto} */
     assert;
 }
 
@@ -48,8 +48,8 @@ export default class Svelters_Shared_Web_Api_User_Sign_In_Validate {
         const castBoolean = spec['TeqFw_Core_Shared_Util_Cast.castBoolean'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
         const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
-        /** @type {Svelters_Shared_Dto_WebAuthn_Assert} */
-        const dtoAssert = spec['Svelters_Shared_Dto_WebAuthn_Assert$'];
+        /** @type {Fl32_Auth_Shared_Dto_Assert} */
+        const dtoAssert = spec['Fl32_Auth_Shared_Dto_Assert$'];
 
         // INSTANCE METHODS
 

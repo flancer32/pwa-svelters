@@ -1,5 +1,5 @@
 /**
- * Generate sign up challenge before new user registration.
+ * Register new user in RDb and generate attest challenge (if requested).
  */
 // MODULE'S IMPORTS
 import {randomUUID} from 'node:crypto';
@@ -21,8 +21,8 @@ export default class Svelters_Back_Web_Api_User_Sign_Up_Register {
         const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
         /** @type {Svelters_Back_RDb_Schema_User} */
         const rdbUser = spec['Svelters_Back_RDb_Schema_User$'];
-        /** @type {Svelters_Back_Act_WebAuthn_Challenge_Attest.act|function} */
-        const actChallenge = spec['Svelters_Back_Act_WebAuthn_Challenge_Attest$'];
+        /** @type {Fl32_Auth_Back_Act_Attest_Challenge.act|function} */
+        const actChallenge = spec['Fl32_Auth_Back_Act_Attest_Challenge$'];
 
         // VARS
         logger.setNamespace(this.constructor.name);
@@ -80,6 +80,5 @@ export default class Svelters_Back_Web_Api_User_Sign_Up_Register {
             }
         };
     }
-
 
 }

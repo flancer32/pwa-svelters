@@ -1,5 +1,5 @@
 /**
- * Register new identity (email or phone) on backend.
+ * Register new user on backend and get WebAuthn attestation challenge (if allowed).
  */
 // MODULE'S VARS
 const NS = 'Svelters_Shared_Web_Api_User_Sign_Up_Register';
@@ -19,7 +19,7 @@ class Request {
     /** @type {string} */
     name;
     /**
-     * 'true' if the front end supports the WebAuthn API and we should verify the user's identity.
+     * 'true' if the front end supports the WebAuthn API, and we should attest the user.
      * @type {boolean}
      */
     useWebAuthn;

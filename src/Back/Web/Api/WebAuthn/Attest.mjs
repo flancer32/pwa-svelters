@@ -21,16 +21,16 @@ export default class Svelters_Back_Web_Api_WebAuthn_Attest {
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
         const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
-        /** @type {Svelters_Back_RDb_Schema_User_Auth_Chlng_Attest} */
-        const rdbChlng = spec['Svelters_Back_RDb_Schema_User_Auth_Chlng_Attest$'];
-        /** @type {Svelters_Back_RDb_Schema_User_Auth_Attest} */
-        const rdbPk = spec['Svelters_Back_RDb_Schema_User_Auth_Attest$'];
-        /** @type {Svelters_Back_Util_WebAuthn.decodeAttestationObj|function} */
-        const decodeAttestationObj = spec['Svelters_Back_Util_WebAuthn.decodeAttestationObj'];
-        /** @type {Svelters_Back_Util_WebAuthn.decodeClientDataJSON|function} */
-        const decodeClientDataJSON = spec['Svelters_Back_Util_WebAuthn.decodeClientDataJSON'];
-        /** @type {Svelters_Back_Util_WebAuthn.decodeAuthData|function} */
-        const decodeAuthData = spec['Svelters_Back_Util_WebAuthn.decodeAuthData'];
+        /** @type {Fl32_Auth_Back_RDb_Schema_Attest_Challenge} */
+        const rdbChlng = spec['Fl32_Auth_Back_RDb_Schema_Attest_Challenge$'];
+        /** @type {Fl32_Auth_Back_RDb_Schema_Attest} */
+        const rdbPk = spec['Fl32_Auth_Back_RDb_Schema_Attest$'];
+        /** @type {Fl32_Auth_Back_Util_WebAuthn.decodeAttestationObj|function} */
+        const decodeAttestationObj = spec['Fl32_Auth_Back_Util_WebAuthn.decodeAttestationObj'];
+        /** @type {Fl32_Auth_Back_Util_WebAuthn.decodeClientDataJSON|function} */
+        const decodeClientDataJSON = spec['Fl32_Auth_Back_Util_WebAuthn.decodeClientDataJSON'];
+        /** @type {Fl32_Auth_Back_Util_WebAuthn.decodeAuthData|function} */
+        const decodeAuthData = spec['Fl32_Auth_Back_Util_WebAuthn.decodeAuthData'];
 
         // VARS
         logger.setNamespace(this.constructor.name);
@@ -58,7 +58,7 @@ export default class Svelters_Back_Web_Api_WebAuthn_Attest {
                 const clientData = decodeClientDataJSON(cred.clientData);
                 // parse attestation and client data properties
                 const challenge = clientData.challenge;
-                /** @type {Svelters_Back_RDb_Schema_User_Auth_Chlng_Attest.Dto} */
+                /** @type {Fl32_Auth_Back_RDb_Schema_Attest_Challenge.Dto} */
                 const found = await crud.readOne(trx, rdbChlng, challenge);
                 if (found) {
                     const authData = decodeAuthData(attestationObj.authData);

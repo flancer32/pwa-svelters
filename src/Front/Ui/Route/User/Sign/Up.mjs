@@ -25,16 +25,16 @@ export default function (spec) {
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
     /** @type {Svelters_Front_Mod_User_Sign_Up} */
     const modSignUp = spec['Svelters_Front_Mod_User_Sign_Up$'];
-    /** @type {Svelters_Front_Mod_User_Attestation.Store} */
-    const modStore = spec['Svelters_Front_Mod_User_Attestation.Store$'];
+    /** @type {Fl32_Auth_Front_Mod_Store_Attestation.Store} */
+    const modStore = spec['Fl32_Auth_Front_Mod_Store_Attestation.Store$'];
     /** @type {Svelters_Front_Mod_Data_Unique} */
     const modUnique = spec['Svelters_Front_Mod_Data_Unique$'];
-    /** @type {Svelters_Front_Mod_WebAuthn} */
-    const modAuthn = spec['Svelters_Front_Mod_WebAuthn$'];
-    /** @type {typeof Svelters_Front_Mod_User_Attestation.Dto} */
-    const DtoAtt = spec['Svelters_Front_Mod_User_Attestation.Dto'];
-    /** @type {Svelters_Front_Util_WebAuthn.composeOptPkCreate|function} */
-    const composeOptPkCreate = spec['Svelters_Front_Util_WebAuthn.composeOptPkCreate'];
+    /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
+    const modAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
+    /** @type {typeof Fl32_Auth_Front_Mod_Store_Attestation.Dto} */
+    const DtoAtt = spec['Fl32_Auth_Front_Mod_Store_Attestation.Dto'];
+    /** @type {Fl32_Auth_Front_Util_WebAuthn.composeOptPkCreate|function} */
+    const composeOptPkCreate = spec['Fl32_Auth_Front_Util_WebAuthn.composeOptPkCreate'];
 
     // VARS
     logger.setNamespace(NS);
