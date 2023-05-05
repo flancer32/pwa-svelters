@@ -1,11 +1,7 @@
 /**
  * Validate user authentication with WebAuthn API.
  */
-// MODULE'S IMPORTS
-
 // MODULE'S CLASSES
-import {createHash, subtle} from 'node:crypto';
-import {Buffer} from 'node:buffer';
 
 /**
  * @implements TeqFw_Web_Api_Back_Api_Service
@@ -17,24 +13,13 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {Svelters_Shared_Web_Api_User_Sign_In_Validate} */
         const endpoint = spec['Svelters_Shared_Web_Api_User_Sign_In_Validate$'];
-        /** @type {Fl32_Auth_Back_Util_Codec.b64UrlToBin|function} */
-        const b64UrlToBin = spec['Fl32_Auth_Back_Util_Codec.b64UrlToBin'];
-        /** @type {Fl32_Auth_Back_Util_WebAuthn.decodeClientDataJSON|function} */
-        const decodeClientDataJSON = spec['Fl32_Auth_Back_Util_WebAuthn.decodeClientDataJSON'];
-        /** @type {Fl32_Auth_Back_Util_WebAuthn.asn1toRaw|function} */
-        const asn1toRaw = spec['Fl32_Auth_Back_Util_WebAuthn.asn1toRaw'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
-        const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
-        /** @type {Fl32_Auth_Back_RDb_Schema_Assert_Challenge} */
-        const rdbChlng = spec['Fl32_Auth_Back_RDb_Schema_Assert_Challenge$'];
-        /** @type {Fl32_Auth_Back_RDb_Schema_Attest} */
-        const rdbPk = spec['Fl32_Auth_Back_RDb_Schema_Attest$'];
+        /** @type {Fl32_Auth_Back_Act_Assert_Validate.act|function} */
+        const actValid = spec['Fl32_Auth_Back_Act_Assert_Validate$'];
 
         // VARS
         logger.setNamespace(this.constructor.name);
-        const A_CHALLENGE = rdbChlng.getAttributes();
 
         // INSTANCE METHODS
 
@@ -52,39 +37,14 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
             const trx = await conn.startTransaction();
             try {
                 // get and normalize input data
-                const cred = req.assert;
-                const authenticatorData = b64UrlToBin(cred.authenticatorData);
-                const clientData = decodeClientDataJSON(cred.clientData);
-                const getClientDataJSON = b64UrlToBin(cred.clientData);
-                const signature = b64UrlToBin(cred.signature);
-                // load corresponded challenge
-                const challenge = clientData.challenge;
-                /** @type {Fl32_Auth_Back_RDb_Schema_Assert_Challenge.Dto} */
-                const found = await crud.readOne(trx, rdbChlng, {[A_CHALLENGE.CHALLENGE]: challenge});
-                if (found) {
-                    const attestBid = found.attest_ref;
+                const assertion = req.assert;
+                //
+                const {
                     /** @type {Fl32_Auth_Back_RDb_Schema_Attest.Dto} */
-                    const foundPk = await crud.readOne(trx, rdbPk, attestBid);
-                    const pkeyJwk = JSON.parse(foundPk.public_key);
-                    const publicKey = await subtle.importKey('jwk', pkeyJwk, {
-                        name: 'ECDSA',
-                        namedCurve: 'P-256'
-                    }, false, ['verify']);
-                    const clientDataJson = getClientDataJSON.toString();
-                    const clientDataHash = createHash('sha256').update(clientDataJson).digest();
-                    const algorithm = {name: 'ECDSA', hash: 'SHA-256'};
-                    const sigRaw = asn1toRaw(signature);
-                    const valid = await subtle.verify(
-                        algorithm,
-                        publicKey,
-                        sigRaw,
-                        Buffer.concat([authenticatorData, clientDataHash])
-                    );
-                    if (valid) {
-                        logger.info(`User with attestation '${attestBid}' is authenticated.`);
-                        res.success = true;
-                    }
-                }
+                    attestation,
+                    success
+                } = await actValid({trx, assertion});
+                res.success = success;
                 await trx.commit();
                 logger.info(`${this.constructor.name}: ${JSON.stringify(res)}'.`);
             } catch (error) {

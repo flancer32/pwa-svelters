@@ -11,8 +11,8 @@ export default class Svelters_Front_Mod_User_Sign_Up {
         const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
         /** @type {Svelters_Shared_Web_Api_User_Sign_Up_Register} */
         const apiRegister = spec['Svelters_Shared_Web_Api_User_Sign_Up_Register$'];
-        /** @type {Fl32_Auth_Front_Util_WebAuthn.isPublicKeyAvailable|function} */
-        const isPublicKeyAvailable = spec['Fl32_Auth_Front_Util_WebAuthn.isPublicKeyAvailable'];
+        /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
+        const modWebAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
 
         // MAIN
         logger.setNamespace(this.constructor.name);
@@ -35,7 +35,7 @@ export default class Svelters_Front_Mod_User_Sign_Up {
                 req.email = email;
                 req.height = height;
                 req.name = name;
-                req.useWebAuthn = await isPublicKeyAvailable();
+                req.useWebAuthn = await modWebAuthn.isPublicKeyAvailable();
                 // noinspection JSValidateTypes
                 return await connApi.send(req, apiRegister);
             } catch (e) {

@@ -20,8 +20,6 @@ export default function (spec) {
     const DEF = spec['Svelters_Front_Defaults$'];
     /** @type {TeqFw_Core_Shared_Api_Logger} */
     const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-    /** @type {Fl32_Auth_Front_Util_WebAuthn.composeOptPkGet|function} */
-    const composeOptPkGet = spec['Fl32_Auth_Front_Util_WebAuthn.composeOptPkGet'];
     /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
     /** @type {Svelters_Front_Mod_User_Sign_In} */
@@ -73,7 +71,10 @@ export default function (spec) {
             if (dto?.attestationId) {
                 this.attestationId = dto.attestationId;
                 const resCh = await modWebAuthn.signInChallenge(dto.attestationId);
-                const publicKey = composeOptPkGet({challenge: resCh.challenge, attestationId: resCh.attestationId});
+                const publicKey = modWebAuthn.composeOptPkGet({
+                    challenge: resCh.challenge,
+                    attestationId: resCh.attestationId
+                });
                 const credGet = await navigator.credentials.get({publicKey});
                 const resV = await modSignIn.validate(credGet.response);
                 if (resV?.success) {

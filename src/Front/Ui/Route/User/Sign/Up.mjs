@@ -33,8 +33,8 @@ export default function (spec) {
     const modAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
     /** @type {typeof Fl32_Auth_Front_Mod_Store_Attestation.Dto} */
     const DtoAtt = spec['Fl32_Auth_Front_Mod_Store_Attestation.Dto'];
-    /** @type {Fl32_Auth_Front_Util_WebAuthn.composeOptPkCreate|function} */
-    const composeOptPkCreate = spec['Fl32_Auth_Front_Util_WebAuthn.composeOptPkCreate'];
+    /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
+    const modWebAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -133,7 +133,7 @@ export default function (spec) {
                     this.message = this.$t('route.user.sign.up.msg.registrationSucceed');
                     if (res.challenge) {
                         // attest current device and register publicKey on the back
-                        const publicKey = composeOptPkCreate({
+                        const publicKey = modWebAuthn.composeOptPkCreate({
                             challenge: res.challenge,
                             rpName: 'Svelters PWA',
                             userName: `${this.fldEmail}`,
@@ -143,7 +143,7 @@ export default function (spec) {
                         /** @type {PublicKeyCredential} */
                         const attestation = await navigator.credentials.create({publicKey});
                         this.ifLoading = true;
-                        /** @type {Svelters_Shared_Web_Api_WebAuthn_Attest.Response} */
+                        /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
                         const resAttest = await modAuthn.attest(attestation);
                         this.ifLoading = false;
                         if (resAttest?.attestationId) {
