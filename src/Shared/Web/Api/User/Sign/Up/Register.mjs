@@ -1,5 +1,7 @@
 /**
- * Register new user on backend and get WebAuthn attestation challenge (if allowed).
+ * Register new user on backend and  continue with authentication model:
+ *  - save password hash
+ *  - get WebAuthn attestation challenge
  */
 // MODULE'S VARS
 const NS = 'Svelters_Shared_Web_Api_User_Sign_Up_Register';
@@ -18,6 +20,16 @@ class Request {
     height;
     /** @type {string} */
     name;
+    /**
+     * Binary data as HEX string.
+     * @type {string}
+     */
+    passwordHash;
+    /**
+     * Binary data as HEX string.
+     * @type {string}
+     */
+    passwordSalt;
     /**
      * 'true' if the front end supports the WebAuthn API, and we should attest the user.
      * @type {boolean}
@@ -66,6 +78,8 @@ export default class Svelters_Shared_Web_Api_User_Sign_Up_Register {
             res.email = castString(data?.email);
             res.height = castInt(data?.height);
             res.name = castString(data?.name);
+            res.passwordHash = castString(data?.passwordHash);
+            res.passwordSalt = castString(data?.passwordSalt);
             res.useWebAuthn = castBoolean(data?.useWebAuthn);
             return res;
         };

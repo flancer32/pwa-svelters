@@ -67,11 +67,26 @@ export default function (spec) {
                      outlined
                      type="number"
             />
+            <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable" :label="$t('route.user.sign.up.fld.toggleAuth')"/>
+            <q-input v-model="fldPassword"
+                     :label="$t('route.user.sign.up.fld.password')"
+                     :type="typePass"
+                     autocomplete="new-password"
+                     outlined
+                     v-if="!fldUsePubKey"
+            >
+                <template v-slot:append>
+                    <q-icon :name="iconPass"
+                            @click="ifPassHidden = !ifPassHidden"
+                            class="cursor-pointer"
+                    />
+                </template>
+            </q-input>
         </q-card-section>
         <q-card-section>
             <div>{{message}}</div>
         </q-card-section>
-                <q-card-actions align="center">
+        <q-card-actions align="center">
             <q-btn :label="$t('btn.ok')"
                    color="${DEF.COLOR_Q_PRIMARY}"
                    v-on:click="onOk"
@@ -96,13 +111,25 @@ export default function (spec) {
         data() {
             return {
                 deferredEmail: null,
-                fldAge: null,
+                fldAge: 50,
                 fldEmail: null,
-                fldHeight: null,
+                fldHeight: 180,
                 fldName: null,
+                fldPassword: null,
+                fldUsePubKey: false,
                 ifLoading: false,
+                ifPassHidden: true,
+                ifPubKeyAvailable: false,
                 message: null,
             };
+        },
+        computed: {
+            iconPass() {
+                return this.ifPassHidden ? 'visibility_off' : 'visibility';
+            },
+            typePass() {
+                return this.ifPassHidden ? 'password' : 'text';
+            },
         },
         methods: {
             onChangeEmail() {
@@ -127,40 +154,50 @@ export default function (spec) {
             },
             async onOk() {
                 this.ifLoading = true;
-                const res = await modSignUp.register(this.fldAge, this.fldEmail, this.fldHeight, this.fldName);
+                const res = await modSignUp.register(
+                    this.fldAge, this.fldEmail, this.fldHeight, this.fldName, this.fldPassword
+                );
                 this.ifLoading = false;
-                if (res.uuid) {
+                if (res?.uuid) {
                     this.message = this.$t('route.user.sign.up.msg.registrationSucceed');
-                    if (res.challenge) {
-                        // attest current device and register publicKey on the back
-                        const publicKey = modWebAuthn.composeOptPkCreate({
-                            challenge: res.challenge,
-                            rpName: 'Svelters PWA',
-                            userName: `${this.fldEmail}`,
-                            userUuid: res.uuid,
-                        });
-                        // noinspection JSValidateTypes
-                        /** @type {PublicKeyCredential} */
-                        const attestation = await navigator.credentials.create({publicKey});
-                        this.ifLoading = true;
-                        /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
-                        const resAttest = await modAuthn.attest(attestation);
-                        this.ifLoading = false;
-                        if (resAttest?.attestationId) {
-                            const dto = new DtoAtt();
-                            dto.attestationId = resAttest.attestationId;
-                            modStore.write(dto);
-                            this.message = this.$t('route.user.sign.up.msg.attestSucceed');
+                    if (this.fldUsePubKey)
+                        if (res?.challenge) {
+                            // attest current device and register publicKey on the back
+                            const publicKey = modWebAuthn.composeOptPkCreate({
+                                challenge: res.challenge,
+                                rpName: 'Svelters PWA',
+                                userName: `${this.fldEmail}`,
+                                userUuid: res.uuid,
+                            });
+                            // noinspection JSValidateTypes
+                            /** @type {PublicKeyCredential} */
+                            const attestation = await navigator.credentials.create({publicKey});
+                            this.ifLoading = true;
+                            /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
+                            const resAttest = await modAuthn.attest(attestation);
+                            this.ifLoading = false;
+                            if (resAttest?.attestationId) {
+                                const dto = new DtoAtt();
+                                dto.attestationId = resAttest.attestationId;
+                                modStore.write(dto);
+                                this.message = this.$t('route.user.sign.up.msg.attestSucceed');
+                            } else {
+                                // TODO: error handling
+                            }
                         } else {
-                            // TODO: error handling
+                            this.message = this.$t('route.user.sign.up.msg.challengeFailed');
                         }
-                    } else {
-                        // TODO: we need to create new password for the user
-                    }
                 } else {
                     this.message = this.$t('route.user.sign.up.msg.registrationFailed');
                 }
             }
+        },
+        mounted() {
+            modWebAuthn.isPublicKeyAvailable()
+                .then((available) => {
+                    this.ifPubKeyAvailable = available;
+                    this.fldUsePubKey = available;
+                });
         },
     };
 }

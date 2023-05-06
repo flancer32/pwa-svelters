@@ -13,6 +13,8 @@ export default class Svelters_Front_Mod_User_Sign_Up {
         const apiRegister = spec['Svelters_Shared_Web_Api_User_Sign_Up_Register$'];
         /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
         const modWebAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
+        /** @type {Fl32_Auth_Front_Mod_Auth_Password} */
+        const modPass = spec['Fl32_Auth_Front_Mod_Auth_Password$'];
 
         // MAIN
         logger.setNamespace(this.constructor.name);
@@ -26,16 +28,23 @@ export default class Svelters_Front_Mod_User_Sign_Up {
          * @param {string} email
          * @param {number} height
          * @param {string} name
+         * @param {string} [password] plain password, if missed PublicKey authentication will be requested
          * @returns {Promise<Svelters_Shared_Web_Api_User_Sign_Up_Register.Response>}
          */
-        this.register = async function (age, email, height, name) {
+        this.register = async function (age, email, height, name, password) {
             try {
                 const req = apiRegister.createReq();
                 req.age = age;
                 req.email = email;
                 req.height = height;
                 req.name = name;
-                req.useWebAuthn = await modWebAuthn.isPublicKeyAvailable();
+                if (password) {
+                    req.useWebAuthn = false;
+                    req.passwordSalt = modPass.salt(16);
+                    req.passwordHash = await modPass.hash(password, req.passwordSalt);
+                } else {
+                    req.useWebAuthn = await modWebAuthn.isPublicKeyAvailable();
+                }
                 // noinspection JSValidateTypes
                 return await connApi.send(req, apiRegister);
             } catch (e) {

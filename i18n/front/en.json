@@ -18,10 +18,13 @@
             "age": "Your age",
             "email": "Your email",
             "height": "Your height",
-            "name": "Your name"
+            "name": "Your name",
+            "password": "Your password",
+            "toggleAuth": "Use device authentication (fingerprint, etc.)"
           },
           "msg": {
             "attestSucceed": "Device is attested for this user.",
+            "challengeFailed": "Cannot receive attestation challenge from the back.",
             "emailNotUnique": "Email is not unique.",
             "emailUnique": "Email is unique.",
             "registrationFailed": "New user is not registered.",

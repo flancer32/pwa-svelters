@@ -70,18 +70,24 @@ export default function (spec) {
             const dto = modStore.read();
             if (dto?.attestationId) {
                 this.attestationId = dto.attestationId;
-                const resCh = await modWebAuthn.signInChallenge(dto.attestationId);
-                const publicKey = modWebAuthn.composeOptPkGet({
-                    challenge: resCh.challenge,
-                    attestationId: resCh.attestationId
-                });
-                const credGet = await navigator.credentials.get({publicKey});
-                const resV = await modSignIn.validate(credGet.response);
-                if (resV?.success) {
-                    this.message = 'Authentication is succeed.';
+                const resCh = await modWebAuthn.assertChallenge(dto.attestationId);
+                if (resCh?.challenge) {
+                    const publicKey = modWebAuthn.composeOptPkGet({
+                        challenge: resCh.challenge,
+                        attestationId: resCh.attestationId
+                    });
+                    const credGet = await navigator.credentials.get({publicKey});
+                    const resV = await modSignIn.validate(credGet.response);
+                    if (resV?.success) {
+                        this.message = 'Authentication is succeed.';
+                    } else {
+                        this.message = 'Authentication is failed.';
+                    }
                 } else {
-                    this.message = 'Authentication is failed.';
+                    // there is no attestation with stored ID on the back
+                    this.message = `Authentication is not available for stored attestation.`;
                 }
+
             }
             this.ifLoading = false;
         },

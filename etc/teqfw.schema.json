@@ -84,21 +84,7 @@
           "package": {
             "auth": {
               "entity": {
-                "pwd": {
-                  "comment": "Passwords to authenticate users.",
-                  "attr": {
-                    "user_ref": {"type": "ref"},
-                    "password_hash": {"type": "string"}
-                  },
-                  "relation": {
-                    "user": {
-                      "attrs": ["user_ref"],
-                      "ref": {
-                        "path": "/app/user", "attrs": ["bid"]
-                      }
-                    }
-                  }
-                }
+
               }
             },
             "device": {
