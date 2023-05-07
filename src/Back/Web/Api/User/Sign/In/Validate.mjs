@@ -15,8 +15,12 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
         const endpoint = spec['Svelters_Shared_Web_Api_User_Sign_In_Validate$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        /** @type {Svelters_Back_Act_User_Read.act|function} */
+        const actUserRead = spec['Svelters_Back_Act_User_Read$'];
+        /** @type {Fl32_Auth_Back_Act_Password_Validate.act|function} */
+        const actPassValid = spec['Fl32_Auth_Back_Act_Password_Validate$'];
         /** @type {Fl32_Auth_Back_Act_Assert_Validate.act|function} */
-        const actValid = spec['Fl32_Auth_Back_Act_Assert_Validate$'];
+        const actPubKeyValid = spec['Fl32_Auth_Back_Act_Assert_Validate$'];
 
         // VARS
         logger.setNamespace(this.constructor.name);
@@ -37,14 +41,27 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
             const trx = await conn.startTransaction();
             try {
                 // get and normalize input data
+                const email = req.email;
+                const hashHex = req.passwordHash;
                 const assertion = req.assert;
                 //
-                const {
-                    /** @type {Fl32_Auth_Back_RDb_Schema_Attest.Dto} */
-                    attestation,
-                    success
-                } = await actValid({trx, assertion});
-                res.success = success;
+                if (assertion?.authenticatorData) {
+                    const {
+                        /** @type {Fl32_Auth_Back_RDb_Schema_Attest.Dto} */
+                        attestation,
+                        success
+                    } = await actPubKeyValid({trx, assertion});
+                    const userBid = attestation?.user_ref;
+                    res.success = success;
+                } else {
+                    const {
+                        /** @type {Svelters_Back_RDb_Schema_User.Dto} */
+                        user
+                    } = await actUserRead({trx, email});
+                    const userBid = user.bid;
+                    const {success} = await actPassValid({trx, userBid, hashHex});
+                    res.success = success;
+                }
                 await trx.commit();
                 logger.info(`${this.constructor.name}: ${JSON.stringify(res)}'.`);
             } catch (error) {

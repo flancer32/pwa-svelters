@@ -81,7 +81,7 @@ export default class Svelters_Front_App {
              * @memberOf Ra_Mob_Front_App.init
              */
             async function initI18n(app) {
-                await modI18n.init(['ru', 'en'], 'en');
+                await modI18n.init(['en'], 'en');
                 const i18n = modI18n.getI18n();
                 // add translation function to Vue
                 const appProps = app.config.globalProperties;

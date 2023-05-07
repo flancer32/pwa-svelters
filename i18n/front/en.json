@@ -13,6 +13,18 @@
   "route": {
     "user": {
       "sign": {
+        "in": {
+          "fld": {
+            "email": "Your email",
+            "password": "Your password",
+            "toggleAuth": "Use device authentication (fingerprint, etc.)"
+          },
+          "msg": {
+            "fail": "Authentication is failed.",
+            "failChallenge": "Cannot get authentication challenge from the back.",
+            "success": "Authentication is succeed."
+          }
+        },
         "up": {
           "fld": {
             "age": "Your age",

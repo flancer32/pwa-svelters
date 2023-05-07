@@ -11,10 +11,10 @@ export default class Svelters_Front_Mod_User_Sign_Up {
         const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
         /** @type {Svelters_Shared_Web_Api_User_Sign_Up_Register} */
         const apiRegister = spec['Svelters_Shared_Web_Api_User_Sign_Up_Register$'];
-        /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
-        const modWebAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
-        /** @type {Fl32_Auth_Front_Mod_Auth_Password} */
-        const modPass = spec['Fl32_Auth_Front_Mod_Auth_Password$'];
+        /** @type {Fl32_Auth_Front_Mod_PubKey} */
+        const modWebAuthn = spec['Fl32_Auth_Front_Mod_PubKey$'];
+        /** @type {Fl32_Auth_Front_Mod_Password} */
+        const modPass = spec['Fl32_Auth_Front_Mod_Password$'];
 
         // MAIN
         logger.setNamespace(this.constructor.name);

@@ -26,8 +26,10 @@ export default function (spec) {
     const modSignIn = spec['Svelters_Front_Mod_User_Sign_In$'];
     /** @type {Fl32_Auth_Front_Mod_Store_Attestation.Store} */
     const modStore = spec['Fl32_Auth_Front_Mod_Store_Attestation.Store$'];
-    /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
-    const modWebAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
+    /** @type {Fl32_Auth_Front_Mod_PubKey} */
+    const modAuthKey = spec['Fl32_Auth_Front_Mod_PubKey$'];
+    /** @type {Fl32_Auth_Front_Mod_Password} */
+    const modAuthPass = spec['Fl32_Auth_Front_Mod_Password$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -37,7 +39,40 @@ export default function (spec) {
     <q-card>
         <ui-spinner :loading="ifLoading"/>
         <q-card-section>
-            <div>Attestation ID: {{attestationId}}</div>
+            <q-form class="column">
+                <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable"
+                          :label="$t('route.user.sign.in.fld.toggleAuth')"/>            
+                <template v-if="!fldUsePubKey">
+                    <q-input v-model="fldEmail"
+                             :label="$t('route.user.sign.in.fld.email')"
+                             autocomplete="username"
+                             outlined
+                             type="email"
+                    />
+                    <q-input v-model="fldPass"
+                             :label="$t('route.user.sign.in.fld.password')"
+                             :type="typePass"
+                             autocomplete="current-password"
+                             outlined
+                    >
+                        <template v-slot:append>
+                            <q-icon
+                                    :name="iconPass"
+                                    class="cursor-pointer"
+                                    @click="ifPassHidden = !ifPassHidden"
+                            />
+                        </template>
+                    </q-input>
+                </template>
+            </q-form>
+        <q-card-section>
+        <q-card-actions align="center">
+            <q-btn :label="$t('btn.ok')"
+                   color="${DEF.COLOR_Q_PRIMARY}"
+                   v-on:click="onOk"
+            />
+        </q-card-actions>
+        <q-card-section>
             <div>{{message}}</div>
         <q-card-section>
     </q-card>
@@ -59,37 +94,72 @@ export default function (spec) {
         data() {
             return {
                 attestationId: null,
+                fldEmail: null,
+                fldPass: null,
+                fldUsePubKey: false,
                 ifLoading: false,
+                ifPassHidden: true,
+                ifPubKeyAvailable: false,
                 message: null,
             };
         },
-        methods: {},
+        computed: {
+            iconPass() {
+                return this.ifPassHidden ? 'visibility_off' : 'visibility';
+            },
+            typePass() {
+                return this.ifPassHidden ? 'password' : 'text';
+            },
+        },
+        methods: {
+            async onOk() {
+                // FUNCS
+                const authPubKey = async () => {
+                    this.ifLoading = true;
+                    // define authentication mode: password or publicKey
+                    /** @type {Fl32_Auth_Front_Mod_Store_Attestation.Dto} */
+                    const dto = modStore.read();
+                    const resCh = await modAuthKey.assertChallenge(dto.attestationId);
+                    if (resCh?.challenge) {
+                        const publicKey = modAuthKey.composeOptPkGet({
+                            challenge: resCh.challenge,
+                            attestationId: resCh.attestationId
+                        });
+                        const credGet = await navigator.credentials.get({publicKey});
+                        const resV = await modSignIn.validatePubKey(credGet.response);
+                        if (resV?.success) {
+                            this.message = this.$t('route.user.sign.in.msg.success');
+                        } else {
+                            this.message = this.$t('route.user.sign.in.msg.fail');
+                        }
+                    } else {
+                        this.message = this.$t('route.user.sign.in.msg.failChallenge');
+                    }
+                    this.ifLoading = false;
+                };
+
+                const authPassword = async () => {
+                    const email = this.fldEmail;
+                    const salt = await modSignIn.getPasswordSalt(email);
+                    const hash = await modAuthPass.hash(this.fldPass, salt);
+                    const res = await modSignIn.validatePassword(email, hash);
+                    if (res?.success) {
+                        this.message = this.$t('route.user.sign.in.msg.success');
+                    } else {
+                        this.message = this.$t('route.user.sign.in.msg.fail');
+                    }
+                };
+
+                // MAIN
+                if (this.fldUsePubKey) await authPubKey();
+                else await authPassword();
+            },
+        },
         async mounted() {
-            this.ifLoading = true;
             /** @type {Fl32_Auth_Front_Mod_Store_Attestation.Dto} */
             const dto = modStore.read();
-            if (dto?.attestationId) {
-                this.attestationId = dto.attestationId;
-                const resCh = await modWebAuthn.assertChallenge(dto.attestationId);
-                if (resCh?.challenge) {
-                    const publicKey = modWebAuthn.composeOptPkGet({
-                        challenge: resCh.challenge,
-                        attestationId: resCh.attestationId
-                    });
-                    const credGet = await navigator.credentials.get({publicKey});
-                    const resV = await modSignIn.validate(credGet.response);
-                    if (resV?.success) {
-                        this.message = 'Authentication is succeed.';
-                    } else {
-                        this.message = 'Authentication is failed.';
-                    }
-                } else {
-                    // there is no attestation with stored ID on the back
-                    this.message = `Authentication is not available for stored attestation.`;
-                }
-
-            }
-            this.ifLoading = false;
+            this.ifPubKeyAvailable = Boolean(dto?.attestationId);
+            this.fldUsePubKey = this.ifPubKeyAvailable;
         },
     };
 }

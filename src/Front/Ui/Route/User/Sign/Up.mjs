@@ -29,12 +29,12 @@ export default function (spec) {
     const modStore = spec['Fl32_Auth_Front_Mod_Store_Attestation.Store$'];
     /** @type {Svelters_Front_Mod_Data_Unique} */
     const modUnique = spec['Svelters_Front_Mod_Data_Unique$'];
-    /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
-    const modAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
+    /** @type {Fl32_Auth_Front_Mod_PubKey} */
+    const modAuthn = spec['Fl32_Auth_Front_Mod_PubKey$'];
     /** @type {typeof Fl32_Auth_Front_Mod_Store_Attestation.Dto} */
     const DtoAtt = spec['Fl32_Auth_Front_Mod_Store_Attestation.Dto'];
-    /** @type {Fl32_Auth_Front_Mod_WebAuthn} */
-    const modWebAuthn = spec['Fl32_Auth_Front_Mod_WebAuthn$'];
+    /** @type {Fl32_Auth_Front_Mod_PubKey} */
+    const modWebAuthn = spec['Fl32_Auth_Front_Mod_PubKey$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -44,47 +44,47 @@ export default function (spec) {
     <q-card>
         <ui-spinner :loading="ifLoading"/>
         <q-card-section>
-            <q-input v-model="fldName"
-                     :label="$t('route.user.sign.up.fld.name')"
-                     autocomplete="name"
-                     outlined
-                     type="text"
-            />
-            <q-input v-model="fldEmail"
-                     :label="$t('route.user.sign.up.fld.email')"
-                     autocomplete="email"
-                     outlined
-                     type="email"
-                     v-on:change="onChangeEmail"
-            />
-            <q-input v-model="fldAge"
-                     :label="$t('route.user.sign.up.fld.age')"
-                     outlined
-                     type="number"
-            />
-            <q-input v-model="fldHeight"
-                     :label="$t('route.user.sign.up.fld.height')"
-                     outlined
-                     type="number"
-            />
-            <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable" :label="$t('route.user.sign.up.fld.toggleAuth')"/>
-            <q-input v-model="fldPassword"
-                     :label="$t('route.user.sign.up.fld.password')"
-                     :type="typePass"
-                     autocomplete="new-password"
-                     outlined
-                     v-if="!fldUsePubKey"
-            >
-                <template v-slot:append>
-                    <q-icon :name="iconPass"
-                            @click="ifPassHidden = !ifPassHidden"
-                            class="cursor-pointer"
-                    />
-                </template>
-            </q-input>
-        </q-card-section>
-        <q-card-section>
-            <div>{{message}}</div>
+            <q-form class="column">
+                <q-input v-model="fldName"
+                         :label="$t('route.user.sign.up.fld.name')"
+                         autocomplete="name"
+                         outlined
+                         type="text"
+                />
+                <q-input v-model="fldEmail"
+                         :label="$t('route.user.sign.up.fld.email')"
+                         autocomplete="email"
+                         outlined
+                         type="email"
+                         v-on:change="onChangeEmail"
+                />
+                <q-input v-model="fldAge"
+                         :label="$t('route.user.sign.up.fld.age')"
+                         outlined
+                         type="number"
+                />
+                <q-input v-model="fldHeight"
+                         :label="$t('route.user.sign.up.fld.height')"
+                         outlined
+                         type="number"
+                />
+                <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable"
+                          :label="$t('route.user.sign.up.fld.toggleAuth')"/>
+                <q-input v-model="fldPassword"
+                         :label="$t('route.user.sign.up.fld.password')"
+                         :type="typePass"
+                         autocomplete="new-password"
+                         outlined
+                         v-if="!fldUsePubKey"
+                >
+                    <template v-slot:append>
+                        <q-icon :name="iconPass"
+                                @click="ifPassHidden = !ifPassHidden"
+                                class="cursor-pointer"
+                        />
+                    </template>
+                </q-input>
+            </q-form>
         </q-card-section>
         <q-card-actions align="center">
             <q-btn :label="$t('btn.ok')"
@@ -92,6 +92,9 @@ export default function (spec) {
                    v-on:click="onOk"
             />
         </q-card-actions>
+        <q-card-section>
+            <div>{{message}}</div>
+        </q-card-section>
     </q-card>
 </div>
 `;

@@ -1,5 +1,5 @@
 /**
- * Validate user authentication with WebAuthn API.
+ * Validate user authentication (with password or public key).
  */
 // MODULE'S VARS
 const NS = 'Svelters_Shared_Web_Api_User_Sign_In_Validate';
@@ -11,22 +11,17 @@ const NS = 'Svelters_Shared_Web_Api_User_Sign_In_Validate';
 class Request {
     static namespace = NS;
     /**
-     * @type {string}
-     * @deprecated
+     * Assertion data for public key authentication.
+     * @type {Fl32_Auth_Shared_Dto_Assert.Dto}
      */
-    authenticatorData;
-    /**
-     * @type {string}
-     * @deprecated
-     */
-    clientDataJSON;
-    /**
-     * @type {string}
-     * @deprecated
-     */
-    signature;
-    /** @type {Fl32_Auth_Shared_Dto_Assert.Dto} */
     assert;
+    /** @type {string} */
+    email;
+    /**
+     * HEX-string of the password hash.
+     * @type {string}
+     */
+    passwordHash;
 }
 
 /**
@@ -61,10 +56,9 @@ export default class Svelters_Shared_Web_Api_User_Sign_In_Validate {
             // create new DTO
             const res = new Request();
             // cast known attributes
-            res.authenticatorData = castString(data?.authenticatorData);
-            res.clientDataJSON = castString(data?.clientDataJSON);
-            res.signature = castString(data?.signature);
             res.assert = dtoAssert.createDto(data?.assert);
+            res.email = castString(data?.email);
+            res.passwordHash = castString(data?.passwordHash);
             return res;
         };
 

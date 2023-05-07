@@ -16,8 +16,8 @@ challenge (action `Fl32_Auth_Back_Act_Attest_Challenge`).
 
 ### User attestation
 
-Фронт формирует данные для аттестации пользователя (`Fl32_Auth_Front_Mod_WebAuthn.composeOptPkCreate`) и отправляет
-данные через модель `Fl32_Auth_Front_Mod_WebAuthn.attest` на сервис `Fl32_Auth_Shared_Web_Api_Attest`. Бэкенд
+Фронт формирует данные для аттестации пользователя (`Fl32_Auth_Front_Mod_PubKey.composeOptPkCreate`) и отправляет
+данные через модель `Fl32_Auth_Front_Mod_PubKey.attest` на сервис `Fl32_Auth_Shared_Web_Api_Attest`. Бэкенд
 сохраняет публичный ключ и идентификатор аттестата, привязывая его к ID пользователя. После чего возвращает на фронт
 идентификатор аттестата и bid для сохранённого публичного ключа.
 
@@ -35,11 +35,11 @@ challenge (action `Fl32_Auth_Back_Act_Attest_Challenge`).
 ### Получение assertion challenge
 
 Если аутентификация возможна, то фронт запрашивает assertion challenge через
-модель `Fl32_Auth_Front_Mod_WebAuthn.signInChallenge` и сервис `Fl32_Auth_Shared_Web_Api_Assert_Challenge`.
+модель `Fl32_Auth_Front_Mod_PubKey.signInChallenge` и сервис `Fl32_Auth_Shared_Web_Api_Assert_Challenge`.
 
 ### Аутентификация
 
-Фронт формирует данные для аутентификации при помощи модели `Fl32_Auth_Front_Mod_WebAuthn.composeOptPkGet`, а затем
+Фронт формирует данные для аутентификации при помощи модели `Fl32_Auth_Front_Mod_PubKey.composeOptPkGet`, а затем
 подписывает подтверждение аутентификации (assertion). Подтверждение через
 модель `Svelters_Front_Mod_User_Sign_In.validate` отправляется на
 сервис `Svelters_Shared_Web_Api_User_Sign_In_Validate`.
