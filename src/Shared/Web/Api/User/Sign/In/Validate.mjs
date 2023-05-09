@@ -31,6 +31,8 @@ class Response {
     static namespace = NS;
     /** @type {boolean} */
     success;
+    /** @type {Svelters_Shared_Dto_User.Dto} */
+    user;
 }
 
 /**
@@ -45,6 +47,8 @@ export default class Svelters_Shared_Web_Api_User_Sign_In_Validate {
         const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
         /** @type {Fl32_Auth_Shared_Dto_Assert} */
         const dtoAssert = spec['Fl32_Auth_Shared_Dto_Assert$'];
+        /** @type {Svelters_Shared_Dto_User} */
+        const dtoUser = spec['Svelters_Shared_Dto_User$'];
 
         // INSTANCE METHODS
 
@@ -71,6 +75,7 @@ export default class Svelters_Shared_Web_Api_User_Sign_In_Validate {
             const res = new Response();
             // cast known attributes
             res.success = castBoolean(data?.success);
+            res.user = dtoUser.createDto(data?.user);
             return res;
         };
     }

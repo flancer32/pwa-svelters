@@ -30,6 +30,8 @@ export default function (spec) {
     const modAuthKey = spec['Fl32_Auth_Front_Mod_PubKey$'];
     /** @type {Fl32_Auth_Front_Mod_Password} */
     const modAuthPass = spec['Fl32_Auth_Front_Mod_Password$'];
+    /** @type {Svelters_Front_Mod_User_Session} */
+    const modSess = spec['Svelters_Front_Mod_User_Session$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -65,7 +67,7 @@ export default function (spec) {
                     </q-input>
                 </template>
             </q-form>
-        <q-card-section>
+        </q-card-section>
         <q-card-actions align="center">
             <q-btn :label="$t('btn.ok')"
                    color="${DEF.COLOR_Q_PRIMARY}"
@@ -74,7 +76,7 @@ export default function (spec) {
         </q-card-actions>
         <q-card-section>
             <div>{{message}}</div>
-        <q-card-section>
+        </q-card-section>
     </q-card>
 </div>
 `;
@@ -129,6 +131,7 @@ export default function (spec) {
                         const resV = await modSignIn.validatePubKey(credGet.response);
                         if (resV?.success) {
                             this.message = this.$t('route.user.sign.in.msg.success');
+                            modSess.setData(resV.user);
                         } else {
                             this.message = this.$t('route.user.sign.in.msg.fail');
                         }
@@ -145,6 +148,7 @@ export default function (spec) {
                     const res = await modSignIn.validatePassword(email, hash);
                     if (res?.success) {
                         this.message = this.$t('route.user.sign.in.msg.success');
+                        modSess.setData(res.user);
                     } else {
                         this.message = this.$t('route.user.sign.in.msg.fail');
                     }
@@ -153,6 +157,10 @@ export default function (spec) {
                 // MAIN
                 if (this.fldUsePubKey) await authPubKey();
                 else await authPassword();
+                // redirect to initial route
+                const query = this.$route?.query;
+                const to = query[DEF.AUTH_REDIRECT] ?? DEF.ROUTE_HOME;
+                this.$router.push(to);
             },
         },
         async mounted() {

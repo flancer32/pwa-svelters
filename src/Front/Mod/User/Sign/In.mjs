@@ -44,6 +44,12 @@ export default class Svelters_Front_Mod_User_Sign_In {
             return null;
         };
 
+        /**
+         * Validate user by password.
+         * @param {string} email
+         * @param {string} hash
+         * @return {Promise<Svelters_Shared_Web_Api_User_Sign_In_Validate.Response|null>}
+         */
         this.validatePassword = async function (email, hash) {
             try {
                 const req = apiValidate.createReq();
@@ -59,7 +65,7 @@ export default class Svelters_Front_Mod_User_Sign_In {
         };
 
         /**
-         * Validate user authentication on the back using store public key.
+         * Validate user authentication on the back using stored public key.
          * @param {AuthenticatorAssertionResponse} resp
          * @returns {Promise<Svelters_Shared_Web_Api_User_Sign_In_Validate.Response>}
          */

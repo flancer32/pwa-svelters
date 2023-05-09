@@ -23,6 +23,7 @@ export default function (spec) {
     <router-link to="${DEF.ROUTE_HOME}">{{$t('layout.navigator.home')}}</router-link>
     <router-link to="${DEF.ROUTE_USER_SIGN_UP}">{{$t('layout.navigator.signUp')}}</router-link>
     <router-link to="${DEF.ROUTE_USER_SIGN_IN}">{{$t('layout.navigator.signIn')}}</router-link>
+    <router-link to="${DEF.ROUTE_USER_SIGN_OUT}">{{$t('layout.navigator.signOut')}}</router-link>
 </div>
 `;
 

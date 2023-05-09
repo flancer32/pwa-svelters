@@ -30,14 +30,12 @@ export default class Svelters_Front_App {
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
-        // /** @type {TeqFw_Web_Event_Front_Web_Connect_Stream_Open.act|function} */
-        // const connReverseOpen = spec['TeqFw_Web_Event_Front_Web_Connect_Stream_Open$'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
         const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
         /** @type {TeqFw_I18n_Front_Mod_I18n} */
         const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
-        // /** @type {TeqFw_Web_Event_Front_Mod_Identity_Front} */
-        // const modIdFront = spec['TeqFw_Web_Event_Front_Mod_Identity_Front$'];
+        /** @type {Svelters_Front_Mod_User_Session} */
+        const modSess = spec['Svelters_Front_Mod_User_Session$'];
         /** @type {Svelters_Front_Ui_Layout_Navigator.vueCompTmpl} */
         const Navigator = spec['Svelters_Front_Ui_Layout_Navigator$'];
 
@@ -64,21 +62,11 @@ export default class Svelters_Front_App {
             }
 
             /**
-             * Create processes that start on events.
-             * Some processes (authentication) should be subscribed to events before Reverse Stream can be opened.
-             * TODO: this should be done using 'teqfw.json' descriptor
-             * @param {TeqFw_Di_Shared_Container} container
-             */
-            async function initEventListeners(container) {
-                await container.get('Svelters_Front_Listen_Connect_Manager$');
-            }
-
-            /**
              * Setup working languages and fallback language and add translation function to the Vue.
              *
              * @param {Object} app
              * @return {Promise<void>}
-             * @memberOf Ra_Mob_Front_App.init
+             * @memberOf Svelters_Front_App.init
              */
             async function initI18n(app) {
                 await modI18n.init(['en'], 'en');
@@ -111,7 +99,7 @@ export default class Svelters_Front_App {
                 router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Svelters_Front_Ui_Route_Home$'),
-                    meta: {anonymous: true},
+                    meta: {anonymous: false},
                 });
                 router.addRoute({
                     path: DEF.ROUTE_USER_SIGN_IN,
@@ -119,9 +107,27 @@ export default class Svelters_Front_App {
                     meta: {anonymous: true},
                 });
                 router.addRoute({
+                    path: DEF.ROUTE_USER_SIGN_OUT,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Out$'),
+                    meta: {anonymous: true},
+                });
+                router.addRoute({
                     path: DEF.ROUTE_USER_SIGN_UP,
                     component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
                     meta: {anonymous: true},
+                });
+                // validate authentication for none anonymous routes
+                router.beforeEach((to) => {
+                    // instead of having to check every route record with
+                    // to.matched.some(record => record.meta.requiresAuth)
+                    if (!to.meta.anonymous && !modSess.isValid()) {
+                        // this route requires auth
+                        return {
+                            path: DEF.ROUTE_USER_SIGN_IN,
+                            // save the location we were at to come back later
+                            query: {[DEF.AUTH_REDIRECT]: to.fullPath},
+                        };
+                    }
                 });
                 //
                 app.use(router);
@@ -149,18 +155,12 @@ export default class Svelters_Front_App {
             });
             // ... and add global available components
             _root.component('Navigator', Navigator);
-            // _root.component('layoutDesk', layoutDesk);
-            // _root.component('uiSpinner', uiSpinner);
             // other initialization
             await modCfg.init({}); // this app has no separate 'doors' (entry points)
             _print(`Application config is loaded.`);
-            // await modIdFront.init();
-            // _print(`Front UUID: ${modIdFront.getFrontUuid()}.`);
             try {
-                // await initEventListeners(container);
-                // _print(`Event listeners are created.`);
-                // await connReverseOpen();
-                _print(`Stream for backend events is opened.`);
+                await modSess.init();
+                _print(`User session is initialized.`);
                 initQuasarUi(_root, quasar);
                 _print(`Quasar UI is initialized.`);
                 initRouter(_root, DEF, container);
