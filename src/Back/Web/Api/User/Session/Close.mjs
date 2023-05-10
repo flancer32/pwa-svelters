@@ -18,8 +18,6 @@ export default class Svelters_Back_Web_Api_User_Session_Close {
         const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
         /** @type {Fl32_Auth_Back_RDb_Schema_Session} */
         const rdbSess = spec['Fl32_Auth_Back_RDb_Schema_Session$'];
-        /** @type {Svelters_Back_RDb_Schema_User} */
-        const rdbUser = spec['Svelters_Back_RDb_Schema_User$'];
         /** @type {Fl32_Auth_Back_Mod_Session_Store} */
         const modSessStore = spec['Fl32_Auth_Back_Mod_Session_Store$'];
 
@@ -50,7 +48,7 @@ export default class Svelters_Back_Web_Api_User_Session_Close {
                     /** @type {Fl32_Auth_Back_RDb_Schema_Session.Dto} */
                     const sessRec = await crud.readOne(trx, rdbSess, sessionId);
                     if (sessRec) {
-                        await crud.deleteOne(trx, rdbUser, sessRec);
+                        await crud.deleteOne(trx, rdbSess, sessRec);
                         modSessStore.clearData(context.request);
                         res.success = true;
                         logger.info(`Session '${sessionId}' for user #${sessRec?.user_ref} is closed.`);
