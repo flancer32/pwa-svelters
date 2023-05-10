@@ -2,8 +2,6 @@
  * Validate user authentication with WebAuthn API.
  */
 // MODULE'S CLASSES
-import {constants as H2} from 'node:http2';
-
 /**
  * @implements TeqFw_Web_Api_Back_Api_Service
  */
@@ -14,8 +12,10 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
         const DEF = spec['Svelters_Back_Defaults$'];
         /** @type {TeqFw_Core_Shared_Api_Logger} */
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {TeqFw_Web_Back_Util.cookieCreate|function} */
-        const cookieCreate = spec['TeqFw_Web_Back_Util.cookieCreate'];
+        /** @type {TeqFw_Web_Back_Util_Cookie.create|function} */
+        const cookieCreate = spec['TeqFw_Web_Back_Util_Cookie.create'];
+        /** @type {TeqFw_Web_Back_Util_Cookie.set|function} */
+        const cookieSet = spec['TeqFw_Web_Back_Util_Cookie.set'];
         /** @type {TeqFw_Web_Back_Mod_Address} */
         const mAddr = spec['TeqFw_Web_Back_Mod_Address$'];
         /** @type {Svelters_Shared_Web_Api_User_Sign_In_Validate} */
@@ -84,7 +84,7 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
                 if (res?.success) {
                     const {code} = await actSessOpen({trx, userBid});
 
-                    // set session cookie
+                    // compose the session cookie and set it to the HTTP response
                     const pathHttp = context?.request.url;
                     const parts = mAddr.parsePath(pathHttp);
                     const path = (parts.root)
@@ -96,7 +96,7 @@ export default class Svelters_Back_Web_Api_User_Sign_In_Validate {
                         expires: DEF.SESSION_COOKIE_LIFETIME,
                         path
                     });
-                    context.response.setHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
+                    cookieSet({response: context.response, cookie});
                     // add user data to response
                     res.user = userData;
                     logger.info(`New session is opened for user #${userData.uuid}.`);

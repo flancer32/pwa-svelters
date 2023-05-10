@@ -27,6 +27,7 @@
           }
         },
         "out": {
+          "error": "Some error is occurred.",
           "finish": "The session is closed.",
           "start": "Closing the current session."
         },

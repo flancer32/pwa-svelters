@@ -18,18 +18,21 @@ export default class Svelters_Front_Mod_User_Session {
         logger.setNamespace(this.constructor.name);
         let _store;
 
-        // FUNCS
-
         // INSTANCE METHODS
 
+        /**
+         * Close session on the back.
+         * @returns {Promise<Svelters_Shared_Web_Api_User_Session_Close.Response>}
+         */
         this.close = async function () {
             try {
                 const req = apiClose.createReq();
                 // noinspection JSValidateTypes
                 /** @type {Svelters_Shared_Web_Api_User_Session_Close.Response} */
                 const res = await connApi.send(req, apiClose);
-                debugger
-                _store = undefined;
+                if (res.success) _store = undefined;
+                else logger.error(`Cannot close user session on the backend.`);
+                return res;
             } catch (e) {
                 // timeout or error
                 logger.error(`Cannot close user session. Error: ${e?.message}`);

@@ -62,8 +62,13 @@ export default function (spec) {
         async mounted() {
             this.ifLoading = true;
             this.message = this.$t('route.user.sign.out.start');
-            await modSess.close();
-            this.message = this.$t('route.user.sign.out.finish');
+            const res = await modSess.close();
+            if (res.success) {
+                this.message = this.$t('route.user.sign.out.finish');
+                setTimeout(() => {
+                    this.$router.push(DEF.ROUTE_USER_SIGN_UP);
+                }, 3000);
+            }
             this.ifLoading = false;
         },
     };
