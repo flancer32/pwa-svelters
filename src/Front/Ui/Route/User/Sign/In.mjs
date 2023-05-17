@@ -34,7 +34,7 @@ export default function (spec) {
         <ui-spinner :loading="ifLoading"/>
         <q-card-section>
             <div class="text-center">{{$t('route.user.sign.in.title')}}</div>
-            <q-form class="column">
+            <q-form class="column q-gutter-sm">
                 <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable"
                           :label="$t('route.user.sign.in.fld.toggleAuth')"/>            
                 <template v-if="!fldUsePubKey">
