@@ -11,9 +11,12 @@ export default class Svelters_Front_Defaults {
     ROUTE_USER_SIGN_OUT = '/user/sign/out';
     ROUTE_USER_SIGN_UP = '/user/sign/up';
 
+    RP_NAME = 'Svelters 2';
+
     /** @type {Svelters_Shared_Defaults} */
     SHARED;
 
+    TIMEOUT_REDIRECT = 1500; // 1.5 sec to redirect to other route
     TIMEOUT_RESPONSE = 12000;
 
     constructor(spec) {

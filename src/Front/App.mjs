@@ -34,8 +34,8 @@ export default class Svelters_Front_App {
         const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
         /** @type {TeqFw_I18n_Front_Mod_I18n} */
         const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
-        /** @type {Svelters_Front_Mod_User_Session} */
-        const modSess = spec['Svelters_Front_Mod_User_Session$'];
+        /** @type {Fl32_Auth_Front_Mod_Session} */
+        const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
         /** @type {Svelters_Front_Ui_Layout_Navigator.vueCompTmpl} */
         const Navigator = spec['Svelters_Front_Ui_Layout_Navigator$'];
 

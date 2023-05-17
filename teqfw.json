@@ -3,6 +3,9 @@
     "autoload": {
       "ns": "Svelters",
       "path": "./src"
+    },
+    "replace": {
+      "Fl32_Auth_Back_Api_Mole": {"back": "Svelters_Back_Mole_Auth"}
     }
   },
   "@teqfw/core": {
@@ -18,11 +21,7 @@
   "@teqfw/web-api": {
     "services": [
       "Svelters_Back_Web_Api_Data_Unique",
-      "Svelters_Back_Web_Api_User_Session_Close",
-      "Svelters_Back_Web_Api_User_Session_Init",
-      "Svelters_Back_Web_Api_User_Sign_In_GetSalt",
-      "Svelters_Back_Web_Api_User_Sign_In_Validate",
-      "Svelters_Back_Web_Api_User_Sign_Up_Register"
+      "Svelters_Back_Web_Api_User_Sign_Up"
     ]
   }
 }

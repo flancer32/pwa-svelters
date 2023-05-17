@@ -22,8 +22,8 @@ export default function (spec) {
     const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
     /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
-    /** @type {Svelters_Front_Mod_User_Session} */
-    const modSess = spec['Svelters_Front_Mod_User_Session$'];
+    /** @type {Fl32_Auth_Front_Mod_Session} */
+    const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -33,6 +33,7 @@ export default function (spec) {
     <q-card>
         <ui-spinner :loading="ifLoading"/>
         <q-card-section>
+            <div class="text-center">{{$t('route.user.sign.out.title')}}</div>
             <div class="text-center">{{message}}</div>
         </q-card-section>
     </q-card>
@@ -57,8 +58,6 @@ export default function (spec) {
                 message: null,
             };
         },
-        computed: {},
-        methods: {},
         async mounted() {
             this.ifLoading = true;
             this.message = this.$t('route.user.sign.out.start');
@@ -66,8 +65,10 @@ export default function (spec) {
             if (res.success) {
                 this.message = this.$t('route.user.sign.out.finish');
                 setTimeout(() => {
-                    this.$router.push(DEF.ROUTE_USER_SIGN_UP);
-                }, 3000);
+                    this.$router.push(DEF.ROUTE_USER_SIGN_IN);
+                }, DEF.TIMEOUT_REDIRECT);
+            } else {
+                this.message = this.$t('route.user.sign.out.error');
             }
             this.ifLoading = false;
         },

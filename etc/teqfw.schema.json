@@ -25,12 +25,10 @@
               "comment": "Every user has one email to restore access to own account.",
               "type": "string"
             },
-            "age": {
-              "comment": "Full ages for the update moment.",
-              "type": "number",
-              "options": {
-                "unsigned": true
-              }
+            "date_birth": {
+              "comment": "UTC date of birth.",
+              "type": "datetime",
+              "nullable": true
             },
             "height": {
               "comment": "Height in cm.",

@@ -1,19 +1,20 @@
 /**
- * Register new user on backend and  continue with authentication model:
- *  - save password hash
- *  - get WebAuthn attestation challenge
+ * Register new user on backend.
  */
 // MODULE'S VARS
-const NS = 'Svelters_Shared_Web_Api_User_Sign_Up_Register';
+const NS = 'Svelters_Shared_Web_Api_User_Sign_Up';
 
 // MODULE'S CLASSES
 /**
- * @memberOf Svelters_Shared_Web_Api_User_Sign_Up_Register
+ * @memberOf Svelters_Shared_Web_Api_User_Sign_Up
  */
 class Request {
     static namespace = NS;
-    /** @type {number} */
-    age;
+    /**
+     * UTC date of birth.
+     * @type {Date}
+     */
+    dateBirth;
     /** @type {string} */
     email;
     /** @type {number} */
@@ -34,11 +35,11 @@ class Request {
      * 'true' if the front end supports the WebAuthn API, and we should attest the user.
      * @type {boolean}
      */
-    useWebAuthn;
+    usePubKey;
 }
 
 /**
- * @memberOf Svelters_Shared_Web_Api_User_Sign_Up_Register
+ * @memberOf Svelters_Shared_Web_Api_User_Sign_Up
  */
 class Response {
     static namespace = NS;
@@ -47,53 +48,60 @@ class Response {
      * @type {string}
      */
     challenge;
-    /** @type {string} */
-    uuid;
+    /**
+     * App-specific data for the newly established session.
+     * @type {Svelters_Shared_Dto_User.Dto}
+     */
+    sessionData;
 }
 
 /**
  * @implements TeqFw_Web_Api_Shared_Api_Endpoint
  */
-export default class Svelters_Shared_Web_Api_User_Sign_Up_Register {
+export default class Svelters_Shared_Web_Api_User_Sign_Up {
     constructor(spec) {
         // DEPS
         /** @type {TeqFw_Core_Shared_Util_Cast.castBoolean|function} */
         const castBoolean = spec['TeqFw_Core_Shared_Util_Cast.castBoolean'];
+        /** @type {TeqFw_Core_Shared_Util_Cast.castDate|function} */
+        const castDate = spec['TeqFw_Core_Shared_Util_Cast.castDate'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castInt|function} */
         const castInt = spec['TeqFw_Core_Shared_Util_Cast.castInt'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
         const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
+        /** @type {Svelters_Shared_Dto_User} */
+        const dtoUser = spec['Svelters_Shared_Dto_User$'];
 
         // INSTANCE METHODS
 
         /**
-         * @param {Svelters_Shared_Web_Api_User_Sign_Up_Register.Request} [data]
-         * @return {Svelters_Shared_Web_Api_User_Sign_Up_Register.Request}
+         * @param {Svelters_Shared_Web_Api_User_Sign_Up.Request} [data]
+         * @return {Svelters_Shared_Web_Api_User_Sign_Up.Request}
          */
         this.createReq = function (data) {
             // create new DTO
             const res = new Request();
             // cast known attributes
-            res.age = castInt(data?.age);
+            res.dateBirth = castDate(data?.dateBirth);
             res.email = castString(data?.email);
             res.height = castInt(data?.height);
             res.name = castString(data?.name);
             res.passwordHash = castString(data?.passwordHash);
             res.passwordSalt = castString(data?.passwordSalt);
-            res.useWebAuthn = castBoolean(data?.useWebAuthn);
+            res.usePubKey = castBoolean(data?.usePubKey);
             return res;
         };
 
         /**
-         * @param {Svelters_Shared_Web_Api_User_Sign_Up_Register.Response} [data]
-         * @returns {Svelters_Shared_Web_Api_User_Sign_Up_Register.Response}
+         * @param {Svelters_Shared_Web_Api_User_Sign_Up.Response} [data]
+         * @returns {Svelters_Shared_Web_Api_User_Sign_Up.Response}
          */
         this.createRes = function (data) {
             // create new DTO
             const res = new Response();
             // cast known attributes
             res.challenge = castString(data?.challenge);
-            res.uuid = castString(data?.uuid);
+            res.sessionData = dtoUser.createDto(data?.sessionData);
             return res;
         };
     }

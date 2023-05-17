@@ -21,20 +21,16 @@ export default function (spec) {
     const DEF = spec['Svelters_Front_Defaults$'];
     /** @type {TeqFw_Core_Shared_Api_Logger} */
     const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
+    /** @type {TeqFw_Core_Shared_Util_Date.parseAsUtc|function} */
+    const parseAsUtc = spec['TeqFw_Core_Shared_Util_Date.parseAsUtc'];
     /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
     const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
-    /** @type {Svelters_Front_Mod_User_Sign_Up} */
-    const modSignUp = spec['Svelters_Front_Mod_User_Sign_Up$'];
-    /** @type {Fl32_Auth_Front_Mod_Store_Attestation.Store} */
-    const modStore = spec['Fl32_Auth_Front_Mod_Store_Attestation.Store$'];
+    /** @type {Svelters_Front_Mod_User} */
+    const modUser = spec['Svelters_Front_Mod_User$'];
     /** @type {Svelters_Front_Mod_Data_Unique} */
     const modUnique = spec['Svelters_Front_Mod_Data_Unique$'];
     /** @type {Fl32_Auth_Front_Mod_PubKey} */
-    const modAuthn = spec['Fl32_Auth_Front_Mod_PubKey$'];
-    /** @type {typeof Fl32_Auth_Front_Mod_Store_Attestation.Dto} */
-    const DtoAtt = spec['Fl32_Auth_Front_Mod_Store_Attestation.Dto'];
-    /** @type {Fl32_Auth_Front_Mod_PubKey} */
-    const modWebAuthn = spec['Fl32_Auth_Front_Mod_PubKey$'];
+    const modPubKey = spec['Fl32_Auth_Front_Mod_PubKey$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -44,7 +40,8 @@ export default function (spec) {
     <q-card>
         <ui-spinner :loading="ifLoading"/>
         <q-card-section>
-            <q-form class="column">
+            <div class="text-center">{{$t('route.user.sign.up.title')}}</div>
+            <q-form class="column q-gutter-sm">
                 <q-input v-model="fldName"
                          :label="$t('route.user.sign.up.fld.name')"
                          autocomplete="name"
@@ -58,18 +55,36 @@ export default function (spec) {
                          type="email"
                          v-on:change="onChangeEmail"
                 />
-                <q-input v-model="fldAge"
-                         :label="$t('route.user.sign.up.fld.age')"
-                         outlined
-                         type="number"
-                />
+                
                 <q-input v-model="fldHeight"
                          :label="$t('route.user.sign.up.fld.height')"
                          outlined
                          type="number"
                 />
+                
+                <q-input  v-model="fldDob"
+                           :label="$t('route.user.sign.up.fld.dob')"
+                          :rules="['date']"
+                          mask="date" 
+                          outlined
+                >
+                    <template v-slot:append>
+                        <q-icon name="event" class="cursor-pointer">
+                            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                <q-date v-model="fldDob">
+                                    <div class="row items-center justify-end">
+                                        <q-btn v-close-popup :label="$t('btn.close')" color="${DEF.COLOR_Q_PRIMARY}"
+                                               flat/>
+                                    </div>
+                                </q-date>
+                            </q-popup-proxy>
+                        </q-icon>
+                    </template>
+                </q-input>
+                                
                 <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable"
                           :label="$t('route.user.sign.up.fld.toggleAuth')"/>
+                          
                 <q-input v-model="fldPassword"
                          :label="$t('route.user.sign.up.fld.password')"
                          :type="typePass"
@@ -84,6 +99,7 @@ export default function (spec) {
                         />
                     </template>
                 </q-input>
+                
             </q-form>
         </q-card-section>
         <q-card-actions align="center">
@@ -114,11 +130,11 @@ export default function (spec) {
         data() {
             return {
                 deferredEmail: null,
-                fldAge: 50,
-                fldEmail: null,
+                fldDob: '1973/01/01',
+                fldEmail: 'user@email.com',
                 fldHeight: 180,
-                fldName: null,
-                fldPassword: null,
+                fldName: 'The User',
+                fldPassword: 'password',
                 fldUsePubKey: false,
                 ifLoading: false,
                 ifPassHidden: true,
@@ -156,47 +172,57 @@ export default function (spec) {
                 }, TIMEOUT);
             },
             async onOk() {
+                // FUNCS
+                const redirect = () => {
+                    const query = this.$route?.query;
+                    const to = query[DEF.AUTH_REDIRECT] ?? DEF.ROUTE_HOME;
+                    this.$router.push(to);
+                };
+
+                // MAIN
                 this.ifLoading = true;
-                const res = await modSignUp.register(
-                    this.fldAge, this.fldEmail, this.fldHeight, this.fldName, this.fldPassword
-                );
+                const res = await modUser.signUp({
+                    dob: parseAsUtc(this.fldDob),
+                    email: this.fldEmail,
+                    height: this.fldHeight,
+                    name: this.fldName,
+                    password: (!this.ifPubKeyAvailable || !this.fldUsePubKey) ? this.fldPassword : null
+                });
                 this.ifLoading = false;
-                if (res?.uuid) {
+                if (res?.sessionData?.uuid) {
+                    // regular password sign up is done, redirect to home
                     this.message = this.$t('route.user.sign.up.msg.registrationSucceed');
-                    if (this.fldUsePubKey)
-                        if (res?.challenge) {
-                            // attest current device and register publicKey on the back
-                            const publicKey = modWebAuthn.composeOptPkCreate({
-                                challenge: res.challenge,
-                                rpName: 'Svelters PWA',
-                                userName: `${this.fldEmail}`,
-                                userUuid: res.uuid,
-                            });
-                            // noinspection JSValidateTypes
-                            /** @type {PublicKeyCredential} */
-                            const attestation = await navigator.credentials.create({publicKey});
-                            this.ifLoading = true;
-                            /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
-                            const resAttest = await modAuthn.attest(attestation);
-                            this.ifLoading = false;
-                            if (resAttest?.attestationId) {
-                                const dto = new DtoAtt();
-                                dto.attestationId = resAttest.attestationId;
-                                modStore.write(dto);
-                                this.message = this.$t('route.user.sign.up.msg.attestSucceed');
-                            } else {
-                                // TODO: error handling
-                            }
-                        } else {
-                            this.message = this.$t('route.user.sign.up.msg.challengeFailed');
-                        }
+                    setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
+                } else if (res?.challenge) {
+                    // continue public key sign up
+                    this.message = this.$t('route.user.sign.up.msg.registrationSucceed');
+                    // attest current device and register publicKey on the back
+                    const publicKey = modPubKey.composeOptPkCreate({
+                        challenge: res.challenge,
+                        rpName: DEF.RP_NAME,
+                        userName: `${this.fldEmail}`,
+                        userUuid: res.uuid,
+                    });
+                    // noinspection JSValidateTypes
+                    /** @type {PublicKeyCredential} */
+                    const attestation = await navigator.credentials.create({publicKey});
+                    this.ifLoading = true;
+                    /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
+                    const resAttest = await modPubKey.attest({attestation});
+                    this.ifLoading = false;
+                    if (resAttest?.attestationId) {
+                        this.message = this.$t('route.user.sign.up.msg.attestSucceed');
+                        setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
+                    } else {
+                        this.message = this.$t('route.user.sign.up.msg.attestError');
+                    }
                 } else {
                     this.message = this.$t('route.user.sign.up.msg.registrationFailed');
                 }
             }
         },
         mounted() {
-            modWebAuthn.isPublicKeyAvailable()
+            modPubKey.isPublicKeyAvailable()
                 .then((available) => {
                     this.ifPubKeyAvailable = available;
                     this.fldUsePubKey = available;

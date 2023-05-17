@@ -16,14 +16,16 @@ const NS = 'Svelters_Front_Ui_Layout_Navigator';
 export default function (spec) {
     /** @type {Svelters_Front_Defaults} */
     const DEF = spec['Svelters_Front_Defaults$'];
+    /** @type {Fl32_Auth_Front_Mod_Session} */
+    const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
 
     // VARS
     const template = `
-<div class="row q-gutter-md">
+<div class="row justify-around q-gutter-md">
     <router-link to="${DEF.ROUTE_HOME}">{{$t('layout.navigator.home')}}</router-link>
-    <router-link to="${DEF.ROUTE_USER_SIGN_UP}">{{$t('layout.navigator.signUp')}}</router-link>
-    <router-link to="${DEF.ROUTE_USER_SIGN_IN}">{{$t('layout.navigator.signIn')}}</router-link>
-    <router-link to="${DEF.ROUTE_USER_SIGN_OUT}">{{$t('layout.navigator.signOut')}}</router-link>
+    <router-link to="${DEF.ROUTE_USER_SIGN_UP}" v-if="!ifAuth">{{$t('layout.navigator.signUp')}}</router-link>
+    <router-link to="${DEF.ROUTE_USER_SIGN_IN}" v-if="!ifAuth">{{$t('layout.navigator.signIn')}}</router-link>
+    <router-link to="${DEF.ROUTE_USER_SIGN_OUT}" v-if="ifAuth">{{$t('layout.navigator.signOut')}}</router-link>
 </div>
 `;
 
@@ -38,5 +40,13 @@ export default function (spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
+        data() {
+            return {
+                ifAuth: false,
+            };
+        },
+        mounted() {
+            this.ifAuth = modSess.isValid();
+        },
     };
 }

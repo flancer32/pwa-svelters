@@ -5,7 +5,7 @@
 ### Регистрация пользователя
 
 Пользователь заполняет на фронте регистрационную форму и отправляет данные на
-бэк (модель `Svelters_Front_Mod_User_Sign_Up.register`, сервис `Svelters_Shared_Web_Api_User_Sign_Up_Register`). Если
+бэк (модель `Svelters_Front_Mod_User.register`, сервис `Svelters_Shared_Web_Api_User_Sign_Up`). Если
 браузер пользователя поддерживает WebAuthn API, то это указывается в запросе (`useWebAuthn`). При регистрации
 пользователю назначается UUID, уникальный в пределах приложения.
 

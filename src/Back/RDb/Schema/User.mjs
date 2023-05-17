@@ -15,8 +15,8 @@ const ENTITY = '/app/user';
  * @type {Object}
  */
 const ATTR = {
-    AGE: 'age',
     BID: 'bid',
+    DATE_BIRTH: 'date_birth',
     DATE_CREATED: 'date_created',
     DATE_UPDATED: 'date_updated',
     EMAIL: 'email',
@@ -32,13 +32,16 @@ Object.freeze(ATTR);
  */
 class Dto {
     static namespace = NS;
-    /** @type {number} */
-    age;
     /**
      * Backend ID for user itself.
      * @type {number}
      */
     bid;
+    /**
+     * UTC date of birth.
+     *  @type {Date}
+     */
+    date_birth;
     /**
      * UTC date-time for user registration.
      * @type {Date}
@@ -80,8 +83,8 @@ export default class Svelters_Back_RDb_Schema_User {
          */
         this.createDto = function (data) {
             const res = new Dto();
-            res.age = castInt(data?.age);
             res.bid = castInt(data?.bid);
+            res.date_birth = castDate(data?.date_birth);
             res.date_created = castDate(data?.date_created);
             res.date_updated = castDate(data?.date_updated);
             res.email = castString(data?.email);
