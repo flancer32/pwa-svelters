@@ -18,6 +18,8 @@ export default function (spec) {
     const DEF = spec['Svelters_Front_Defaults$'];
     /** @type {TeqFw_Core_Shared_Api_Logger} */
     const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
+    /** @type {Fl32_Auth_Front_Mod_Session} */
+    const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
 
     // VARS
     logger.setNamespace(NS);
@@ -26,6 +28,7 @@ export default function (spec) {
     <div class="column q-gutter-xs">
         <navigator/>
         <div class="text-center">Svelter's Homepage</div>
+        <div class="text-center" v-if="user">Welcome, {{user?.name}}</div>
     </div>
 </div>
 `;
@@ -43,8 +46,13 @@ export default function (spec) {
         template,
         components: {},
         data() {
-            return {};
+            return {
+                user: null,
+            };
         },
         methods: {},
+        async mounted() {
+            this.user = await modSess.getData();
+        },
     };
 }
