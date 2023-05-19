@@ -24,9 +24,9 @@ export default function (spec) {
     // VARS
     logger.setNamespace(NS);
     const template = `
-<layout-mobile>
+<layout-main>
     My Own Data
-</layout-mobile>
+</layout-main>
 `;
 
     // MAIN

@@ -36,10 +36,8 @@ export default class Svelters_Front_App {
         const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
         /** @type {Fl32_Auth_Front_Mod_Session} */
         const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
-        /** @type {Svelters_Front_Ui_Layout_Navigator.vueCompTmpl} */
-        const Navigator = spec['Svelters_Front_Ui_Layout_Navigator$'];
-        /** @type {Svelters_Front_Ui_Layout_Mobile.vueCompTmpl} */
-        const LayoutMobile = spec['Svelters_Front_Ui_Layout_Mobile$'];
+        /** @type {Svelters_Front_Ui_Layout_Main.vueCompTmpl} */
+        const LayoutMain = spec['Svelters_Front_Ui_Layout_Main$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
@@ -172,8 +170,7 @@ export default class Svelters_Front_App {
                 }
             });
             // ... and add global available components
-            _root.component('LayoutMobile', LayoutMobile);
-            _root.component('Navigator', Navigator);
+            _root.component('LayoutMain', LayoutMain);
 
             // other initialization
             await modCfg.init({}); // this app has no separate 'doors' (entry points)

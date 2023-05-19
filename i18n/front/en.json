@@ -12,6 +12,12 @@
       "signUp": "Sign Up"
     }
   },
+  "navig": {
+    "cfg": "Conig",
+    "friend": "Friends",
+    "group": "Groups",
+    "my": "My Data"
+  },
   "route": {
     "user": {
       "sign": {

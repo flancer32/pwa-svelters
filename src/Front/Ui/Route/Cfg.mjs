@@ -24,7 +24,7 @@ export default function (spec) {
     // VARS
     logger.setNamespace(NS);
     const template = `
-<layout-mobile>
+<layout-main>
     <div>My Configuration</div>
     <div>My Configuration</div>
     <div>My Configuration</div>
@@ -64,7 +64,7 @@ export default function (spec) {
     <div>My Configuration</div>
     <div>My Configuration</div>
     <div>My Configuration</div>
-</layout-mobile>
+</layout-main>
 `;
 
     // MAIN

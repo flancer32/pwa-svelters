@@ -24,13 +24,13 @@ export default function (spec) {
     // VARS
     logger.setNamespace(NS);
     const template = `
-<layout-mobile>
+<layout-main>
     <div class="column q-gutter-xs">
         <navigator/>
         <div class="text-center">Svelter's Homepage</div>
         <div class="text-center" v-if="user">Welcome, {{user?.name}}</div>
     </div>
-</layout-mobile>
+</layout-main>
 `;
 
     // MAIN
