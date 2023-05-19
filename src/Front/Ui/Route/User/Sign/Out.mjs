@@ -65,7 +65,7 @@ export default function (spec) {
             if (res.success) {
                 this.message = this.$t('route.user.sign.out.finish');
                 setTimeout(() => {
-                    this.$router.push(DEF.ROUTE_USER_SIGN_IN);
+                    this.$router.push(DEF.ROUTE_AUTH_SIGN_IN);
                 }, DEF.TIMEOUT_REDIRECT);
             } else {
                 this.message = this.$t('route.user.sign.out.error');

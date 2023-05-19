@@ -38,6 +38,8 @@ export default class Svelters_Front_App {
         const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
         /** @type {Svelters_Front_Ui_Layout_Navigator.vueCompTmpl} */
         const Navigator = spec['Svelters_Front_Ui_Layout_Navigator$'];
+        /** @type {Svelters_Front_Ui_Layout_Mobile.vueCompTmpl} */
+        const LayoutMobile = spec['Svelters_Front_Ui_Layout_Mobile$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
@@ -97,24 +99,40 @@ export default class Svelters_Front_App {
                 });
                 // setup application routes (load es6-module on demand with DI-container)
                 router.addRoute({
+                    path: DEF.ROUTE_AUTH_SIGN_IN,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_In$'),
+                    meta: {anonymous: true},
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_AUTH_SIGN_OUT,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Out$'),
+                    meta: {anonymous: true},
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_AUTH_SIGN_UP,
+                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
+                    meta: {anonymous: true},
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_CFG,
+                    component: () => container.get('Svelters_Front_Ui_Route_Cfg$'),
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_FRIEND,
+                    component: () => container.get('Svelters_Front_Ui_Route_Friend$'),
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_GROUP,
+                    component: () => container.get('Svelters_Front_Ui_Route_Group$'),
+                });
+                router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Svelters_Front_Ui_Route_Home$'),
                     meta: {anonymous: false},
                 });
                 router.addRoute({
-                    path: DEF.ROUTE_USER_SIGN_IN,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_In$'),
-                    meta: {anonymous: true},
-                });
-                router.addRoute({
-                    path: DEF.ROUTE_USER_SIGN_OUT,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Out$'),
-                    meta: {anonymous: true},
-                });
-                router.addRoute({
-                    path: DEF.ROUTE_USER_SIGN_UP,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
-                    meta: {anonymous: true},
+                    path: DEF.ROUTE_MY,
+                    component: () => container.get('Svelters_Front_Ui_Route_My$'),
                 });
                 // validate authentication for none anonymous routes
                 router.beforeEach((to) => {
@@ -123,7 +141,7 @@ export default class Svelters_Front_App {
                     if (!to.meta.anonymous && !modSess.isValid()) {
                         // this route requires auth
                         return {
-                            path: DEF.ROUTE_USER_SIGN_IN,
+                            path: DEF.ROUTE_AUTH_SIGN_IN,
                             // save the location we were at to come back later
                             query: {[DEF.AUTH_REDIRECT]: to.fullPath},
                         };
@@ -154,7 +172,9 @@ export default class Svelters_Front_App {
                 }
             });
             // ... and add global available components
+            _root.component('LayoutMobile', LayoutMobile);
             _root.component('Navigator', Navigator);
+
             // other initialization
             await modCfg.init({}); // this app has no separate 'doors' (entry points)
             _print(`Application config is loaded.`);
@@ -184,8 +204,9 @@ export default class Svelters_Front_App {
         this.mount = function (elRoot) {
             if (_isInitialized) {
                 _root.mount(elRoot);
-                const elLauncher = document.getElementById('launcher');
-                elLauncher.remove();
+            } else {
+                // TODO: inform user
+                // const elOut = document.querySelector(elRoot);
             }
         };
 

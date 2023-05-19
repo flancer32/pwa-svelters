@@ -8,18 +8,12 @@
     <title>Svelters</title>
     <link rel="manifest" href="./pwa.json">
     <style>
-        #app {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            left: 0;
-            position: relative;
-            top: 0;
-            width: 100%;
+        HTML, BODY {
+            box-sizing: border-box;
+            margin: 0;
         }
 
-        #launcher {
+        #app {
             align-items: center;
             display: flex;
             flex-direction: column;
@@ -28,7 +22,7 @@
             left: 0;
             position: relative;
             top: 0;
-            width: 100vw;
+            width: 100%;
         }
     </style>
     <script type="module">
@@ -72,10 +66,9 @@
     </script>
 </head>
 <body>
-<!-- application mounting point -->
-<div id="app"></div>
-<!-- contains blocks to output logs and to trace installation progress (is removed after startup) -->
-<div id="launcher">
+<!-- The application mounting point contains blocks for outputting logs and tracing installation progress. -->
+<!-- The content of the DIV will be replaced after the Vue app is mounted to the DIV. -->
+<div id="app">
     <div id="printLog"></div>
     <div>
         <img src="./img/loading.png" alt="loading..."/>

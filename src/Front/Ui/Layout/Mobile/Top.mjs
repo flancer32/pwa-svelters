@@ -1,17 +1,17 @@
 /**
- * Navigation component.
+ * Top bar component for mobile layout.
  *
- * @namespace Svelters_Front_Ui_Layout_Navigator
+ * @namespace Svelters_Front_Ui_Layout_Mobile_Top
  */
 // MODULE'S VARS
-const NS = 'Svelters_Front_Ui_Layout_Navigator';
+const NS = 'Svelters_Front_Ui_Layout_Mobile_Top';
 
 // MODULE'S FUNCTIONS
 
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Svelters_Front_Ui_Layout_Navigator.vueCompTmpl}
+ * @returns {Svelters_Front_Ui_Layout_Mobile_Top.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Svelters_Front_Defaults} */
@@ -21,12 +21,11 @@ export default function (spec) {
 
     // VARS
     const template = `
-<div class="row justify-around q-gutter-md">
-    <router-link to="${DEF.ROUTE_HOME}">{{$t('layout.navigator.home')}}</router-link>
-    <router-link to="${DEF.ROUTE_AUTH_SIGN_UP}" v-if="!ifAuth">{{$t('layout.navigator.signUp')}}</router-link>
-    <router-link to="${DEF.ROUTE_AUTH_SIGN_IN}" v-if="!ifAuth">{{$t('layout.navigator.signIn')}}</router-link>
-    <router-link to="${DEF.ROUTE_AUTH_SIGN_OUT}" v-if="ifAuth">{{$t('layout.navigator.signOut')}}</router-link>
-</div>
+<q-bar style="background-color: var(--color-base);">
+    <q-btn dense flat round icon="lens" size="8.5px" :color="color"/>
+    <div class="overflow-hidden" style="height: 20px">Svelters 2</div>
+    <q-space></q-space>
+</q-bar>
 `;
 
     // MAIN
@@ -34,7 +33,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Svelters_Front_Ui_Layout_Navigator
+     * @memberOf Svelters_Front_Ui_Layout_Mobile_Top
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -45,6 +44,12 @@ export default function (spec) {
                 ifAuth: false,
             };
         },
+        computed: {
+            color() {
+                return (false) ? 'green' : 'grey';
+            }
+        },
+        methods: {},
         mounted() {
             this.ifAuth = modSess.isValid();
         },

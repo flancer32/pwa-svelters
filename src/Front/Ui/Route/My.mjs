@@ -1,17 +1,17 @@
 /**
- * Screen for application's homepage.
+ * Base screen for user data routes.
  *
- * @namespace Svelters_Front_Ui_Route_Home
+ * @namespace Svelters_Front_Ui_Route_My
  */
 // MODULE'S VARS
-const NS = 'Svelters_Front_Ui_Route_Home';
+const NS = 'Svelters_Front_Ui_Route_My';
 
 // MODULE'S FUNCTIONS
 
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Svelters_Front_Ui_Route_Home.vueCompTmpl}
+ * @returns {Svelters_Front_Ui_Route_My.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Svelters_Front_Defaults} */
@@ -25,11 +25,7 @@ export default function (spec) {
     logger.setNamespace(NS);
     const template = `
 <layout-mobile>
-    <div class="column q-gutter-xs">
-        <navigator/>
-        <div class="text-center">Svelter's Homepage</div>
-        <div class="text-center" v-if="user">Welcome, {{user?.name}}</div>
-    </div>
+    My Own Data
 </layout-mobile>
 `;
 
@@ -38,7 +34,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Svelters_Front_Ui_Route_Home
+     * @memberOf Svelters_Front_Ui_Route_My
      */
     return {
         teq: {package: DEF.SHARED.NAME},

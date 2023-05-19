@@ -17,7 +17,7 @@ export default class Svelters_Back_Mole_Auth {
          *
          * @param {TeqFw_Db_Back_RDb_ITrans} [trx]
          * @param {number} userBid
-         * @returns {Promise<{sessionData: Object}>}
+         * @returns {Promise<{sessionData: Svelters_Shared_Dto_User.Dto}>}
          */
         this.sessionDataRead = async function ({trx, userBid}) {
             const {

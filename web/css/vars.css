@@ -1,0 +1,13 @@
+:root {
+    --color-base: #FB9902;
+    --color-darker: #975B02;
+    --color-darkest: #342309;
+    --color-lighter: #FDC168;
+    --color-lightest: #FFF1DC;
+    --padding-grid: 10px;
+    --size-lg: 10px;
+    --size-md: 7px;
+    --size-sm: 5px;
+    --size-xl: 15px;
+    --size-xs: 2px;
+}

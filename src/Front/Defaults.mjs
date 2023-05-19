@@ -6,10 +6,14 @@ export default class Svelters_Front_Defaults {
 
     COLOR_Q_PRIMARY = 'primary';
 
+    ROUTE_AUTH_SIGN_IN = '/auth/sign/in';
+    ROUTE_AUTH_SIGN_OUT = '/auth/sign/out';
+    ROUTE_AUTH_SIGN_UP = '/auth/sign/up';
+    ROUTE_CFG = '/cfg';
+    ROUTE_FRIEND = '/friend';
+    ROUTE_GROUP = '/group';
     ROUTE_HOME = '/';
-    ROUTE_USER_SIGN_IN = '/user/sign/in';
-    ROUTE_USER_SIGN_OUT = '/user/sign/out';
-    ROUTE_USER_SIGN_UP = '/user/sign/up';
+    ROUTE_MY = '/my';
 
     RP_NAME = 'Svelters 2';
 
