@@ -6,9 +6,10 @@ export default class Svelters_Front_Defaults {
 
     COLOR_Q_PRIMARY = 'primary';
 
-    ROUTE_AUTH_SIGN_IN = '/auth/sign/in';
-    ROUTE_AUTH_SIGN_OUT = '/auth/sign/out';
-    ROUTE_AUTH_SIGN_UP = '/auth/sign/up';
+    ROUTE_AUTH_IN = '/auth/in';
+    ROUTE_AUTH_OUT = '/auth/out';
+    ROUTE_AUTH_RESET = '/auth/password/reset';
+    ROUTE_AUTH_UP = '/auth/up';
     ROUTE_CFG = '/cfg';
     ROUTE_FRIEND = '/friend';
     ROUTE_GROUP = '/group';

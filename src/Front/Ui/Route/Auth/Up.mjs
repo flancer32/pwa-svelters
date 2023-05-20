@@ -4,17 +4,17 @@
  * - User should give own data for registration (name, email, ...) and send it to the back.
  * - Back validates data, registers new user and returns user UUID.
  *
- * @namespace Svelters_Front_Ui_Route_User_Sign_Up
+ * @namespace Svelters_Front_Ui_Route_Auth_Up
  */
 // MODULE'S VARS
-const NS = 'Svelters_Front_Ui_Route_User_Sign_Up';
+const NS = 'Svelters_Front_Ui_Route_Auth_Up';
 
 // MODULE'S FUNCTIONS
 
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Svelters_Front_Ui_Route_User_Sign_Up.vueCompTmpl}
+ * @returns {Svelters_Front_Ui_Route_Auth_Up.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Svelters_Front_Defaults} */
@@ -39,17 +39,26 @@ export default function (spec) {
     <navigator/>
     <q-card>
         <ui-spinner :loading="ifLoading"/>
+        
         <q-card-section>
-            <div class="text-center">{{$t('route.user.sign.up.title')}}</div>
+            <div>
+                <q-icon name="meeting_room" color="${DEF.COLOR_Q_PRIMARY}" size="md"/>
+                <span class="text-subtitle1 q-pa-md">{{$t('route.auth.up.title')}}</span>
+            </div>
+        </q-card-section>
+                
+        <q-separator/>
+                
+        <q-card-section>
             <q-form class="column q-gutter-sm">
                 <q-input v-model="fldName"
-                         :label="$t('route.user.sign.up.fld.name')"
+                         :label="$t('route.auth.up.fld.name')"
                          autocomplete="name"
                          outlined
                          type="text"
                 />
                 <q-input v-model="fldEmail"
-                         :label="$t('route.user.sign.up.fld.email')"
+                         :label="$t('route.auth.up.fld.email')"
                          autocomplete="email"
                          outlined
                          type="email"
@@ -57,13 +66,13 @@ export default function (spec) {
                 />
                 
                 <q-input v-model="fldHeight"
-                         :label="$t('route.user.sign.up.fld.height')"
+                         :label="$t('route.auth.up.fld.height')"
                          outlined
                          type="number"
                 />
                 
                 <q-input  v-model="fldDob"
-                           :label="$t('route.user.sign.up.fld.dob')"
+                           :label="$t('route.auth.up.fld.dob')"
                           :rules="['date']"
                           mask="date" 
                           outlined
@@ -83,10 +92,10 @@ export default function (spec) {
                 </q-input>
                                 
                 <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable"
-                          :label="$t('route.user.sign.up.fld.toggleAuth')"/>
+                          :label="$t('route.auth.up.fld.toggleAuth')"/>
                           
                 <q-input v-model="fldPassword"
-                         :label="$t('route.user.sign.up.fld.password')"
+                         :label="$t('route.auth.up.fld.password')"
                          :type="typePass"
                          autocomplete="new-password"
                          outlined
@@ -102,15 +111,37 @@ export default function (spec) {
                 
             </q-form>
         </q-card-section>
+        
+        <q-separator/>
+        
         <q-card-actions align="center">
             <q-btn :label="$t('btn.ok')"
                    color="${DEF.COLOR_Q_PRIMARY}"
                    v-on:click="onOk"
             />
         </q-card-actions>
-        <q-card-section>
+
+        <q-separator v-if="message"/>
+        
+        <q-card-section v-if="message">
             <div>{{message}}</div>
         </q-card-section>
+
+        <q-separator/>
+        
+        <q-card-section class="row justify-around">
+            <q-btn to="${DEF.ROUTE_AUTH_IN}"
+                   :label="$t('route.auth.up.signIn')"
+                   color="${DEF.COLOR_Q_PRIMARY}"
+                   flat 
+            />
+            <q-btn to="${DEF.ROUTE_AUTH_RESET}"
+                   :label="$t('route.auth.up.resetPassword')"
+                   color="${DEF.COLOR_Q_PRIMARY}"
+                   flat 
+            />
+        </q-card-section> 
+                
     </q-card>
 </div>
 `;
@@ -120,7 +151,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Svelters_Front_Ui_Route_User_Sign_Up
+     * @memberOf Svelters_Front_Ui_Route_Auth_Up
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -130,11 +161,11 @@ export default function (spec) {
         data() {
             return {
                 deferredEmail: null,
-                fldDob: '1973/01/01',
-                fldEmail: 'user@email.com',
-                fldHeight: 180,
-                fldName: 'The User',
-                fldPassword: 'password',
+                fldDob: '2000/01/01',
+                fldEmail: null,
+                fldHeight: 150,
+                fldName: null,
+                fldPassword: null,
                 fldUsePubKey: false,
                 ifLoading: false,
                 ifPassHidden: true,
@@ -164,9 +195,9 @@ export default function (spec) {
                             .then((isUnique) => {
                                 me.ifLoading = false;
                                 if (!isUnique)
-                                    me.message = me.$t('route.user.sign.up.msg.emailNotUnique');
+                                    me.message = me.$t('route.auth.up.msg.emailNotUnique');
                                 else
-                                    me.message = me.$t('route.user.sign.up.msg.emailUnique');
+                                    me.message = me.$t('route.auth.up.msg.emailUnique');
                             });
                     }
                 }, TIMEOUT);
@@ -191,11 +222,11 @@ export default function (spec) {
                 this.ifLoading = false;
                 if (res?.sessionData?.uuid) {
                     // regular password sign up is done, redirect to home
-                    this.message = this.$t('route.user.sign.up.msg.registrationSucceed');
+                    this.message = this.$t('route.auth.up.msg.registrationSucceed');
                     setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
                 } else if (res?.challenge) {
                     // continue public key sign up
-                    this.message = this.$t('route.user.sign.up.msg.registrationSucceed');
+                    this.message = this.$t('route.auth.up.msg.registrationSucceed');
                     // attest current device and register publicKey on the back
                     const publicKey = modPubKey.composeOptPkCreate({
                         challenge: res.challenge,
@@ -211,13 +242,13 @@ export default function (spec) {
                     const resAttest = await modPubKey.attest({attestation});
                     this.ifLoading = false;
                     if (resAttest?.attestationId) {
-                        this.message = this.$t('route.user.sign.up.msg.attestSucceed');
+                        this.message = this.$t('route.auth.up.msg.attestSucceed');
                         setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
                     } else {
-                        this.message = this.$t('route.user.sign.up.msg.attestError');
+                        this.message = this.$t('route.auth.up.msg.attestError');
                     }
                 } else {
-                    this.message = this.$t('route.user.sign.up.msg.registrationFailed');
+                    this.message = this.$t('route.auth.up.msg.registrationFailed');
                 }
             }
         },

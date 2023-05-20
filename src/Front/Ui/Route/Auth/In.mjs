@@ -1,17 +1,17 @@
 /**
- * User authentication with WebAuthn API.
+ * Sign in.
  *
- * @namespace Svelters_Front_Ui_Route_User_Sign_In
+ * @namespace Svelters_Front_Ui_Route_Auth_In
  */
 // MODULE'S VARS
-const NS = 'Svelters_Front_Ui_Route_User_Sign_In';
+const NS = 'Svelters_Front_Ui_Route_Auth_In';
 
 // MODULE'S FUNCTIONS
 
 /**
  * TeqFW DI factory function to get dependencies for the object.
  *
- * @returns {Svelters_Front_Ui_Route_User_Sign_In.vueCompTmpl}
+ * @returns {Svelters_Front_Ui_Route_Auth_In.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Svelters_Front_Defaults} */
@@ -32,20 +32,29 @@ export default function (spec) {
     <navigator/>
     <q-card>
         <ui-spinner :loading="ifLoading"/>
+        
         <q-card-section>
-            <div class="text-center">{{$t('route.user.sign.in.title')}}</div>
+            <div>
+                <q-icon name="meeting_room" color="${DEF.COLOR_Q_PRIMARY}" size="md"/>
+                <span class="text-subtitle1 q-pa-md">{{$t('route.auth.in.title')}}</span>
+            </div>
+        </q-card-section>
+
+        <q-separator/>
+
+        <q-card-section>
             <q-form class="column q-gutter-sm">
                 <q-toggle v-model="fldUsePubKey" v-if="ifPubKeyAvailable"
-                          :label="$t('route.user.sign.in.fld.toggleAuth')"/>            
+                          :label="$t('route.auth.in.fld.toggleAuth')"/>            
                 <template v-if="!fldUsePubKey">
                     <q-input v-model="fldEmail"
-                             :label="$t('route.user.sign.in.fld.email')"
+                             :label="$t('route.auth.in.fld.email')"
                              autocomplete="username"
                              outlined
                              type="email"
                     />
                     <q-input v-model="fldPassword"
-                             :label="$t('route.user.sign.in.fld.password')"
+                             :label="$t('route.auth.in.fld.password')"
                              :type="typePass"
                              autocomplete="current-password"
                              outlined
@@ -61,15 +70,37 @@ export default function (spec) {
                 </template>
             </q-form>
         </q-card-section>
+        
+        <q-separator/>
+        
         <q-card-actions align="center">
             <q-btn :label="$t('btn.ok')"
                    color="${DEF.COLOR_Q_PRIMARY}"
                    v-on:click="onOk"
             />
         </q-card-actions>
-        <q-card-section>
+        
+        <q-separator v-if="message"/>
+        
+        <q-card-section v-if="message">
             <div>{{message}}</div>
         </q-card-section>
+        
+        <q-separator/>
+        
+        <q-card-section class="row justify-around">
+            <q-btn to="${DEF.ROUTE_AUTH_UP}"
+                   :label="$t('route.auth.in.register')"
+                   color="${DEF.COLOR_Q_PRIMARY}"
+                   flat 
+            />
+            <q-btn to="${DEF.ROUTE_AUTH_RESET}"
+                   :label="$t('route.auth.in.resetPassword')"
+                   color="${DEF.COLOR_Q_PRIMARY}"
+                   flat 
+            />
+        </q-card-section>        
+        
     </q-card>
 </div>
 `;
@@ -79,7 +110,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Svelters_Front_Ui_Route_User_Sign_In
+     * @memberOf Svelters_Front_Ui_Route_Auth_In
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -123,13 +154,13 @@ export default function (spec) {
                         // noinspection JSCheckFunctionSignatures
                         const resV = await modPubKey.validate(assertion.response);
                         if (resV?.success) {
-                            this.message = this.$t('route.user.sign.in.msg.success');
-                            setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
+                            this.message = this.$t('route.auth.in.msg.success');
+                            redirect();
                         } else {
-                            this.message = this.$t('route.user.sign.in.msg.fail');
+                            this.message = this.$t('route.auth.in.msg.fail');
                         }
                     } else {
-                        this.message = this.$t('route.user.sign.in.msg.failChallenge');
+                        this.message = this.$t('route.auth.in.msg.failChallenge');
                     }
                     this.ifLoading = false;
                 };
@@ -139,14 +170,14 @@ export default function (spec) {
                     const pass = this.fldPassword;
                     const res = await modPass.passwordValidate(email, pass);
                     if (res?.success) {
-                        this.message = this.$t('route.user.sign.in.msg.success');
-                        setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
+                        this.message = this.$t('route.auth.in.msg.success');
+                        redirect();
                     } else {
-                        this.message = this.$t('route.user.sign.in.msg.fail');
+                        this.message = this.$t('route.auth.in.msg.fail');
                     }
                 };
 
-                const redirect = async () => {
+                const redirect = () => {
                     // redirect to initial route
                     const query = this.$route?.query;
                     const to = query[DEF.AUTH_REDIRECT] ?? DEF.ROUTE_HOME;

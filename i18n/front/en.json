@@ -19,47 +19,49 @@
     "my": "My Data"
   },
   "route": {
-    "user": {
-      "sign": {
-        "in": {
-          "fld": {
-            "email": "Your email",
-            "password": "Your password",
-            "toggleAuth": "Use device authentication (fingerprint, etc.)"
-          },
-          "msg": {
-            "fail": "Authentication is failed.",
-            "failChallenge": "Cannot get authentication challenge from the back.",
-            "success": "Authentication is succeed."
-          },
-          "title": "Sign In"
+    "auth": {
+      "in": {
+        "fld": {
+          "email": "Your email",
+          "password": "Your password",
+          "toggleAuth": "Use device authentication (fingerprint, etc.)"
         },
-        "out": {
-          "error": "Some error is occurred.",
-          "finish": "The session is closed.",
-          "start": "Closing the current session.",
-          "title": "Sign Out."
+        "msg": {
+          "fail": "Authentication is failed.",
+          "failChallenge": "Cannot get authentication challenge from the back.",
+          "success": "Authentication is succeed."
         },
-        "up": {
-          "fld": {
-            "age": "Your age",
-            "dob": "Your date of birth",
-            "email": "Your email",
-            "height": "Your height",
-            "name": "Your name",
-            "password": "Your password",
-            "toggleAuth": "Use device authentication (fingerprint, etc.)"
-          },
-          "msg": {
-            "attestSucceed": "This Device is attested for current user.",
-            "attestError": "This device is not attested for current user. Some error is occurred.",
-            "emailNotUnique": "Email is not unique.",
-            "emailUnique": "Email is unique.",
-            "registrationFailed": "New user is not registered.",
-            "registrationSucceed": "New user is registered."
-          },
-          "title": "Sign Up"
-        }
+        "register": "Sign Up",
+        "resetPassword": "Forgot password?",
+        "title": "Sign In"
+      },
+      "out": {
+        "error": "Some error is occurred.",
+        "finish": "The session is closed.",
+        "start": "Closing the current session.",
+        "title": "Sign Out."
+      },
+      "up": {
+        "fld": {
+          "age": "Your age",
+          "dob": "Your date of birth",
+          "email": "Your email",
+          "height": "Your height",
+          "name": "Your name",
+          "password": "Your password",
+          "toggleAuth": "Use device authentication (fingerprint, etc.)"
+        },
+        "msg": {
+          "attestSucceed": "This Device is attested for current user.",
+          "attestError": "This device is not attested for current user. Some error is occurred.",
+          "emailNotUnique": "Email is not unique.",
+          "emailUnique": "Email is unique.",
+          "registrationFailed": "New user is not registered.",
+          "registrationSucceed": "New user is registered."
+        },
+        "resetPassword": "Forgot password?",
+        "signIn": "Sign In",
+        "title": "Sign Up"
       }
     }
   }

@@ -20,10 +20,10 @@ export default function (spec) {
     const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
 
     // VARS
-    const COLOR_DARK = 'var(--color-base)';
-    const COLOR_LIGHT = 'var(--color-lightest)';
+    const COLOR_DARK = 'var(--color-set-base)';
+    const COLOR_LIGHT = 'var(--color-set-lightest)';
     const template = `
-<q-bar style="background-color: var(--color-base);">
+<q-bar style="background-color: var(--color-set-base);">
     <q-btn dense flat round icon="lens" size="8.5px" :color="color"/>
     <div class="overflow-hidden" style="height: 20px">Svelters 2</div>
     <q-space></q-space>

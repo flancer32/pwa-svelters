@@ -23,9 +23,9 @@ export default function (spec) {
     const template = `
 <div class="row justify-around q-gutter-md">
     <router-link to="${DEF.ROUTE_HOME}">{{$t('layout.navigator.home')}}</router-link>
-    <router-link to="${DEF.ROUTE_AUTH_SIGN_UP}" v-if="!ifAuth">{{$t('layout.navigator.signUp')}}</router-link>
-    <router-link to="${DEF.ROUTE_AUTH_SIGN_IN}" v-if="!ifAuth">{{$t('layout.navigator.signIn')}}</router-link>
-    <router-link to="${DEF.ROUTE_AUTH_SIGN_OUT}" v-if="ifAuth">{{$t('layout.navigator.signOut')}}</router-link>
+    <router-link to="${DEF.ROUTE_AUTH_UP}" v-if="!ifAuth">{{$t('layout.navigator.signUp')}}</router-link>
+    <router-link to="${DEF.ROUTE_AUTH_IN}" v-if="!ifAuth">{{$t('layout.navigator.signIn')}}</router-link>
+    <router-link to="${DEF.ROUTE_AUTH_OUT}" v-if="ifAuth">{{$t('layout.navigator.signOut')}}</router-link>
 </div>
 `;
 

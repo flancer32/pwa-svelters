@@ -97,18 +97,18 @@ export default class Svelters_Front_App {
                 });
                 // setup application routes (load es6-module on demand with DI-container)
                 router.addRoute({
-                    path: DEF.ROUTE_AUTH_SIGN_IN,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_In$'),
+                    path: DEF.ROUTE_AUTH_IN,
+                    component: () => container.get('Svelters_Front_Ui_Route_Auth_In$'),
                     meta: {anonymous: true},
                 });
                 router.addRoute({
-                    path: DEF.ROUTE_AUTH_SIGN_OUT,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Out$'),
+                    path: DEF.ROUTE_AUTH_OUT,
+                    component: () => container.get('Svelters_Front_Ui_Route_Auth_Out$'),
                     meta: {anonymous: true},
                 });
                 router.addRoute({
-                    path: DEF.ROUTE_AUTH_SIGN_UP,
-                    component: () => container.get('Svelters_Front_Ui_Route_User_Sign_Up$'),
+                    path: DEF.ROUTE_AUTH_UP,
+                    component: () => container.get('Svelters_Front_Ui_Route_Auth_Up$'),
                     meta: {anonymous: true},
                 });
                 router.addRoute({
@@ -139,7 +139,7 @@ export default class Svelters_Front_App {
                     if (!to.meta.anonymous && !modSess.isValid()) {
                         // this route requires auth
                         return {
-                            path: DEF.ROUTE_AUTH_SIGN_IN,
+                            path: DEF.ROUTE_AUTH_IN,
                             // save the location we were at to come back later
                             query: {[DEF.AUTH_REDIRECT]: to.fullPath},
                         };

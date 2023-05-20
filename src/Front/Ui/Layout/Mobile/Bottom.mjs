@@ -20,8 +20,8 @@ export default function (spec) {
     const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
 
     // VARS
-    const COLOR_DARK = 'var(--color-base)';
-    const COLOR_LIGHT = 'var(--color-lightest)';
+    const COLOR_DARK = 'var(--color-set-base)';
+    const COLOR_LIGHT = 'var(--color-set-lightest)';
     const template = `
 <div class="row justify-around" style="background-color: ${COLOR_DARK};">
     <q-btn flat round icon="person" to="${DEF.ROUTE_MY}" :style="itemColor('${DEF.ROUTE_MY}')"/>

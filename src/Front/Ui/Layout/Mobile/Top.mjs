@@ -21,7 +21,7 @@ export default function (spec) {
 
     // VARS
     const template = `
-<q-bar style="background-color: var(--color-base);">
+<q-bar style="background-color: var(--color-set-base);">
     <q-btn dense flat round icon="lens" size="8.5px" :color="color"/>
     <div class="overflow-hidden" style="height: 20px">Svelters 2</div>
     <q-space></q-space>
