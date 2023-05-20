@@ -39,14 +39,8 @@ export default function (spec) {
         name: NS,
         template,
         components: {LayoutDesk, LayoutMobile},
-        data() {
-            return {};
-        },
         methods: {
-            ifDesk() {
-                return (window.innerWidth >= 600);
-            }
+            ifDesk: () => (window.innerWidth >= 650),
         },
-        mounted() { },
     };
 }

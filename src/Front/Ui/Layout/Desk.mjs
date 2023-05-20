@@ -23,9 +23,9 @@ export default function (spec) {
 
     // VARS
     const template = `
-<q-layout view="hhh lpr fff">
+<q-layout view="hhh lpr fff" container>
 
-    <q-header elevated>
+    <q-header reveal elevated>
         <top/>
     </q-header>
     
