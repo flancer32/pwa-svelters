@@ -15,6 +15,7 @@ export default class Svelters_Front_Defaults {
     ROUTE_GROUP = '/group';
     ROUTE_HOME = '/';
     ROUTE_MY = '/my';
+    ROUTE_NOT_FOUND = '/:pathMatch(.*)*';
 
     RP_NAME = 'Svelters 2';
 

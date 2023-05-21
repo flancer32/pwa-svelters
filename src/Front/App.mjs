@@ -132,6 +132,12 @@ export default class Svelters_Front_App {
                     path: DEF.ROUTE_MY,
                     component: () => container.get('Svelters_Front_Ui_Route_My$'),
                 });
+                //
+                router.addRoute({
+                    path: DEF.ROUTE_NOT_FOUND,
+                    component: () => container.get('Svelters_Front_Ui_Route_NotFound$'),
+                    meta: {anonymous: true},
+                });
                 // validate authentication for none anonymous routes
                 router.beforeEach((to) => {
                     // instead of having to check every route record with

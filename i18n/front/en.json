@@ -63,6 +63,9 @@
         "signIn": "Sign In",
         "title": "Sign Up"
       }
+    },
+    "notFound": {
+      "title": "The page is not found."
     }
   }
 }
