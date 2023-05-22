@@ -80,6 +80,7 @@ export default class Svelters_Back_Web_Api_User_Sign_Up {
                     // generate attestation challenge for newly registered user
                     const {challenge} = await modPubKey.attestChallengeCreate({trx, userBid});
                     res.challenge = challenge;
+                    res.userUuid = uuid;
                 } else {
                     // there is no public key authenticator in a browser, just save password hash & salt
                     await modPass.create({trx, userBid, hash, salt});

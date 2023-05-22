@@ -53,6 +53,11 @@ class Response {
      * @type {Svelters_Shared_Dto_User.Dto}
      */
     sessionData;
+    /**
+     * UUID for the user to get binary userId on 'navigator.credentials.create'
+     * @type {string}
+     */
+    userUuid;
 }
 
 /**
@@ -102,6 +107,7 @@ export default class Svelters_Shared_Web_Api_User_Sign_Up {
             // cast known attributes
             res.challenge = castString(data?.challenge);
             res.sessionData = dtoUser.createDto(data?.sessionData);
+            res.userUuid = castString(data?.userUuid);
             return res;
         };
     }

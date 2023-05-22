@@ -28,6 +28,10 @@ export default class Svelters_Front_App {
         const container = spec['TeqFw_Di_Shared_Container$'];
         /** @type {TeqFw_Core_Shared_Api_Logger} */
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
+        /** @type {TeqFw_Core_Shared_Logger_Base} */
+        const loggerBase = spec['TeqFw_Core_Shared_Logger_Base$'];
+        /** @type {Svelters_Front_Mod_Logger_Transport} */
+        const modLogTrn = spec['TeqFw_Core_Shared_Api_Logger_Transport$']; // as interface
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
@@ -45,7 +49,7 @@ export default class Svelters_Front_App {
         let _root; // root vue component for the application
 
         // MAIN
-        logger.setNamespace(this.constructor.namespace);
+        logger.setNamespace(this.constructor.name);
 
         // INSTANCE METHODS
 
@@ -184,6 +188,10 @@ export default class Svelters_Front_App {
             try {
                 await modSess.init();
                 _print(`User session is initialized.`);
+                // logger
+                modLogTrn.enableLogs();
+                loggerBase.setTransport(modLogTrn);
+                //
                 initQuasarUi(_root, quasar);
                 _print(`Quasar UI is initialized.`);
                 initRouter(_root, DEF, container);

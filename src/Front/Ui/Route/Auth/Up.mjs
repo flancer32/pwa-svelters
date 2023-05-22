@@ -210,6 +210,17 @@ export default function (spec) {
                     this.$router.push(to);
                 };
 
+                function hexStringToArrayBuffer(hexString) {
+                    const strippedString = hexString.replace(/[\s-]/g, ''); // Remove whitespaces and hyphens
+                    const bytes = new Uint8Array(strippedString.length / 2);
+
+                    for (let i = 0; i < strippedString.length; i += 2) {
+                        bytes[i / 2] = parseInt(strippedString.substring(i, i + 2), 16);
+                    }
+
+                    return bytes.buffer;
+                }
+
                 // MAIN
                 this.ifLoading = true;
                 const res = await modUser.signUp({
@@ -221,31 +232,41 @@ export default function (spec) {
                 });
                 this.ifLoading = false;
                 if (res?.sessionData?.uuid) {
-                    // regular password sign up is done, redirect to home
+                    logger.info(`Regular password sign up is done.`);
+                    // redirect to home
                     this.message = this.$t('route.auth.up.msg.registrationSucceed');
                     setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
                 } else if (res?.challenge) {
+                    logger.info(`PubKey challenge for sign up is received.`);
                     // continue public key sign up
                     this.message = this.$t('route.auth.up.msg.registrationSucceed');
                     // attest current device and register publicKey on the back
+                    const userId = hexStringToArrayBuffer(res.userUuid ?? '00');
                     const publicKey = modPubKey.composeOptPkCreate({
                         challenge: res.challenge,
                         rpName: DEF.RP_NAME,
+                        userId,
                         userName: `${this.fldEmail}`,
                         userUuid: res.uuid,
                     });
-                    // noinspection JSValidateTypes
-                    /** @type {PublicKeyCredential} */
-                    const attestation = await navigator.credentials.create({publicKey});
-                    this.ifLoading = true;
-                    /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
-                    const resAttest = await modPubKey.attest({attestation});
-                    this.ifLoading = false;
-                    if (resAttest?.attestationId) {
-                        this.message = this.$t('route.auth.up.msg.attestSucceed');
-                        setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
-                    } else {
-                        this.message = this.$t('route.auth.up.msg.attestError');
+                    logger.info(`Attestation options are composed.`);
+                    try {
+                        // noinspection JSValidateTypes
+                        /** @type {PublicKeyCredential} */
+                        const attestation = await navigator.credentials.create({publicKey});
+                        logger.info(`Attestation is completed.`);
+                        this.ifLoading = true;
+                        /** @type {Fl32_Auth_Shared_Web_Api_Attest.Response} */
+                        const resAttest = await modPubKey.attest({attestation});
+                        this.ifLoading = false;
+                        if (resAttest?.attestationId) {
+                            this.message = this.$t('route.auth.up.msg.attestSucceed');
+                            setTimeout(redirect, DEF.TIMEOUT_REDIRECT);
+                        } else {
+                            this.message = this.$t('route.auth.up.msg.attestError');
+                        }
+                    } catch (e) {
+                        logger.error(e);
                     }
                 } else {
                     this.message = this.$t('route.auth.up.msg.registrationFailed');
@@ -255,6 +276,7 @@ export default function (spec) {
         mounted() {
             modPubKey.isPublicKeyAvailable()
                 .then((available) => {
+                    logger.info(`Public key env. is available on startup.`);
                     this.ifPubKeyAvailable = available;
                     this.fldUsePubKey = available;
                 });
