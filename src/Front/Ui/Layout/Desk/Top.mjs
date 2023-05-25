@@ -18,13 +18,15 @@ export default function (spec) {
     const DEF = spec['Svelters_Front_Defaults$'];
     /** @type {Fl32_Auth_Front_Mod_Session} */
     const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
+    /** @type {TeqFw_Ui_Quasar_Front_Lib_Led_Connect.vueCompTmpl} */
+    const uiLed = spec['TeqFw_Ui_Quasar_Front_Lib_Led_Connect$'];
 
     // VARS
     const COLOR_DARK = 'var(--color-set-base)';
     const COLOR_LIGHT = 'var(--color-set-lightest)';
     const template = `
 <q-bar style="background-color: var(--color-set-base);">
-    <q-btn dense flat round icon="lens" size="8.5px" :color="color"/>
+    <ui-led/>
     <div class="overflow-hidden" style="height: 20px">Svelters 2</div>
     <q-space></q-space>
     <div class="row justify-around q-gutter-md">
@@ -68,15 +70,11 @@ export default function (spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
+        components: {uiLed},
         data() {
             return {
                 ifAuth: false,
             };
-        },
-        computed: {
-            color() {
-                return (false) ? 'green' : 'grey';
-            }
         },
         methods: {
             itemColor(route) {
