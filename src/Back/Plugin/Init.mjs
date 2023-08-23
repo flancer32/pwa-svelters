@@ -4,7 +4,7 @@
 // MODULE'S VARS
 const NS = 'Svelters_Back_Plugin_Init';
 /**
- * @param {TeqFw_Di_Shared_Container} container
+ * @param {TeqFw_Di_Container} container
  * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
  */
 

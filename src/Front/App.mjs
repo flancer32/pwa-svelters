@@ -18,33 +18,36 @@ const NS = 'Svelters_Front_App';
  */
 export default class Svelters_Front_App {
     /**
+     * @param {TeqFw_Di_Container} container
      * @param {function} createApp
+     * @param {function} createRouter
+     * @param {function} createWebHashHistory
+     * @param {Svelters_Front_Defaults} DEF
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {TeqFw_Core_Shared_Logger_Base} loggerBase
+     * @param {Fl32_Log_Front_Logger_Transport} modLogTrn -  as interface
+     * @param {TeqFw_Ui_Quasar_Front_Lib} quasar
+     * @param {TeqFw_Web_Front_Mod_Config} modCfg
+     * @param {TeqFw_I18n_Front_Mod_I18n} modI18n
+     * @param {Fl32_Auth_Front_Mod_Session} modSess
+     * @param {Svelters_Front_Ui_Layout_Main.vueCompTmpl} LayoutMain
      */
     constructor(
         {
+            container,
             'TeqFw_Vue_Front_Ext_Vue.createApp': createApp,
+            'TeqFw_Vue_Front_Ext_Router.createRouter': createRouter,
+            'TeqFw_Vue_Front_Ext_Router.createWebHashHistory': createWebHashHistory,
+            Svelters_Front_Defaults$: DEF,
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            TeqFw_Core_Shared_Logger_Base$: loggerBase,
+            TeqFw_Core_Shared_Api_Logger_Transport$: modLogTrn,
+            TeqFw_Ui_Quasar_Front_Lib: quasar,
+            TeqFw_Web_Front_Mod_Config$: modCfg,
+            TeqFw_I18n_Front_Mod_I18n$: modI18n,
+            Fl32_Auth_Front_Mod_Session$: modSess,
+            Svelters_Front_Ui_Layout_Main$: LayoutMain,
         }) {
-        /** @type {Svelters_Front_Defaults} */
-        const DEF = spec['Svelters_Front_Defaults$'];
-        /** @type {TeqFw_Di_Shared_Container} */
-        const container = spec['TeqFw_Di_Shared_Container$'];
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {TeqFw_Core_Shared_Logger_Base} */
-        const loggerBase = spec['TeqFw_Core_Shared_Logger_Base$'];
-        /** @type {Fl32_Log_Front_Logger_Transport} */
-        const modLogTrn = spec['TeqFw_Core_Shared_Api_Logger_Transport$']; // as interface
-        /** @type {TeqFw_Ui_Quasar_Front_Lib} */
-        const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
-        /** @type {TeqFw_Web_Front_Mod_Config} */
-        const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
-        /** @type {TeqFw_I18n_Front_Mod_I18n} */
-        const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
-        /** @type {Fl32_Auth_Front_Mod_Session} */
-        const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
-        /** @type {Svelters_Front_Ui_Layout_Main.vueCompTmpl} */
-        const LayoutMain = spec['Svelters_Front_Ui_Layout_Main$'];
-
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
         let _print; // function to printout logs to UI or console
