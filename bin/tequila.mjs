@@ -23,7 +23,7 @@ const root = join(bin, '..');
 function initContainer(root) {
     /** @type {TeqFw_Di_Container} */
     const res = new Container();
-    res.setDebug(true);
+    res.setDebug(false);
     // const pathDi = join(root, 'node_modules', '@teqfw', 'di', 'src');
     const pathCore = join(root, 'node_modules', '@teqfw', 'core', 'src');
     const resolver = res.getResolver();
@@ -31,11 +31,15 @@ function initContainer(root) {
     // set old format parser for TeqFw_
     const validate = function (key) {
         return (key.indexOf('TeqFw_Core_') === 0) ||
+            (key.indexOf('TeqFw_Db_') === 0) ||
+            (key.indexOf('TeqFw_I18n') === 0) ||
             (key.indexOf('TeqFw_Test_') === 0) ||
             (key.indexOf('TeqFw_Ui_Quasar_') === 0) ||
             (key.indexOf('TeqFw_Vue_') === 0) ||
             (key.indexOf('TeqFw_Web_') === 0) ||
-            (key.indexOf('TeqFw_Web_Api_') === 0);
+            (key.indexOf('TeqFw_Web_Api_') === 0) ||
+            (key.indexOf('TeqFw_Web_Event_') === 0) ||
+            (key.indexOf('Svelters_') === 0);
     };
     res.getParser().addParser(validate, parserOld);
     return res;

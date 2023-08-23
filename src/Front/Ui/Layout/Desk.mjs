@@ -13,14 +13,17 @@ const NS = 'Svelters_Front_Ui_Layout_Desk';
  *
  * @returns {Svelters_Front_Ui_Layout_Desk.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Svelters_Front_Defaults} */
-    const DEF = spec['Svelters_Front_Defaults$'];
-    /** @type {Fl32_Auth_Front_Mod_Session} */
-    const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
-    /** @type {Svelters_Front_Ui_Layout_Desk_Top.vueCompTmpl} */
-    const Top = spec['Svelters_Front_Ui_Layout_Desk_Top$'];
-
+/**
+ * @param {Svelters_Front_Defaults} DEF
+ * @param {Fl32_Auth_Front_Mod_Session} modSess
+ * @param {Svelters_Front_Ui_Layout_Desk_Top.vueCompTmpl} Top
+ */
+export default function (
+    {
+        Svelters_Front_Defaults$: DEF,
+        Fl32_Auth_Front_Mod_Session$: modSess,
+        Svelters_Front_Ui_Layout_Desk_Top$: Top,
+    }) {
     // VARS
     const template = `
 <q-layout view="hhh lpr fff" container>

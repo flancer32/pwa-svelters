@@ -3,12 +3,14 @@
  */
 // MODULE'S VARS
 const NS = 'App_Back_Plugin_Stop';
+/**
+ * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+ */
 
-export default function Factory(spec) {
-    // DEPS
-    /** @type {TeqFw_Core_Shared_Api_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-
+export default function Factory(
+    {
+        TeqFw_Core_Shared_Api_Logger$$: logger,
+    }) {
     // COMPOSE RESULT
     async function exec() {
         // stop scheduled tasks

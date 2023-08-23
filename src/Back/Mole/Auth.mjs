@@ -5,13 +5,16 @@
  */
 export default class Svelters_Back_Mole_Auth {
 
-    constructor(spec) {
-        // DEPS
-        /** @type {Svelters_Back_Act_User_Read.act|function} */
-        const actUserRead = spec['Svelters_Back_Act_User_Read$'];
-        /** @type {Svelters_Shared_Dto_User} */
-        const dtoUser = spec['Svelters_Shared_Dto_User$'];
-
+    /**
+     * @param {Svelters_Back_Act_User_Read.act|function} actUserRead
+     * @param {Svelters_Shared_Dto_User} dtoUser
+     */
+    constructor(
+        {
+            Svelters_Back_Act_User_Read$: actUserRead,
+            Svelters_Shared_Dto_User$: dtoUser,
+        }
+    ) {
         /**
          * @inheritDoc
          *

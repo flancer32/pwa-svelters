@@ -29,17 +29,19 @@ class Response {
  * @implements TeqFw_Web_Api_Shared_Api_Endpoint
  */
 export default class Svelters_Shared_Web_Api_Data_Unique {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Util_Cast.castBoolean|function} */
-        const castBoolean = spec['TeqFw_Core_Shared_Util_Cast.castBoolean'];
-        /** @type {TeqFw_Core_Shared_Util_Cast.castEnum|function} */
-        const castEnum = spec['TeqFw_Core_Shared_Util_Cast.castEnum'];
-        /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
-        const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
-        /** @type {typeof Svelters_Shared_Enum_Data_Type_Unique} */
-        const TYPE = spec['Svelters_Shared_Enum_Data_Type_Unique$'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast.castBoolean|function} castBoolean
+     * @param {TeqFw_Core_Shared_Util_Cast.castEnum|function} castEnum
+     * @param {TeqFw_Core_Shared_Util_Cast.castString|function} castString
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Unique} TYPE
+     */
+    constructor(
+        {
+            'TeqFw_Core_Shared_Util_Cast.castBoolean': castBoolean,
+            'TeqFw_Core_Shared_Util_Cast.castEnum': castEnum,
+            'TeqFw_Core_Shared_Util_Cast.castString': castString,
+            Svelters_Shared_Enum_Data_Type_Unique$: TYPE,
+        }) {
         // INSTANCE METHODS
 
         /**

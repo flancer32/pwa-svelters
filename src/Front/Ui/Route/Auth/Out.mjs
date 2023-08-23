@@ -15,16 +15,19 @@ const NS = 'Svelters_Front_Ui_Route_Auth_Out';
  *
  * @returns {Svelters_Front_Ui_Route_Auth_Out.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Svelters_Front_Defaults} */
-    const DEF = spec['Svelters_Front_Defaults$'];
-    /** @type {TeqFw_Core_Shared_Api_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-    /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
-    const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
-    /** @type {Fl32_Auth_Front_Mod_Session} */
-    const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
-
+/**
+ * @param {Svelters_Front_Defaults} DEF
+ * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+ * @param {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} uiSpinner
+ * @param {Fl32_Auth_Front_Mod_Session} modSess
+ */
+export default function (
+    {
+        Svelters_Front_Defaults$: DEF,
+        TeqFw_Core_Shared_Api_Logger$$: logger,
+        TeqFw_Ui_Quasar_Front_Lib_Spinner$: uiSpinner,
+        Fl32_Auth_Front_Mod_Session$: modSess,
+    }) {
     // VARS
     logger.setNamespace(NS);
     const template = `

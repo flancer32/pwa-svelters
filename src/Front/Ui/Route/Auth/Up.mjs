@@ -16,22 +16,25 @@ const NS = 'Svelters_Front_Ui_Route_Auth_Up';
  *
  * @returns {Svelters_Front_Ui_Route_Auth_Up.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Svelters_Front_Defaults} */
-    const DEF = spec['Svelters_Front_Defaults$'];
-    /** @type {TeqFw_Core_Shared_Api_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-    /** @type {TeqFw_Core_Shared_Util_Date.parseAsUtc|function} */
-    const parseAsUtc = spec['TeqFw_Core_Shared_Util_Date.parseAsUtc'];
-    /** @type {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} */
-    const uiSpinner = spec['TeqFw_Ui_Quasar_Front_Lib_Spinner$'];
-    /** @type {Svelters_Front_Mod_User} */
-    const modUser = spec['Svelters_Front_Mod_User$'];
-    /** @type {Svelters_Front_Mod_Data_Unique} */
-    const modUnique = spec['Svelters_Front_Mod_Data_Unique$'];
-    /** @type {Fl32_Auth_Front_Mod_PubKey} */
-    const modPubKey = spec['Fl32_Auth_Front_Mod_PubKey$'];
-
+/**
+ * @param {Svelters_Front_Defaults} DEF
+ * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+ * @param {TeqFw_Core_Shared_Util_Date.parseAsUtc|function} parseAsUtc
+ * @param {TeqFw_Ui_Quasar_Front_Lib_Spinner.vueCompTmpl} uiSpinner
+ * @param {Svelters_Front_Mod_User} modUser
+ * @param {Svelters_Front_Mod_Data_Unique} modUnique
+ * @param {Fl32_Auth_Front_Mod_PubKey} modPubKey
+ */
+export default function (
+    {
+        Svelters_Front_Defaults$: DEF,
+        TeqFw_Core_Shared_Api_Logger$$: logger,
+        'TeqFw_Core_Shared_Util_Date.parseAsUtc': parseAsUtc,
+        TeqFw_Ui_Quasar_Front_Lib_Spinner$: uiSpinner,
+        Svelters_Front_Mod_User$: modUser,
+        Svelters_Front_Mod_Data_Unique$: modUnique,
+        Fl32_Auth_Front_Mod_PubKey$: modPubKey,
+    }) {
     // VARS
     logger.setNamespace(NS);
     const template = `

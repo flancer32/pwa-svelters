@@ -17,11 +17,13 @@ const NS = 'Svelters_Front_App';
  * @implements TeqFw_Web_Front_Api_IApp
  */
 export default class Svelters_Front_App {
-    constructor(spec) {
-        // EXTRACT DEPS
-        /** @type {function} */
-        const createApp = spec['TeqFw_Vue_Front_Ext_Vue.createApp'];
-        const {createRouter, createWebHashHistory} = spec['TeqFw_Vue_Front_Ext_Router'];
+    /**
+     * @param {function} createApp
+     */
+    constructor(
+        {
+            'TeqFw_Vue_Front_Ext_Vue.createApp': createApp,
+        }) {
         /** @type {Svelters_Front_Defaults} */
         const DEF = spec['Svelters_Front_Defaults$'];
         /** @type {TeqFw_Di_Shared_Container} */

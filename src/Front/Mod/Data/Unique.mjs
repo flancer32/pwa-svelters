@@ -4,17 +4,19 @@
  * @namespace Svelters_Front_Mod_Data_Unique
  */
 export default class Svelters_Front_Mod_Data_Unique {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {TeqFw_Web_Api_Front_Web_Connect} */
-        const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
-        /** @type {Svelters_Shared_Web_Api_Data_Unique} */
-        const apiUnique = spec['Svelters_Shared_Web_Api_Data_Unique$'];
-        /** @type {typeof Svelters_Shared_Enum_Data_Type_Unique} */
-        const TYPE = spec['Svelters_Shared_Enum_Data_Type_Unique$'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {TeqFw_Web_Api_Front_Web_Connect} connApi
+     * @param {Svelters_Shared_Web_Api_Data_Unique} apiUnique
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Unique} TYPE
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            TeqFw_Web_Api_Front_Web_Connect$: connApi,
+            Svelters_Shared_Web_Api_Data_Unique$: apiUnique,
+            Svelters_Shared_Enum_Data_Type_Unique$: TYPE,
+        }) {
         // MAIN
         logger.setNamespace(this.constructor.name);
 

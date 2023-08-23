@@ -13,14 +13,17 @@ const NS = 'Svelters_Front_Ui_Layout_Desk_Top';
  *
  * @returns {Svelters_Front_Ui_Layout_Desk_Top.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Svelters_Front_Defaults} */
-    const DEF = spec['Svelters_Front_Defaults$'];
-    /** @type {Fl32_Auth_Front_Mod_Session} */
-    const modSess = spec['Fl32_Auth_Front_Mod_Session$'];
-    /** @type {TeqFw_Ui_Quasar_Front_Lib_Led_Connect.vueCompTmpl} */
-    const uiLed = spec['TeqFw_Ui_Quasar_Front_Lib_Led_Connect$'];
-
+/**
+ * @param {Svelters_Front_Defaults} DEF
+ * @param {Fl32_Auth_Front_Mod_Session} modSess
+ * @param {TeqFw_Ui_Quasar_Front_Lib_Led_Connect.vueCompTmpl} uiLed
+ */
+export default function (
+    {
+        Svelters_Front_Defaults$: DEF,
+        Fl32_Auth_Front_Mod_Session$: modSess,
+        TeqFw_Ui_Quasar_Front_Lib_Led_Connect$: uiLed,
+    }) {
     // VARS
     const COLOR_DARK = 'var(--color-set-base)';
     const COLOR_LIGHT = 'var(--color-set-lightest)';

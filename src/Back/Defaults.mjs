@@ -19,8 +19,15 @@ export default class Svelters_Back_Defaults {
     /** @type {Svelters_Shared_Defaults} */
     SHARED;
 
-    constructor(spec) {
-        this.SHARED = spec['Svelters_Shared_Defaults$'];
+    /**
+     * @param {Svelters_Shared_Defaults} SHARED
+     */
+    constructor(
+        {
+            Svelters_Shared_Defaults$: SHARED
+        }
+    ) {
+        this.SHARED = SHARED;
         Object.freeze(this);
     }
 }

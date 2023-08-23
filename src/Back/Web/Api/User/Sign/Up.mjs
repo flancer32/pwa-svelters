@@ -9,27 +9,30 @@ import {randomUUID} from 'node:crypto';
  * @implements TeqFw_Web_Api_Back_Api_Service
  */
 export default class Svelters_Back_Web_Api_User_Sign_Up {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {TeqFw_Core_Shared_Util_Codec.hexToBin|function} */
-        const hexToBin = spec['TeqFw_Core_Shared_Util_Codec.hexToBin'];
-        /** @type {Svelters_Shared_Web_Api_User_Sign_Up} */
-        const endpoint = spec['Svelters_Shared_Web_Api_User_Sign_Up$'];
-        /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
-        const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
-        /** @type {Svelters_Back_RDb_Schema_User} */
-        const rdbUser = spec['Svelters_Back_RDb_Schema_User$'];
-        /** @type {Fl32_Auth_Back_Mod_Password} */
-        const modPass = spec['Fl32_Auth_Back_Mod_Password$'];
-        /** @type {Fl32_Auth_Back_Mod_PubKey} */
-        const modPubKey = spec['Fl32_Auth_Back_Mod_PubKey$'];
-        /** @type {Fl32_Auth_Back_Mod_Session} */
-        const modSess = spec['Fl32_Auth_Back_Mod_Session$'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {TeqFw_Core_Shared_Util_Codec.hexToBin|function} hexToBin
+     * @param {Svelters_Shared_Web_Api_User_Sign_Up} endpoint
+     * @param {TeqFw_Db_Back_RDb_IConnect} conn
+     * @param {TeqFw_Db_Back_Api_RDb_CrudEngine} crud
+     * @param {Svelters_Back_RDb_Schema_User} rdbUser
+     * @param {Fl32_Auth_Back_Mod_Password} modPass
+     * @param {Fl32_Auth_Back_Mod_PubKey} modPubKey
+     * @param {Fl32_Auth_Back_Mod_Session} modSess
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            'TeqFw_Core_Shared_Util_Codec.hexToBin': hexToBin,
+            Svelters_Shared_Web_Api_User_Sign_Up$: endpoint,
+            TeqFw_Db_Back_RDb_IConnect$: conn,
+            TeqFw_Db_Back_Api_RDb_CrudEngine$: crud,
+            Svelters_Back_RDb_Schema_User$: rdbUser,
+            Fl32_Auth_Back_Mod_Password$: modPass,
+            Fl32_Auth_Back_Mod_PubKey$: modPubKey,
+            Fl32_Auth_Back_Mod_Session$: modSess,
+        }
+    ) {
 
         // VARS
         logger.setNamespace(this.constructor.name);

@@ -6,21 +6,23 @@
  * @implements TeqFw_Web_Api_Back_Api_Service
  */
 export default class Svelters_Back_Web_Api_Data_Unique {
-    constructor(spec) {
-        // DEPS
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {Svelters_Shared_Web_Api_Data_Unique} */
-        const endpoint = spec['Svelters_Shared_Web_Api_Data_Unique$'];
-        /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
-        const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
-        /** @type {Svelters_Back_RDb_Schema_User} */
-        const rdbUser = spec['Svelters_Back_RDb_Schema_User$'];
-        /** @type {typeof Svelters_Shared_Enum_Data_Type_Unique} */
-        const TYPE = spec['Svelters_Shared_Enum_Data_Type_Unique$'];
-
+    /**
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {Svelters_Shared_Web_Api_Data_Unique} endpoint
+     * @param {TeqFw_Db_Back_RDb_IConnect} conn
+     * @param {TeqFw_Db_Back_Api_RDb_CrudEngine} crud
+     * @param {Svelters_Back_RDb_Schema_User} rdbUser
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Unique} TYPE
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            Svelters_Shared_Web_Api_Data_Unique$: endpoint,
+            TeqFw_Db_Back_RDb_IConnect$: conn,
+            TeqFw_Db_Back_Api_RDb_CrudEngine$: crud,
+            Svelters_Back_RDb_Schema_User$: rdbUser,
+            Svelters_Shared_Enum_Data_Type_Unique$: TYPE,
+        }) {
         // VARS
         logger.setNamespace(this.constructor.name);
         const A_USER = rdbUser.getAttributes();

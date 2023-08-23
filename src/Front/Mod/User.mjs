@@ -3,21 +3,23 @@
  * @namespace Svelters_Front_Mod_User
  */
 export default class Svelters_Front_Mod_User {
-    constructor(spec) {
-        // DEPS
-        /** @type {Svelters_Front_Defaults} */
-        const DEF = spec['Svelters_Front_Defaults$'];
-        /** @type {TeqFw_Core_Shared_Api_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-        /** @type {TeqFw_Web_Api_Front_Web_Connect} */
-        const connApi = spec['TeqFw_Web_Api_Front_Web_Connect$'];
-        /** @type {Svelters_Shared_Web_Api_User_Sign_Up} */
-        const apiRegister = spec['Svelters_Shared_Web_Api_User_Sign_Up$'];
-        /** @type {Fl32_Auth_Front_Mod_PubKey} */
-        const modPubKey = spec['Fl32_Auth_Front_Mod_PubKey$'];
-        /** @type {Fl32_Auth_Front_Mod_Password} */
-        const modPass = spec['Fl32_Auth_Front_Mod_Password$'];
-
+    /**
+     * @param {Svelters_Front_Defaults} DEF
+     * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+     * @param {TeqFw_Web_Api_Front_Web_Connect} connApi
+     * @param {Svelters_Shared_Web_Api_User_Sign_Up} apiRegister
+     * @param {Fl32_Auth_Front_Mod_PubKey} modPubKey
+     * @param {Fl32_Auth_Front_Mod_Password} modPass
+     */
+    constructor(
+        {
+            Svelters_Front_Defaults$: DEF,
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            TeqFw_Web_Api_Front_Web_Connect$: connApi,
+            Svelters_Shared_Web_Api_User_Sign_Up$: apiRegister,
+            Fl32_Auth_Front_Mod_PubKey$: modPubKey,
+            Fl32_Auth_Front_Mod_Password$: modPass,
+        }) {
         // MAIN
         logger.setNamespace(this.constructor.name);
 

@@ -2,9 +2,10 @@
   "@teqfw/di": {
     "autoload": {
       "ns": "Svelters",
-      "path": "./src"
+      "path": "./src",
+      "ext": "mjs"
     },
-    "replace": {
+    "replaces": {
       "Fl32_Auth_Back_Api_Mole": {"back": "Svelters_Back_Mole_Auth"}
     }
   },

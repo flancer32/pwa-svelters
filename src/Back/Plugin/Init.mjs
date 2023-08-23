@@ -3,14 +3,16 @@
  */
 // MODULE'S VARS
 const NS = 'Svelters_Back_Plugin_Init';
+/**
+ * @param {TeqFw_Di_Shared_Container} container
+ * @param {TeqFw_Core_Shared_Api_Logger} logger -  instance
+ */
 
-export default function Factory(spec) {
-    // DEPS
-    /** @type {TeqFw_Di_Shared_Container} */
-    const container = spec['TeqFw_Di_Shared_Container$'];
-    /** @type {TeqFw_Core_Shared_Api_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
-
+export default function Factory(
+    {
+        TeqFw_Di_Container$: container,
+        TeqFw_Core_Shared_Api_Logger$$: logger,
+    }) {
     // VARS
     logger.setNamespace(NS);
 

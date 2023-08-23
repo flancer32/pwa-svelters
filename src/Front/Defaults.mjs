@@ -25,8 +25,15 @@ export default class Svelters_Front_Defaults {
     TIMEOUT_REDIRECT = 1500; // 1.5 sec to redirect to other route
     TIMEOUT_RESPONSE = 12000;
 
-    constructor(spec) {
-        this.SHARED = spec['Svelters_Shared_Defaults$'];
+    /**
+     * @param {Svelters_Shared_Defaults} SHARED
+     */
+    constructor(
+        {
+            Svelters_Shared_Defaults$: SHARED,
+        }
+    ) {
+        this.SHARED = SHARED;
         Object.freeze(this);
     }
 }

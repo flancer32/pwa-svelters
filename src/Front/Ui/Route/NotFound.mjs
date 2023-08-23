@@ -13,10 +13,13 @@ const NS = 'Svelters_Front_Ui_Route_NotFound';
  *
  * @returns {Svelters_Front_Ui_Route_NotFound.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Svelters_Front_Defaults} */
-    const DEF = spec['Svelters_Front_Defaults$'];
-
+/**
+ * @param {Svelters_Front_Defaults} DEF
+ */
+export default function (
+    {
+        Svelters_Front_Defaults$: DEF,
+    }) {
     // VARS
     const template = `
 <layout-main>

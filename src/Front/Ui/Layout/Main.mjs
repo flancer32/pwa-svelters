@@ -13,14 +13,17 @@ const NS = 'Svelters_Front_Ui_Layout_Main';
  *
  * @returns {Svelters_Front_Ui_Layout_Main.vueCompTmpl}
  */
-export default function (spec) {
-    /** @type {Svelters_Front_Defaults} */
-    const DEF = spec['Svelters_Front_Defaults$'];
-    /** @type {Svelters_Front_Ui_Layout_Desk.vueCompTmpl} */
-    const LayoutDesk = spec['Svelters_Front_Ui_Layout_Desk$'];
-    /** @type {Svelters_Front_Ui_Layout_Mobile.vueCompTmpl} */
-    const LayoutMobile = spec['Svelters_Front_Ui_Layout_Mobile$'];
-
+/**
+ * @param {Svelters_Front_Defaults} DEF
+ * @param {Svelters_Front_Ui_Layout_Desk.vueCompTmpl} LayoutDesk
+ * @param {Svelters_Front_Ui_Layout_Mobile.vueCompTmpl} LayoutMobile
+ */
+export default function (
+    {
+        Svelters_Front_Defaults$: DEF,
+        Svelters_Front_Ui_Layout_Desk$: LayoutDesk,
+        Svelters_Front_Ui_Layout_Mobile$: LayoutMobile,
+    }) {
     // VARS
     const template = `
 <layout-desk  v-if="ifDesk()"><slot/></layout-desk>
