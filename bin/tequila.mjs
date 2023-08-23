@@ -3,8 +3,9 @@
 /** Main script to create and to run TeqFW backend application. */
 // IMPORT
 import {dirname, join} from 'node:path';
+import {readFileSync} from 'node:fs';
 import Container from '@teqfw/di';
-import {readFileSync} from "node:fs";
+import parserOld from '@teqfw/di/src/Parser/Old.js';
 
 // VARS
 /* Resolve paths to main folders */
@@ -17,15 +18,26 @@ const root = join(bin, '..');
 /**
  * Create and setup DI container.
  * @param {string} root
- * @returns {TeqFw_Di_Shared_Container}
+ * @returns {TeqFw_Di_Container}
  */
 function initContainer(root) {
-    /** @type {TeqFw_Di_Shared_Container} */
+    /** @type {TeqFw_Di_Container} */
     const res = new Container();
-    const pathDi = join(root, 'node_modules/@teqfw/di/src');
-    const pathCore = join(root, 'node_modules/@teqfw/core/src');
-    res.addSourceMapping('TeqFw_Di', pathDi, true, 'mjs');
-    res.addSourceMapping('TeqFw_Core', pathCore, true, 'mjs');
+    res.setDebug(true);
+    // const pathDi = join(root, 'node_modules', '@teqfw', 'di', 'src');
+    const pathCore = join(root, 'node_modules', '@teqfw', 'core', 'src');
+    const resolver = res.getResolver();
+    resolver.addNamespaceRoot('TeqFw_Core_', pathCore, 'mjs');
+    // set old format parser for TeqFw_
+    const validate = function (key) {
+        return (key.indexOf('TeqFw_Core_') === 0) ||
+            (key.indexOf('TeqFw_Test_') === 0) ||
+            (key.indexOf('TeqFw_Ui_Quasar_') === 0) ||
+            (key.indexOf('TeqFw_Vue_') === 0) ||
+            (key.indexOf('TeqFw_Web_') === 0) ||
+            (key.indexOf('TeqFw_Web_Api_') === 0);
+    };
+    res.getParser().addParser(validate, parserOld);
     return res;
 }
 
