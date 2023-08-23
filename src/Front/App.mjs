@@ -30,7 +30,7 @@ export default class Svelters_Front_App {
         const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {TeqFw_Core_Shared_Logger_Base} */
         const loggerBase = spec['TeqFw_Core_Shared_Logger_Base$'];
-        /** @type {Svelters_Front_Mod_Logger_Transport} */
+        /** @type {Fl32_Log_Front_Logger_Transport} */
         const modLogTrn = spec['TeqFw_Core_Shared_Api_Logger_Transport$']; // as interface
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
@@ -85,6 +85,15 @@ export default class Svelters_Front_App {
                     if (ns && key.indexOf(':') <= 0) key = `${ns}:${key}`;
                     return i18n.t(key, options);
                 };
+            }
+
+            function initLogger() {
+                // logger
+                /** @type {TeqFw_Web_Shared_Dto_Config_Front.Dto} */
+                const cfg = modCfg.get();
+                const domain = cfg?.custom[DEF.SHARED.CFG_WEB_LOGS_AGG];
+                modLogTrn.enableLogs(domain);
+                loggerBase.setTransport(modLogTrn);
             }
 
             function initQuasarUi(app, quasar) {
@@ -188,10 +197,8 @@ export default class Svelters_Front_App {
             try {
                 await modSess.init();
                 _print(`User session is initialized.`);
-                // logger
-                modLogTrn.enableLogs();
-                loggerBase.setTransport(modLogTrn);
-                //
+                initLogger();
+                _print(`Logger transport is initialized.`);
                 initQuasarUi(_root, quasar);
                 _print(`Quasar UI is initialized.`);
                 initRouter(_root, DEF, container);

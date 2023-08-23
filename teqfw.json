@@ -5,10 +5,7 @@
       "path": "./src"
     },
     "replace": {
-      "Fl32_Auth_Back_Api_Mole": {"back": "Svelters_Back_Mole_Auth"},
-      "TeqFw_Core_Shared_Api_Logger_Transport": {
-        "front": "Svelters_Front_Mod_Logger_Transport"
-      }
+      "Fl32_Auth_Back_Api_Mole": {"back": "Svelters_Back_Mole_Auth"}
     }
   },
   "@teqfw/core": {
