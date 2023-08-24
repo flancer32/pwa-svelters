@@ -96,9 +96,11 @@ export default class Svelters_Front_App {
                 // logger
                 /** @type {TeqFw_Web_Shared_Dto_Config_Front.Dto} */
                 const cfg = modCfg.get();
-                const domain = cfg?.custom[DEF.SHARED.CFG_WEB_LOGS_AGG];
-                modLogTrn.enableLogs(domain);
-                loggerBase.setTransport(modLogTrn);
+                const domain = cfg?.custom?.[DEF.SHARED.CFG_WEB_LOGS_AGG];
+                if (domain) {
+                    modLogTrn.enableLogs(domain);
+                    loggerBase.setTransport(modLogTrn);
+                }
             }
 
             function initQuasarUi(app, quasar) {
