@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 'use strict';
-/** Main script to create and to run TeqFW backend application. */
+/** Main script to create and run TeqFW backend application. */
 // IMPORT
 import {dirname, join} from 'node:path';
 import {readFileSync} from 'node:fs';
 import Container from '@teqfw/di';
-import parserOld from '@teqfw/di/src/Parser/Old.js';
 
 // VARS
 /* Resolve paths to main folders */
@@ -18,30 +17,24 @@ const root = join(bin, '..');
 /**
  * Create and setup DI container.
  * @param {string} root
- * @returns {TeqFw_Di_Container}
+ * @returns {Promise<TeqFw_Di_Api_Container>}
  */
-function initContainer(root) {
-    /** @type {TeqFw_Di_Container} */
+async function initContainer(root) {
+    /** @type {TeqFw_Di_Api_Container} */
     const res = new Container();
     res.setDebug(false);
-    // const pathDi = join(root, 'node_modules', '@teqfw', 'di', 'src');
-    const pathCore = join(root, 'node_modules', '@teqfw', 'core', 'src');
+    // add path mapping for @teqfw/core to the DI resolver
     const resolver = res.getResolver();
+    const pathDi = join(root, 'node_modules', '@teqfw', 'di', 'src');
+    const pathCore = join(root, 'node_modules', '@teqfw', 'core', 'src');
+    resolver.addNamespaceRoot('TeqFw_Di_', pathDi, 'js');
     resolver.addNamespaceRoot('TeqFw_Core_', pathCore, 'mjs');
-    // set old format parser for TeqFw_
-    const validate = function (key) {
-        return (key.indexOf('TeqFw_Core_') === 0) ||
-            (key.indexOf('TeqFw_Db_') === 0) ||
-            (key.indexOf('TeqFw_I18n') === 0) ||
-            (key.indexOf('TeqFw_Test_') === 0) ||
-            (key.indexOf('TeqFw_Ui_Quasar_') === 0) ||
-            (key.indexOf('TeqFw_Vue_') === 0) ||
-            (key.indexOf('TeqFw_Web_') === 0) ||
-            (key.indexOf('TeqFw_Web_Api_') === 0) ||
-            (key.indexOf('TeqFw_Web_Event_') === 0) ||
-            (key.indexOf('Svelters_') === 0);
-    };
-    res.getParser().addParser(validate, parserOld);
+    // setup parser for the legacy code
+    const parserLegacy = await res.get('TeqFw_Core_Shared_App_Di_Parser_Legacy$');
+    res.getParser().addChunk(parserLegacy);
+    // add post-processor with Factory wrapper
+    const postFactory = await res.get('TeqFw_Core_Shared_App_Di_PostProcessor_Factory$');
+    res.getPreProcessor().addChunk(postFactory);
     return res;
 }
 
@@ -60,7 +53,7 @@ function readVersion(root) {
 
 // MAIN
 try {
-    const container = initContainer(root);
+    const container = await initContainer(root);
     const version = readVersion(root);
     /** Construct backend app instance using Container then init app & run it */
     /** @type {TeqFw_Core_Back_App} */
