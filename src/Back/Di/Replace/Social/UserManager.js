@@ -72,22 +72,16 @@ export default class Svelters_Back_Di_Replace_Social_UserManager {
          * Creates a new user in the application's database.
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - The transaction context.
-         * @param {string} params.email - The email address of the user.
-         * @param {Object} [params.extras] - Additional user attributes (e.g., name, avatar).
-         * @returns {Promise<{id: number}>} - The unique identifier of the created user.
+         * @returns {Promise<{id: number|null}>} - The unique identifier of the created user.
          */
-        this.createUser = async function ({trx: trxOuter, email, extras}) {
+        this.createUser = async function ({trx: trxOuter}) {
             let id = null;
             await trxWrapper.execute(trxOuter, async (trx) => {
                 const dto = repoUser.getSchema().createDto();
                 dto.date_created = new Date();
                 dto.uuid = await generateUniqueUUID(trx);
                 const {primaryKey} = await repoUser.createOne({trx, dto});
-                if (primaryKey) {
-                    id = primaryKey[A_USER.ID];
-                } else {
-                    logger.info(`User not found with email/ID: ${email}/${id}`);
-                }
+                id = primaryKey[A_USER.ID];
             });
             return {id};
         };
