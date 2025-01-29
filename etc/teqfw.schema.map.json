@@ -13,13 +13,11 @@
     "/web/event/queue": ["/web/event/front"]
   },
   "ref": {
-    "@flancer32/teq-ant-auth": {
-      "/user": {
-        "path": "/app/user",
-        "attrs": {
-          "bid": "bid"
-        }
-      }
+    "@flancer64/teq-agave-otp": {
+      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
+    },
+    "@flancer64/teq-agave-web-session": {
+      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
     }
   }
 }

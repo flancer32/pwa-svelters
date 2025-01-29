@@ -2,88 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description"
-          content="'Svelters' is a web application designed to help individuals achieve their weight loss goals.">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-    <title>Svelters</title>
-    <link rel="manifest" href="./pwa.json">
-    <style>
-        HTML, BODY {
-            box-sizing: border-box;
-            margin: 0;
-        }
-
-        #app {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            justify-content: center;
-            left: 0;
-            position: relative;
-            top: 0;
-            width: 100%;
-        }
-    </style>
-    <script type="module">
-        if ('serviceWorker' in navigator) {
-            // Register Service Worker on page load (if not registered before)
-            self.addEventListener('load', async () => {
-                // VARS
-                // const urlSw = 'sw.js';
-                const urlSw = null;
-                const nsApp = 'Svelters_Front_App';
-                const cssApp = '#app';
-                const elLog = document.getElementById('printLog');
-                const elProgress = document.getElementById('printProgress');
-
-                // FUNCS
-                function fnLog(msg) {
-                    elLog.innerHTML = msg;
-                    console.log(`[shell]: ${msg}`);
-                }
-
-                function fnProgress(percent) {
-                    elProgress.innerHTML = percent;
-                    console.log(`[shell]: ${percent}%`);
-                }
-
-                // MAIN
-                try {
-                    // see `node_modules/@teqfw/web/web/js/install.mjs`
-                    const {bootstrap} = await import('./web/@teqfw/web/js/bootstrap.mjs');
-                    bootstrap(fnLog, fnProgress, urlSw, nsApp, cssApp).catch((e) => {
-                        fnLog(e?.message);
-                    });
-                } catch (e) {
-                    if (e?.message.includes('Failed to fetch dynamically imported module'))
-                        fnLog(`Server is down. Please, try reload the app later.`);
-                    else
-                        fnLog(e?.message);
-                }
-            });
-        }
-    </script>
+    <meta http-equiv="refresh" content="60;url=/app/about/">
+    <title>Tehnikas Center</title>
 </head>
 <body>
-<!-- The application mounting point contains blocks for outputting logs and tracing installation progress. -->
-<!-- The content of the DIV will be replaced after the Vue app is mounted to the DIV. -->
-<div id="app">
-    <div id="printLog"></div>
-    <div>
-        <img src="./img/loading.png" alt="loading..."/>
-    </div>
-    <div id="printProgress"></div>
-</div>
-
-<!-- These resources are loaded after landing page is displayed -->
-<link rel="stylesheet" href="./web/@teqfw/ui-quasar/styles.css">
-<link rel="stylesheet" href="./src/quasar/quasar.prod.css">
-<link rel="stylesheet" href="./styles.css">
-<script type="application/javascript" src="./src/vue/vue.global.prod.js"></script>
-<script type="application/javascript" src="./src/vue-router/vue-router.global.prod.js"></script>
-<script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
-<script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
-<script type="application/javascript" src="./src/i18n-bld/i18nextBrowserLanguageDetector.js"></script>
+<a href="/app/about/">Hello, guys!!</a>
 </body>
 </html>

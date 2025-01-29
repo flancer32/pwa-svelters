@@ -5,7 +5,7 @@
         "user": {
           "comment": "User registry for the app.",
           "attr": {
-            "bid": {"type": "id", "comment": "Internal ID used in foreign keys."},
+            "id": {"type": "id", "comment": "Internal ID used in foreign keys."},
             "uuid": {"type": "string", "comment": "Universally unique identifier as public ID."},
             "date_created": {
               "comment": "Date-time for user registration.",
@@ -19,10 +19,6 @@
             },
             "name": {
               "comment": "Name to display in profile.",
-              "type": "string"
-            },
-            "email": {
-              "comment": "Every user has one email to restore access to own account.",
               "type": "string"
             },
             "date_birth": {
@@ -39,79 +35,7 @@
             }
           },
           "index": {
-            "email": {"type": "unique", "attrs": ["email"]},
             "uuid": {"type": "unique", "attrs": ["uuid"]}
-          }
-        },
-        "weight": {
-          "comment": "Weight values by date (kg).",
-          "attr": {
-            "user_ref": {
-              "type": "ref"
-            },
-            "date": {
-              "type": "datetime",
-              "options": {"dateOnly": true},
-              "default": "current"
-            },
-            "type": {
-              "comment": "Weight type: current or target.",
-              "type": "enum",
-              "options": {"values": ["c", "t"]},
-              "default": "c"
-            },
-            "value": {
-              "comment": "Statistical value for the weight in kg: 75.4.",
-              "type": "number",
-              "options": {"precision": 4, "scale": 1}
-            }
-          },
-          "index": {
-            "PK": {"type": "primary", "attrs": ["user_ref", "date", "type"]}
-          },
-          "relation": {
-            "user": {
-              "attrs": ["user_ref"],
-              "ref": {"path": "/app/user", "attrs": ["bid"]}
-            }
-          }
-        }
-      },
-      "package": {
-        "user": {
-          "package": {
-            "auth": {
-              "entity": {
-
-              }
-            },
-            "device": {
-              "comment": "User devices (smartphones, etc.)",
-              "entity": {
-                "invite": {
-                  "comment": "Invites to register new device for the user.",
-                  "attr": {
-                    "code": {"type": "string", "comment": "Unique code of the invitation (UUID v4)."},
-                    "user_ref": {"type": "ref", "comment": "User for whom invitation was created."},
-                    "date_created": {
-                      "type": "datetime",
-                      "default": "current",
-                      "comment": "UTC date when invitation was created in DB."
-                    }
-                  },
-                  "index": {
-                    "PK": {"type": "primary", "attrs": ["code"]}
-                  },
-                  "relation": {
-                    "user": {
-                      "attrs": ["user_ref"],
-                      "ref": {"path": "/app/user", "attrs": ["bid"]},
-                      "action": {"delete": "cascade", "update": "cascade"}
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       }
