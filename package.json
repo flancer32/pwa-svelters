@@ -1,7 +1,8 @@
 {
   "name": "@flancer32/pwa-svelters",
   "version": "0.1.0",
-  "description": "Image Search PWA.",
+  "type": "module",
+  "description": "Svelters PWA",
   "homepage": "https://github.com/flancer32/pwa-svelters/",
   "bugs": {
     "url": "https://github.com/flancer32/pwa-svelters/issues",

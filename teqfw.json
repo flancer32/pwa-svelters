@@ -2,8 +2,7 @@
   "@teqfw/di": {
     "autoload": {
       "ns": "Svelters",
-      "path": "./src",
-      "ext": "mjs"
+      "path": "./src"
     },
     "replaces": {
       "back": {
