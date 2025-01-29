@@ -5,6 +5,8 @@ export default class Svelters_Back_Defaults {
 
     CLI_PREFIX = 'app';
 
+    NAME;
+
     /**
      * @type {number}
      * @deprecated use Fl32_Auth_Back_Defaults.SESSION_COOKIE_LIFETIME
@@ -28,6 +30,7 @@ export default class Svelters_Back_Defaults {
         }
     ) {
         this.SHARED = SHARED;
+        this.NAME = SHARED.NAME;
         Object.freeze(this);
     }
 }

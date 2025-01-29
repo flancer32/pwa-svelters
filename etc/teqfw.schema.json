@@ -11,31 +11,50 @@
               "comment": "Date-time for user registration.",
               "type": "datetime",
               "default": "current"
-            },
-            "date_updated": {
-              "type": "datetime",
-              "comment": "Date-time for the last update.",
-              "default": "current"
-            },
-            "name": {
-              "comment": "Name to display in profile.",
-              "type": "string"
-            },
-            "date_birth": {
-              "comment": "UTC date of birth.",
-              "type": "datetime",
-              "nullable": true
-            },
-            "height": {
-              "comment": "Height in cm.",
-              "type": "number",
-              "options": {
-                "unsigned": true
-              }
             }
           },
           "index": {
             "uuid": {"type": "unique", "attrs": ["uuid"]}
+          }
+        }
+      },
+      "package": {
+        "user": {
+          "entity": {
+            "profile": {
+              "comment": "User data specific for the app.",
+              "attr": {
+                "user_ref": {"type": "ref"},
+                "date_updated": {
+                  "type": "datetime",
+                  "comment": "Date-time for the last update.",
+                  "default": "current"
+                },
+                "name": {
+                  "comment": "Name to display in profile.",
+                  "type": "string"
+                },
+                "date_birth": {
+                  "comment": "UTC date of birth.",
+                  "type": "datetime",
+                  "nullable": true
+                },
+                "height": {
+                  "comment": "Height in cm.",
+                  "type": "number",
+                  "options": {
+                    "unsigned": true
+                  }
+                }
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {"path": "/app/user", "attrs": ["id"]},
+                  "action": {"delete": "cascade", "update": "cascade"}
+                }
+              }
+            }
           }
         }
       }

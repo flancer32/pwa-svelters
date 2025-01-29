@@ -18,21 +18,26 @@
     "db-reset": "node ./bin/tequila.mjs db-init",
     "help": "node ./bin/tequila.mjs -h",
     "start": "node ./bin/tequila.mjs web-server-start",
-    "stop": "node ./bin/tequila.mjs web-server-stop"
+    "stop": "node ./bin/tequila.mjs web-server-stop",
+    "test:accept": "mocha ./test/accept --recursive",
+    "test:unit": "mocha ./test/unit --recursive"
   },
   "dependencies": {
     "@flancer64/oauth2-social-login": "git+ssh://git@github.com:flancer64/oauth2-social-login.git",
     "@flancer64/teq-agave-otp": "git+ssh://git@github.com:flancer64/teq-agave-otp.git",
     "@flancer64/teq-agave-web-session": "git+ssh://git@github.com:flancer64/teq-agave-web-session.git",
-    "@teqfw/core": "latest",
-    "@teqfw/db": "latest",
-    "@teqfw/di": "latest",
+    "@teqfw/core": ">=0.33.0 <1.0.0",
+    "@teqfw/db": ">=0.22.1 <1.0.0",
     "@teqfw/test": "latest",
     "@teqfw/web": "latest",
     "pg": "^8.13.1"
   },
   "devDependencies": {
-    "mocha": "*"
+    "@teqfw/test": ">=0.20.1 <1.0.0",
+    "@types/knex": "^0.15.2",
+    "better-sqlite3": "^11.5.0",
+    "dotenv": "^16.4.7",
+    "mocha": "^11.1.0"
   },
   "engines": {
     "node": ">=18"
