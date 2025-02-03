@@ -16,6 +16,9 @@
     "@flancer64/oauth2-social-login": {
       "/user": {"path": "/app/user", "attrs": {"id": "id"}}
     },
+    "@flancer64/teq-agave-auth-otp": {
+      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
+    },
     "@flancer64/teq-agave-otp": {
       "/user": {"path": "/app/user", "attrs": {"id": "id"}}
     },
