@@ -6,6 +6,7 @@
     },
     "replaces": {
       "back": {
+        "Fl64_Auth_Otp_Back_Api_Adapter": "Svelters_Back_Di_Replace_Auth_Adapter",
         "Fl64_OAuth2_Social_Back_Api_App_UserManager": "Svelters_Back_Di_Replace_Social_UserManager",
         "Fl64_Web_Session_Back_Api_Service_UserDataProvider": "Svelters_Back_Di_Replace_Session_Service_UserDataProvider"
       }
@@ -14,7 +15,7 @@
   "@teqfw/core": {
     "commands": [],
     "plugin": {
-      "onInit": "Svelters_Back_Plugin_Init",
+      "onInit": "Svelters_Back_Plugin_Start",
       "onStop": "Svelters_Back_Plugin_Stop"
     }
   },
