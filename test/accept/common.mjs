@@ -1,6 +1,5 @@
 import {configDto, dbConnect as dbConnectFw, RDBMS} from '@teqfw/test';
 import {join} from 'node:path';
-import {existsSync} from 'node:fs';
 
 // import 'dotenv/config';
 
@@ -30,25 +29,32 @@ export async function dbDisconnect(container) {
 }
 
 /**
+ * @typedef {Svelters_Back_Store_RDb_Schema_User.Dto} UserDto
+ *
  * @param {TeqFw_Di_Api_Container} container
- * @return {Promise<{user: {id: undefined}}>}
+ * @return {Promise<{user: UserDto}>}
  */
 export async function dbCreateFkEntities(container) {
-    // Mock schema for testing
-    const schemaUser = {
-        createDto: (dto) => ({id: dto.id, name: dto.name}),
-        getAttributes: () => ({ID: 'id', NAME: 'name'}),
-        getEntityName: () => '/test/user',
-        getPrimaryKey: () => ['id'],
-    };
-    const user = {id: undefined, name: 'Test User'};
-    /** @type {TeqFw_Db_Back_App_Crud} */
-    const crud = await container.get('TeqFw_Db_Back_App_Crud$');
+    // Use app entities for testing
+    /** @type {Svelters_Back_Store_RDb_Repo_User} */
+    const repoUser = await container.get('Svelters_Back_Store_RDb_Repo_User$');
 
     // Create an app user
+    let user;
     await dbConnect(container);
-    const {primaryKey} = await crud.createOne({schema: schemaUser, dto: user});
-    user.id = primaryKey.id;
+    /** @type {TeqFw_Db_Back_RDb_Connect} */
+    const conn = await container.get('TeqFw_Db_Back_RDb_IConnect$');
+    const trx = await conn.startTransaction();
+    try {
+        const dto = repoUser.createDto();
+        dto.date_created = new Date();
+        dto.uuid = 'UUID';
+        const {primaryKey: key} = await repoUser.createOne({trx, dto});
+        const {record} = await repoUser.readOne({trx, key});
+        user = record;
+    } finally {
+        await trx.commit();
+    }
     await dbDisconnect(container);
     return {user};
 }
@@ -65,10 +71,10 @@ export async function dbReset(container) {
      * @returns {string} The resolved path to the test data directory.
      */
     function getTestDataPath(root) {
-        const pathInNodeModules = join(root, 'node_modules', '@flancer64', 'teq-agave-web-session', 'test', 'data');
+        // const pathInNodeModules = join(root, 'node_modules', '@flancer64', 'teq-agave-web-session', 'test', 'data');
         const pathInRoot = join(root, 'test', 'data');
-
-        return existsSync(pathInNodeModules) ? pathInNodeModules : pathInRoot;
+        // return existsSync(pathInNodeModules) ? pathInNodeModules : pathInRoot;
+        return pathInRoot;
     }
 
     // MAIN

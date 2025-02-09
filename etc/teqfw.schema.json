@@ -19,6 +19,46 @@
         }
       },
       "package": {
+        "calorie": {
+          "entity": {
+            "log": {
+              "comment": "Records of food consumed by users, with calorie tracking.",
+              "attr": {
+                "id": {"type": "id"},
+                "user_ref": {"type": "ref", "comment": "Reference to the user who consumed the food."},
+                "date": {
+                  "type": "datetime", "comment": "Date when the food was consumed.", "options": {"dateOnly": true}
+                },
+                "product": {"type": "string", "comment": "Name of the consumed product."},
+                "measure": {
+                  "type": "enum",
+                  "comment": "Measurement type (grams, milliliters, or pieces).",
+                  "options": {
+                    "values": ["GRAMS", "MILLILITERS", "PIECES"]
+                  },
+                  "default": "GRAMS"
+                },
+                "quantity": {"type": "integer", "comment": "Quantity of the food consumed, according to measure type."},
+                "unit_calories": {"type": "integer", "comment": "Calories per 100 grams/milliliters, or unit."},
+                "date_created": {
+                  "comment": "Timestamp in UTC when the food record was created.",
+                  "type": "datetime",
+                  "default": "current"
+                }
+              },
+              "index": {
+                "user_ref_date": {"type": "index", "attrs": ["user_ref", "date", "product"]}
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {"path": "/app/user", "attrs": ["id"]},
+                  "action": {"delete": "cascade", "update": "cascade"}
+                }
+              }
+            }
+          }
+        },
         "user": {
           "entity": {
             "profile": {
