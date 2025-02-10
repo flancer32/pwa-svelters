@@ -1,0 +1,242 @@
+:root {
+    --bg-light: #ffffff;
+    --text-light: #1E1E1E;
+    --bg-dark: #1E1E1E;
+    --text-dark: #ffffff;
+    --primary-green: #4CAF50;
+    --primary-red: #E53935;
+    --primary-blue: #007BFF;
+    --card-light: #f9f9f9;
+    --card-dark: #333;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: background 0.3s, color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--bg-dark);
+        color: var(--text-dark);
+    }
+}
+
+header {
+    width: 100%;
+    padding: 10px 0;
+    background: var(--bg-light);
+    color: var(--text-light);
+    border-bottom: 2px solid #ddd;
+}
+
+@media (prefers-color-scheme: dark) {
+    header {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+        border-bottom: none;
+    }
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+    .nav-links li a {
+        color: var(--text-dark);
+    }
+}
+
+.nav-links li a:hover {
+    color: var(--primary-green);
+}
+
+.intro {
+    max-width: 600px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.intro h2 {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+}
+
+.intro p {
+    font-size: 1.1rem;
+    color: gray;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.card {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+    background: var(--card-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: var(--card-dark);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.description {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s;
+    color: white;
+    gap: 8px;
+}
+
+.btn-blue {
+    background-color: var(--primary-blue);
+}
+
+.btn-blue:hover {
+    background-color: #0056b3;
+}
+
+.btn-green {
+    background-color: var(--primary-green);
+}
+
+.btn-green:hover {
+    background-color: #43A047;
+}
+
+.btn-red {
+    background-color: var(--primary-red);
+}
+
+.btn-red:hover {
+    background-color: #D32F2F;
+}
+
+footer {
+    width: 100%;
+    padding: 20px;
+    background: var(--bg-dark);
+    color: var(--text-dark);
+    text-align: center;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-links li a {
+    text-decoration: none;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s;
+}
+
+.footer-links li a:hover {
+    color: var(--primary-green);
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-light);
+    font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+    .lang-btn {
+        color: var(--text-dark);
+    }
+}
+
+.active-lang {
+    text-decoration: underline;
+    font-weight: bold;
+}
