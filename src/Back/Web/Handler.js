@@ -19,6 +19,7 @@ export default class Svelters_Back_Web_Handler {
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Web_Back_App_Server_Respond} respond
      * @param {Svelters_Back_Web_Handler_A_Home} aHome
+     * @param {Svelters_Back_Web_Handler_A_Register} aRegister
      */
     constructor(
         {
@@ -26,6 +27,7 @@ export default class Svelters_Back_Web_Handler {
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_App_Server_Respond$: respond,
             Svelters_Back_Web_Handler_A_Home$: aHome,
+            Svelters_Back_Web_Handler_A_Register$: aRegister,
         }
     ) {
         /**
@@ -44,6 +46,9 @@ export default class Svelters_Back_Web_Handler {
                 switch (endpoint) {
                     case '':
                         await aHome.run(req, res);
+                        break;
+                    case DEF.SHARED.ROUTE_REGISTER:
+                        await aRegister.run(req, res);
                         break;
                     // case DEF.SHARED.ROUTE_AUTH:
 

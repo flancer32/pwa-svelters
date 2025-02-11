@@ -1,3 +1,4 @@
+import {randomUUID} from 'node:crypto';
 /**
  * Implementation of the user management interface for the application.
  *
@@ -24,6 +25,22 @@ export default class Svelters_Back_Di_Replace_Auth_Adapter {
         // VARS
         const A_USER = repoUser.getSchema().getAttributes();
         // FUNCS
+
+        /**
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx
+         * @return {Promise<string>}
+         */
+        async function generateUniqueUUID(trx) {
+            let uuid;
+            let isUnique = false;
+            while (!isUnique) {
+                uuid = randomUUID();
+                const {record} = await repoUser.readOne({trx, key: {[A_USER.UUID]: uuid}});
+                isUnique = !record;
+            }
+            return uuid;
+        }
+
         // MAIN
         this.canRegisterEmail = async function ({trx: trxOuter, email}) {
             let allowed = true;

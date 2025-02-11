@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+{{> pageHeader}}
+
+<main>
+    <div class="intro">
+        <h2>Create Your NutriLog Account</h2>
+        <p>Sign up to track your meals, analyze calorie intake, and get AI-powered insights to improve your
+            nutrition.</p>
+    </div>
+
+    <div class="card">
+        <p class="description">Choose your preferred registration method:</p>
+
+        <!-- Email Registration -->
+        <form id="email-form" action="/fl64-auth-otp/register" method="POST" class="register-form">
+            <label for="email">Register with Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email" class="input">
+            <input type="hidden" name="xsrf_token" id="xsrf_token" value="{{xsrfToken}}">
+
+            <p id="success-msg" style="display: none; color: green;">Registration successful! A verification code has
+                been sent to your email.</p>
+
+            <p id="error-EMAIL_EXISTS" class="error-message" style="display: none; color: red;">This email is already
+                registered.</p>
+            <p id="error-EMAIL_NOT_ALLOWED" class="error-message" style="display: none; color: red;">This email is not
+                allowed.</p>
+            <p id="error-EMAIL_NOT_SENT" class="error-message" style="display: none; color: red;">Failed to send
+                verification email.</p>
+            <p id="error-WRONG_XSRF" class="error-message" style="display: none; color: red;">Invalid security token.
+                Please reload the page.</p>
+            <p id="error-UNDEFINED" class="error-message" style="display: none; color: red;">Unexpected server error.
+                Please try again later.</p>
+
+            <div id="loading" style="display: none;">Processing...</div>
+
+            <button type="submit" class="btn btn-green"><i data-lucide="mail"></i></button>
+        </form>
+
+        <div class="separator">or</div>
+
+        <!-- OAuth Providers -->
+        <div class="buttons">
+            <a href="{{urlGoogle}}" class="btn btn-blue"><i data-lucide="mail-search"></i> Google</a>
+            <a href="{{urlX}}" class="btn btn-blue"><i data-lucide="twitter"></i> X (Twitter)</a>
+            <a href="{{urlGithub}}" class="btn btn-blue"><i data-lucide="github"></i> GitHub</a>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    /** @type {TeqFw_Di_Container} */
+    import containerOtp from '/web/@flancer64/teq-agave-auth-otp/js/di.js';
+
+    /** @type {Fl64_Auth_Otp_Front_Ui_Page_Register} */
+    const page = await containerOtp.get('Fl64_Auth_Otp_Front_Ui_Page_Register$');
+</script>
+
+
+{{> pageFooter}}
+
+</body>
+</html>
