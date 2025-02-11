@@ -1,0 +1,29 @@
+<header>
+    <nav class="nav">
+        <a href="/" class="logo"><i data-lucide="apple"></i> NutriLog</a>
+        <ul class="nav-links">
+            <li><a href="/login"><i data-lucide="log-in"></i> Login</a></li>
+            <li><a href="/register"><i data-lucide="user-plus"></i> Register</a></li>
+            <li class="lang-switch">
+                <button id="lang-ru" class="lang-btn">RU</button>
+                |
+                <button id="lang-en" class="lang-btn">EN</button>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+
+    function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.cookie = `lang=${lang}; path=/; max-age=31536000`; // 1 year
+        location.reload();
+    }
+
+    document.getElementById('lang-ru').addEventListener('click', () => changeLanguage('ru'));
+    document.getElementById('lang-en').addEventListener('click', () => changeLanguage('en'));
+
+    const currentLang = document.documentElement.lang;
+    document.getElementById(`lang-${currentLang}`)?.classList.add('active-lang');
+</script>

@@ -20,7 +20,12 @@
     }
   },
   "@teqfw/web": {
-    "statics": {}
+    "handlers": {
+      "Svelters_Back_Web_Handler": {
+        "before": ["TeqFw_Web_Back_App_Server_Handler_Static"],
+        "spaces": ["app"]
+      }
+    }
   },
   "@teqfw/web-api": {
     "services": []
