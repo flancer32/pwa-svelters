@@ -20,40 +20,108 @@
       },
       "package": {
         "calorie": {
-          "entity": {
+          "package": {
             "log": {
-              "comment": "Records of food consumed by users, with calorie tracking.",
-              "attr": {
-                "id": {"type": "id"},
-                "user_ref": {"type": "ref", "comment": "Reference to the user who consumed the food."},
-                "date": {
-                  "type": "datetime", "comment": "Date when the food was consumed.", "options": {"dateOnly": true}
-                },
-                "product": {"type": "string", "comment": "Name of the consumed product."},
-                "measure": {
-                  "type": "enum",
-                  "comment": "Measurement type (grams, milliliters, or pieces).",
-                  "options": {
-                    "values": ["GRAMS", "MILLILITERS", "PIECES"]
+              "entity": {
+                "draft": {
+                  "comment": "Temporary draft log for daily food consumption. Each user has one draft per day before confirming the entry into history.",
+                  "attr": {
+                    "id": {"type": "id"},
+                    "user_ref": {"type": "ref", "comment": "Reference to the user who owns this draft."},
+                    "date": {
+                      "type": "datetime",
+                      "comment": "The date of food consumption. Each user has only one draft per day.",
+                      "options": {"dateOnly": true}
+                    },
+                    "items": {
+                      "type": "text", "comment": "Draft list of consumed food items in a flexible JSON format."
+                    },
+                    "date_created": {
+                      "comment": "Timestamp when the draft was created.",
+                      "type": "datetime",
+                      "default": "current"
+                    },
+                    "date_updated": {
+                      "comment": "Timestamp when the draft was last updated.",
+                      "type": "datetime",
+                      "default": "current"
+                    }
                   },
-                  "default": "GRAMS"
+                  "index": {
+                    "user_ref_date": {"type": "unique", "attrs": ["user_ref", "date"]}
+                  },
+                  "relation": {
+                    "user": {
+                      "attrs": ["user_ref"],
+                      "ref": {"path": "/app/user", "attrs": ["id"]},
+                      "action": {"delete": "cascade", "update": "cascade"}
+                    }
+                  }
                 },
-                "quantity": {"type": "integer", "comment": "Quantity of the food consumed, according to measure type."},
-                "unit_calories": {"type": "integer", "comment": "Calories per 100 grams/milliliters, or unit."},
-                "date_created": {
-                  "comment": "Timestamp in UTC when the food record was created.",
-                  "type": "datetime",
-                  "default": "current"
+                "final": {
+                  "comment": "Finalized log of daily calorie consumption. Each user has only one confirmed entry per day.",
+                  "attr": {
+                    "id": {"type": "id"},
+                    "user_ref": {"type": "ref", "comment": "Reference to the user who consumed the food."},
+                    "date": {
+                      "type": "datetime", "comment": "The date of food consumption.", "options": {"dateOnly": true}
+                    },
+                    "total_calories": {
+                      "type": "integer",
+                      "comment": "The total calorie intake for the day. Precomputed for fast querying."
+                    },
+                    "date_committed": {
+                      "comment": "The timestamp when the entry was finalized.",
+                      "type": "datetime",
+                      "default": "current"
+                    }
+                  },
+                  "index": {
+                    "user_ref_date": {"type": "index", "attrs": ["user_ref", "date"]}
+                  },
+                  "relation": {
+                    "user": {
+                      "attrs": ["user_ref"],
+                      "ref": {"path": "/app/user", "attrs": ["id"]},
+                      "action": {"delete": "cascade", "update": "cascade"}
+                    }
+                  }
                 }
               },
-              "index": {
-                "user_ref_date": {"type": "index", "attrs": ["user_ref", "date", "product"]}
-              },
-              "relation": {
-                "user": {
-                  "attrs": ["user_ref"],
-                  "ref": {"path": "/app/user", "attrs": ["id"]},
-                  "action": {"delete": "cascade", "update": "cascade"}
+              "package": {
+                "final": {
+                  "entity": {
+                    "item": {
+                      "comment": "Detailed breakdown of consumed food items in a finalized daily log.",
+                      "attr": {
+                        "id": {"type": "id"},
+                        "log_ref": {"type": "ref", "comment": "Reference to the finalized daily log entry."},
+                        "product": {"type": "string", "comment": "The name of the consumed product."},
+                        "measure": {
+                          "type": "enum",
+                          "comment": "The unit of measurement for the product quantity.",
+                          "options": {
+                            "values": ["GRAMS", "MILLILITERS", "PIECES"]
+                          },
+                          "default": "GRAMS"
+                        },
+                        "quantity": {
+                          "type": "integer",
+                          "comment": "The amount of the product consumed, measured in the specified unit."
+                        },
+                        "unit_calories": {
+                          "type": "integer", "comment": "Calories per 100 grams/milliliters, or 1 piece."
+                        }
+                      },
+                      "relation": {
+                        "log": {
+                          "attrs": ["log_ref"],
+                          "ref": {"path": "/app/calorie/log/final", "attrs": ["id"]},
+                          "action": {"delete": "cascade", "update": "cascade"}
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

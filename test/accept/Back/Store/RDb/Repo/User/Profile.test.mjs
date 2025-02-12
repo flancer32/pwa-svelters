@@ -14,11 +14,11 @@ const repoUser = await container.get('Svelters_Back_Store_RDb_Repo_User$');
 const ATTR_USER = repoUser.getSchema().getAttributes();
 
 // TEST CONSTANTS
-let USER_REF;
-const NAME = 'Test User';
-const HEIGHT = 175;
 const DATE_BIRTH = new Date('1990-01-01');
 const DATE_UPDATED = new Date();
+const HEIGHT = 175;
+const NAME = 'Test User';
+let USER_REF;
 
 // Test Suite for User Profile Repository
 describe('Svelters_Back_Store_RDb_Repo_User_Profile', () => {

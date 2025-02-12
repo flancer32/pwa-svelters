@@ -4,20 +4,18 @@ import assert from 'assert';
 // GET OBJECTS FROM CONTAINER
 /** @type {Svelters_Back_Defaults} */
 const DEF = await container.get('Svelters_Back_Defaults$');
-/** @type {Svelters_Back_Store_RDb_Schema_Calorie_Log} */
-const schema = await container.get('Svelters_Back_Store_RDb_Schema_Calorie_Log$');
+/** @type {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final_Item} */
+const schema = await container.get('Svelters_Back_Store_RDb_Schema_Calorie_Log_Final_Item$');
 
-describe('Svelters_Back_Store_RDb_Schema_Calorie_Log', () => {
+describe('Svelters_Back_Store_RDb_Schema_Calorie_Log_Final_Item', () => {
     const ATTR = schema.getAttributes();
     const expectedProperties = [
-        'date',
-        'date_created',
         'id',
+        'log_ref',
         'measure',
         'product',
         'quantity',
         'unit_calories',
-        'user_ref',
     ];
 
     it('should create an RDB DTO with only the expected properties', () => {
@@ -47,8 +45,7 @@ describe('Svelters_Back_Store_RDb_Schema_Calorie_Log', () => {
     });
 
     it('should have the correct ENTITY name and primary key', () => {
-        assert.equal(schema.getEntityName(), `${DEF.NAME}/app/calorie/log`, 'Entity name should match the expected path');
+        assert.equal(schema.getEntityName(), `${DEF.NAME}/app/calorie/log/final/item`, 'Entity name should match the expected path');
         assert.deepStrictEqual(schema.getPrimaryKey(), [ATTR.ID], 'Primary key should be set to ID');
     });
-
 });

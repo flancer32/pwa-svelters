@@ -1,30 +1,32 @@
 /**
- * Repository for managing Calorie Log entries in the database.
+ * Repository for managing Calorie Log Final entries in the database.
  * @implements TeqFw_Db_Back_Api_RDb_Repository
  */
-export default class Svelters_Back_Store_RDb_Repo_Calorie_Log {
+export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
     /**
      * @param {TeqFw_Db_Back_App_Crud} crud - CRUD engine for database operations.
-     * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log} schema - Persistent DTO schema for Calorie Log.
+     * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final} schema - Persistent DTO schema for Calorie Log Final.
      */
     constructor(
         {
             TeqFw_Db_Back_App_Crud$: crud,
-            Svelters_Back_Store_RDb_Schema_Calorie_Log$: schema,
+            Svelters_Back_Store_RDb_Schema_Calorie_Log_Final$: schema,
         }
     ) {
         /**
-         * Creates a DTO for the Calorie Log entity.
-         * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log.Dto} [dto]
-         * @returns {Svelters_Back_Store_RDb_Schema_Calorie_Log.Dto}
+         * Creates a DTO with type validation.
+         *
+         * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto} [dto]
+         * @returns {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto}
          */
         this.createDto = (dto) => schema.createDto(dto);
 
         /**
-         * Inserts a new calorie log entry.
+         * Inserts a new record into the database.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log.Dto} [params.dto]
+         * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto} [params.dto]
          * @returns {Promise<{primaryKey: Object<string, string|number>}>}
          */
         this.createOne = async function ({trx, dto}) {
@@ -32,7 +34,8 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log {
         };
 
         /**
-         * Deletes multiple calorie log entries based on conditions.
+         * Deletes multiple records matching conditions.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Object} params.conditions
@@ -43,7 +46,8 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log {
         };
 
         /**
-         * Deletes a single calorie log entry by primary key.
+         * Deletes a record by primary key.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Object} params.key
@@ -54,38 +58,42 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log {
         };
 
         /**
-         * Returns the schema instance for the Calorie Log entity.
-         * @returns {Svelters_Back_Store_RDb_Schema_Calorie_Log}
+         * Returns the schema object associated with this repository.
+         *
+         * @returns {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final}
          */
         this.getSchema = () => schema;
 
         /**
-         * Reads multiple calorie log entries.
+         * Reads multiple records matching conditions.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Object} params.conditions
          * @param {Object<string, 'asc'|'desc'>} [params.sorting]
          * @param {{limit: number, offset: number}} [params.pagination]
-         * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_Calorie_Log.Dto>}>}
+         * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto>}>}
          */
         this.readMany = async function ({trx, conditions, sorting, pagination}) {
             return crud.readMany({schema, trx, conditions, sorting, pagination});
         };
 
         /**
-         * Reads a single calorie log entry by primary key.
+         * Reads a single record by primary key.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Object} params.key
          * @param {Array<string>} [params.select]
-         * @returns {Promise<{record: Svelters_Back_Store_RDb_Schema_Calorie_Log.Dto|null}>}
+         * @returns {Promise<{record: Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto|null}>}
          */
         this.readOne = async function ({trx, key, select}) {
             return crud.readOne({schema, trx, key, select});
         };
 
         /**
-         * Updates multiple calorie log entries based on conditions.
+         * Updates multiple records matching conditions.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Object} params.conditions
@@ -97,7 +105,8 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log {
         };
 
         /**
-         * Updates a single calorie log entry by primary key.
+         * Updates a record by primary key.
+         *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Object} params.key
