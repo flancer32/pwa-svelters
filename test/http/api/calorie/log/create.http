@@ -1,0 +1,12 @@
+### a calorie log
+POST https://{{host}}/app/api/calorie/log/create/one?q=3&r=4
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "date": "2025-02-11",
+  "product": "Яичница с беконом",
+  "measure": "GRAMS",
+  "quantity": 200,
+  "unit_calories": 250
+}

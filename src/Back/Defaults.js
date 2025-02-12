@@ -5,6 +5,9 @@ export default class Svelters_Back_Defaults {
 
     CLI_PREFIX = 'app';
 
+    /** @type {TeqFw_Web_Back_Defaults} */
+    MOD_WEB;
+
     NAME;
 
     /**
@@ -22,14 +25,18 @@ export default class Svelters_Back_Defaults {
     SHARED;
 
     /**
+     * @param {TeqFw_Web_Back_Defaults} MOD_WEB
      * @param {Svelters_Shared_Defaults} SHARED
      */
     constructor(
         {
+            TeqFw_Web_Back_Defaults$: MOD_WEB,
             Svelters_Shared_Defaults$: SHARED
         }
     ) {
+        this.MOD_WEB = MOD_WEB;
         this.SHARED = SHARED;
+
         this.NAME = SHARED.NAME;
         Object.freeze(this);
     }

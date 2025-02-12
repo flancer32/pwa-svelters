@@ -13,6 +13,7 @@ export default class Svelters_Shared_Defaults {
 
     PASS_SALT_BYTES = 16;
 
+    ROUTE_API = 'api';
     ROUTE_REGISTER = 'register';
 
     SPACE = 'app';

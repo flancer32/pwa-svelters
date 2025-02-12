@@ -8,6 +8,7 @@
 /.idea/
 /cfg/local.*
 /composer.lock
+/http-client.env.json
 /package-lock.json
 /tmp/
 /var/*.pid
