@@ -21,6 +21,7 @@ const ATTR = {
     DATE_UPDATED: 'date_updated',
     HEIGHT: 'height',
     NAME: 'name',
+    TIMEZONE: 'timezone',
     USER_REF: 'user_ref',
 };
 Object.freeze(ATTR);
@@ -59,7 +60,11 @@ class Dto {
      * @type {string}
      */
     name;
-
+    /**
+     * IANA timezone identifier (e.g., 'Europe/Riga').
+     * @type {string}
+     */
+    timezone;
     /**
      * Reference to the user.
      *
@@ -94,11 +99,12 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
         this.createDto = function (data) {
             const res = new Dto();
             if (data) {
-                res.date_birth = cast.date(data?.date_birth);
-                res.date_updated = cast.date(data?.date_updated);
-                res.height = cast.int(data?.height);
-                res.name = cast.string(data?.name);
-                res.user_ref = cast.int(data?.user_ref);
+                res.date_birth = cast.date(data.date_birth);
+                res.date_updated = cast.date(data.date_updated);
+                res.height = cast.int(data.height);
+                res.name = cast.string(data.name);
+                res.timezone = cast.string(data.timezone);
+                res.user_ref = cast.int(data.user_ref);
             }
             return res;
         };

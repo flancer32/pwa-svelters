@@ -145,7 +145,8 @@
                 "date_birth": {
                   "comment": "UTC date of birth.",
                   "type": "datetime",
-                  "nullable": true
+                  "nullable": true,
+                  "options": {"dateOnly": true}
                 },
                 "height": {
                   "comment": "Height in cm.",
@@ -153,6 +154,11 @@
                   "options": {
                     "unsigned": true
                   }
+                },
+                "timezone": {
+                  "comment": "IANA timezone identifier (e.g., 'Europe/Riga').",
+                  "type": "string",
+                  "nullable": true
                 }
               },
               "relation": {

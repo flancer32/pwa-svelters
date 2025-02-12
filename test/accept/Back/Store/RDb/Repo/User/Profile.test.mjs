@@ -18,6 +18,7 @@ const DATE_BIRTH = new Date('1990-01-01');
 const DATE_UPDATED = new Date();
 const HEIGHT = 175;
 const NAME = 'Test User';
+const TZ = 'Europe/Riga';
 let USER_REF;
 
 // Test Suite for User Profile Repository
@@ -39,11 +40,12 @@ describe('Svelters_Back_Store_RDb_Repo_User_Profile', () => {
     it('should create a new user profile entry', async () => {
         /** @type {Svelters_Back_Store_RDb_Schema_User_Profile.Dto} */
         const dto = repoUserProfile.createDto();
-        dto.user_ref = USER_REF;
-        dto.name = NAME;
-        dto.height = HEIGHT;
         dto.date_birth = DATE_BIRTH;
         dto.date_updated = DATE_UPDATED;
+        dto.height = HEIGHT;
+        dto.name = NAME;
+        dto.timezone = TZ;
+        dto.user_ref = USER_REF;
 
         const {primaryKey} = await repoUserProfile.createOne({dto});
         assert.ok(primaryKey, 'User profile should be created');
@@ -68,12 +70,13 @@ describe('Svelters_Back_Store_RDb_Repo_User_Profile', () => {
 
         const {updatedCount} = await repoUserProfile.updateOne({
             key: {user_ref: USER_REF},
-            updates: {name: 'Updated Name'}
+            updates: {name: 'Updated Name', timezone: 'Europe/Madrid'}
         });
 
         assert.strictEqual(updatedCount, 1, 'One user profile should be updated');
         const {record: updated} = await repoUserProfile.readOne({key: {user_ref: USER_REF}});
         assert.strictEqual(updated.name, 'Updated Name', 'User name should be updated');
+        assert.strictEqual(updated.timezone, 'Europe/Madrid', 'Timezone should be updated');
     });
 
     it('should delete an existing user profile', async () => {

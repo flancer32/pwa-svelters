@@ -14,6 +14,7 @@ describe('Svelters_Back_Store_RDb_Schema_User_Profile', () => {
         'date_updated',
         'height',
         'name',
+        'timezone',
         'user_ref',
     ];
 
