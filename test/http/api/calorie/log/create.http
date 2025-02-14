@@ -1,12 +1,28 @@
-### a calorie log
-POST https://{{host}}/app/api/calorie/log/create/one?q=3&r=4
+### Save a calorie log as a draft
+POST https://{{host}}/app/api/calorie/log/draft/save?q=3&r=4
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
   "date": "2025-02-11",
-  "product": "Яичница с беконом",
-  "measure": "GRAMS",
-  "quantity": 200,
-  "unit_calories": 250
+  "items": [
+    {
+      "product": "Apple",
+      "quantity": 150,
+      "measure": "GRAMS",
+      "unitCalories": 52
+    },
+    {
+      "product": "Rice",
+      "quantity": 200,
+      "measure": "GRAMS",
+      "unitCalories": 365
+    },
+    {
+      "product": "Chicken Breast",
+      "quantity": 250,
+      "measure": "GRAMS",
+      "unitCalories": 165
+    }
+  ]
 }

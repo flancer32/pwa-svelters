@@ -14,17 +14,9 @@ export default class Svelters_Back_Web_Handler_A_Api {
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_App_Server_Respond} respond - Error response helper
-     * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
-     * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
-     * @param {Fl64_Auth_Otp_Back_Store_Mem_XsrfToken} memXsrfToken
-     * @param {Fl64_OAuth2_Social_Back_Mod_Provider} modProvider - Module for interacting with OAuth2 providers
-     * @param {Fl64_OAuth2_Social_Back_Plugin_Registry_Provider} regProviders
-     * @param {Fl64_OAuth2_Social_Back_Store_Mem_State} memState
-     * @param {Svelters_Back_Web_Handler_A_Api_A_Calorie_Log} aCalorieLog
-     * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TMPL
-     * @param {typeof Fl64_OAuth2_Social_Shared_Enum_Provider_Code} PROVIDER
+     * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
+     * @param {Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Draft_Save} aCalorieLogDraftSave
      */
     constructor(
         {
@@ -33,15 +25,7 @@ export default class Svelters_Back_Web_Handler_A_Api {
             TeqFw_Web_Back_App_Server_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Web_Session_Back_Manager$: mgrSession,
-            Fl64_Tmpl_Back_Service_Render$: tmplRender,
-            Fl64_Auth_Otp_Back_Store_Mem_XsrfToken$: memXsrfToken,
-            Fl64_OAuth2_Social_Back_Mod_Provider$: modProvider,
-            Fl64_OAuth2_Social_Back_Plugin_Registry_Provider$: regProviders,
-            Fl64_OAuth2_Social_Back_Store_Mem_State$: memState,
-            Svelters_Back_Web_Handler_A_Api_A_Calorie_Log$: aCalorieLog,
-            Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TMPL,
-            'Fl64_OAuth2_Social_Shared_Enum_Provider_Code.default': PROVIDER,
+            Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Draft_Save$: aCalorieLogDraftSave,
         }
     ) {
         // VARS
@@ -62,7 +46,10 @@ export default class Svelters_Back_Web_Handler_A_Api {
             const parts = url.pathname.split('/'); // /app/api/...
             if ((req.method === HTTP2_METHOD_POST) && (parts[2] === DEF.SHARED.ROUTE_API)) {
                 if ((parts[3] === 'calorie') && (parts[4] === 'log')) {
-                    await aCalorieLog.run(req, res, parts[5]);
+                    if ((parts[5] === 'draft')) {
+                        if ((parts[6] === 'save')) await aCalorieLogDraftSave.run(req, res);
+
+                    }
                 }
 
             }
