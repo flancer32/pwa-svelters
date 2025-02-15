@@ -1,29 +1,22 @@
 {
   "deprecated": {
-    "/app/profile": ["/app/user"],
-    "/app/user/auth/attest": ["/app/user"],
-    "/app/user/auth/chlng/attest": ["/app/user"],
-    "/app/user/auth/chlng/sign": ["/app/user/auth/attest"],
-    "/app/user/auth/pk": ["/app/user"],
-    "/app/user/auth/pwd": [],
-    "/app/user/id/email": ["/app/user"],
-    "/app/user/tree": ["/app/user"],
-    "/web/event/front": ["/app/user"],
-    "/web/event/front/session": ["/web/event/front"],
-    "/web/event/queue": ["/web/event/front"]
+    "/app/user/auth/attest": ["/app/user"]
   },
   "ref": {
     "@flancer64/oauth2-social-login": {
-      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
+      "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     },
     "@flancer64/teq-agave-auth-otp": {
-      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
+      "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
+    },
+    "@flancer64/teq-agave-auth-oauth2": {
+      "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     },
     "@flancer64/teq-agave-otp": {
-      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
+      "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     },
     "@flancer64/teq-agave-web-session": {
-      "/user": {"path": "/app/user", "attrs": {"id": "id"}}
+      "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     }
   }
 }

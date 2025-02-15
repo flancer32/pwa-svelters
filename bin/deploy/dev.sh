@@ -39,6 +39,7 @@ mkdir -p "${DIR_OWN}/@teqfw/"
 
 processRepo "flancer64/oauth2-social-login" &
 processRepo "flancer64/teq-agave-auth-otp" &
+processRepo "flancer64/teq-agave-oauth2" &
 processRepo "flancer64/teq-agave-otp" &
 processRepo "flancer64/teq-agave-tmpl" &
 processRepo "flancer64/teq-agave-web-session" &
