@@ -1,9 +1,8 @@
+import 'dotenv/config';
 import {join} from 'node:path';
 import {initContainer, initPlugins, stopPlugins} from '@teqfw/core';
 import {dirname} from 'path';
 import {configDto} from '@teqfw/test';
-
-// import 'dotenv/config';
 
 // VARS
 let container;

@@ -17,7 +17,7 @@ export default class Svelters_Back_Helper_Web {
 
         // FUNCS
         /**
-         * Makes an HTTP request.
+         * Makes an HTTP request and returns structured response data.
          * @param {Object} params - Request parameters.
          * @param {string} params.hostname - The hostname of the server.
          * @param {string} params.path - The path of the resource.
@@ -25,7 +25,7 @@ export default class Svelters_Back_Helper_Web {
          * @param {Object} [params.body] - The request body (for POST requests).
          * @param {Object} params.headers - Headers to include in the request.
          * @param {number} params.timeout - Timeout in milliseconds.
-         * @returns {Promise<*>} - Resolves to the HTTP response body.
+         * @returns {Promise<{body: string, headers: Object, statusCode: number}>} - Structured response.
          */
         function makeRequest({hostname, path, method, body = null, headers, timeout}) {
             return new Promise((resolve, reject) => {
@@ -48,15 +48,11 @@ export default class Svelters_Back_Helper_Web {
 
                     // Handle end of response
                     res.on('end', () => {
-                        if (res.statusCode < 200 || res.statusCode >= 300) {
-                            logger.error(`HTTP Error: ${res.statusCode}, Response: ${data}`);
-                            return reject(new Error(`HTTP Error: ${res.statusCode}`));
-                        }
-                        try {
-                            resolve(data);
-                        } catch (error) {
-                            reject(new Error(`Failed to parse response: ${error.message}`));
-                        }
+                        resolve({
+                            body: data,
+                            headers: res.headers,
+                            statusCode: res.statusCode
+                        });
                     });
                 });
 
@@ -89,13 +85,13 @@ export default class Svelters_Back_Helper_Web {
          * @param {Object} params.payload - The data to send in the request body.
          * @param {Object} params.headers - Headers to include in the request.
          * @param {number} [params.timeout=5000] - Timeout in milliseconds.
-         * @returns {Promise<Object>} - Resolves to the parsed JSON response.
+         * @returns {Promise<{body: string, headers: Object, statusCode: number}>} - Structured response.
          */
         this.post = async function ({hostname, path, payload, headers, timeout = 10000}) {
             let body;
             if (headers['Content-Type'] === 'application/json') body = JSON.stringify(payload);
-            else if (headers['Content-Type'] === 'application/x-www-form-urlencoded') body = payload;
-            else body = querystring.stringify(payload);
+            else if (headers['Content-Type'] === 'application/x-www-form-urlencoded') body = querystring.stringify(payload);
+            else body = payload;
 
             return makeRequest({
                 hostname,
@@ -117,7 +113,7 @@ export default class Svelters_Back_Helper_Web {
          * @param {string} params.path - The path of the resource.
          * @param {Object} [params.headers] - Headers to include in the request.
          * @param {number} [params.timeout=5000] - Timeout in milliseconds.
-         * @returns {Promise<Object>} - Resolves to the parsed JSON response.
+         * @returns {Promise<{body: string, headers: Object, statusCode: number}>} - Structured response.
          */
         this.get = async function ({hostname, path, headers, timeout = 5000}) {
             return makeRequest({
