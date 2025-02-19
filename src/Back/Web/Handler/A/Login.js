@@ -8,14 +8,13 @@ const {
 } = H2;
 
 /**
- * TODO: add JSDoc
+ * Load data from DB and compose combined login page (OTP & Social Nets).
  */
-export default class Svelters_Back_Web_Handler_A_Register {
+export default class Svelters_Back_Web_Handler_A_Login {
     /**
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_App_Server_Respond} respond - Error response helper
-     * @param {Fl64_Web_Session_Back_Manager} session - Session manager
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
      * @param {Fl64_Auth_Otp_Back_Store_Mem_XsrfToken} memXsrfToken
@@ -32,7 +31,6 @@ export default class Svelters_Back_Web_Handler_A_Register {
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_App_Server_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-            Fl64_Web_Session_Back_Manager$: session,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Fl64_Auth_Otp_Back_Store_Mem_XsrfToken$: memXsrfToken,
             Fl64_OAuth2_Social_Back_Mod_Provider$: modProvider,
@@ -82,15 +80,12 @@ export default class Svelters_Back_Web_Handler_A_Register {
                         .getAuthorizationUrl({clientId: google.clientId, state,});
                     view.urlX = regProviders.get(x.code)
                         .getAuthorizationUrl({clientId: x.clientId, state,});
-
-
                 });
-
 
                 // load template and render the page
                 const localeApp = DEF.SHARED.LOCALE;
                 const localeUser = zHelper.getLocale(req);
-                const name = 'register.html';
+                const name = 'login.html';
                 const partials = await zHelper.loadPartials(localeUser);
                 const type = TMPL.WEB;
                 const {content} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});

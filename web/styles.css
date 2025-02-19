@@ -240,3 +240,49 @@ footer {
     text-decoration: underline;
     font-weight: bold;
 }
+
+.email-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: border 0.3s;
+    color: #333;
+}
+
+.input::placeholder {
+    color: #aaa;
+}
+
+.input:focus {
+    border-color: var(--primary-green);
+}
+
+.btn-email {
+    background-color: var(--primary-green);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-email:hover {
+    background-color: #0056b3;
+}
+
+label {
+    display: none;
+}

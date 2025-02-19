@@ -20,6 +20,7 @@ export default class Svelters_Back_Web_Handler {
      * @param {TeqFw_Web_Back_App_Server_Respond} respond
      * @param {Svelters_Back_Web_Handler_A_Api} aApi
      * @param {Svelters_Back_Web_Handler_A_Home} aHome
+     * @param {Svelters_Back_Web_Handler_A_Login} aLogin
      * @param {Svelters_Back_Web_Handler_A_Register} aRegister
      */
     constructor(
@@ -29,6 +30,7 @@ export default class Svelters_Back_Web_Handler {
             TeqFw_Web_Back_App_Server_Respond$: respond,
             Svelters_Back_Web_Handler_A_Api$: aApi,
             Svelters_Back_Web_Handler_A_Home$: aHome,
+            Svelters_Back_Web_Handler_A_Login$: aLogin,
             Svelters_Back_Web_Handler_A_Register$: aRegister,
         }
     ) {
@@ -52,11 +54,12 @@ export default class Svelters_Back_Web_Handler {
                     case '':
                         await aHome.run(req, res);
                         break;
+                    case DEF.SHARED.ROUTE_LOGIN:
+                        await aLogin.run(req, res);
+                        break;
                     case DEF.SHARED.ROUTE_REGISTER:
                         await aRegister.run(req, res);
                         break;
-                    // case DEF.SHARED.ROUTE_AUTH:
-
                     default:
                         // If the endpoint is not recognized, do nothing and let other handlers process it
                         break;

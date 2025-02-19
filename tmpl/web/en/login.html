@@ -8,28 +8,26 @@
 
 <main>
     <div class="intro">
-        <h2>Create Your NutriLog Account</h2>
-        <p>Sign up to track your meals, analyze calorie intake, and get AI-powered insights to improve your
+        <h2>Login to Your NutriLog Account</h2>
+        <p>Log in to track your meals, analyze calorie intake, and get AI-powered insights to improve your
             nutrition.</p>
     </div>
 
     <div class="card">
-        <p class="description">Choose your preferred registration method:</p>
+        <p class="description">Choose your preferred login method:</p>
 
-        <!-- Email Registration -->
-        <form id="email-form" action="/fl64-auth-otp/register" method="POST" class="register-form">
+        <!-- Email Login -->
+        <form id="email-form" action="/fl64-auth-otp/login" method="POST" class="login-form">
             <div class="email-input-container">
-                <input type="email" id="email" name="email" required placeholder="Enter your email to register"
-                       class="input">
+                <input type="email" id="email" name="email" required placeholder="Login with Email & OTP" class="input">
                 <button type="submit" class="btn-email"><i data-lucide="mail"></i></button>
             </div>
+
             <input type="hidden" name="xsrf_token" id="xsrf_token" value="{{xsrfToken}}">
 
-            <p id="success-msg" style="display: none; color: green;">Registration successful! A verification code has
-                been sent to your email.</p>
+            <p id="success-msg" style="display: none; color: green;">An authentication link has been sent to your
+                email.</p>
 
-            <p id="error-EMAIL_EXISTS" class="error-message" style="display: none; color: red;">This email is already
-                registered.</p>
             <p id="error-EMAIL_NOT_ALLOWED" class="error-message" style="display: none; color: red;">This email is not
                 allowed.</p>
             <p id="error-EMAIL_NOT_SENT" class="error-message" style="display: none; color: red;">Failed to send
@@ -57,10 +55,9 @@
     /** @type {TeqFw_Di_Container} */
     import containerOtp from '/web/@flancer64/teq-agave-auth-otp/js/di.js';
 
-    /** @type {Fl64_Auth_Otp_Front_Ui_Page_Register} */
-    const page = await containerOtp.get('Fl64_Auth_Otp_Front_Ui_Page_Register$');
+    /** @type {Fl64_Auth_Otp_Front_Ui_Page_Login} */
+    const page = await containerOtp.get('Fl64_Auth_Otp_Front_Ui_Page_Login$');
 </script>
-
 
 {{> pageFooter}}
 
