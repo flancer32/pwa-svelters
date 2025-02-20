@@ -1,0 +1,5 @@
+### get an autorization token
+POST https://{{host}}/fl64-oauth2/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&client_id=e0dd5d3b-db4d-4c66-86d0-fb00d0cd5ef5&client_secret=1fd3c05a-26f5-4948-aa06-5c9b2c30027e&code=1096df59-cd23-4d8f-b28a-90fc8ae8f5b6&redirect_uri=https%3A%2F%2Fchat.openai.com%2Faip%2Fg-45e9ae2cba713caecc466b30547284b0b6aabf9f%2Foauth%2Fcallback

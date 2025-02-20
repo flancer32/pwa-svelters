@@ -75,7 +75,7 @@ export default class Svelters_Back_Di_Replace_OAuth2_Adapter {
         this.getAuthStatus = async function ({req}) {
             const {dto} = await session.getFromRequest({req});
             const isAuthenticated = (typeof dto?.id === 'number');
-            return {isAuthenticated};
+            return {isAuthenticated, userId: dto?.user_ref};
         };
 
     }

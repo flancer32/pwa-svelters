@@ -9,7 +9,8 @@
     "@flancer64/teq-agave-auth-otp": {
       "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     },
-    "@flancer64/teq-agave-auth-oauth2": {
+    "@flancer64/teq-agave-oauth2": {
+      "/token": {"attrs": {"id": "id"}, "path": "/fl64/otp/token"},
       "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     },
     "@flancer64/teq-agave-otp": {

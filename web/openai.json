@@ -1,0 +1,103 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Svelters API",
+    "version": "1.0.0",
+    "description": "API for managing calorie logs in the Svelters web application."
+  },
+  "servers": [
+    {
+      "url": "https://svelters.dev.wiredgeese.com"
+    }
+  ],
+  "paths": {
+    "/app/api/calorie/log/draft/save": {
+      "post": {
+        "summary": "Save a draft of a calorie log.",
+        "description": "This endpoint allows users to save a draft of their calorie log for a specific date, including a list of consumed items.",
+        "operationId": "saveCalorieLogDraft",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "The date of the calorie log in YYYY-MM-DD format."
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CalorieLogItem"
+                    },
+                    "description": "List of calorie log items."
+                  }
+                },
+                "required": ["date", "items"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Calorie log draft saved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalorieLogSaveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Missing or invalid data."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CalorieLogItem": {
+        "type": "object",
+        "properties": {
+          "food": {
+            "type": "string",
+            "description": "Name of the food item."
+          },
+          "quantity": {
+            "type": "number",
+            "format": "float",
+            "description": "Amount of the food consumed."
+          },
+          "calories": {
+            "type": "number",
+            "format": "float",
+            "description": "Caloric value of the consumed food."
+          }
+        },
+        "required": ["food", "quantity", "calories"]
+      },
+      "CalorieLogSaveResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the draft was successfully saved."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message providing additional information about the save operation."
+          }
+        },
+        "required": ["success", "message"]
+      }
+    }
+  }
+}
