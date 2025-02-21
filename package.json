@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@flancer64/oauth2-social-login": "git+ssh://git@github.com:flancer64/oauth2-social-login.git",
+    "@flancer64/teq-agave-auth-otp": "git+ssh://git@github.com:flancer64/teq-agave-auth-otp.git",
     "@flancer64/teq-agave-oauth2": "git+ssh://git@github.com:flancer64/teq-agave-oauth2.git",
     "@flancer64/teq-agave-otp": "git+ssh://git@github.com:flancer64/teq-agave-otp.git",
     "@flancer64/teq-agave-tmpl": "git+ssh://git@github.com:flancer64/teq-agave-tmpl.git",
