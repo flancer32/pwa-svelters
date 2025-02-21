@@ -1,0 +1,45 @@
+name: LIVE - Update and Restart the `NutriLog` App
+
+# Trigger action manually
+on: workflow_dispatch
+
+env:
+  PRJ: nutrilog  # The name of the project
+  APP_DIR: /home/${{secrets.USER}}/inst/app/${{env.PRJ}}/  # Directory of the application
+  SERVICE: app-${{env.PRJ}}.service  # The name of the service to manage
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository on the GitHub environment.
+        uses: actions/checkout@v3
+
+      - name: Install dependencies and build the project.
+        run: |
+          npm install --omit=optional --omit=dev
+
+      - name: Add application files to the archive.
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq --exclude=*.git* -r "${{env.PRJ}}.zip" ./
+
+      - name: Validate SSH connection.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{env.USER}}
+          key: ${{secrets.SSH_KEY}}
+          script: |
+            pwd
+            whoami
+            
+      - name: Copy files to Remote Server.
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{env.USER}}
+          key: ${{secrets.SSH_KEY}}
+          source: ${{env.ZIP}}
+          target: ${{env.APP_DIR}}/            
