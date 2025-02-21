@@ -63,6 +63,9 @@ jobs:
             echo sudo /bin/systemctl stop ${{env.SERVICE}}
             mv ./prod ./prod.old
             mv ./prod.new ./prod
-            cp ./prod.old/cfg/local* ./prod/cfg/
+            echo cp ./prod.old/cfg/local* ./prod/cfg/
             echo sudo /bin/systemctl start ${{env.SERVICE}}
-            ls -lh ./${{env.APP_DIR}}/
+            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+            mv ${{env.PRJ}}.zip ${{env.PRJ}}-${TIMESTAMP}.zip
+            echo "Archive renamed to: ${{env.PRJ}}-${TIMESTAMP}.zip"            
+            ls -lh ${{env.APP_DIR}}
