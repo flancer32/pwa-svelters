@@ -48,3 +48,21 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           source: ${{env.PRJ}}.zip
           target: ${{env.APP_DIR}}
+          
+      - name: Extract files on Remote Server and switch site to the new instance.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{vars.HOST}}
+          username: ${{vars.USER}}
+          key: ${{secrets.SSH_KEY}}
+          script: |
+            cd "${{env.APP_DIR}}/"
+            rm -fr prod.old  
+            mkdir prod.new
+            unzip ${{env.PRJ}}.zip -d ./prod.new/ &> /dev/null
+            echo sudo /bin/systemctl stop ${{env.SERVICE}}
+            mv ./prod ./prod.old
+            mv ./prod.new ./prod
+            cp ./prod.old/cfg/local* ./prod/cfg/
+            echo sudo /bin/systemctl start ${{env.SERVICE}}
+            ls -lh ./${{env.APP_DIR}}/
