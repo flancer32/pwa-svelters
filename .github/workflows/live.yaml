@@ -25,6 +25,11 @@ jobs:
         with:
           args: zip -qq --exclude=*.git* -r "${{env.PRJ}}.zip" ./
 
+      - name: Validate the existence of the archive.
+        run: |
+          pwd
+          ls -lh 
+
       - name: Validate SSH connection.
         uses: appleboy/ssh-action@master
         with:
