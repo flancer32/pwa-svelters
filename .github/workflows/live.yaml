@@ -23,7 +23,7 @@ jobs:
       - name: Add application files to the archive.
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq --exclude=*.git* -r "${{env.PRJ}}.zip" ./
+          args: zip -qq --exclude=*.git* -r ${{env.PRJ}}.zip ./
 
       - name: Validate the existence of the archive.
         run: |
