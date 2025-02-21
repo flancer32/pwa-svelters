@@ -4,9 +4,9 @@ name: LIVE - Update and Restart the `NutriLog` App
 on: workflow_dispatch
 
 env:
+  APP_DIR: /home/${{secrets.USER}}/inst/app/nutrilog/  # Directory of the application
   PRJ: nutrilog  # The name of the project
-  APP_DIR: /home/${{secrets.USER}}/inst/app/${{env.PRJ}}/  # Directory of the application
-  SERVICE: app-${{env.PRJ}}.service  # The name of the service to manage
+  SERVICE: appNutriLog.service  # The name of the service to manage
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
           script: |
             pwd
             whoami
-            
+
       - name: Copy files to Remote Server.
         uses: appleboy/scp-action@master
         with:
