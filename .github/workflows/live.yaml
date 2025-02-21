@@ -4,7 +4,7 @@ name: LIVE - Update and Restart the `NutriLog` App
 on: workflow_dispatch
 
 env:
-  APP_DIR: /home/${{secrets.USER}}/inst/app/nutrilog/  # Directory of the application
+  APP_DIR: /home/${{vars.USER}}/inst/app/nutrilog/  # Directory of the application
   PRJ: nutrilog  # The name of the project
   SERVICE: appNutriLog.service  # The name of the service to manage
 
@@ -46,5 +46,5 @@ jobs:
           host: ${{vars.HOST}}
           username: ${{vars.USER}}
           key: ${{secrets.SSH_KEY}}
-          source: nutrilog.zip
-          target: ${{env.APP_DIR}}/            
+          source: ${{env.PRJ}}.zip
+          target: ${{env.APP_DIR}}
