@@ -46,9 +46,15 @@
 
         <!-- OAuth Providers -->
         <div class="buttons">
+            {{#urlGoogle}}
             <a href="{{urlGoogle}}" class="btn btn-blue"><i data-lucide="mail-search"></i> Google</a>
+            {{/urlGoogle}}
+            {{#urlX}}
             <a href="{{urlX}}" class="btn btn-blue"><i data-lucide="twitter"></i> X (Twitter)</a>
+            {{/urlX}}
+            {{#urlGithub}}
             <a href="{{urlGithub}}" class="btn btn-blue"><i data-lucide="github"></i> GitHub</a>
+            {{/urlGithub}}
         </div>
     </div>
 </main>

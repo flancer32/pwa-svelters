@@ -76,12 +76,15 @@ export default class Svelters_Back_Web_Handler_A_Register {
                     const github = found.find(provider => provider.code === PROVIDER.GITHUB);
                     const google = found.find(provider => provider.code === PROVIDER.GOOGLE);
                     const x = found.find(provider => provider.code === PROVIDER.X);
-                    view.urlGithub = regProviders.get(github.code)
-                        .getAuthorizationUrl({clientId: github.clientId, state,});
-                    view.urlGoogle = regProviders.get(google.code)
-                        .getAuthorizationUrl({clientId: google.clientId, state,});
-                    view.urlX = regProviders.get(x.code)
-                        .getAuthorizationUrl({clientId: x.clientId, state,});
+                    if (github)
+                        view.urlGithub = regProviders.get(github.code)
+                            .getAuthorizationUrl({clientId: github.clientId, state,});
+                    if (google)
+                        view.urlGoogle = regProviders.get(google.code)
+                            .getAuthorizationUrl({clientId: google.clientId, state,});
+                    if (x)
+                        view.urlX = regProviders.get(x.code)
+                            .getAuthorizationUrl({clientId: x.clientId, state,});
 
 
                 });

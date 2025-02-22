@@ -61,9 +61,12 @@ jobs:
             mkdir prod.new
             unzip ${{env.PRJ}}.zip -d ./prod.new/ &> /dev/null
             sudo /bin/systemctl stop ${{env.SERVICE}}
+            node ./prod/bin/tequila.mjs db-export -f data.nutrilog.json
             mv ./prod ./prod.old
             mv ./prod.new ./prod
             cp ./prod.old/cfg/local* ./prod/cfg/
+            node ./prod/bin/tequila.mjs db-reset
+            node ./prod/bin/tequila.mjs db-import -f data.nutrilog.json
             sudo /bin/systemctl start ${{env.SERVICE}}
             TIMESTAMP=$(date +%Y%m%d-%H%M%S)
             mv ${{env.PRJ}}.zip ${{env.PRJ}}-${TIMESTAMP}.zip
