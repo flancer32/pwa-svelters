@@ -60,20 +60,22 @@ jobs:
             rm -fr prod.old  
             mkdir prod.new
             unzip ${{env.PRJ}}.zip -d ./prod.new/ &> /dev/null
-            sudo /bin/systemctl stop ${{env.SERVICE}}
 
             # Load nvm and set up node
             source ~/.nvm/nvm.sh
             nvm use node
 
-            # Run database export, reset, and import
+            # Stop the service and run database export to separate backup file
+            sudo /bin/systemctl stop ${{env.SERVICE}}
             node ./prod/bin/tequila.mjs db-export -f data.nutrilog.json
+            
+            # Switch the app version then reset the db structure (export / init / import)
             mv ./prod ./prod.old
             mv ./prod.new ./prod
             cp ./prod.old/cfg/local* ./prod/cfg/
             node ./prod/bin/tequila.mjs db-reset
-            node ./prod/bin/tequila.mjs db-import -f data.nutrilog.json
             
+            # Start the service
             sudo /bin/systemctl start ${{env.SERVICE}}
             
             # Rename the archive with a timestamp
