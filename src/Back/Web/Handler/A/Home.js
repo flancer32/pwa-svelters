@@ -12,7 +12,7 @@ export default class Svelters_Back_Web_Handler_A_Home {
     /**
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
-     * @param {TeqFw_Web_Back_App_Server_Respond} respond - Error response helper
+     * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
@@ -22,7 +22,7 @@ export default class Svelters_Back_Web_Handler_A_Home {
         {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Web_Back_App_Server_Respond$: respond,
+            TeqFw_Web_Back_Help_Respond$: respond,
             Fl64_Web_Session_Back_Manager$: mgrSession,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
@@ -47,8 +47,8 @@ export default class Svelters_Back_Web_Handler_A_Home {
             const partials = await zHelper.loadPartials(localeUser);
             const type = TYPE.WEB;
             const view = {};
-            const {content} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
-            respond.status200(res, content, {});
+            const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
+            respond.code200_Ok({res, body});
         };
 
     }
