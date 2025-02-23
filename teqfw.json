@@ -25,6 +25,10 @@
       "Svelters_Back_Web_Handler": {
         "before": ["TeqFw_Web_Back_App_Server_Handler_Static"],
         "spaces": ["app"]
+      },
+      "Svelters_Back_Web_Handler_404": {
+        "before": ["TeqFw_Web_Back_App_Server_Handler_Final"],
+        "after": ["TeqFw_Web_Back_App_Server_Handler_Static"]
       }
     }
   },
