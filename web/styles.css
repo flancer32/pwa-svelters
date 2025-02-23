@@ -93,28 +93,18 @@ header {
     color: var(--primary-green);
 }
 
-.intro {
-    max-width: 600px;
-    text-align: center;
-    margin: 20px auto;
-}
-
-.intro h2 {
-    font-size: 1.8rem;
-    color: var(--primary-green);
-}
-
-.intro p {
-    font-size: 1.1rem;
-    color: gray;
-}
-
 main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
     flex-grow: 1;
+    max-width: 800px;
+    width: 100%;
+    text-align: justify;
+    margin: 0 auto;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6 {
+    text-align: center;
 }
 
 main a {
@@ -128,18 +118,36 @@ main a:hover {
     color: var(--primary-green);
 }
 
-.card {
-    max-width: 400px;
-    width: 100%;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s;
-    background: var(--card-light);
+.intro {
+    max-width: 600px;
+}
+
+.intro h2 {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+}
+
+.intro p {
+    font-size: 1.1rem;
+    color: gray;
+}
+
+.intro, .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.card {
+    max-width: 400px;
+    padding: 10px;
+    border-radius: 12px;
+    background: var(--card-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {

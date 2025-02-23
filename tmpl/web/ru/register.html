@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+{{> pageHeader}}
+
+<main>
+    <div class="intro">
+        <h2>Создайте свой аккаунт NutriLog</h2>
+        <p>Зарегистрируйтесь, чтобы отслеживать свои приёмы пищи, анализировать потребление калорий и получать
+            рекомендации с использованием ИИ для улучшения вашего питания.</p>
+    </div>
+
+    <div class="card">
+        <p class="description">Выберите предпочитаемый способ регистрации:</p>
+
+        <!-- Email Registration -->
+        <form id="email-form" action="/fl64-auth-otp/register" method="POST" class="register-form">
+            <div class="email-input-container">
+                <input type="email" id="email" name="email" required placeholder="Введите ваш email для регистрации"
+                       class="input">
+                <button type="submit" class="btn-email"><i data-lucide="mail"></i></button>
+            </div>
+            <input type="hidden" name="xsrf_token" id="xsrf_token" value="{{xsrfToken}}">
+
+            <p id="success-msg" style="display: none; color: green;">Регистрация прошла успешно! Код подтверждения был
+                отправлен на ваш email.</p>
+
+            <p id="error-EMAIL_EXISTS" class="error-message" style="display: none; color: red;">Этот email уже
+                зарегистрирован.</p>
+            <p id="error-EMAIL_NOT_ALLOWED" class="error-message" style="display: none; color: red;">Этот email
+                не разрешён.</p>
+            <p id="error-EMAIL_NOT_SENT" class="error-message" style="display: none; color: red;">Не удалось отправить
+                email для подтверждения.</p>
+            <p id="error-WRONG_XSRF" class="error-message" style="display: none; color: red;">Неверный токен
+                безопасности. Пожалуйста, перезагрузите страницу.</p>
+            <p id="error-UNDEFINED" class="error-message" style="display: none; color: red;">Неизвестная ошибка сервера.
+                Пожалуйста, попробуйте позже.</p>
+
+            <div id="loading" style="display: none;">Обработка...</div>
+        </form>
+
+        <div class="separator">или</div>
+
+        <!-- OAuth Providers -->
+        <div class="buttons">
+            {{#urlGoogle}}
+            <a href="{{urlGoogle}}" class="btn btn-blue"><i data-lucide="mail-search"></i> Google</a>
+            {{/urlGoogle}}
+            {{#urlX}}
+            <a href="{{urlX}}" class="btn btn-blue"><i data-lucide="twitter"></i> X (Twitter)</a>
+            {{/urlX}}
+            {{#urlGithub}}
+            <a href="{{urlGithub}}" class="btn btn-blue"><i data-lucide="github"></i> GitHub</a>
+            {{/urlGithub}}
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    /** @type {TeqFw_Di_Container} */
+    import containerOtp from '/web/@flancer64/teq-agave-auth-otp/js/di.js';
+
+    /** @type {Fl64_Auth_Otp_Front_Ui_Page_Register} */
+    const page = await containerOtp.get('Fl64_Auth_Otp_Front_Ui_Page_Register$');
+</script>
+
+{{> pageFooter}}
+
+</body>
+</html>

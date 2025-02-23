@@ -1,5 +1,5 @@
 /**
- * Handles requests for the authentication and authorization processes using one-time passwords (OTP).
+ * Handles requests when no other handler can process the request (404 - Not Found).
  */
 import {constants as H2} from 'node:http2';
 
@@ -8,7 +8,7 @@ const {
 } = H2;
 
 /**
- * Dispatcher for handling authentication-related HTTP requests.
+ * Dispatcher for handling HTTP requests that result in a 404 error.
  */
 export default class Svelters_Back_Web_Handler_404 {
     /**
@@ -32,7 +32,7 @@ export default class Svelters_Back_Web_Handler_404 {
         }
     ) {
         /**
-         * Handles incoming HTTP requests and delegates processing to specific handlers.
+         * Processes HTTP requests and renders a 404 page if no other handler can process it.
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res
@@ -73,18 +73,18 @@ export default class Svelters_Back_Web_Handler_404 {
         }
 
         /**
-         * Provides the function to process requests.
+         * Provides the function to process 404 requests.
          * @returns {Function}
          */
         this.getProcessor = () => process;
 
         /**
-         * Placeholder for initialization logic.
+         * Placeholder for any additional initialization logic (if needed).
          */
         this.init = async function () { };
 
         /**
-         * Checks if the request can be handled by this instance.
+         * Checks if this handler can process the current request (always returns true for 404).
          * @returns {boolean}
          */
         this.canProcess = function () {

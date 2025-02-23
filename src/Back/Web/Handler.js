@@ -21,6 +21,7 @@ export default class Svelters_Back_Web_Handler {
      * @param {Svelters_Back_Web_Handler_A_Api} aApi
      * @param {Svelters_Back_Web_Handler_A_Home} aHome
      * @param {Svelters_Back_Web_Handler_A_Login} aLogin
+     * @param {Svelters_Back_Web_Handler_A_Page} aPage
      * @param {Svelters_Back_Web_Handler_A_Register} aRegister
      */
     constructor(
@@ -31,6 +32,7 @@ export default class Svelters_Back_Web_Handler {
             Svelters_Back_Web_Handler_A_Api$: aApi,
             Svelters_Back_Web_Handler_A_Home$: aHome,
             Svelters_Back_Web_Handler_A_Login$: aLogin,
+            Svelters_Back_Web_Handler_A_Page$: aPage,
             Svelters_Back_Web_Handler_A_Register$: aRegister,
         }
     ) {
@@ -61,8 +63,7 @@ export default class Svelters_Back_Web_Handler {
                         await aRegister.run(req, res);
                         break;
                     default:
-                        // If the endpoint is not recognized, do nothing and let other handlers process it
-                        break;
+                        await aPage.run(req, res, relativePath);
                 }
             } catch (error) {
                 logger.exception(error);
