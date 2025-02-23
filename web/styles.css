@@ -117,6 +117,17 @@ main {
     flex-grow: 1;
 }
 
+main a {
+    color: var(--primary-blue);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+main a:hover {
+    color: var(--primary-green);
+}
+
 .card {
     max-width: 400px;
     width: 100%;
