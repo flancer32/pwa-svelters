@@ -4,7 +4,7 @@
 class Request {
     /** @type {string} */
     date;
-    /** @type {Svelters_Shared_Dto_Calorie_Log_Item[]} */
+    /** @type {Svelters_Shared_Dto_Calorie_Log_Item.Dto[]} */
     items;
 }
 
@@ -12,14 +12,27 @@ class Request {
  * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Draft_Save
  */
 class Response {
-    /** @type {boolean} */
-    success;
+    /**
+     * @type {string}
+     * @see Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.ResultCode
+     */
+    code;
     /** @type {string} */
     message;
+    /** @type {boolean} */
+    success;
 }
 
 /**
- * @implements TeqFw_Web_Api_Shared_Api_Endpoint
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Draft_Save
+ */
+const ResultCode = {
+    WRONG_TOTALS: 'WRONG_TOTALS',
+};
+Object.freeze(ResultCode);
+
+/**
+ * @implements Svelters_Shared_Api_Endpoint
  */
 export default class Svelters_Shared_Web_Api_Calorie_Log_Draft_Save {
     /**
@@ -54,11 +67,17 @@ export default class Svelters_Shared_Web_Api_Calorie_Log_Draft_Save {
         this.createRes = function (data) {
             const res = new Response();
             if (data) {
-                res.success = cast.boolean(data.success);
+                res.code = cast.enum(data.code, ResultCode);
                 res.message = cast.string(data.message);
+                res.success = cast.boolean(data.success);
             }
             return res;
         };
+
+        /**
+         * @returns {typeof Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.ResultCode}
+         */
+        this.getResultCodes = () => ResultCode;
     }
 
 }

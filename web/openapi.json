@@ -69,20 +69,31 @@
         "properties": {
           "food": {
             "type": "string",
-            "description": "Name of the food item."
+            "description": "The name of the consumed product. Example: 'Apple', 'Rice', 'Chicken Breast'."
           },
           "quantity": {
             "type": "number",
             "format": "float",
-            "description": "Amount of the food consumed."
+            "description": "The amount of the product consumed. The unit is defined separately in the 'measure' field. Example: 150 (grams), 1 (piece), 250 (milliliters)."
           },
-          "calories": {
+          "measure": {
+            "type": "string",
+            "description": "The measurement unit for the consumed product. The values must be one of the predefined, non-translated options: 'GRAMS', 'MILLILITERS', 'PIECES'. These values should remain consistent and are not to be translated into other languages.",
+            "enum": ["GRAMS", "MILLILITERS", "PIECES"]
+          },
+          "unitCalories": {
             "type": "number",
             "format": "float",
-            "description": "Caloric value of the consumed food."
+            "description": "The caloric value of the product per standard unit. Expressed in kilocalories per 100 grams/milliliters or per piece. Example: 52 (kcal per 100g for an apple), 365 (kcal per 100g for rice)."
+          },
+          "totalCalories": {
+            "type": "number",
+            "format": "float",
+            "description": "The total caloric value of the consumed product. This value is calculated based on the quantity and measure.\n- If 'measure' is 'PIECES', it is calculated as 'quantity * unitCalories'.\n- If 'measure' is 'GRAMS' or 'MILLILITERS', it is calculated as 'quantity / 100 * unitCalories'.\n\nThis attribute is **mandatory** and serves as a control value to verify the correctness of the other attributes (`quantity`, `measure`, `unitCalories`). It must be calculated both by the sender and the receiver. The correct value of `totalCalories` allows for the validation of the provided data and ensures that the `quantity`, `measure`, and `unitCalories` values are logically consistent."
           }
         },
-        "required": ["food", "quantity", "calories"]
+        "required": ["food", "quantity", "measure", "unitCalories", "totalCalories"],
+        "description": "Represents a single food item in a daily calorie log. It contains the details about the consumed product including its name, quantity, measurement unit, caloric value per unit, and the total caloric value of the consumed product."
       },
       "CalorieLogSaveResponse": {
         "type": "object",

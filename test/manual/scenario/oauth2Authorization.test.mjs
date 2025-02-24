@@ -5,7 +5,7 @@ import {createLocalContainer, stopApp} from '../common.mjs';
 const container = await createLocalContainer();
 
 // VARS
-const HOST = process.env.HOST || 'default.localhost';
+const HOST = process.env.HOST || 'localhost';
 const STATE_CODE = 'stateCode';
 
 // Get runtime environment

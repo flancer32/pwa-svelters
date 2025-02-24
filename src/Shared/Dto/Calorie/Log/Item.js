@@ -10,7 +10,7 @@ class Dto {
      * Example: "Apple", "Rice", "Chicken Breast".
      * @type {string}
      */
-    product;
+    food;
 
     /**
      * The amount of the product consumed.
@@ -35,6 +35,16 @@ class Dto {
      * @type {number}
      */
     unitCalories;
+
+    /**
+     * The total caloric value of the consumed product.
+     * This value is calculated based on the quantity and measure.
+     * - If `measure` is `PIECES`, it is calculated as `quantity * unitCalories`.
+     * - If `measure` is `GRAMS` or `MILLILITERS`, it is calculated as `quantity / 100 * unitCalories`.
+     * This field is for informational purposes and should be calculated outside the DTO.
+     * @type {number}
+     */
+    totalCalories;
 }
 
 /**
@@ -62,13 +72,16 @@ export default class Svelters_Shared_Dto_Calorie_Log_Item {
          * @returns {Dto} - A properly structured DTO instance.
          */
         this.create = function (data) {
-            const res = new Dto();
+            const res = Object.assign(new Dto(), data);
+
             if (data) {
-                res.product = cast.string(data.product);
-                res.quantity = cast.int(data.quantity);
+                res.food = cast.string(data.food);
                 res.measure = cast.enum(data.measure, MEASURE);
+                res.quantity = cast.int(data.quantity);
+                res.totalCalories = cast.int(data.totalCalories);
                 res.unitCalories = cast.int(data.unitCalories);
             }
+
             return res;
         };
     }
