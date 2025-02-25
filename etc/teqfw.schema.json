@@ -157,7 +157,8 @@
                 },
                 "locale": {
                   "comment": "User's locale for language preferences.",
-                  "type": "string"
+                  "type": "string",
+                  "nullable": true
                 },
                 "timezone": {
                   "comment": "IANA timezone identifier (e.g., 'Europe/Riga').",
@@ -169,6 +170,9 @@
                   "type": "text",
                   "nullable": true
                 }
+              },
+              "index": {
+                "pk": {"type": "primary", "attrs": ["user_ref"]}
               },
               "relation": {
                 "user": {
