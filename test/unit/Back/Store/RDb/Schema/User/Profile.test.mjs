@@ -12,7 +12,9 @@ describe('Svelters_Back_Store_RDb_Schema_User_Profile', () => {
     const expectedProperties = [
         'date_birth',
         'date_updated',
+        'goal',
         'height',
+        'locale',
         'name',
         'timezone',
         'user_ref',

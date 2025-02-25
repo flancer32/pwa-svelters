@@ -155,9 +155,18 @@
                     "unsigned": true
                   }
                 },
+                "locale": {
+                  "comment": "User's locale for language preferences.",
+                  "type": "string"
+                },
                 "timezone": {
                   "comment": "IANA timezone identifier (e.g., 'Europe/Riga').",
                   "type": "string",
+                  "nullable": true
+                },
+                "goal": {
+                  "comment": "User's current goal (e.g., weight loss target).",
+                  "type": "text",
                   "nullable": true
                 }
               },

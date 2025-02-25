@@ -17,6 +17,7 @@ const ATTR_USER = repoUser.getSchema().getAttributes();
 const DATE_BIRTH = new Date('1990-01-01');
 const DATE_UPDATED = new Date();
 const HEIGHT = 175;
+const LOCALE = 'es-ES';
 const NAME = 'Test User';
 const TZ = 'Europe/Riga';
 let USER_REF;
@@ -43,6 +44,7 @@ describe('Svelters_Back_Store_RDb_Repo_User_Profile', () => {
         dto.date_birth = DATE_BIRTH;
         dto.date_updated = DATE_UPDATED;
         dto.height = HEIGHT;
+        dto.locale = LOCALE;
         dto.name = NAME;
         dto.timezone = TZ;
         dto.user_ref = USER_REF;

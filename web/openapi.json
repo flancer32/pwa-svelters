@@ -1,13 +1,13 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Svelters API",
+    "title": "NutriLog API",
     "version": "1.0.0",
-    "description": "API for managing calorie logs in the Svelters web application."
+    "description": "API for managing calorie logs in the NutriLog web application."
   },
   "servers": [
     {
-      "url": "https://svelters.dev.wiredgeese.com"
+      "url": "https://nutrilog.app.wiredgeese.com"
     }
   ],
   "paths": {
@@ -48,6 +48,31 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CalorieLogSaveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Missing or invalid data."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/app/api/profile/get": {
+      "get": {
+        "summary": "Get user profile information.",
+        "description": "This endpoint allows users to retrieve their profile information, including metadata and profile details.",
+        "operationId": "getUserProfile",
+        "responses": {
+          "200": {
+            "description": "User profile retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileGetResponse"
                 }
               }
             }
@@ -108,6 +133,88 @@
           }
         },
         "required": ["success", "message"]
+      },
+      "ProfileGetResponse": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Svelters_Shared_Dto_Web_Api_Response_Meta"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/Svelters_Shared_Dto_User_Profile"
+          }
+        },
+        "required": ["meta", "profile"],
+        "description": "Response structure for retrieving the user profile, including meta data and profile information."
+      },
+      "Svelters_Shared_Dto_Web_Api_Response_Meta": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The result code depends on the endpoint."
+          },
+          "message": {
+            "type": "string",
+            "description": "Optional message explaining the result code, if necessary."
+          },
+          "ok": {
+            "type": "boolean",
+            "description": "`true` means the application processed the message normally and without errors."
+          }
+        },
+        "required": ["code", "ok"],
+        "description": "Standard meta information for the API response, explaining the processing result."
+      },
+      "Svelters_Shared_Dto_User_Profile": {
+        "type": "object",
+        "properties": {
+          "dateBirth": {
+            "type": "string",
+            "format": "date",
+            "description": "User's date of birth in YYYY-MM-DD format."
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date-time when the user registered."
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date-time of the last profile update."
+          },
+          "goal": {
+            "type": "string",
+            "description": "User's current goal (e.g., weight loss target)."
+          },
+          "height": {
+            "type": "number",
+            "description": "User's height in cm."
+          },
+          "locale": {
+            "type": "string",
+            "description": "User's language preference locale (e.g., 'en', 'fr')."
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name as displayed in the profile."
+          },
+          "timezone": {
+            "type": "string",
+            "description": "User's timezone, formatted as IANA identifier (e.g., 'Europe/Riga')."
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Universally unique identifier as public ID."
+          },
+          "weight": {
+            "type": "number",
+            "description": "User's weight in grams."
+          }
+        },
+        "required": ["dateBirth", "dateCreated", "goal", "height", "locale", "name", "timezone", "uuid", "weight"],
+        "description": "User profile details including personal and physical information."
       }
     }
   }

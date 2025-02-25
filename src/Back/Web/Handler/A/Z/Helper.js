@@ -3,6 +3,8 @@ import {URLSearchParams} from 'node:url';
 // VARS
 const {
     HTTP2_HEADER_ACCEPT_LANGUAGE,
+    HTTP2_HEADER_CONTENT_TYPE,
+    HTTP2_METHOD_POST,
 } = H2;
 
 export default class Svelters_Back_Web_Handler_A_Z_Helper {
@@ -62,7 +64,6 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
             return res;
         };
 
-
         /**
          * @return {Promise<Object<string, string>>}
          */
@@ -91,25 +92,27 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
          */
         this.parsePostedData = async function (req) {
             let body = {};
-            const shares = req[DEF.MOD_WEB.HNDL_SHARE];
+            if (req.method === HTTP2_METHOD_POST) {
+                const shares = req[DEF.MOD_WEB.HNDL_SHARE];
 
-            // Check if the request body is already available in shared memory
-            if (shares?.[DEF.MOD_WEB.SHARE_REQ_BODY_JSON]) {
-                body = shares[DEF.MOD_WEB.SHARE_REQ_BODY_JSON];
-            } else {
-                const buffers = [];
-                for await (const chunk of req) {
-                    buffers.push(chunk);
-                }
-                const rawBody = Buffer.concat(buffers).toString();
+                // Check if the request body is already available in shared memory
+                if (shares?.[DEF.MOD_WEB.SHARE_REQ_BODY_JSON]) {
+                    body = shares[DEF.MOD_WEB.SHARE_REQ_BODY_JSON];
+                } else {
+                    const buffers = [];
+                    for await (const chunk of req) {
+                        buffers.push(chunk);
+                    }
+                    const rawBody = Buffer.concat(buffers).toString();
 
-                // Detect content type and parse accordingly
-                const contentType = req.headers[HTTP2_HEADER_CONTENT_TYPE] || '';
+                    // Detect content type and parse accordingly
+                    const contentType = req.headers[HTTP2_HEADER_CONTENT_TYPE] || '';
 
-                if (contentType.includes('application/json')) {
-                    body = JSON.parse(rawBody);
-                } else if (contentType.includes('application/x-www-form-urlencoded')) {
-                    body = Object.fromEntries(new URLSearchParams(rawBody));
+                    if (contentType.includes('application/json')) {
+                        body = JSON.parse(rawBody);
+                    } else if (contentType.includes('application/x-www-form-urlencoded')) {
+                        body = Object.fromEntries(new URLSearchParams(rawBody));
+                    }
                 }
             }
             return body;
