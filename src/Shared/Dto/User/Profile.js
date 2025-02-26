@@ -4,7 +4,8 @@
  */
 class Dto {
     /**
-     * Date of birth (YYYY-MM-DD).
+     * Date of birth in string format (YYYY-MM-DD).
+     * This field must be a string, not a Date object.
      * @type {string}
      */
     dateBirth;

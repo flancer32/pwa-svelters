@@ -2,12 +2,12 @@
   "openapi": "3.1.0",
   "info": {
     "title": "NutriLog API",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "API for managing calorie logs in the NutriLog web application."
   },
   "servers": [
     {
-      "url": "https://nutrilog.app.wiredgeese.com"
+      "url": "https://svelters.dev.wiredgeese.com"
     }
   ],
   "paths": {
@@ -65,7 +65,7 @@
       "get": {
         "summary": "Get user profile information.",
         "description": "This endpoint allows users to retrieve their profile information, including metadata and profile details.",
-        "operationId": "getUserProfile",
+        "operationId": "Profile_Get",
         "responses": {
           "200": {
             "description": "User profile retrieved successfully.",
@@ -79,6 +79,52 @@
           },
           "400": {
             "description": "Bad request. Missing or invalid data."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/app/api/profile/update": {
+      "post": {
+        "summary": "Update user profile information.",
+        "description": "This endpoint updates the user's profile with the provided data.",
+        "operationId": "Profile_Update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "profile": {
+                    "$ref": "#/components/schemas/Svelters_Shared_Dto_User_Profile"
+                  }
+                },
+                "required": ["profile"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Svelters_Shared_Dto_Web_Api_Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or missing required fields."
           },
           "500": {
             "description": "Internal server error."

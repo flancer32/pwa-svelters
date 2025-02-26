@@ -36,9 +36,9 @@ Object.freeze(ATTR);
  */
 class Dto {
     /**
-     * UTC date of birth.
+     * Date of birth.
      *
-     * @type {Date|null}
+     * @type {string|Date}
      */
     date_birth;
 
@@ -100,11 +100,13 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
      *
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Util_Cast} cast
+     * @param {Svelters_Shared_Helper_Cast} helper
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Util_Cast$: cast
+            TeqFw_Core_Shared_Util_Cast$: cast,
+            Svelters_Shared_Helper_Cast$: helper,
         }
     ) {
         // INSTANCE METHODS
@@ -116,7 +118,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
         this.createDto = function (data) {
             const res = new Dto();
             if (data) {
-                res.date_birth = cast.date(data.date_birth);
+                res.date_birth = helper.dateString(data.date_birth);
                 res.date_updated = cast.date(data.date_updated);
                 res.goal = cast.string(data.goal);
                 res.height = cast.int(data.height);

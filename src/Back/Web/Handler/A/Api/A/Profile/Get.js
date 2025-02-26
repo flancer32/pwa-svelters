@@ -12,7 +12,6 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
     /**
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
-     * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Svelters_Shared_Web_Api_Profile_Get} endpoint
      * @param {Fl64_OAuth2_Back_Manager} oauth2
@@ -23,7 +22,6 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
                     TeqFw_Core_Shared_Api_Logger$$: logger,
                     TeqFw_Web_Back_Help_Respond$: respond,
                     TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-                    Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
                     Svelters_Shared_Web_Api_Profile_Get$: endpoint,
                     Fl64_OAuth2_Back_Manager$: oauth2,
                     Svelters_Back_Store_RDb_Repo_User$: repoUser,
@@ -36,8 +34,8 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
 
         // MAIN
         /**
-         * Handles incoming HTTP requests to save or update a calorie log draft.
-         * Validates input data, checks totals, and processes the request based on authorization.
+         * Handles incoming HTTP requests to retrieve user profile data.
+         * Validates authorization, loads user and profile data, and sends the response.
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
@@ -52,10 +50,10 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
 
             try {
                 await trxWrapper.execute(null, async (trx) => {
-                    // Get authorization info
+                    // AUTHORIZATION
                     const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                     if (isAuthorized) {
-                        logger.info(`Profile request from user #${userId}.`);
+                        logger.info(`Received a request to retrieve the profile for user #${userId}.`);
                         response.meta.ok = true;
                         response.meta.code = RESULT.SUCCESS;
                         // load base user data
@@ -82,16 +80,18 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
                             headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
                             body,
                         });
-                        logger.info(`Response: ${body}`);
+                        logger.info(`Response sent: ${body}`);
                     } else {
                         respond.code401_Unauthorized({res});
                     }
                 });
             } catch (e) {
                 logger.exception(e);
-                respond.code500_InternalServerError({res, body: e?.message});
+                respond.code500_InternalServerError({
+                    res,
+                    body: `Internal server error: ${e?.message}`,
+                });
             }
         };
-
     }
 }

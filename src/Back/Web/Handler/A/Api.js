@@ -20,6 +20,7 @@ export default class Svelters_Back_Web_Handler_A_Api {
      * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Draft_Save} aCalorieLogDraftSave
      * @param {Svelters_Back_Web_Handler_A_Api_A_Profile_Get} aProfileGet
+     * @param {Svelters_Back_Web_Handler_A_Api_A_Profile_Update} aProfileUpdate
      */
     constructor(
         {
@@ -30,6 +31,7 @@ export default class Svelters_Back_Web_Handler_A_Api {
             Fl64_Web_Session_Back_Manager$: mgrSession,
             Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Draft_Save$: aCalorieLogDraftSave,
             Svelters_Back_Web_Handler_A_Api_A_Profile_Get$: aProfileGet,
+            Svelters_Back_Web_Handler_A_Api_A_Profile_Update$: aProfileUpdate,
         }
     ) {
         // VARS
@@ -53,17 +55,15 @@ export default class Svelters_Back_Web_Handler_A_Api {
                 && (parts[2] === DEF.SHARED.ROUTE_API)
             ) {
                 if ((parts[3] === 'calorie') && (parts[4] === 'log')) {
+                    // /app/api/calorie/log/draft/...
                     if (parts[5] === 'draft') {
-                        // /app/api/calorie/log/draft/save
                         if (parts[6] === 'save') await aCalorieLogDraftSave.run(req, res);
                     }
                 } else if (parts[3] === 'profile') {
-                    if (parts[4] === 'get') {
-                        // /app/api/profile/get
-                        await aProfileGet.run(req, res);
-                    }
+                    // /app/api/profile/...
+                    if (parts[4] === 'get') await aProfileGet.run(req, res);
+                    else if (parts[4] === 'update') await aProfileUpdate.run(req, res);
                 }
-
             }
         };
 

@@ -140,20 +140,20 @@
                 },
                 "name": {
                   "comment": "Name to display in profile.",
-                  "type": "string"
+                  "type": "string",
+                  "nullable": true
                 },
                 "date_birth": {
-                  "comment": "UTC date of birth.",
+                  "comment": "Date of birth.",
                   "type": "datetime",
-                  "nullable": true,
-                  "options": {"dateOnly": true}
+                  "options": {"dateOnly": true},
+                  "nullable": true
                 },
                 "height": {
                   "comment": "Height in cm.",
                   "type": "number",
-                  "options": {
-                    "unsigned": true
-                  }
+                  "options": {"unsigned": true},
+                  "nullable": true
                 },
                 "locale": {
                   "comment": "User's locale for language preferences.",
