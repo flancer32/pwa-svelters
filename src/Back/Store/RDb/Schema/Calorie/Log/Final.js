@@ -33,9 +33,9 @@ Object.freeze(ATTR);
  */
 class Dto {
     /**
-     * The date of food consumption.
+     * The date of food consumption (YYYY-MM-DD).
      *
-     * @type {Date}
+     * @type {string}
      */
     date;
 
@@ -78,11 +78,13 @@ export default class Svelters_Back_Store_RDb_Schema_Calorie_Log_Final {
      *
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Util_Cast} cast
+     * @param {Svelters_Shared_Helper_Cast} helper
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Util_Cast$: cast
+            TeqFw_Core_Shared_Util_Cast$: cast,
+            Svelters_Shared_Helper_Cast$: helper,
         }
     ) {
         // INSTANCE METHODS
@@ -96,7 +98,7 @@ export default class Svelters_Back_Store_RDb_Schema_Calorie_Log_Final {
         this.createDto = function (data) {
             const res = new Dto();
             if (data) {
-                res.date = cast.date(data.date);
+                res.date = helper.dateString(data.date);
                 res.date_committed = cast.date(data.date_committed);
                 res.id = cast.int(data.id);
                 res.total_calories = cast.int(data.total_calories);
