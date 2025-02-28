@@ -18,15 +18,17 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
      */
-    constructor({
-                    TeqFw_Core_Shared_Api_Logger$$: logger,
-                    TeqFw_Web_Back_Help_Respond$: respond,
-                    TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-                    Svelters_Shared_Web_Api_Profile_Get$: endpoint,
-                    Fl64_OAuth2_Back_Manager$: oauth2,
-                    Svelters_Back_Store_RDb_Repo_User$: repoUser,
-                    Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
-                }) {
+    constructor(
+        {
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            TeqFw_Web_Back_Help_Respond$: respond,
+            TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
+            Svelters_Shared_Web_Api_Profile_Get$: endpoint,
+            Fl64_OAuth2_Back_Manager$: oauth2,
+            Svelters_Back_Store_RDb_Repo_User$: repoUser,
+            Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
+        }
+    ) {
         // VARS
         const RESULT = endpoint.getResultCodes();
 

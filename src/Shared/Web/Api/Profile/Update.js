@@ -73,7 +73,7 @@ export default class Svelters_Shared_Web_Api_Profile_Update {
          */
         this.createRes = function (data) {
             const res = new Response();
-            // Creating the data structure for the entire hierarchy, as it is used in the handler
+            // Create DTO properties even without initial data.
             res.meta = dtoMeta.create(data?.meta);
             return res;
         };

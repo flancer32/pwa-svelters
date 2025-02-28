@@ -69,13 +69,14 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
          *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.conditions
+         * @param {TeqFw_Db_Shared_Dto_List_Selection.Dto} [params.selection]
+         * @param {Object} [params.conditions]
          * @param {Object<string, 'asc'|'desc'>} [params.sorting]
          * @param {{limit: number, offset: number}} [params.pagination]
          * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto>}>}
          */
-        this.readMany = async function ({trx, conditions, sorting, pagination}) {
-            return crud.readMany({schema, trx, conditions, sorting, pagination});
+        this.readMany = async function ({trx, selection, conditions, sorting, pagination}) {
+            return crud.readMany({schema, trx, selection, conditions, sorting, pagination});
         };
 
         /**

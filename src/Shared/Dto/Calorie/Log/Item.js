@@ -68,7 +68,7 @@ export default class Svelters_Shared_Dto_Calorie_Log_Item {
          * Creates a new DTO instance with properly casted attributes.
          * Ensures valid values for enums and numerical fields.
          *
-         * @param {object} data - Raw input data for the DTO.
+         * @param {object} [data] - Raw input data for the DTO.
          * @returns {Dto} - A properly structured DTO instance.
          */
         this.create = function (data) {
