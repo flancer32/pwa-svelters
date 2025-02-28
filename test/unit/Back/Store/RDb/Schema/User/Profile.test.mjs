@@ -16,6 +16,7 @@ describe('Svelters_Back_Store_RDb_Schema_User_Profile', () => {
         'height',
         'locale',
         'name',
+        'sex',
         'timezone',
         'user_ref',
     ];

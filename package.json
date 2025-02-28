@@ -34,7 +34,7 @@
     "@flancer64/teq-agave-tmpl": "git+ssh://git@github.com:flancer64/teq-agave-tmpl.git",
     "@flancer64/teq-agave-web-session": "git+ssh://git@github.com:flancer64/teq-agave-web-session.git",
     "@teqfw/core": ">=0.33.0 <1.0.0",
-    "@teqfw/db": ">=0.23.1 <1.0.0",
+    "@teqfw/db": ">=0.23.2 <1.0.0",
     "@teqfw/test": "latest",
     "@teqfw/web": "latest",
     "pg": "^8.13.1"

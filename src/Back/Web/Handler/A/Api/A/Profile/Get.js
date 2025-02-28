@@ -71,6 +71,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
                             response.profile.height = foundProfile.height;
                             response.profile.locale = foundProfile.locale;
                             response.profile.name = foundProfile.name;
+                            response.profile.sex = foundProfile.sex;
                             response.profile.timezone = foundProfile.timezone;
                         }
                         // TODO: add weight

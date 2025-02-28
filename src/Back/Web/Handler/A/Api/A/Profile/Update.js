@@ -63,15 +63,14 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
                             // update app profile
                             const {record: foundProfile} = await repoProfile.readOne({trx, key: userId});
                             const dto = foundProfile ?? repoProfile.createDto();
-                            dto.date_updated = new Date();
-                            dto.user_ref = userId;
                             if (profile.dateBirth !== dto.date_birth) {
                                 dto.date_birth = profile.dateBirth;
                                 updatedFields.push('dateBirth');
                             }
-                            if (profile.name !== dto.name) {
-                                dto.name = profile.name;
-                                updatedFields.push('name');
+                            dto.date_updated = new Date();
+                            if (profile.goal) {
+                                dto.goal = profile.goal;
+                                updatedFields.push('goal');
                             }
                             if (profile.height) {
                                 dto.height = profile.height;
@@ -81,14 +80,19 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
                                 dto.locale = profile.locale;
                                 updatedFields.push('locale');
                             }
+                            if (profile.name !== dto.name) {
+                                dto.name = profile.name;
+                                updatedFields.push('name');
+                            }
+                            if (profile.sex !== dto.sex) {
+                                dto.sex = profile.sex;
+                                updatedFields.push('sex');
+                            }
                             if (profile.timezone) {
                                 dto.timezone = profile.timezone;
                                 updatedFields.push('timezone');
                             }
-                            if (profile.goal) {
-                                dto.goal = profile.goal;
-                                updatedFields.push('goal');
-                            }
+                            dto.user_ref = userId;
                             // persist updates
                             if (!foundProfile) {
                                 await repoProfile.createOne({trx, dto});

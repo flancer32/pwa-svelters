@@ -23,6 +23,7 @@ const ATTR = {
     HEIGHT: 'height',
     LOCALE: 'locale',
     NAME: 'name',
+    SEX: 'sex',
     TIMEZONE: 'timezone',
     USER_REF: 'user_ref',
 };
@@ -78,10 +79,19 @@ class Dto {
     name;
 
     /**
+     * Biological sex with values representing male and female categories.
+     *
+     * @type {string}
+     * @see Svelters_Shared_Enum_Data_Type_Sex
+     */
+    sex;
+
+    /**
      * IANA timezone identifier (e.g., 'Europe/Riga').
      * @type {string}
      */
     timezone;
+
     /**
      * Reference to the user.
      *
@@ -101,12 +111,14 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Util_Cast} cast
      * @param {Svelters_Shared_Helper_Cast} helper
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Util_Cast$: cast,
             Svelters_Shared_Helper_Cast$: helper,
+            'Svelters_Shared_Enum_Data_Type_Sex.default': SEX,
         }
     ) {
         // INSTANCE METHODS
@@ -124,6 +136,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
                 res.height = cast.int(data.height);
                 res.locale = cast.string(data.locale);
                 res.name = cast.string(data.name);
+                res.sex = cast.enum(data.sex, SEX);
                 res.timezone = cast.string(data.timezone);
                 res.user_ref = cast.int(data.user_ref);
             }

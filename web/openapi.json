@@ -328,6 +328,11 @@
             "type": "string",
             "description": "User's name as displayed in the profile."
           },
+          "sex": {
+            "type": "string",
+            "enum": ["FEMALE", "MALE", "UNDEFINED"],
+            "description": "Biological sex with values representing male and female categories."
+          },
           "timezone": {
             "type": "string",
             "description": "User's timezone, formatted as IANA identifier (e.g., 'Europe/Riga')."
@@ -341,7 +346,7 @@
             "description": "User's weight in grams."
           }
         },
-        "required": ["dateBirth", "dateCreated", "goal", "height", "locale", "name", "timezone", "uuid", "weight"],
+        "required": ["dateBirth", "dateCreated", "goal", "height", "locale", "name", "sex", "timezone", "weight"],
         "description": "User profile details including personal and physical information."
       }
     }

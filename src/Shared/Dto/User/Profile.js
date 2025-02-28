@@ -47,6 +47,14 @@ class Dto {
     name;
 
     /**
+     * Biological sex with values representing male and female categories.
+     *
+     * @type {string}
+     * @see Svelters_Shared_Enum_Data_Type_Sex
+     */
+    sex;
+
+    /**
      * IANA timezone identifier (e.g., 'Europe/Riga').
      * @type {string}
      */
@@ -74,10 +82,12 @@ class Dto {
 export default class Svelters_Shared_Dto_User_Profile {
     /**
      * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
      */
     constructor(
         {
             TeqFw_Core_Shared_Util_Cast$: cast,
+            'Svelters_Shared_Enum_Data_Type_Sex.default': SEX,
         }
     ) {
         /**
@@ -98,6 +108,7 @@ export default class Svelters_Shared_Dto_User_Profile {
                 res.height = cast.int(data.height);
                 res.locale = cast.string(data.locale);
                 res.name = cast.string(data.name);
+                res.sex = cast.enum(data.sex, SEX);
                 res.timezone = cast.string(data.timezone);
                 res.uuid = cast.string(data.uuid);
                 res.weight = cast.int(data.weight);
