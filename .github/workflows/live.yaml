@@ -76,7 +76,8 @@ jobs:
             mv ./prod ./prod.old
             mv ./prod.new ./prod
             cp ./prod.old/cfg/local* ./prod/cfg/
-            node ./prod/bin/tequila.mjs db-reset
+            node ./prod/bin/tequila.mjs db-init
+            node ./prod/bin/tequila.mjs db-import -f data_nutrilog-${TIMESTAMP}.json
             
             # Start the service
             sudo /bin/systemctl start ${{env.SERVICE}}
