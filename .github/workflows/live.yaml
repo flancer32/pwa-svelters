@@ -65,9 +65,12 @@ jobs:
             source ~/.nvm/nvm.sh
             nvm use node
 
+            # Generate a timestamp
+            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+
             # Stop the service and run database export to separate backup file
             sudo /bin/systemctl stop ${{env.SERVICE}}
-            node ./prod/bin/tequila.mjs db-export -f data.nutrilog.json
+            node ./prod/bin/tequila.mjs db-export -f data_nutrilog-${TIMESTAMP}.json
             
             # Switch the app version then reset the db structure (export / init / import)
             mv ./prod ./prod.old
@@ -79,7 +82,6 @@ jobs:
             sudo /bin/systemctl start ${{env.SERVICE}}
             
             # Rename the archive with a timestamp
-            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
             mv ${{env.PRJ}}.zip ${{env.PRJ}}-${TIMESTAMP}.zip
             echo "Archive renamed to: ${{env.PRJ}}-${TIMESTAMP}.zip"            
             ls -lh ${{env.APP_DIR}}
