@@ -11,28 +11,26 @@ const {
  * checks the totals of food items, and saves or updates the draft.
  * Route: `/app/api/calorie/log/draft/save`
  */
-export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Draft_Save {
+export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
     /**
-     * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft} repoDraft
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save} endpointDraftSave
+     * @param {Svelters_Shared_Web_Api_Calorie_Log_Save} endpointDraftSave
      * @param {Fl64_OAuth2_Back_Manager} oauth2
      * @param {typeof Svelters_Shared_Enum_Product_Measure_Type} MEASURE
      */
     constructor(
         {
-            Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft$: repoDraft,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Svelters_Shared_Web_Api_Calorie_Log_Draft_Save$: endpointDraftSave,
+            Svelters_Shared_Web_Api_Calorie_Log_Save$: endpointDraftSave,
             Fl64_OAuth2_Back_Manager$: oauth2,
             'Svelters_Shared_Enum_Product_Measure_Type.default': MEASURE,
         }
@@ -83,7 +81,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Draft_Save {
             const response = endpointDraftSave.createRes();
             response.success = false;
 
-            /** @type {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.Request} */
+            /** @type {Svelters_Shared_Web_Api_Calorie_Log_Save.Request} */
             const body = await zHelper.parsePostedData(req);
             const date = body.date;
             try {

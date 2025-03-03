@@ -11,11 +11,77 @@
     }
   ],
   "paths": {
-    "/app/api/calorie/log/draft/save": {
+    "/app/api/calorie/log/get": {
+      "get": {
+        "summary": "Retrieve calorie logs for a user within a specified period",
+        "description": "This endpoint allows a user to retrieve both draft and finalized calorie logs within a given date range. The response includes logs for both draft and final records.",
+        "operationId": "Calorie_Log_Get",
+        "parameters": [
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "The start date of the period (inclusive). Format: YYYY-MM-DD."
+            }
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "The end date of the period (inclusive). Format: YYYY-MM-DD."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the calorie logs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "draftLogs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Calorie_Log"
+                      },
+                      "description": "Calorie logs for the requested period that are in draft records."
+                    },
+                    "finalLogs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Calorie_Log"
+                      },
+                      "description": "Calorie logs for the requested period that are finalized."
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request due to missing or invalid date parameters."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/app/api/calorie/log/save": {
       "post": {
         "summary": "Save a draft of a calorie log.",
         "description": "This endpoint allows users to save a draft of their calorie log for a specific date, including a list of consumed items.",
-        "operationId": "saveCalorieLogDraft",
+        "operationId": "Calorie_Log_Save",
         "requestBody": {
           "required": true,
           "content": {
@@ -65,73 +131,6 @@
           },
           "400": {
             "description": "Bad request. Missing or invalid data."
-          },
-          "500": {
-            "description": "Internal server error."
-          }
-        }
-      }
-    },
-    "/app/api/calorie/log/get": {
-      "post": {
-        "summary": "Retrieve calorie logs for a user within a specified period",
-        "description": "This endpoint allows a user to retrieve both draft and finalized calorie logs within a given date range. The response includes logs for both draft and final records.",
-        "operationId": "Calorie_Log_Get",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "dateFrom": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "The start date of the period (inclusive). Format: YYYY-MM-DD."
-                  },
-                  "dateTo": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "The end date of the period (inclusive). Format: YYYY-MM-DD."
-                  }
-                },
-                "required": ["dateFrom", "dateTo"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the calorie logs.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "draftLogs": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Calorie_Log"
-                      },
-                      "description": "Calorie logs for the requested period that are in draft records."
-                    },
-                    "finalLogs": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Calorie_Log"
-                      },
-                      "description": "Calorie logs for the requested period that are finalized."
-                    },
-                    "meta": {
-                      "$ref": "#/components/schemas/Response_Meta"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request due to missing or invalid date parameters."
           },
           "500": {
             "description": "Internal server error."

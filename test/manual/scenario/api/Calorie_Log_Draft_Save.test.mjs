@@ -13,8 +13,8 @@ let BEARER;
 const helpWeb = await container.get('Svelters_Back_Helper_Web$');
 /** @type {AppTest_Mod_User} */
 const modUser = await container.get('AppTest_Mod_User$');
-/** @type {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save} */
-const endpoint = await container.get('Svelters_Shared_Web_Api_Calorie_Log_Draft_Save$');
+/** @type {Svelters_Shared_Web_Api_Calorie_Log_Save} */
+const endpoint = await container.get('Svelters_Shared_Web_Api_Calorie_Log_Save$');
 const RESULT = endpoint.getResultCodes();
 
 describe('Calorie_Log_Draft_Save', function () {
@@ -109,7 +109,7 @@ describe('Calorie_Log_Draft_Save', function () {
             headers,
             timeout: 100000,
         });
-        /** @type {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.Response} */
+        /** @type {Svelters_Shared_Web_Api_Calorie_Log_Save.Response} */
         const response = JSON.parse(body);
 
         assert.strictEqual(statusCode, 200, 'Unexpected HTTP status code received.');

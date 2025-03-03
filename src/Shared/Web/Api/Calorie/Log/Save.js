@@ -1,5 +1,5 @@
 /**
- * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Draft_Save
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Save
  */
 class Request {
     /** @type {string} */
@@ -9,12 +9,12 @@ class Request {
 }
 
 /**
- * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Draft_Save
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Save
  */
 class Response {
     /**
      * @type {string}
-     * @see Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.ResultCode
+     * @see Svelters_Shared_Web_Api_Calorie_Log_Save.ResultCode
      */
     code;
     /** @type {string} */
@@ -24,7 +24,7 @@ class Response {
 }
 
 /**
- * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Draft_Save
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Save
  */
 const ResultCode = {
     WRONG_TOTALS: 'WRONG_TOTALS',
@@ -34,7 +34,7 @@ Object.freeze(ResultCode);
 /**
  * @implements Svelters_Shared_Api_Endpoint
  */
-export default class Svelters_Shared_Web_Api_Calorie_Log_Draft_Save {
+export default class Svelters_Shared_Web_Api_Calorie_Log_Save {
     /**
      * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
      * @param {Svelters_Shared_Dto_Calorie_Log_Item} dtoItem
@@ -48,8 +48,8 @@ export default class Svelters_Shared_Web_Api_Calorie_Log_Draft_Save {
         // INSTANCE METHODS
 
         /**
-         * @param {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.Request} [data]
-         * @return {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.Request}
+         * @param {Svelters_Shared_Web_Api_Calorie_Log_Save.Request} [data]
+         * @return {Svelters_Shared_Web_Api_Calorie_Log_Save.Request}
          */
         this.createReq = function (data) {
             const res = new Request();
@@ -61,8 +61,8 @@ export default class Svelters_Shared_Web_Api_Calorie_Log_Draft_Save {
         };
 
         /**
-         * @param {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.Response} [data]
-         * @returns {Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.Response}
+         * @param {Svelters_Shared_Web_Api_Calorie_Log_Save.Response} [data]
+         * @returns {Svelters_Shared_Web_Api_Calorie_Log_Save.Response}
          */
         this.createRes = function (data) {
             const res = new Response();
@@ -75,7 +75,7 @@ export default class Svelters_Shared_Web_Api_Calorie_Log_Draft_Save {
         };
 
         /**
-         * @returns {typeof Svelters_Shared_Web_Api_Calorie_Log_Draft_Save.ResultCode}
+         * @returns {typeof Svelters_Shared_Web_Api_Calorie_Log_Save.ResultCode}
          */
         this.getResultCodes = () => ResultCode;
     }

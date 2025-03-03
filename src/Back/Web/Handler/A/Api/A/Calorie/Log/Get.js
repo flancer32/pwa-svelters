@@ -17,8 +17,6 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get {
      * @param {Svelters_Shared_Web_Api_Calorie_Log_Get} endpoint
      * @param {Fl64_OAuth2_Back_Manager} oauth2
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
-     * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
      * @param {Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft} repoDraft
      * @param {Svelters_Back_Store_RDb_Repo_Calorie_Log_Final} repoFinal
      * @param {Svelters_Back_Store_RDb_Repo_Calorie_Log_Final_Item} repoFinalItem
@@ -35,8 +33,6 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get {
             Svelters_Shared_Web_Api_Calorie_Log_Get$: endpoint,
             Fl64_OAuth2_Back_Manager$: oauth2,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Svelters_Back_Store_RDb_Repo_User$: repoUser,
-            Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft$: repoDraft,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Final$: repoFinal,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Final_Item$: repoFinalItem,
@@ -193,7 +189,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get {
                     const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                     if (isAuthorized) {
                         /** @type {Svelters_Shared_Web_Api_Calorie_Log_Get.Request} */
-                        const payload = await zHelper.parsePostedData(req);
+                        const payload = zHelper.parseGetParams(req);
                         const dateFrom = payload.dateFrom;
                         const dateTo = payload.dateTo;
 

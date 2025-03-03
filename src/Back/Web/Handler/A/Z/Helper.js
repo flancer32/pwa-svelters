@@ -85,6 +85,17 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         };
 
         /**
+         * Parses the GET parameters from the URL query string.
+         *
+         * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
+         * @return {*} Parsed GET parameters as an object.
+         */
+        this.parseGetParams = function (req) {
+            const url = new URL(req.url, `http://${req.headers.host}`);
+            return Object.fromEntries(url.searchParams.entries());
+        };
+
+        /**
          * Parses the request body, supporting both JSON and x-www-form-urlencoded formats.
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
