@@ -19,15 +19,19 @@
             <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog" class="btn btn-blue">
                 <i data-lucide="message-circle"></i> Попробовать чат NutriLog
             </a>
+            {{^isAuthenticated}}
             <a href="/app/login" class="btn btn-green">
                 <i data-lucide="log-in"></i> Войти
             </a>
             <a href="/app/register" class="btn btn-red">
                 <i data-lucide="user-plus"></i> Зарегистрироваться
             </a>
+            {{/isAuthenticated}}
+            {{#isAuthenticated}}
             <a href="/fl64-paypal/checkout" class="btn btn-blue">
                 <i data-lucide="payment"></i> Платёж
             </a>
+            {{/isAuthenticated}}
         </div>
     </div>
 </main>

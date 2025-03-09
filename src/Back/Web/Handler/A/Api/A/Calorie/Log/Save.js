@@ -15,7 +15,6 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
     /**
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
-     * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft} repoDraft
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper

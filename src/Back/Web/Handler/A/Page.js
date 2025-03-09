@@ -1,19 +1,10 @@
-import {constants as H2} from 'node:http2';
-
-// VARS
-const {
-    HTTP2_METHOD_GET,
-} = H2;
-
 /**
  * Handler for rendering web pages using Mustache templates.
  */
 export default class Svelters_Back_Web_Handler_A_Page {
     /**
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
-     * @param {Fl64_Web_Session_Back_Manager} mgrSession - Session manager
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
      * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
@@ -21,9 +12,7 @@ export default class Svelters_Back_Web_Handler_A_Page {
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
-            Fl64_Web_Session_Back_Manager$: mgrSession,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
