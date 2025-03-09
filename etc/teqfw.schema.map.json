@@ -16,6 +16,9 @@
     "@flancer64/teq-agave-otp": {
       "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     },
+    "@flancer64/teq-agave-paypal": {
+      "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
+    },
     "@flancer64/teq-agave-web-session": {
       "/user": {"attrs": {"id": "id"}, "path": "/app/user"}
     }

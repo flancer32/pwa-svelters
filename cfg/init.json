@@ -1,5 +1,10 @@
 {
   "@flancer32/pwa-svelters": {},
+  "@flancer64/teq-agave-paypal": {
+    "clientId": "",
+    "clientSecret": "",
+    "mode": "production|sandbox"
+  },
   "@teqfw/db": {
     "client": "pg",
     "connection": {
