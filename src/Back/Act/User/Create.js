@@ -21,9 +21,13 @@ export default class Svelters_Back_Act_User_Create {
     ) {
         // VARS
         const A_USER = repoUser.getSchema().getAttributes();
-        const DAYS_AFTER = 7; // Default subscription period (7 days from the current date)
+        const DAYS_DEFAULT = 7; // Default subscription period (7 days from the current date)
+        const MONTHS_PROMO = 3; // Subscription period for promotion (3 months from the current date)
+        const USERS_MAX = 100; // Total number of users to get promo
+        let ifPromoEnded = false;
 
         // FUNCS
+
         /**
          * @param {TeqFw_Db_Back_RDb_ITrans} trx
          * @return {Promise<string>}
@@ -39,29 +43,60 @@ export default class Svelters_Back_Act_User_Create {
             return uuid;
         }
 
+        /**
+         * Determines the subscription end date based on user count and promo status.
+         *
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx - Database transaction object.
+         * @returns {Promise<Date>} - The calculated subscription end date.
+         */
+        async function getSubscriptionEnd(trx) {
+            let res = new Date(); // Start with the current date.
+
+            // TODO: This approach is inefficient for large databases.
+            // Consider using a query with `COUNT()` instead of fetching all records.
+            const {records} = await repoUser.readMany({trx});
+
+            if (ifPromoEnded) {
+                // If the promo period has already ended, apply the default duration.
+                res.setDate(res.getDate() + DAYS_DEFAULT);
+            } else if (records.length <= USERS_MAX) {
+                // If the number of users is within the promo limit, extend by promo months.
+                res.setMonth(res.getMonth() + MONTHS_PROMO);
+            } else {
+                // Otherwise, apply the default duration and mark the promo as ended.
+                res.setDate(res.getDate() + DAYS_DEFAULT);
+                ifPromoEnded = true;
+            }
+
+            return res;
+        }
+
+
         // MAIN
 
         /**
-         * @param {Object} params
-         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @returns {Promise<{user: Svelters_Back_Store_RDb_Schema_User.Dto}>}
+         * Runs the process of creating a new user record inside a transaction.
+         * Ensures the user has a unique UUID and assigns an appropriate subscription date.
+         *
+         * @param {Object} [params={}] - Optional parameters.
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - External transaction (if provided).
+         * @returns {Promise<{user: Svelters_Back_Store_RDb_Schema_User.Dto}>} - The newly created user record.
          */
         this.run = async function ({trx: trxOuter} = {}) {
             return await trxWrapper.execute(trxOuter, async (trx) => {
                 logger.info(`Initializing record for new user.`);
-                const week = new Date();
-                week.setDate(week.getDate() + DAYS_AFTER);
                 const dto = repoUser.createDto();
                 dto.date_created = new Date();
-                dto.date_subscription = week;
+                dto.date_subscription = await getSubscriptionEnd(trx);
                 dto.uuid = await generateUniqueUUID(trx);
                 const {primaryKey: key} = await repoUser.createOne({trx, dto});
                 const userId = key[A_USER.ID];
-                logger.info(`Record for user #${userId} has been created.`);
+                logger.info(`Record for user #${userId} has been created. Subscription until: ${dto.date_subscription}`);
+                // Retrieve the newly created user record.
                 const {record: user} = await repoUser.readOne({trx, key});
                 return {user};
             });
-
         };
+
     }
 }

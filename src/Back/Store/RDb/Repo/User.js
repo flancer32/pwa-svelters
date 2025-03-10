@@ -68,7 +68,7 @@ export default class Svelters_Back_Store_RDb_Repo_User {
         /**
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.conditions
+         * @param {Object} [params.conditions]
          * @param {Object<string, 'asc'|'desc'>} [params.sorting]
          * @param {{limit: number, offset: number}} [params.pagination]
          * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_User.Dto>}>}
