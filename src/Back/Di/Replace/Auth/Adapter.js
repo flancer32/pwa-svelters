@@ -1,4 +1,3 @@
-import {randomUUID} from 'node:crypto';
 /**
  * Implementation of the user management interface for the application.
  *
@@ -9,38 +8,15 @@ import {randomUUID} from 'node:crypto';
 export default class Svelters_Back_Di_Replace_Auth_Adapter {
     /**
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Core_Shared_Api_Logger} logger - The logger instance.
-     * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
-     * @param {Svelters_Back_Store_RDb_Repo_User} repoUser - User repository
+     * @param {Svelters_Back_Act_User_Create} actCreate
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-            Svelters_Back_Store_RDb_Repo_User$: repoUser,
+            Svelters_Back_Act_User_Create$: actCreate,
 
         }
     ) {
-        // VARS
-        const A_USER = repoUser.getSchema().getAttributes();
-        // FUNCS
-
-        /**
-         * @param {TeqFw_Db_Back_RDb_ITrans} trx
-         * @return {Promise<string>}
-         */
-        async function generateUniqueUUID(trx) {
-            let uuid;
-            let isUnique = false;
-            while (!isUnique) {
-                uuid = randomUUID();
-                const {record} = await repoUser.readOne({trx, key: {[A_USER.UUID]: uuid}});
-                isUnique = !record;
-            }
-            return uuid;
-        }
-
         // MAIN
         this.canRegisterEmail = async function ({trx: trxOuter, email}) {
             let allowed = true;
@@ -57,14 +33,8 @@ export default class Svelters_Back_Di_Replace_Auth_Adapter {
          * @returns {Promise<{id: number|null}>} - The unique identifier of the created user.
          */
         this.createUser = async function ({trx: trxOuter, email}) {
-            let id = null;
-            await trxWrapper.execute(trxOuter, async (trx) => {
-                const dto = repoUser.getSchema().createDto();
-                dto.date_created = new Date();
-                dto.uuid = await generateUniqueUUID(trx);
-                const {primaryKey} = await repoUser.createOne({trx, dto});
-                id = primaryKey[A_USER.ID];
-            });
+            const {user} = await actCreate.run({trx: trxOuter});
+            const id = user?.id;
             return {id};
         };
 

@@ -11,6 +11,11 @@
               "comment": "Date-time for user registration.",
               "type": "datetime",
               "default": "current"
+            },
+            "date_subscription": {
+              "type": "datetime",
+              "comment": "Date-time when the user's subscription expires.",
+              "default": "current"
             }
           },
           "index": {

@@ -157,7 +157,6 @@ export default class AppTest_Mod_User {
          */
         this.getSessionUuid = async function ({trx} = {}) {
             return await trxWrapper.execute(trx, async (trx) => {
-                let res;
                 // check user existence
                 const keyUser = {[A_USER.UUID]: USER_UUID};
                 const {record: foundUser} = await repoUser.readOne({trx, key: keyUser});

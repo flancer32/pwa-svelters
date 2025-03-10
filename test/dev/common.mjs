@@ -19,7 +19,7 @@ export async function createLocalContainer() {
     // Initialize the DI container, then add `AppTest_` namespace
     container = await initContainer(ROOT);
     const resolver = container.getResolver();
-    const src = join(ROOT, 'test', 'manual', 'src');
+    const src = join(ROOT, 'test', 'dev', 'src');
     resolver.addNamespaceRoot('AppTest_', src, 'js');
     // load app configuration
     /** @type {TeqFw_Core_Back_Config} */

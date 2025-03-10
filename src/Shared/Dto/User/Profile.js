@@ -15,6 +15,11 @@ class Dto {
      * @type {Date}
      */
     dateCreated;
+    /**
+     * Date-time when the user's subscription expires.
+     * @type {Date}
+     */
+    dateSubscriptionEnd;
 
     /**
      * Date-time for the last update (JavaScript Date object).
@@ -103,6 +108,7 @@ export default class Svelters_Shared_Dto_User_Profile {
             if (data) {
                 res.dateBirth = cast.string(data.dateBirth);
                 res.dateCreated = cast.date(data.dateCreated);
+                res.dateSubscriptionEnd = cast.date(data.dateSubscriptionEnd);
                 res.dateUpdated = cast.date(data.dateUpdated);
                 res.goal = cast.string(data.goal);
                 res.height = cast.int(data.height);

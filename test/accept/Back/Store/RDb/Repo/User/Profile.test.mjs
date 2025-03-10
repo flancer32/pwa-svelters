@@ -30,6 +30,7 @@ describe('Svelters_Back_Store_RDb_Repo_User_Profile', () => {
         await dbConnect(container);
         const dto = repoUser.getSchema().createDto();
         dto.date_created = new Date();
+        dto.date_subscription = new Date();
         dto.uuid = 'uuid';
         const {primaryKey} = await repoUser.createOne({dto});
         USER_REF = primaryKey[ATTR_USER.ID];

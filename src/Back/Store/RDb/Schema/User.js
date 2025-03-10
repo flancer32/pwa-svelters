@@ -18,6 +18,7 @@ const ENTITY = '/app/user';
  */
 const ATTR = {
     DATE_CREATED: 'date_created',
+    DATE_SUBSCRIPTION: 'date_subscription',
     ID: 'id',
     UUID: 'uuid',
 };
@@ -36,6 +37,13 @@ class Dto {
      * @type {Date}
      */
     date_created;
+
+    /**
+     * Date-time when the user's subscription expires.
+     *
+     * @type {Date}
+     */
+    date_subscription;
 
     /**
      * Internal ID used in foreign keys.
@@ -78,9 +86,10 @@ export default class Svelters_Back_Store_RDb_Schema_User {
         this.createDto = function (data) {
             const res = new Dto();
             if (data) {
-                res.date_created = cast.date(data?.date_created);
-                res.id = cast.int(data?.id);
-                res.uuid = cast.string(data?.uuid);
+                res.date_created = cast.date(data.date_created);
+                res.date_subscription = cast.date(data.date_subscription);
+                res.id = cast.int(data.id);
+                res.uuid = cast.string(data.uuid);
             }
             return res;
         };

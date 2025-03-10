@@ -61,6 +61,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
                         // load base user data
                         const {record: foundUser} = await repoUser.readOne({trx, key: userId});
                         response.profile.dateCreated = foundUser.date_created;
+                        response.profile.dateSubscriptionEnd = foundUser.date_subscription;
                         response.profile.uuid = foundUser.uuid;
                         // load user profile data
                         const {record: foundProfile} = await repoProfile.readOne({trx, key: userId});

@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {createContainer} from '@teqfw/test';
-import {dbConnect, dbCreateFkEntities, dbDisconnect, dbReset, initConfig} from '../../../../common.mjs';
+import {dbConnect, dbDisconnect, dbReset, initConfig} from '../../../../common.mjs';
 
 // SETUP CONTAINER
 const container = await createContainer();
@@ -14,6 +14,7 @@ const ATTR = repoUser.getSchema().getAttributes();
 // TEST CONSTANTS
 const UUID = 'test-uuid';
 const DATE_CREATED = new Date();
+const DATE_SUBSCRIPTION = new Date('2026-12-31');
 let USER_ID;
 
 // Test Suite for User Repository
@@ -30,8 +31,9 @@ describe('Svelters_Back_Store_RDb_Repo_User', () => {
     it('should create a new user entry', async () => {
         /** @type {Svelters_Back_Store_RDb_Schema_User.Dto} */
         const dto = repoUser.createDto();
-        dto.uuid = UUID;
         dto.date_created = DATE_CREATED;
+        dto.date_subscription = DATE_SUBSCRIPTION;
+        dto.uuid = UUID;
 
         const {primaryKey} = await repoUser.createOne({dto});
         USER_ID = primaryKey[ATTR.ID];

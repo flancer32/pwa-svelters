@@ -306,6 +306,11 @@
             "format": "date-time",
             "description": "Date-time when the user registered."
           },
+          "dateSubscriptionEnd": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date-time when the user's subscription expires."
+          },
           "dateUpdated": {
             "type": "string",
             "format": "date-time",

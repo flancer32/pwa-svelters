@@ -48,6 +48,7 @@ export async function dbCreateFkEntities(container) {
     try {
         const dto = repoUser.createDto();
         dto.date_created = new Date();
+        dto.date_subscription = new Date();
         dto.uuid = 'UUID';
         const {primaryKey: key} = await repoUser.createOne({trx, dto});
         const {record} = await repoUser.readOne({trx, key});

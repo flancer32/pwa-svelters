@@ -11,6 +11,7 @@ describe('Svelters_Back_Store_RDb_Schema_User', () => {
     const ATTR = schema.getAttributes();
     const expectedProperties = [
         'date_created',
+        'date_subscription',
         'id',
         'uuid',
     ];
