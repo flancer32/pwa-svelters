@@ -9,6 +9,7 @@ export default class Svelters_Shared_Defaults {
     NAME = '@flancer32/pwa-svelters';
 
     ROUTE_API = 'api';
+    ROUTE_DASHBOARD = 'dashboard';
     ROUTE_LOGIN = 'login';
     ROUTE_REGISTER = 'register';
 

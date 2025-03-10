@@ -15,8 +15,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Svelters_Shared_Web_Api_Profile_Get} endpoint
      * @param {Fl64_OAuth2_Back_Manager} oauth2
-     * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
-     * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
+     * @param {Svelters_Back_Act_User_Profile_Read} actProfileRead
      */
     constructor(
         {
@@ -25,14 +24,12 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Shared_Web_Api_Profile_Get$: endpoint,
             Fl64_OAuth2_Back_Manager$: oauth2,
-            Svelters_Back_Store_RDb_Repo_User$: repoUser,
-            Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
+            Svelters_Back_Act_User_Profile_Read$: actProfileRead,
+
         }
     ) {
         // VARS
         const RESULT = endpoint.getResultCodes();
-
-        // FUNCS
 
         // MAIN
         /**
@@ -58,25 +55,8 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
                         logger.info(`Received a request to retrieve the profile for user #${userId}.`);
                         response.meta.ok = true;
                         response.meta.code = RESULT.SUCCESS;
-                        // load base user data
-                        const {record: foundUser} = await repoUser.readOne({trx, key: userId});
-                        response.profile.dateCreated = foundUser.date_created;
-                        response.profile.dateSubscriptionEnd = foundUser.date_subscription;
-                        response.profile.uuid = foundUser.uuid;
-                        // load user profile data
-                        const {record: foundProfile} = await repoProfile.readOne({trx, key: userId});
-                        if (foundProfile) {
-                            response.profile.dateBirth = foundProfile.date_birth;
-                            response.profile.dateUpdated = foundProfile.date_updated;
-                            response.profile.goal = foundProfile.goal;
-                            response.profile.height = foundProfile.height;
-                            response.profile.locale = foundProfile.locale;
-                            response.profile.name = foundProfile.name;
-                            response.profile.sex = foundProfile.sex;
-                            response.profile.timezone = foundProfile.timezone;
-                        }
-                        // TODO: add weight
-
+                        const {profile} = await actProfileRead.run({trx, userId});
+                        response.profile = profile;
                         // Send the response
                         const body = JSON.stringify(response);
                         respond.code200_Ok({

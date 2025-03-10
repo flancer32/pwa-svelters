@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+{{> pageHeader}}
+
+<main>
+    <h2>Dashboard</h2>
+
+    {{^isAuthenticated}}
+    <div class="card">
+        <p class="description">You are not authenticated. Please log in or sign up.</p>
+        <div class="buttons">
+            <a href="/app/login" class="btn btn-green">
+                <i data-lucide="log-in"></i> Log In
+            </a>
+            <a href="/app/register" class="btn btn-red">
+                <i data-lucide="user-plus"></i> Sign Up
+            </a>
+        </div>
+    </div>
+    {{/isAuthenticated}}
+
+    {{#isAuthenticated}}
+    <div class="profile-card">
+
+        <div class="profile-section">
+            <h3>Account Details</h3>
+            <p><strong>Account Created:</strong> {{profile.dateCreated}}</p>
+            <p><strong>Last Updated:</strong> {{profile.dateUpdated}}</p>
+            <p><strong>Subscription Expires:</strong> {{profile.dateSubscriptionEnd}}</p>
+            <p><strong>Public ID:</strong> {{profile.uuid}}</p>
+        </div>
+
+        <div class="profile-section">
+            <h3>Basic Information</h3>
+            <p><strong>Name:</strong> {{profile.name}}</p>
+            <p><strong>Gender:</strong> {{profile.sex}}</p>
+            <p><strong>Date of Birth:</strong> {{profile.dateBirth}}</p>
+            <p><strong>Timezone:</strong> {{profile.timezone}}</p>
+            <p><strong>Locale:</strong> {{profile.locale}}</p>
+        </div>
+
+        <div class="profile-section">
+            <h3>Health Metrics</h3>
+            <p><strong>Height:</strong> {{profile.height}} cm</p>
+            <p><strong>Weight:</strong> {{profile.weight}} g</p>
+            <p><strong>Goal:</strong> {{profile.goal}}</p>
+        </div>
+
+    </div>
+    {{/isAuthenticated}}
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

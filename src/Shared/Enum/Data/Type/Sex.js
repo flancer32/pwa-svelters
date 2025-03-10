@@ -3,7 +3,7 @@
  */
 const Svelters_Shared_Enum_Data_Type_Sex = {
     FEMALE: 'FEMALE',
-    MALE: 'EMAIL',
+    MALE: 'MALE',
     UNDEFINED: 'UNDEFINED',
 };
 
