@@ -4,34 +4,30 @@
     {{> htmlHead}}
 </head>
 <body>
+
 {{> pageHeader}}
 
-<main>
-    <div class="intro">
-        <h2>Track Your Nutrition with NutriLog</h2>
-        <p>NutriLog helps you manage your diet effortlessly. Log your meals, analyze calorie intake, and get AI-driven
-            insights to optimize your nutrition.</p>
+<main class="text-center">
+    <!-- Intro Section -->
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900">Track Your Nutrition with NutriLog</h1>
+        <p class="text-gray-700 mt-4">
+            NutriLog helps you manage your diet effortlessly. Log your meals, analyze calorie intake,
+            and get AI-driven insights to optimize your nutrition.
+        </p>
     </div>
 
-    <div class="card">
-        <p class="description">Most interactions happen through our AI-powered chat. Start now!</p>
-        <div class="buttons">
-            <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog" class="btn btn-blue">
-                <i data-lucide="message-circle"></i> Try NutriLog Chat
+    <!-- Call-to-Action Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6">
+        <p class="text-gray-700 text-center mb-4">
+            Most interactions happen through our AI-powered chat. Start now!
+        </p>
+
+        <div class="flex flex-col space-y-4">
+            <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+               class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-md">
+                <i data-lucide="message-circle" class="mr-2"></i> Try NutriLog Chat
             </a>
-            {{^isAuthenticated}}
-            <a href="/app/login" class="btn btn-green">
-                <i data-lucide="log-in"></i> Log In
-            </a>
-            <a href="/app/register" class="btn btn-red">
-                <i data-lucide="user-plus"></i> Sign Up
-            </a>
-            {{/isAuthenticated}}
-            {{#isAuthenticated}}
-            <a href="/fl64-paypal/checkout" class="btn btn-blue">
-                <i data-lucide="payment"></i> Payment
-            </a>
-            {{/isAuthenticated}}
         </div>
     </div>
 </main>

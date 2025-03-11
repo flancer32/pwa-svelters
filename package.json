@@ -16,6 +16,7 @@
   },
   "repository": "github:flancer32/pwa-svelters",
   "scripts": {
+    "build-css": "npx tailwindcss -i ./tmpl/web/tailwind.css -o ./web/style/tailwind.min.css --minify",
     "db-export": "node ./bin/tequila.mjs db-export -f ./var/data.json",
     "db-import": "node ./bin/tequila.mjs db-import -f ./var/data.json",
     "db-init": "node ./bin/tequila.mjs db-init",
@@ -44,9 +45,12 @@
   "devDependencies": {
     "@teqfw/test": ">=0.20.1 <1.0.0",
     "@types/knex": "^0.15.2",
+    "autoprefixer": "^10.4.21",
     "better-sqlite3": "^11.5.0",
     "dotenv": "^16.4.7",
-    "mocha": "^11.1.0"
+    "mocha": "^11.1.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.1"
   },
   "engines": {
     "node": ">=18"

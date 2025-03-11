@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1 class="text-2xl font-bold text-gray-900">Личный кабинет</h1>
+
+    {{> blockAnon}}
+
+    {{#isAuthenticated}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+        <!-- Account Details -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Данные аккаунта</h2>
+            <p class="text-gray-700"><strong>Дата создания:</strong> {{profile.dateCreated}}</p>
+            <p class="text-gray-700"><strong>Последнее обновление:</strong> {{profile.dateUpdated}}</p>
+            <p class="text-gray-700"><strong>Подписка до:</strong> {{profile.dateSubscriptionEnd}}</p>
+            <p class="text-gray-700"><strong>Публичный ID:</strong> {{profile.uuid}}</p>
+        </div>
+
+        {{#canSubscribe}}
+        <!-- Subscription Renewal -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex justify-center items-center">
+            <a href="/app/subscribe"
+               class="flex items-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-md">
+                <i data-lucide="refresh-cw" class="mr-2"></i> Продлить подписку
+            </a>
+        </div>
+        {{/canSubscribe}}
+
+        <!-- Basic Information -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Основная информация</h2>
+            <p class="text-gray-700"><strong>Имя:</strong> {{profile.name}}</p>
+            <p class="text-gray-700"><strong>Пол:</strong> {{profile.sex}}</p>
+            <p class="text-gray-700"><strong>Дата рождения:</strong> {{profile.dateBirth}}</p>
+            <p class="text-gray-700"><strong>Часовой пояс:</strong> {{profile.timezone}}</p>
+            <p class="text-gray-700"><strong>Локаль:</strong> {{profile.locale}}</p>
+        </div>
+
+        <!-- Health Metrics -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Параметры здоровья</h2>
+            <p class="text-gray-700"><strong>Рост:</strong> {{profile.height}} см</p>
+            <p class="text-gray-700"><strong>Вес:</strong> {{profile.weight}} г</p>
+            <p class="text-gray-700"><strong>Цель:</strong> {{profile.goal}}</p>
+        </div>
+
+    </div>
+    {{/isAuthenticated}}
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

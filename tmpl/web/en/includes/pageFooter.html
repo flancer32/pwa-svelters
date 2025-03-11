@@ -1,18 +1,27 @@
-<footer>
-    <ul class="footer-links">
-        <li><a href="/app/privacy.html"><i data-lucide="shield"></i> Privacy Policy</a></li>
-        <li><a href="/app/terms.html"><i data-lucide="file-text"></i> Terms of Service</a></li>
-        <li><a href="/app/contact.html"><i data-lucide="mail"></i> Contact</a></li>
-    </ul>
-    <ul class="footer-links">
-        <li>
-            <a href="https://company.lursoft.lv/en/f-lancer/40103303120">
-                &copy; 2025 "F. Lancer", SIA. All rights reserved.
-            </a>
-        </li>
-    </ul>
+<footer class="bg-gray-50 border-t border-gray-200 py-6 text-center text-gray-600">
+    <nav class="flex justify-center space-x-4 text-sm">
+        <a href="/app/privacy.html" class="hover:underline">Privacy Policy</a>
+        <a href="/app/terms.html" class="hover:underline">Terms of Service</a>
+        <a href="/app/contact.html" class="hover:underline">Contact</a>
+    </nav>
+    <div class="mt-4">
+        <button id="lang-ru" class="text-gray-600 hover:underline">RU</button>
+        <span>|</span>
+        <button id="lang-en" class="text-gray-600 hover:underline">EN</button>
+    </div>
+    <p class="text-xs text-gray-500 mt-2">&copy; 2025 "F. Lancer", SIA. All rights reserved.</p>
 </footer>
 
 <script>
-    lucide.createIcons();
+    function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.cookie = `locale=${lang}; path=/; max-age=31536000`; // 1 year
+        location.reload();
+    }
+
+    document.getElementById('lang-ru').addEventListener('click', () => changeLanguage('ru'));
+    document.getElementById('lang-en').addEventListener('click', () => changeLanguage('en'));
+
+    const currentLang = document.documentElement.lang;
+    document.getElementById(`lang-${currentLang}`)?.classList.add('active-lang');
 </script>

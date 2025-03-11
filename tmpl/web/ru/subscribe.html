@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
     {{> htmlHead}}
@@ -10,7 +10,7 @@
 
 <main class="flex justify-center items-center min-h-screen p-4">
     <div class="max-w-md w-full space-y-6">
-        <h2 class="text-2xl font-bold text-center">Renew Subscription</h2>
+        <h2 class="text-2xl font-bold text-center">Продление подписки</h2>
 
         {{> blockAnon}}
 
@@ -18,30 +18,30 @@
 
         {{^canSubscribe}}
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-            <span>You cannot subscribe for the service.</span>
+            <span>Вы не можете оформить подписку.</span>
         </div>
         {{/canSubscribe}}
 
         {{#canSubscribe}}
         <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            <h3 class="text-lg font-semibold mb-2">Subscription Details</h3>
+            <h3 class="text-lg font-semibold mb-2">Детали подписки</h3>
 
             <div class="space-y-2">
-                <p><strong>Amount:</strong> <span id="paypalAmount">{{amount}}</span> {{currency}}</p>
-                <p><strong>Description:</strong> <span id="paypalDescription">{{description}}</span></p>
+                <p><strong>Сумма:</strong> <span id="paypalAmount">{{amount}}</span> {{currency}}</p>
+                <p><strong>Описание:</strong> <span id="paypalDescription">{{description}}</span></p>
             </div>
 
             <!-- Discount Code Input -->
             <div class="mt-4">
-                <label for="discountCode" class="block text-sm font-medium">Discount Code</label>
+                <label for="discountCode" class="block text-sm font-medium">Промокод</label>
                 <div class="flex space-x-2 mt-1">
-                    <input type="text" id="discountCode" class="w-full p-2 border rounded" placeholder="Enter code">
+                    <input type="text" id="discountCode" class="w-full p-2 border rounded" placeholder="Введите код">
                     <button id="applyDiscount" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                        Apply
+                        Применить
                     </button>
                 </div>
-                <p id="discountMessage" class="text-green-500 text-sm mt-2 hidden">Discount applied!</p>
-                <p id="loadingIndicator" class="text-sm text-gray-500 hidden">Applying...</p>
+                <p id="discountMessage" class="text-green-500 text-sm mt-2 hidden">Скидка применена!</p>
+                <p id="loadingIndicator" class="text-sm text-gray-500 hidden">Применение...</p>
             </div>
 
             <div class="mt-4">
@@ -84,15 +84,12 @@
                 loadingIndicator.classList.remove('hidden');
                 discountMessage.classList.add('hidden');
 
-                // Just wait for 2 sec
+                // Simulate discount application
                 setTimeout(() => {
-                    // ... then hide the loader and update payment amount
                     loadingIndicator.classList.add('hidden');
                     discountMessage.classList.remove('hidden');
                     amountElement.textContent = '20';
                 }, 2000);
-
-
             });
         </script>
 

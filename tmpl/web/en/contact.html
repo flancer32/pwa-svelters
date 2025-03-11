@@ -2,78 +2,51 @@
 <html lang="en">
 <head>
     {{> htmlHead}}
-    <style>
-        .links ul li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .links ul li img {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
-            border-radius: 50%;
-            background-color: #ffffff;
-        }
-
-        .links ul li a {
-            display: flex;
-            align-items: center;
-        }
-
-        ul li a {
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .card ul {
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
+
 {{> pageHeader}}
 
 <main>
     <h1>Contact Information</h1>
 
-    <div class="card links">
-        <h2>Email & Messengers</h2>
-        <ul>
-            <li>
-                <a href="mailto:alex@wiredgeese.com">
-                    <img src="/img/contacts/email.svg" alt="Email">
-                    <span>mailto:alex@wiredgeese.com</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://t.me/wiredgeese" target="_blank">
-                    <img src="/img/contacts/telegram.svg" alt="Telegram">
-                    <span>@wiredgeese</span>
-                </a>
-            </li>
-            <li>
-                <a href="skype:alex.gusev.work">
-                    <img src="/img/contacts/skype.png" alt="Skype">
-                    <span>alex.gusev.work</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <!-- Email & Messengers -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Email & Messengers</h2>
+            <ul class="space-y-4">
+                <li class="flex items-center space-x-4">
+                    <img src="/img/contacts/email.svg" alt="Email" class="w-10 h-10 rounded-full bg-white">
+                    <a href="mailto:alex@wiredgeese.com">alex@wiredgeese.com</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <img src="/img/contacts/telegram.svg" alt="Telegram" class="w-10 h-10 rounded-full bg-white">
+                    <a href="https://t.me/wiredgeese" target="_blank"
+                      >@wiredgeese</a>
+                </li>
+                <li class="flex items-center space-x-4">
+                    <img src="/img/contacts/skype.png" alt="Skype" class="w-10 h-10 rounded-full bg-white">
+                    <a href="skype:alex.gusev.work">alex.gusev.work</a>
+                </li>
+            </ul>
+        </div>
 
-    <div class="card">
-        <h2>My Company</h2>
-        <ul>
-            <li><strong>Company Name:</strong> <a href="https://company.lursoft.lv/en/f-lancer/40103303120">F.
-                Lancer, SIA</a></li>
-            <li><strong>Company Registration Number:</strong> 40103303120 <span class="since">(since 2010/06/29)</span>
-            </li>
-            <li><strong>SEPA Identifier:</strong> LV82ZZZ40103303120</li>
-            <li><strong>VAT Number:</strong> LV40103303120 <span class="since">(since 2023/09/27)</span></li>
-            <li><strong>Bank Account Number:</strong> LV83HABA0551028650868</li>
-        </ul>
+        <!-- My Company -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">My Company</h2>
+            <ul class="space-y-2 text-gray-700">
+                <li><strong>Company Name:</strong>
+                    <a href="https://company.lursoft.lv/en/f-lancer/40103303120">F.
+                        Lancer, SIA</a>
+                </li>
+                <li><strong>Company Registration Number:</strong> 40103303120 <span class="text-gray-500">(since 2010/06/29)</span>
+                </li>
+                <li><strong>SEPA Identifier:</strong> LV82ZZZ40103303120</li>
+                <li><strong>VAT Number:</strong> LV40103303120 <span class="text-gray-500">(since 2023/09/27)</span>
+                </li>
+                <li><strong>Bank Account Number:</strong> LV83HABA0551028650868</li>
+            </ul>
+        </div>
     </div>
 
 </main>

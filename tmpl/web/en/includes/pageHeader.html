@@ -1,31 +1,89 @@
-<header>
-    <nav class="nav">
-        <a href="/" class="logo"><i data-lucide="apple"></i> NutriLog</a>
-        <ul class="nav-links">
-            {{^isAuthenticated}}
-            <li><a href="/app/login"><i data-lucide="log-in"></i> Log In</a></li>
-            <li><a href="/app/register"><i data-lucide="user-plus"></i> Sign Up</a></li>
-            {{/isAuthenticated}}
-            <li class="lang-switch">
-                <button id="lang-ru" class="lang-btn">RU</button>
-                |
-                <button id="lang-en" class="lang-btn">EN</button>
-            </li>
-        </ul>
+<header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fixed top-0 w-full z-50">
+    <!-- Logo -->
+    <a href="/" class="flex items-center space-x-2 text-2xl font-semibold text-gray-800">
+        <i data-lucide="apple"></i>
+        <span>NutriLog</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex space-x-6">
+        <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
+        <a href="/app/use-cases.html" class="text-gray-600 hover:text-gray-900">Use Cases</a>
+        <a href="/app/pricing.html" class="text-gray-600 hover:text-gray-900">Pricing</a>
+        <a href="/app/videos.html" class="text-gray-600 hover:text-gray-900">Videos</a>
     </nav>
+
+    <!-- Authentication Buttons -->
+    <div class="hidden md:flex space-x-4">
+        {{^isAuthenticated}}
+        <a href="/app/login" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">Login</a>
+        <a href="/app/register" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">Join Free</a>
+        {{/isAuthenticated}}
+
+        {{#isAuthenticated}}
+        <div class="relative">
+            <button id="user-menu-button" class="p-2 text-gray-600 hover:bg-gray-100 rounded-md">
+                <i data-lucide="user"></i>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="user-menu" class="hidden absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2">
+                <a href="/app/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+                <a href="/app/logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+            </div>
+        </div>
+        {{/isAuthenticated}}
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-button" class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-md">
+        <i data-lucide="menu"></i>
+    </button>
 </header>
 
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden fixed top-16 left-0 w-full bg-white shadow-lg py-4 px-6">
+    <a href="/" class="block text-gray-700 py-2">Home</a>
+    <a href="/app/use-cases.html" class="block text-gray-700 py-2">Use Cases</a>
+    <a href="/app/pricing.html" class="block text-gray-700 py-2">Pricing</a>
+    <a href="/app/videos.html" class="block text-gray-700 py-2">Videos</a>
+
+    {{^isAuthenticated}}
+    <a href="/app/login"
+       class="block bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-center mt-4">Login</a>
+    <a href="/app/register"
+       class="block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-center mt-2">Join Free</a>
+    {{/isAuthenticated}}
+
+    {{#isAuthenticated}}
+    <div class="border-t border-gray-200 mt-4 pt-4">
+        <a href="/app/dashboard" class="block text-gray-700 py-2">Dashboard</a>
+        <a href="/app/logout" class="block text-gray-700 py-2">Logout</a>
+    </div>
+    {{/isAuthenticated}}
+</div>
+
 <script>
+    // Mobile menu toggle
+    const menuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
 
-    function changeLanguage(lang) {
-        document.documentElement.lang = lang;
-        document.cookie = `locale=${lang}; path=/; max-age=31536000`; // 1 year
-        location.reload();
+    // User dropdown menu toggle
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userMenu = document.getElementById('user-menu');
+    if (userMenuButton) {
+        userMenuButton.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
     }
-
-    document.getElementById('lang-ru').addEventListener('click', () => changeLanguage('ru'));
-    document.getElementById('lang-en').addEventListener('click', () => changeLanguage('en'));
-
-    const currentLang = document.documentElement.lang;
-    document.getElementById(`lang-${currentLang}`)?.classList.add('active-lang');
 </script>

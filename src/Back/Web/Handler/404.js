@@ -17,6 +17,7 @@ export default class Svelters_Back_Web_Handler_404 {
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Web_Back_Help_Respond} respond
+     * @param {Fl64_Web_Session_Back_Manager} session
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
      * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
@@ -26,6 +27,7 @@ export default class Svelters_Back_Web_Handler_404 {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
+            Fl64_Web_Session_Back_Manager$: session,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
@@ -50,7 +52,10 @@ export default class Svelters_Back_Web_Handler_404 {
                         const name = '404.html';
                         const partials = await zHelper.loadPartials(localeUser);
                         const type = TYPE.WEB;
-                        const view = {};
+                        const {dto} = await session.getFromRequest({req});
+                        const view = {
+                            isAuthenticated: !!dto?.user_ref,
+                        };
                         const {content: body} = await tmplRender.perform({
                             name,
                             type,

@@ -4,55 +4,66 @@
     {{> htmlHead}}
 </head>
 <body>
+
 {{> pageHeader}}
 
 <main>
-    <div class="intro">
-        <h2>Войдите в свой аккаунт NutriLog</h2>
-        <p>Войдите, чтобы отслеживать свои приёмы пищи, анализировать потребление калорий и получать
-            рекомендации с использованием ИИ для улучшения вашего питания.</p>
+    <!-- Intro section -->
+    <div class="text-center max-w-lg mx-auto">
+        <h2 class="text-2xl font-bold text-gray-900">Вход в аккаунт NutriLog</h2>
+        <p class="text-gray-700 mt-2">
+            Войдите, чтобы отслеживать свои приёмы пищи, анализировать потребление калорий
+            и получать рекомендации с использованием ИИ для улучшения вашего питания.
+        </p>
     </div>
 
-    <div class="card">
-        <p class="description">Выберите предпочитаемый метод входа:</p>
+    <!-- Login card -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6">
+        <p class="text-gray-700 text-center mb-4">Выберите способ входа:</p>
 
         <!-- Email Login -->
-        <form id="email-form" action="/fl64-auth-otp/login" method="POST" class="login-form">
-            <div class="email-input-container">
+        <form id="email-form" action="/fl64-auth-otp/login" method="POST" class="space-y-4">
+            <div class="flex items-center border border-gray-300 rounded-md overflow-hidden">
                 <input type="email" id="email" name="email" required placeholder="Войти через Email и OTP"
-                       class="input">
-                <button type="submit" class="btn-email"><i data-lucide="mail"></i></button>
+                       class="w-full p-3 text-gray-700 outline-none">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-3">
+                    <i data-lucide="mail"></i>
+                </button>
             </div>
 
             <input type="hidden" name="xsrf_token" id="xsrf_token" value="{{xsrfToken}}">
 
-            <p id="success-msg" style="display: none; color: green;">Ссылка для аутентификации отправлена на ваш
-                email.</p>
+            <p id="success-msg" class="hidden text-green-600">Ссылка для входа отправлена на ваш email.</p>
+            <p id="error-EMAIL_NOT_ALLOWED" class="hidden text-red-600">Этот email не разрешён.</p>
+            <p id="error-EMAIL_NOT_SENT" class="hidden text-red-600">Не удалось отправить email для входа.</p>
+            <p id="error-WRONG_XSRF" class="hidden text-red-600">Неверный токен безопасности. Перезагрузите
+                страницу.</p>
+            <p id="error-UNDEFINED" class="hidden text-red-600">Неизвестная ошибка сервера. Попробуйте позже.</p>
 
-            <p id="error-EMAIL_NOT_ALLOWED" class="error-message" style="display: none; color: red;">Этот email
-                не разрешён.</p>
-            <p id="error-EMAIL_NOT_SENT" class="error-message" style="display: none; color: red;">Не удалось отправить
-                email для подтверждения.</p>
-            <p id="error-WRONG_XSRF" class="error-message" style="display: none; color: red;">Неверный токен
-                безопасности. Пожалуйста, перезагрузите страницу.</p>
-            <p id="error-UNDEFINED" class="error-message" style="display: none; color: red;">Неизвестная ошибка сервера.
-                Пожалуйста, попробуйте позже.</p>
-
-            <div id="loading" style="display: none;">Обработка...</div>
+            <div id="loading" class="hidden text-gray-500">Обработка...</div>
         </form>
 
-        <div class="separator">или</div>
+        <div class="text-center my-4 text-gray-500">или</div>
 
         <!-- OAuth Providers -->
-        <div class="buttons">
+        <div class="flex flex-col space-y-2">
             {{#urlGoogle}}
-            <a href="{{urlGoogle}}" class="btn btn-blue"><i data-lucide="mail-search"></i> Google</a>
+            <a href="{{urlGoogle}}"
+               class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md">
+                <i data-lucide="mail-search" class="mr-2"></i> Войти через Google
+            </a>
             {{/urlGoogle}}
             {{#urlX}}
-            <a href="{{urlX}}" class="btn btn-blue"><i data-lucide="twitter"></i> X (Twitter)</a>
+            <a href="{{urlX}}"
+               class="flex items-center justify-center bg-black hover:bg-gray-900 text-white py-3 rounded-md">
+                <i data-lucide="twitter" class="mr-2"></i> Войти через X (Twitter)
+            </a>
             {{/urlX}}
             {{#urlGithub}}
-            <a href="{{urlGithub}}" class="btn btn-blue"><i data-lucide="github"></i> GitHub</a>
+            <a href="{{urlGithub}}"
+               class="flex items-center justify-center bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-md">
+                <i data-lucide="github" class="mr-2"></i> Войти через GitHub
+            </a>
             {{/urlGithub}}
         </div>
     </div>
