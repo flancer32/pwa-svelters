@@ -11,21 +11,27 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
     /**
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
+     * @param {Svelters_Shared_Helper_Cast} helpCast
      * @param {Fl64_Tmpl_Back_Act_FindTemplate} actFind
      * @param {Fl64_Tmpl_Back_Act_LoadTemplate} actLoad
+     * @param {Svelters_Back_Act_User_Profile_Read} actProfileRead
      * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
+            Svelters_Shared_Helper_Cast$: helpCast,
             Fl64_Tmpl_Back_Act_FindTemplate$: actFind,
             Fl64_Tmpl_Back_Act_LoadTemplate$: actLoad,
+            Svelters_Back_Act_User_Profile_Read$: actProfileRead,
             'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
         }
     ) {
         // VARS
+        const MONTHS_RENEW = DEF.SUBSCRIPTION_MONTHS_RENEW;
         const includes = {
+            'blockAnon': 'includes/blockAnon.html',
             'htmlHead': 'includes/htmlHead.html',
             'pageHeader': 'includes/pageHeader.html',
             'pageFooter': 'includes/pageFooter.html',
@@ -34,6 +40,23 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         const cache = {};
 
         // MAIN
+
+        /**
+         *
+         * @param {Date|string} dateSubscriptionEnd
+         * @returns {boolean}
+         */
+        this.calcUserCanSubscribe = function ({dateSubscriptionEnd}) {
+            if (dateSubscriptionEnd) {
+                const renew = new Date();
+                const end = new Date(dateSubscriptionEnd);
+                renew.setMonth(renew.getMonth() + MONTHS_RENEW);
+                return (renew > end);
+            } else
+                return false;
+        };
+
+        this.castDate = helpCast.dateString;
 
         /**
          * Extracts the locale from the HTTP request or falls back to a default locale.
@@ -127,6 +150,19 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
                 }
             }
             return body;
+        };
+
+        /**
+         * The action is wrapped as a function with complex input and simple output arguments.
+         *
+         * @param {Object} params
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
+         * @param {number} params.userId
+         * @returns {Promise<Svelters_Shared_Dto_User_Profile.Dto>}
+         */
+        this.readProfile = async function ({trx, userId}) {
+            const {profile} = await actProfileRead.run({trx, userId});
+            return profile;
         };
 
     }

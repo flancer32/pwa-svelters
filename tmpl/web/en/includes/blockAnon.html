@@ -1,0 +1,13 @@
+{{^isAuthenticated}}
+<div class="card">
+    <p class="description">You are not authenticated. Please log in or sign up.</p>
+    <div class="buttons">
+        <a href="/app/login" class="btn btn-green">
+            <i data-lucide="log-in"></i> Log In
+        </a>
+        <a href="/app/register" class="btn btn-red">
+            <i data-lucide="user-plus"></i> Sign Up
+        </a>
+    </div>
+</div>
+{{/isAuthenticated}}

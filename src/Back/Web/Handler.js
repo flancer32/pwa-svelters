@@ -24,6 +24,7 @@ export default class Svelters_Back_Web_Handler {
      * @param {Svelters_Back_Web_Handler_A_Login} aLogin
      * @param {Svelters_Back_Web_Handler_A_Page} aPage
      * @param {Svelters_Back_Web_Handler_A_Register} aRegister
+     * @param {Svelters_Back_Web_Handler_A_Subscribe} aSubscribe
      */
     constructor(
         {
@@ -36,6 +37,7 @@ export default class Svelters_Back_Web_Handler {
             Svelters_Back_Web_Handler_A_Login$: aLogin,
             Svelters_Back_Web_Handler_A_Page$: aPage,
             Svelters_Back_Web_Handler_A_Register$: aRegister,
+            Svelters_Back_Web_Handler_A_Subscribe$: aSubscribe,
         }
     ) {
         /**
@@ -52,11 +54,11 @@ export default class Svelters_Back_Web_Handler {
                 const endpoint = relativePath.split('/')[0];
 
                 switch (endpoint) {
-                    case DEF.SHARED.ROUTE_API:
-                        await aApi.run(req, res);
-                        break;
                     case '':
                         await aHome.run(req, res);
+                        break;
+                    case DEF.SHARED.ROUTE_API:
+                        await aApi.run(req, res);
                         break;
                     case DEF.SHARED.ROUTE_DASHBOARD:
                         await aDashboard.run(req, res);
@@ -66,6 +68,9 @@ export default class Svelters_Back_Web_Handler {
                         break;
                     case DEF.SHARED.ROUTE_REGISTER:
                         await aRegister.run(req, res);
+                        break;
+                    case DEF.SHARED.ROUTE_SUBSCRIBE:
+                        await aSubscribe.run(req, res);
                         break;
                     default:
                         await aPage.run(req, res, relativePath);

@@ -9,19 +9,7 @@
 <main>
     <h2>Dashboard</h2>
 
-    {{^isAuthenticated}}
-    <div class="card">
-        <p class="description">You are not authenticated. Please log in or sign up.</p>
-        <div class="buttons">
-            <a href="/app/login" class="btn btn-green">
-                <i data-lucide="log-in"></i> Log In
-            </a>
-            <a href="/app/register" class="btn btn-red">
-                <i data-lucide="user-plus"></i> Sign Up
-            </a>
-        </div>
-    </div>
-    {{/isAuthenticated}}
+    {{> blockAnon}}
 
     {{#isAuthenticated}}
     <div class="profile-card">
@@ -33,6 +21,14 @@
             <p><strong>Subscription Expires:</strong> {{profile.dateSubscriptionEnd}}</p>
             <p><strong>Public ID:</strong> {{profile.uuid}}</p>
         </div>
+
+        {{#canSubscribe}}
+        <div class="profile-section">
+            <a href="/app/subscribe" class="btn btn-green">
+                <i data-lucide="refresh-cw"></i> Renew Subscription
+            </a>
+        </div>
+        {{/canSubscribe}}
 
         <div class="profile-section">
             <h3>Basic Information</h3>

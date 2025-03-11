@@ -12,18 +12,18 @@ class Dto {
 
     /**
      * Date-time for user registration (JavaScript Date object).
-     * @type {Date}
+     * @type {Date|string}
      */
     dateCreated;
     /**
      * Date-time when the user's subscription expires.
-     * @type {Date}
+     * @type {Date|string}
      */
     dateSubscriptionEnd;
 
     /**
      * Date-time for the last update (JavaScript Date object).
-     * @type {Date}
+     * @type {Date|string}
      */
     dateUpdated;
 

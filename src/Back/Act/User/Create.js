@@ -8,12 +8,14 @@ import {randomUUID} from 'node:crypto';
  */
 export default class Svelters_Back_Act_User_Create {
     /**
+     * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      */
     constructor(
         {
+            Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Back_Store_RDb_Repo_User$: repoUser,
@@ -21,9 +23,9 @@ export default class Svelters_Back_Act_User_Create {
     ) {
         // VARS
         const A_USER = repoUser.getSchema().getAttributes();
-        const DAYS_DEFAULT = 7; // Default subscription period (7 days from the current date)
-        const MONTHS_PROMO = 3; // Subscription period for promotion (3 months from the current date)
-        const USERS_MAX = 100; // Total number of users to get promo
+        const DAYS_DEFAULT = DEF.SUBSCRIPTION_DAYS_DEFAULT;
+        const MONTHS_PROMO = DEF.SUBSCRIPTION_MONTHS_PROMO;
+        const USERS_MAX = DEF.SUBSCRIPTION_USERS_MAX;
         let ifPromoEnded = false;
 
         // FUNCS

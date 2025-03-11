@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+{{> pageHeader}}
+
+<main class="flex justify-center items-center min-h-screen p-4">
+    <div class="max-w-md w-full space-y-6">
+        <h2 class="text-2xl font-bold text-center">Renew Subscription</h2>
+
+        {{> blockAnon}}
+
+        {{#isAuthenticated}}
+
+        {{^canSubscribe}}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+            <span>You cannot subscribe for the service.</span>
+        </div>
+        {{/canSubscribe}}
+
+        {{#canSubscribe}}
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-2">Subscription Details</h3>
+
+            <div class="space-y-2">
+                <p><strong>Amount:</strong> <span id="paypalAmount">{{amount}}</span> {{currency}}</p>
+                <p><strong>Description:</strong> <span id="paypalDescription">{{description}}</span></p>
+            </div>
+
+            <!-- Discount Code Input -->
+            <div class="mt-4">
+                <label for="discountCode" class="block text-sm font-medium">Discount Code</label>
+                <div class="flex space-x-2 mt-1">
+                    <input type="text" id="discountCode" class="w-full p-2 border rounded" placeholder="Enter code">
+                    <button id="applyDiscount" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Apply
+                    </button>
+                </div>
+                <p id="discountMessage" class="text-green-500 text-sm mt-2 hidden">Discount applied!</p>
+                <p id="loadingIndicator" class="text-sm text-gray-500 hidden">Applying...</p>
+            </div>
+
+            <div class="mt-4">
+                <div id="paypal-button-container"></div>
+                <p id="result-message" class="text-center text-sm text-gray-500 mt-2"></p>
+            </div>
+        </div>
+
+        <script
+                src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&components=buttons&disable-funding=venmo,paylater,card"
+                data-sdk-integration-source="developer-studio"
+        ></script>
+
+        <script type="module">
+            /** @type {TeqFw_Di_Container} */
+            import container from '/web/@flancer64/teq-agave-paypal/js/di.js';
+
+            function onMessage({message}) {
+                document.querySelector('#result-message').textContent = message;
+            }
+
+            function cartDataProvider() {
+                const description = document.querySelector('#paypalDescription').textContent;
+                const value = document.querySelector('#paypalAmount').textContent;
+                const currencyCode = '{{currency}}';
+                return [{description, amount: {value, currencyCode}}];
+            }
+
+            /** @type {Fl64_Paypal_Front_Ui_Page_Checkout} */
+            const page = await container.get('Fl64_Paypal_Front_Ui_Page_Checkout$');
+            page.setHandlers({cartDataProvider, onMessage});
+            page.renderButtons({cssContainer: '#paypal-button-container'});
+
+            // Discount Code Handler
+            document.getElementById('applyDiscount').addEventListener('click', async () => {
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                const discountMessage = document.getElementById('discountMessage');
+                const amountElement = document.getElementById('paypalAmount');
+
+                loadingIndicator.classList.remove('hidden');
+                discountMessage.classList.add('hidden');
+
+                // Just wait for 2 sec
+                setTimeout(() => {
+                    // ... then hide the loader and update payment amount
+                    loadingIndicator.classList.add('hidden');
+                    discountMessage.classList.remove('hidden');
+                    amountElement.textContent = '20';
+                }, 2000);
+
+
+            });
+        </script>
+
+        {{/canSubscribe}}
+
+        {{/isAuthenticated}}
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

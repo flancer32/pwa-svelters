@@ -12,6 +12,7 @@ export default class Svelters_Shared_Defaults {
     ROUTE_DASHBOARD = 'dashboard';
     ROUTE_LOGIN = 'login';
     ROUTE_REGISTER = 'register';
+    ROUTE_SUBSCRIBE = 'subscribe';
 
     SPACE = 'app';
 

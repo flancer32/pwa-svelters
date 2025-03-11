@@ -1,0 +1,10 @@
+{
+  "vars": {
+    "amount": "number",
+    "canSubscribe": "boolean",
+    "currency": "string",
+    "description": "string",
+    "paypalClientId": "string",
+    "isAuthenticated": "boolean"
+  }
+}

@@ -1,14 +1,14 @@
 /**
- * Handler for rendering dashboard.
+ * Handler for rendering a subscription form.
  */
-export default class Svelters_Back_Web_Handler_A_Dashboard {
+export default class Svelters_Back_Web_Handler_A_Subscribe {
     /**
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {Fl64_Web_Session_Back_Manager} session
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
-     * @param {Svelters_Shared_Helper_Cast} helpCast
+     * @param {Fl64_Paypal_Back_Client} client
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
      * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
      */
@@ -19,26 +19,12 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
             Fl64_Web_Session_Back_Manager$: session,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
-            Svelters_Shared_Helper_Cast$: helpCast,
+            Fl64_Paypal_Back_Client$: client,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
         }
     ) {
         // VARS
-        // FUNCS
-
-        /**
-         * Normalize some props (convert to short strings for UI).
-         * @param {Svelters_Shared_Dto_User_Profile.Dto} profile
-         * @returns {Svelters_Shared_Dto_User_Profile.Dto}
-         */
-        function normProfile(profile) {
-            profile.dateBirth = helpCast.dateString(profile.dateBirth);
-            profile.dateCreated = helpCast.dateString(profile.dateCreated);
-            profile.dateSubscriptionEnd = helpCast.dateString(profile.dateSubscriptionEnd);
-            profile.dateUpdated = helpCast.dateString(profile.dateUpdated);
-            return profile;
-        }
 
         // MAIN
         /**
@@ -51,9 +37,10 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
          */
         this.run = async function (req, res) {
             return await trxWrapper.execute(null, async (trx) => {
+                let amount, currency, description;
                 const localeApp = DEF.SHARED.LOCALE;
                 const localeUser = zHelper.getLocale(req);
-                const name = 'dashboard.html';
+                const name = 'subscribe.html';
                 const partials = await zHelper.loadPartials(localeUser);
                 const type = TYPE.WEB;
                 const {dto} = await session.getFromRequest({trx, req});
@@ -63,10 +50,21 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
                 const canSubscribe = zHelper.calcUserCanSubscribe({
                     dateSubscriptionEnd: profile?.dateSubscriptionEnd
                 });
+                if (canSubscribe) {
+                    amount = DEF.SUBSCRIPTION_AMOUNT_YEAR;
+                    currency = DEF.SUBSCRIPTION_CURRENCY;
+                    const until = new Date(profile.dateSubscriptionEnd);
+                    until.setMonth(until.getMonth() + 12);
+                    const date = zHelper.castDate(until);
+                    description = `NutriLog service subscription for 1 year (until ${date}).`;
+                }
                 const view = {
+                    amount,
                     canSubscribe,
+                    currency,
+                    description,
                     isAuthenticated,
-                    profile: normProfile(profile),
+                    paypalClientId: client.getClientId(),
                 };
                 const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
                 if (body) {
