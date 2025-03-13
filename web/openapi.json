@@ -69,10 +69,34 @@
             }
           },
           "400": {
-            "description": "Bad request due to missing or invalid date parameters."
+            "description": "Bad request due to missing or invalid date parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -115,25 +139,58 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "description": "Indicates whether the draft was successfully saved."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "Message providing additional information about the save operation."
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
                     }
-                  },
-                  "required": ["success", "message"]
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request. Missing or invalid data."
+            "description": "Bad request. Missing or invalid data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment required. User does not have an active subscription.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -165,10 +222,34 @@
             }
           },
           "400": {
-            "description": "Bad request. Missing or invalid data."
+            "description": "Bad request. Missing or invalid data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -211,10 +292,49 @@
             }
           },
           "400": {
-            "description": "Invalid input or missing required fields."
+            "description": "Invalid input or missing required fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment required. User does not have an active subscription.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal server error."
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

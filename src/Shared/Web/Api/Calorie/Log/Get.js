@@ -1,59 +1,4 @@
 /**
- * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Get
- */
-class Request {
-    /**
-     * The start date of the period (inclusive). Format: YYYY-MM-DD.
-     * @type {string}
-     */
-    dateFrom;
-    /**
-     * The end date of the period (inclusive). Format: YYYY-MM-DD.
-     * @type {string}
-     */
-    dateTo;
-}
-
-
-/**
- * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Get
- */
-class Response {
-    /**
-     * Calorie logs for the requested period that are in draft records.
-     * @type {Svelters_Shared_Dto_Calorie_Log.Dto[]}
-     */
-    draftLogs;
-
-    /**
-     * Calorie logs for the requested period that are finalized.
-     * @type {Svelters_Shared_Dto_Calorie_Log.Dto[]}
-     */
-    finalLogs;
-
-    /**
-     * Standard structure for transmitting information to GPT-chat about the request processing results.
-     * @type {Svelters_Shared_Dto_Web_Api_Response_Meta.Dto}
-     */
-    meta;
-}
-
-/**
- * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Get
- */
-const ResultCode = {
-    /**
-     * All available log records are got..
-     */
-    SUCCESS: 'SUCCESS',
-    /**
-     * Initial error code. Should not appear in results during normal operation.
-     */
-    UNKNOWN: 'UNKNOWN',
-};
-Object.freeze(ResultCode);
-
-/**
  * @implements Svelters_Shared_Api_Endpoint
  */
 export default class Svelters_Shared_Web_Api_Calorie_Log_Get {
@@ -105,3 +50,58 @@ export default class Svelters_Shared_Web_Api_Calorie_Log_Get {
     }
 
 }
+
+/**
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Get
+ */
+class Request {
+    /**
+     * The start date of the period (inclusive). Format: YYYY-MM-DD.
+     * @type {string}
+     */
+    dateFrom;
+    /**
+     * The end date of the period (inclusive). Format: YYYY-MM-DD.
+     * @type {string}
+     */
+    dateTo;
+}
+
+/**
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Get
+ */
+class Response {
+    /**
+     * Calorie logs for the requested period that are in draft records.
+     * @type {Svelters_Shared_Dto_Calorie_Log.Dto[]}
+     */
+    draftLogs;
+
+    /**
+     * Calorie logs for the requested period that are finalized.
+     * @type {Svelters_Shared_Dto_Calorie_Log.Dto[]}
+     */
+    finalLogs;
+
+    /**
+     * Standard structure for transmitting information to GPT-chat about the request processing results.
+     * @type {Svelters_Shared_Dto_Web_Api_Response_Meta.Dto}
+     */
+    meta;
+}
+
+/**
+ * @memberOf Svelters_Shared_Web_Api_Calorie_Log_Get
+ */
+const ResultCode = {
+    /**
+     * All available log records are got..
+     */
+    SUCCESS: 'SUCCESS',
+    /**
+     * Initial error code. Should not appear in results during normal operation.
+     */
+    UNKNOWN: 'UNKNOWN',
+};
+Object.freeze(ResultCode);
+

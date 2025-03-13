@@ -82,7 +82,8 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
         this.run = async function (req, res) {
             // VARS
             const response = endpointDraftSave.createRes();
-            response.success = false;
+            response.meta.code = RESULT.UNKNOWN;
+            response.meta.ok = false;
 
             /** @type {Svelters_Shared_Web_Api_Calorie_Log_Save.Request} */
             const payload = await zHelper.parsePostedData(req);
@@ -111,7 +112,10 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
                                 dto.user_ref = userId;
                                 const {primaryKey} = await repoDraft.createOne({trx, dto});
                                 logger.info(`New calorie draft log is created for user #${userId}, date '${date}'.`);
-                                if (primaryKey) response.success = true;
+                                if (primaryKey) {
+                                    response.meta.code = RESULT.SUCCESS;
+                                    response.meta.ok = true;
+                                }
                             } else {
                                 // Update existing calorie log draft
                                 found.items = JSON.stringify(payload.items);
@@ -119,15 +123,16 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
                                 const {updatedCount} = await repoDraft.updateOne({trx, updates: found});
                                 if (updatedCount === 1) {
                                     logger.info(`Existing calorie draft log is updated for user #${userId}, date '${date}'.`);
-                                    response.success = true;
+                                    response.meta.code = RESULT.SUCCESS;
+                                    response.meta.ok = true;
                                 }
                             }
 
                             // Validate items and report back
                             const valid = hasValidTotals(payload.items);
                             if (!valid) {
-                                response.code = RESULT.WRONG_TOTALS;
-                                response.message = 'One or more food items have wrong totals.';
+                                response.meta.code = RESULT.WRONG_TOTALS;
+                                response.meta.message = 'One or more food items have wrong totals.';
                             }
 
                             // Send the response
@@ -138,7 +143,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
                             });
                         } else {
                             const date = helpCast.dateString(user.date_subscription);
-                            response.code = RESULT.SUBSCRIPTION_EXPIRED;
+                            response.meta.code = RESULT.SUBSCRIPTION_EXPIRED;
                             response.meta.message
                                 = `The user's subscription expired on ${date}, so the log couldn't be saved.`;
                             // Send the response
