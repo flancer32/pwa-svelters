@@ -16,7 +16,9 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
+     * @param {Svelters_Shared_Helper_Cast} helpCast
      * @param {Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft} repoDraft
+     * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
      * @param {Svelters_Shared_Web_Api_Calorie_Log_Save} endpointDraftSave
      * @param {Fl64_OAuth2_Back_Manager} oauth2
@@ -27,7 +29,9 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
+            Svelters_Shared_Helper_Cast$: helpCast,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft$: repoDraft,
+            Svelters_Back_Store_RDb_Repo_User$: repoUser,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             Svelters_Shared_Web_Api_Calorie_Log_Save$: endpointDraftSave,
             Fl64_OAuth2_Back_Manager$: oauth2,
@@ -81,52 +85,71 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
             response.success = false;
 
             /** @type {Svelters_Shared_Web_Api_Calorie_Log_Save.Request} */
-            const body = await zHelper.parsePostedData(req);
-            const date = body.date;
+            const payload = await zHelper.parsePostedData(req);
+            const date = payload.date;
             try {
                 await trxWrapper.execute(null, async (trx) => {
                     // Get authorization info
                     const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                     if (isAuthorized) {
-                        // Lookup for the data for the date
-                        const key = {[A_DRAFT.USER_REF]: userId, [A_DRAFT.DATE]: date};
-                        const {record: found} = await repoDraft.readOne({trx, key});
+                        logger.info(`Received a request to save a calories log for user #${userId}:`
+                            + ` ${JSON.stringify(payload)}`);
+                        // verify subscription date
+                        const {record: user} = await repoUser.readOne({trx, key: userId});
+                        if (user.date_subscription > new Date()) {
+                            // Lookup for the data for the date
+                            const key = {[A_DRAFT.USER_REF]: userId, [A_DRAFT.DATE]: date};
+                            const {record: found} = await repoDraft.readOne({trx, key});
 
-                        if (!found) {
-                            // Create new DTO for the calorie log draft
-                            const dto = repoDraft.createDto();
-                            dto.date = new Date(`${date}T00:00:00.000Z`);
-                            dto.date_created = new Date();
-                            dto.date_updated = new Date();
-                            dto.items = JSON.stringify(body.items);
-                            dto.user_ref = userId;
-                            const {primaryKey} = await repoDraft.createOne({trx, dto});
-                            logger.info(`New calorie draft log is created for user #${userId}, date '${date}'.`);
-                            if (primaryKey) response.success = true;
-                        } else {
-                            // Update existing calorie log draft
-                            found.items = JSON.stringify(body.items);
-                            found.date_updated = new Date();
-                            const {updatedCount} = await repoDraft.updateOne({trx, updates: found});
-                            if (updatedCount === 1) {
-                                logger.info(`Existing calorie draft log is updated for user #${userId}, date '${date}'.`);
-                                response.success = true;
+                            if (!found) {
+                                // Create new DTO for the calorie log draft
+                                const dto = repoDraft.createDto();
+                                dto.date = new Date(`${date}T00:00:00.000Z`);
+                                dto.date_created = new Date();
+                                dto.date_updated = new Date();
+                                dto.items = JSON.stringify(payload.items);
+                                dto.user_ref = userId;
+                                const {primaryKey} = await repoDraft.createOne({trx, dto});
+                                logger.info(`New calorie draft log is created for user #${userId}, date '${date}'.`);
+                                if (primaryKey) response.success = true;
+                            } else {
+                                // Update existing calorie log draft
+                                found.items = JSON.stringify(payload.items);
+                                found.date_updated = new Date();
+                                const {updatedCount} = await repoDraft.updateOne({trx, updates: found});
+                                if (updatedCount === 1) {
+                                    logger.info(`Existing calorie draft log is updated for user #${userId}, date '${date}'.`);
+                                    response.success = true;
+                                }
                             }
-                        }
 
-                        // Validate items and report back
-                        const valid = hasValidTotals(body.items);
-                        if (!valid) {
-                            response.code = RESULT.WRONG_TOTALS;
-                            response.message = 'One or more food items have wrong totals.';
-                        }
+                            // Validate items and report back
+                            const valid = hasValidTotals(payload.items);
+                            if (!valid) {
+                                response.code = RESULT.WRONG_TOTALS;
+                                response.message = 'One or more food items have wrong totals.';
+                            }
 
-                        // Send the response
-                        respond.code200_Ok({
-                            res,
-                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                            body: JSON.stringify(response)
-                        });
+                            // Send the response
+                            respond.code200_Ok({
+                                res,
+                                headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                                body: JSON.stringify(response)
+                            });
+                        } else {
+                            const date = helpCast.dateString(user.date_subscription);
+                            response.code = RESULT.SUBSCRIPTION_EXPIRED;
+                            response.meta.message
+                                = `The user's subscription expired on ${date}, so the log couldn't be saved.`;
+                            // Send the response
+                            const body = JSON.stringify(response);
+                            respond.code402_PaymentRequired({
+                                res,
+                                headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                                body,
+                            });
+                            logger.info(`Response sent: ${body}`);
+                        }
                     } else {
                         respond.code401_Unauthorized({res});
                     }

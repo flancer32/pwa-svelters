@@ -1,0 +1,21 @@
+### Update a userprofile
+POST https://{{host}}/app/api/profile/update
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "profile": {
+    "dateBirth": "2019-08-24",
+    "dateCreated": "2019-08-24T14:15:22Z",
+    "dateSubscriptionEnd": "2019-08-24T14:15:22Z",
+    "dateUpdated": "2019-08-24T14:15:22Z",
+    "goal": "string",
+    "height": 0,
+    "locale": "string",
+    "name": "string",
+    "sex": "FEMALE",
+    "timezone": "string",
+    "uuid": "string",
+    "weight": 0
+  }
+}

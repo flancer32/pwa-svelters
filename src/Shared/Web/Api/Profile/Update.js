@@ -25,6 +25,10 @@ class Response {
  */
 const ResultCode = {
     /**
+     * User's subscription has expired, preventing profile update.
+     */
+    SUBSCRIPTION_EXPIRED: 'SUBSCRIPTION_EXPIRED',
+    /**
      * User profile successfully loaded, as much as possible (based on available data).
      */
     SUCCESS: 'SUCCESS',
