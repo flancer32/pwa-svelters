@@ -1,9 +1,3 @@
-import {constants as H2} from 'node:http2';
-
-const {
-    HTTP2_HEADER_LOCATION,
-} = H2;
-
 /**
  * Implementation of the user management interface for the application.
  *
@@ -13,6 +7,7 @@ const {
  */
 export default class Svelters_Back_Di_Replace_OAuth2_Adapter {
     /**
+     * @param {typeof import('node:http2')} http2
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Back_Config} config
      * @param {TeqFw_Core_Shared_Api_Logger} logger - The logger instance.
@@ -21,6 +16,7 @@ export default class Svelters_Back_Di_Replace_OAuth2_Adapter {
      */
     constructor(
         {
+            'node:http2': http2,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Back_Config$: config,
             TeqFw_Core_Shared_Api_Logger$$: logger,
@@ -29,6 +25,9 @@ export default class Svelters_Back_Di_Replace_OAuth2_Adapter {
         }
     ) {
         // VARS
+        const {
+            HTTP2_HEADER_LOCATION,
+        } = http2.constants;
         let URL_BASE;
         let LOGIN_BASE;
 

@@ -1,19 +1,11 @@
 /**
  * Handles requests when no other handler can process the request (404 - Not Found).
  */
-import {constants as H2} from 'node:http2';
-
-const {
-    HTTP2_HEADER_CONTENT_TYPE,
-} = H2;
-
-/**
- * Dispatcher for handling HTTP requests that result in a 404 error.
- */
 export default class Svelters_Back_Web_Handler_404 {
     /**
      * Initializes the handler with required dependencies.
      *
+     * @param {typeof import('node:http2')} http2
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Web_Back_Help_Respond} respond
@@ -24,6 +16,7 @@ export default class Svelters_Back_Web_Handler_404 {
      */
     constructor(
         {
+            'node:http2': http2,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
@@ -33,6 +26,12 @@ export default class Svelters_Back_Web_Handler_404 {
             'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
         }
     ) {
+        // VARS
+        const {
+            HTTP2_HEADER_CONTENT_TYPE,
+        } = http2.constants;
+
+        // FUNCS
         /**
          * Processes HTTP requests and renders a 404 page if no other handler can process it.
          *

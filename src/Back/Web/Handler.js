@@ -1,20 +1,11 @@
 /**
- * Handles requests for the authentication and authorization processes using one-time passwords (OTP).
- */
-import {constants as H2} from 'node:http2';
-
-const {
-    HTTP2_METHOD_GET,
-    HTTP2_METHOD_POST,
-} = H2;
-
-/**
  * Dispatcher for handling authentication-related HTTP requests.
  */
 export default class Svelters_Back_Web_Handler {
     /**
      * Initializes the handler with required dependencies.
      *
+     * @param {typeof import('node:http2')} http2
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Web_Back_Help_Respond} respond
@@ -28,6 +19,7 @@ export default class Svelters_Back_Web_Handler {
      */
     constructor(
         {
+            'node:http2': http2,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
@@ -40,6 +32,13 @@ export default class Svelters_Back_Web_Handler {
             Svelters_Back_Web_Handler_A_Subscribe$: aSubscribe,
         }
     ) {
+        // VARS
+        const {
+            HTTP2_METHOD_GET,
+            HTTP2_METHOD_POST,
+        } = http2.constants;
+
+        // FUNCS
         /**
          * Handles incoming HTTP requests and delegates processing to specific handlers.
          *
@@ -81,6 +80,7 @@ export default class Svelters_Back_Web_Handler {
             }
         }
 
+        // MAIN
         /**
          * Provides the function to process requests.
          * @returns {Function}

@@ -1,17 +1,10 @@
-import {constants as H2} from 'node:http2';
-import {randomUUID} from 'node:crypto';
-
-// VARS
-const {
-    HTTP2_HEADER_CONTENT_TYPE,
-    HTTP2_METHOD_GET,
-} = H2;
-
 /**
  * Load data from DB and compose combined login page (OTP & Social Nets).
  */
 export default class Svelters_Back_Web_Handler_A_Login {
     /**
+     * @param {typeof import('node:http2')} http2
+     * @param {typeof import('node:crypto')} crypto
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
@@ -27,6 +20,8 @@ export default class Svelters_Back_Web_Handler_A_Login {
      */
     constructor(
         {
+            'node:http2': http2,
+            'node:crypto': crypto,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
@@ -42,6 +37,11 @@ export default class Svelters_Back_Web_Handler_A_Login {
         }
     ) {
         // VARS
+        const {
+            HTTP2_HEADER_CONTENT_TYPE,
+            HTTP2_METHOD_GET,
+        } = http2.constants;
+        const {randomUUID} = crypto;
 
         // MAIN
         /**

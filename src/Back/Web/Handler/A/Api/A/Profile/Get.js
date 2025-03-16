@@ -1,15 +1,9 @@
-import {constants as H2} from 'node:http2';
-
-// VARS
-const {
-    HTTP2_HEADER_CONTENT_TYPE,
-} = H2;
-
 /**
  * Route: `/app/api/profile/get`
  */
 export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
     /**
+     * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
@@ -19,6 +13,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
      */
     constructor(
         {
+            'node:http2': http2,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
@@ -29,6 +24,9 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
         }
     ) {
         // VARS
+        const {
+            HTTP2_HEADER_CONTENT_TYPE,
+        } = http2.constants;
         const RESULT = endpoint.getResultCodes();
 
         // MAIN

@@ -1,12 +1,3 @@
-import https from 'https';
-import querystring from 'querystring';
-import {constants as H2} from 'node:http2';
-
-// VARS
-const {
-    HTTP2_HEADER_ACCEPT_LANGUAGE,
-} = H2;
-
 /**
  * Helper class for performing web requests in this app.
  */
@@ -14,15 +5,25 @@ export default class Svelters_Back_Helper_Web {
     /**
      * Constructor for the web helper.
      *
+     * @param {typeof import('node:http2')} http2
+     * @param {typeof import('node:https')} https
+     * @param {typeof import('querystring')} querystring
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      */
     constructor(
         {
+            'node:http2': http2,
+            'node:https': https,
+            'node:querystring': querystring,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger
         }
     ) {
+        // VARS
+        const {
+            HTTP2_HEADER_ACCEPT_LANGUAGE,
+        } = http2.constants;
 
         // FUNCS
         /**

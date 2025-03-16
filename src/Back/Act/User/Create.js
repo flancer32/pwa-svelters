@@ -1,5 +1,3 @@
-import {randomUUID} from 'node:crypto';
-
 /**
  * Action that creates a new user profile.
  * It initializes the profile with default values and stores it in the database.
@@ -8,6 +6,7 @@ import {randomUUID} from 'node:crypto';
  */
 export default class Svelters_Back_Act_User_Create {
     /**
+     * @param {typeof import('node:crypto')} nodeCrypto
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
@@ -15,6 +14,7 @@ export default class Svelters_Back_Act_User_Create {
      */
     constructor(
         {
+            'node:crypto': nodeCrypto,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
@@ -22,6 +22,7 @@ export default class Svelters_Back_Act_User_Create {
         }
     ) {
         // VARS
+        const {randomUUID} = nodeCrypto;
         const A_USER = repoUser.getSchema().getAttributes();
         const DAYS_DEFAULT = DEF.SUBSCRIPTION_DAYS_DEFAULT;
         const MONTHS_PROMO = DEF.SUBSCRIPTION_MONTHS_PROMO;

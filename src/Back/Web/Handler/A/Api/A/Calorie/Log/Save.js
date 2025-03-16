@@ -1,10 +1,3 @@
-import {constants as H2} from 'node:http2';
-
-// VARS
-const {
-    HTTP2_HEADER_CONTENT_TYPE,
-} = H2;
-
 /**
  * Handles the saving of a calorie log draft for a user.
  * This handler validates incoming data, performs authorization,
@@ -13,6 +6,7 @@ const {
  */
 export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
     /**
+     * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
@@ -26,6 +20,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
      */
     constructor(
         {
+            'node:http2': http2,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
@@ -39,6 +34,9 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
         }
     ) {
         // VARS
+        const {
+            HTTP2_HEADER_CONTENT_TYPE,
+        } = http2.constants;
         const A_DRAFT = repoDraft.getSchema().getAttributes();
         const RESULT = endpointDraftSave.getResultCodes();
 

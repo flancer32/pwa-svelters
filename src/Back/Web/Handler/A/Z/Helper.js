@@ -1,14 +1,7 @@
-import {constants as H2} from 'node:http2';
-import {URLSearchParams} from 'node:url';
-// VARS
-const {
-    HTTP2_HEADER_ACCEPT_LANGUAGE,
-    HTTP2_HEADER_CONTENT_TYPE,
-    HTTP2_METHOD_POST,
-} = H2;
-
 export default class Svelters_Back_Web_Handler_A_Z_Helper {
     /**
+     * @param {typeof import('node:http2')} http2
+     * @param {typeof import('node:url')} url
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {Svelters_Shared_Helper_Cast} helpCast
@@ -19,6 +12,8 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
      */
     constructor(
         {
+            'node:http2': http2,
+            'node:url': url,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             Svelters_Shared_Helper_Cast$: helpCast,
@@ -29,6 +24,12 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         }
     ) {
         // VARS
+        const {
+            HTTP2_HEADER_ACCEPT_LANGUAGE,
+            HTTP2_HEADER_CONTENT_TYPE,
+            HTTP2_METHOD_POST,
+        } = http2.constants;
+        const {URLSearchParams} = url;
         const MONTHS_RENEW = DEF.SUBSCRIPTION_MONTHS_RENEW;
         const includes = {
             'blockAnon': 'includes/blockAnon.html',

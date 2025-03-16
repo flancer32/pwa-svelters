@@ -1,17 +1,10 @@
-import {constants as H2} from 'node:http2';
-import {randomUUID} from 'node:crypto';
-
-// VARS
-const {
-    HTTP2_HEADER_CONTENT_TYPE,
-    HTTP2_METHOD_GET,
-} = H2;
-
 /**
  * TODO: add JSDoc
  */
 export default class Svelters_Back_Web_Handler_A_Register {
     /**
+     * @param {typeof import('node:crypto')} crypto
+     * @param {typeof import('node:http2')} http2
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
@@ -28,6 +21,8 @@ export default class Svelters_Back_Web_Handler_A_Register {
      */
     constructor(
         {
+            'node:crypto': crypto,
+            'node:http2': http2,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
@@ -44,6 +39,11 @@ export default class Svelters_Back_Web_Handler_A_Register {
         }
     ) {
         // VARS
+        const {
+            HTTP2_HEADER_CONTENT_TYPE,
+            HTTP2_METHOD_GET,
+        } = http2.constants;
+        const {randomUUID} = crypto;
 
         // MAIN
         /**
@@ -88,7 +88,6 @@ export default class Svelters_Back_Web_Handler_A_Register {
 
 
                 });
-
 
                 // load template and render the page
                 const localeApp = DEF.SHARED.LOCALE;
