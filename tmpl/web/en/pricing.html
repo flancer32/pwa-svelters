@@ -8,10 +8,58 @@
 {{> pageHeader}}
 
 <main>
-    <h1>Pricing</h1>
-    <p>
-        We're working on it! Check back soon.
+    <h1>ChatGPT analyzes your diet but doesn't remember the details?</h1>
+
+    <p class="text-gray-700 mt-2">
+        <strong>NutriLog records your data</strong>, allowing you to track your nutrition and progress.
+        The chat remains your primary tool, while NutriLog provides it with access to stored information for
+        personalized analysis.
     </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <!-- Monthly Subscription -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Monthly Subscription</h2>
+            <p class="text-gray-700"><strong>Price:</strong> $6 per month</p>
+            <p class="text-gray-700"><strong>Duration:</strong> 1 month</p>
+            <ul class="text-gray-700 list-disc list-inside mt-2">
+                <li>Full access to all app features</li>
+                <li>Ability to save and analyze nutrition and weight data</li>
+                <li>Personalized recommendations and analytics</li>
+                <li>Unlimited access to historical data</li>
+                <li>Flexibility – renew for the next month only when needed</li>
+            </ul>
+        </div>
+
+        <!-- Annual Subscription -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Annual Subscription</h2>
+            <p class="text-gray-700"><strong>Price:</strong> $40 per year</p>
+            <p class="text-gray-700"><strong>Duration:</strong> 12 months</p>
+            <ul class="text-gray-700 list-disc list-inside mt-2">
+                <li>All the benefits of the monthly subscription</li>
+                <li>Savings – 12 months of access for just $40 instead of $72</li>
+                <li>Worry-free – subscription remains active for a full year</li>
+                <li>Option to renew in advance</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Centered Subscription Purchase Panel -->
+    <div class="flex justify-center mt-6">
+        <div class="bg-white shadow-md rounded-lg p-6 w-full md:w-1/2">
+            <div class="flex justify-center">
+                <a href="/app/subscribe"
+                   class="flex items-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-md">
+                    <i data-lucide="credit-card" class="mr-2"></i> Subscribe Now
+                </a>
+            </div>
+            <p class="text-gray-700 mt-4 text-center">
+                Payment is accepted via <strong>PayPal</strong> and <strong>credit cards</strong>.
+            </p>
+        </div>
+    </div>
+
 </main>
 
 {{> pageFooter}}
