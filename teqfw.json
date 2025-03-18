@@ -9,6 +9,7 @@
         "Fl64_Auth_Otp_Back_Api_Adapter": "Svelters_Back_Di_Replace_Auth_Adapter",
         "Fl64_OAuth2_Back_Api_Adapter": "Svelters_Back_Di_Replace_OAuth2_Adapter",
         "Fl64_OAuth2_Social_Back_Api_App_UserManager": "Svelters_Back_Di_Replace_Social_UserManager",
+        "Fl64_Paypal_Back_Api_Adapter": "Svelters_Back_Di_Replace_Paypal_Adapter",
         "Fl64_Tmpl_Back_Api_Adapter": "Svelters_Back_Di_Replace_Tmpl_Adapter",
         "Fl64_Web_Session_Back_Api_Service_UserDataProvider": "Svelters_Back_Di_Replace_Session_Service_UserDataProvider"
       }
