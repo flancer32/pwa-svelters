@@ -40,6 +40,7 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.height = foundProfile.height;
                     profile.locale = foundProfile.locale;
                     profile.name = foundProfile.name;
+                    profile.promptStart = foundProfile.prompt_start;
                     profile.sex = foundProfile.sex;
                     profile.timezone = foundProfile.timezone;
                     // TODO: add weight

@@ -52,6 +52,13 @@ class Dto {
     name;
 
     /**
+     * Contains a brief context or instruction for the AI to start a new conversation,
+     * taking into account the user's prior conversation history.
+     * @type {string}
+     */
+    promptStart;
+
+    /**
      * Biological sex with values representing male and female categories.
      *
      * @type {string}
@@ -99,7 +106,7 @@ export default class Svelters_Shared_Dto_User_Profile {
          * Creates a new DTO instance with properly casted attributes.
          * Ensures valid values for enums and numerical fields.
          *
-         * @param {object} [data] - Raw input data for the DTO.
+         * @param {Dto|object} [data] - Raw input data for the DTO.
          * @returns {Dto} - A properly structured DTO instance.
          */
         this.create = function (data) {
@@ -114,6 +121,7 @@ export default class Svelters_Shared_Dto_User_Profile {
                 res.height = cast.int(data.height);
                 res.locale = cast.string(data.locale);
                 res.name = cast.string(data.name);
+                res.promptStart = cast.string(data.promptStart);
                 res.sex = cast.enum(data.sex, SEX);
                 res.timezone = cast.string(data.timezone);
                 res.uuid = cast.string(data.uuid);

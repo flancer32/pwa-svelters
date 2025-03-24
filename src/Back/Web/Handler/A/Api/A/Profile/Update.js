@@ -85,6 +85,10 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
                         dto.name = profile.name;
                         updatedFields.push('name');
                     }
+                    if (profile.promptStart !== dto.prompt_start) {
+                        dto.prompt_start = profile.promptStart;
+                        updatedFields.push('promptStart');
+                    }
                     if (profile.sex !== dto.sex) {
                         dto.sex = profile.sex;
                         updatedFields.push('sex');
@@ -109,6 +113,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
             /** @type {Svelters_Shared_Web_Api_Profile_Update.Request} */
             const payload = await zHelper.parsePostedData(req);
             try {
+                logger.info(`Payload: ${JSON.stringify(payload)}`);
                 // use one transaction for all DB requests
                 await trxWrapper.execute(null, async (trx) => {
                     // AUTHORIZATION

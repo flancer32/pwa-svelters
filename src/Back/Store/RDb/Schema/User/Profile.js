@@ -23,6 +23,7 @@ const ATTR = {
     HEIGHT: 'height',
     LOCALE: 'locale',
     NAME: 'name',
+    PROMPT_START: 'prompt_start',
     SEX: 'sex',
     TIMEZONE: 'timezone',
     USER_REF: 'user_ref',
@@ -77,7 +78,12 @@ class Dto {
      * @type {string}
      */
     name;
-
+    /**
+     * Contains a brief context or instruction for the AI to start a new conversation, taking into account
+     * the user's prior conversation history.
+     * @type {string}
+     */
+    prompt_start;
     /**
      * Biological sex with values representing male and female categories.
      *
@@ -136,6 +142,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
                 res.height = cast.int(data.height);
                 res.locale = cast.string(data.locale);
                 res.name = cast.string(data.name);
+                res.prompt_start = cast.string(data.prompt_start);
                 res.sex = cast.enum(data.sex, SEX);
                 res.timezone = cast.string(data.timezone);
                 res.user_ref = cast.int(data.user_ref);

@@ -182,6 +182,11 @@
                   "comment": "User's current goal (e.g., weight loss target).",
                   "type": "text",
                   "nullable": true
+                },
+                "prompt_start": {
+                  "comment": "Contains a brief context or instruction for the AI to start a new conversation, taking into account the user's prior conversation history.",
+                  "type": "text",
+                  "nullable": true
                 }
               },
               "index": {

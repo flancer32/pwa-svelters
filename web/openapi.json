@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "NutriLog API",
-    "version": "1.0.2",
-    "description": "API for managing calorie logs in the NutriLog web application."
+    "version": "1.0.3",
+    "description": "NutriLog API for facilitating communication between the GPT chat assistant and the NutriLog platform, enabling actions such as calorie tracking, goal monitoring, and personalized guidance."
   },
   "servers": [
     {
@@ -452,6 +452,10 @@
             "type": "string",
             "description": "User's name as displayed in the profile."
           },
+          "promptStart": {
+            "type": "string",
+            "description": "Contains a brief context or instruction for the AI to start a new conversation, taking into account the user's prior conversation history."
+          },
           "sex": {
             "type": "string",
             "enum": ["FEMALE", "MALE", "UNDEFINED"],
@@ -470,7 +474,9 @@
             "description": "User's weight in grams."
           }
         },
-        "required": ["dateBirth", "dateCreated", "goal", "height", "locale", "name", "sex", "timezone", "weight"],
+        "required": [
+          "dateBirth", "dateCreated", "goal", "height", "locale", "name", "promptStart", "sex", "timezone", "weight"
+        ],
         "description": "User profile details including personal and physical information."
       }
     }
