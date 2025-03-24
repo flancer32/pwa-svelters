@@ -13,7 +13,6 @@ export default class Svelters_Back_Defaults {
     /** @type {Svelters_Shared_Defaults} */
     SHARED;
 
-    SUBSCRIPTION_AMOUNT_YEAR = 40;
     SUBSCRIPTION_CURRENCY = 'USD';
     SUBSCRIPTION_DAYS_DEFAULT = 7; // Default subscription period (7 days from the current date)
     SUBSCRIPTION_MONTHS_PROMO = 3; // Subscription period for promotion (3 months from the current date)

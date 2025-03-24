@@ -20,8 +20,14 @@
         <!-- Monthly Subscription -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Помесячная подписка</h2>
-            <p class="text-gray-700"><strong>Цена:</strong> $6 в месяц</p>
-            <p class="text-gray-700"><strong>Срок действия:</strong> 1 месяц</p>
+
+            <div class="flex justify-center">
+                <a href="/app/subscribe/?type=month"
+                   class="flex items-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-md">
+                    <i data-lucide="credit-card" class="mr-2"></i> Присоединяйтесь за $6
+                </a>
+            </div>
+
             <ul class="text-gray-700 list-disc list-inside mt-2">
                 <li>Полный доступ ко всем возможностям</li>
                 <li>Сохранение и анализ данных о питании</li>
@@ -34,29 +40,20 @@
         <!-- Annual Subscription -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Годовая подписка</h2>
-            <p class="text-gray-700"><strong>Цена:</strong> $40 в год</p>
-            <p class="text-gray-700"><strong>Срок действия:</strong> 12 месяцев</p>
+
+            <div class="flex justify-center">
+                <a href="/app/subscribe/"
+                   class="flex items-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-md">
+                    <i data-lucide="credit-card" class="mr-2"></i> Подписка всего за $40
+                </a>
+            </div>
+
             <ul class="text-gray-700 list-disc list-inside mt-2">
                 <li>Все преимущества помесячной подписки</li>
                 <li>Экономия — 12 месяцев за $40 вместо $72</li>
                 <li>Без лишних забот — активна весь год</li>
                 <li>Возможность продления заранее</li>
             </ul>
-        </div>
-    </div>
-
-    <!-- Centered Subscription Purchase Panel -->
-    <div class="flex justify-center mt-6">
-        <div class="bg-white shadow-md rounded-lg p-6 w-full md:w-1/2">
-            <div class="flex justify-center">
-                <a href="/app/subscribe"
-                   class="flex items-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-md">
-                    <i data-lucide="credit-card" class="mr-2"></i> Оформить подписку
-                </a>
-            </div>
-            <p class="text-gray-700 mt-4 text-center">
-                Оплата принимается через <strong>PayPal</strong> и <strong>банковские карты</strong>.
-            </p>
         </div>
     </div>
 

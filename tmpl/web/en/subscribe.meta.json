@@ -3,8 +3,9 @@
     "amount": "number",
     "canSubscribe": "boolean",
     "currency": "string",
+    "dateSubscriptionEnd": "string",
     "description": "string",
-    "paypalClientId": "string",
-    "isAuthenticated": "boolean"
+    "isAuthenticated": "boolean",
+    "paypalClientId": "string"
   }
 }

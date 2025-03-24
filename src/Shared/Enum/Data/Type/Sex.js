@@ -6,6 +6,4 @@ const Svelters_Shared_Enum_Data_Type_Sex = {
     MALE: 'MALE',
     UNDEFINED: 'UNDEFINED',
 };
-
-Object.freeze(Svelters_Shared_Enum_Data_Type_Sex);
 export default Svelters_Shared_Enum_Data_Type_Sex;

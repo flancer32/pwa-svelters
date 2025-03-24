@@ -16,6 +16,9 @@ export default class Svelters_Shared_Defaults {
 
     SPACE = 'app';
 
+    SUBSCRIPTION_PRICE_MONTH = 6;
+    SUBSCRIPTION_PRICE_YEAR = 40;
+
     constructor() {
         Object.freeze(this);
     }

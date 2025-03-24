@@ -6,9 +6,10 @@ export default class Svelters_Shared_Helper_Cast {
          * This cast is required to convert PostgreSQL date-only data into a string, accounting for the local timezone.
          *
          * @param {Date|string|number} data
+         * @param {string} [sep]
          * @returns {string|undefined}
          */
-        this.dateString = function (data) {
+        this.dateString = function (data, sep = '-') {
             if (data instanceof Date || typeof data === 'string' || typeof data === 'number') {
                 let date;
 
@@ -30,7 +31,7 @@ export default class Svelters_Shared_Helper_Cast {
                 const day = String(date.getDate()).padStart(2, '0');
 
                 // Return date in 'YYYY-MM-DD' format
-                return `${year}-${month}-${day}`;
+                return `${year}${sep}${month}${sep}${day}`;
             }
             return undefined;
         };

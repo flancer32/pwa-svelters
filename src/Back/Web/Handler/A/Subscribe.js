@@ -4,13 +4,15 @@
 export default class Svelters_Back_Web_Handler_A_Subscribe {
     /**
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
+     * @param {TeqFw_Web_Back_Help_Respond} respond
      * @param {Fl64_Web_Session_Back_Manager} session
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
      * @param {Fl64_Paypal_Back_Client} client
+     * @param {Svelters_Shared_Helper_Subscription} helpSubs
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
+     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TMPL
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Subscription} SUBS
      */
     constructor(
         {
@@ -20,11 +22,15 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Fl64_Paypal_Back_Client$: client,
+            Svelters_Shared_Helper_Subscription$: helpSubs,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
+            'Fl64_Tmpl_Back_Enum_Type.default': TMPL,
+            'Svelters_Shared_Enum_Data_Type_Subscription.default': SUBS,
         }
     ) {
         // VARS
+        const PARAM_EU = 'eu'; // '1' if a customer is EU resident
+        const PARAM_TYPE = 'type'; // subscription type - month or year
 
         // MAIN
         /**
@@ -37,12 +43,12 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
          */
         this.run = async function (req, res) {
             return await trxWrapper.execute(null, async (trx) => {
-                let amount, currency, description;
+                let amount, currency, description, dateSubscriptionEnd;
                 const localeApp = DEF.SHARED.LOCALE;
                 const localeUser = zHelper.getLocale(req);
                 const name = 'subscribe.html';
                 const partials = await zHelper.loadPartials(localeUser);
-                const type = TYPE.WEB;
+                const type = TMPL.WEB;
                 const {dto} = await session.getFromRequest({trx, req});
                 const isAuthenticated = !!dto?.user_ref;
                 const profile = (isAuthenticated)
@@ -51,17 +57,18 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
                     dateSubscriptionEnd: profile?.dateSubscriptionEnd
                 });
                 if (canSubscribe) {
-                    amount = DEF.SUBSCRIPTION_AMOUNT_YEAR;
-                    currency = DEF.SUBSCRIPTION_CURRENCY;
-                    const until = new Date(profile.dateSubscriptionEnd);
-                    until.setMonth(until.getMonth() + 12);
-                    const date = zHelper.castDate(until);
-                    description = `NutriLog service subscription for 1 year (until ${date}).`;
+                    const params = zHelper.parseGetParams(req);
+                    const type = params[PARAM_TYPE]?.toUpperCase() === SUBS.MONTH ? SUBS.MONTH : SUBS.YEAR;
+                    amount = helpSubs.getPriceByType(type);
+                    currency = params[PARAM_EU] === '1' ? 'EUR' : DEF.SUBSCRIPTION_CURRENCY;
+                    dateSubscriptionEnd = zHelper.castDate(profile.dateSubscriptionEnd);
+                    description = helpSubs.getDescByType(type, profile.dateSubscriptionEnd);
                 }
                 const view = {
                     amount,
                     canSubscribe,
                     currency,
+                    dateSubscriptionEnd,
                     description,
                     isAuthenticated,
                     paypalClientId: client.getClientId(),
