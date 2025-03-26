@@ -16,41 +16,107 @@
 
     {{^canSubscribe}}
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-        <span>Вы не можете оформить подписку.</span>
+        <span>Вы не можете оформить подписку на сервис.</span>
     </div>
     {{/canSubscribe}}
 
     {{#canSubscribe}}
     <div class="bg-white shadow rounded-lg p-6">
-        <h2 class="text-lg font-semibold mb-2">Детали подписки</h2>
+        <input type="hidden" id="dateSubscriptionEnd" value="{{dateSubscriptionEnd}}">
 
         <div class="space-y-2">
-            <p><strong>Сумма:</strong> <span id="paypalAmount">{{amount}}</span> {{currency}}</p>
-            <p><strong>Описание:</strong> <span id="paypalDescription">{{description}}</span></p>
-        </div>
 
-        <!-- Discount Code Input -->
-        <div class="mt-4">
-            <label for="discountCode" class="block text-sm font-medium">Промокод</label>
-            <div class="flex space-x-2 mt-1">
-                <input type="text" id="discountCode" class="w-full p-2 border rounded" placeholder="Введите код">
-                <button id="applyDiscount" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Применить
-                </button>
+            <div>
+                <div>
+                    <label>
+                        <input type="radio" name="subscriptionType" value="MONTH"> Подписка на месяц
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="subscriptionType" value="YEAR"> Подписка на год
+                    </label>
+                </div>
             </div>
-            <p id="discountMessage" class="text-green-500 text-sm mt-2 hidden">Скидка применена!</p>
-            <p id="loadingIndicator" class="text-sm text-gray-500 hidden">Применение...</p>
+
+            <!-- Grid with two columns -->
+            <div class="grid grid-cols-[1fr_auto] gap-4">
+                <!-- First row: Description and Amount -->
+                <div class="flex justify-start items-center">
+                    <strong id="paypalDesc"></strong>
+                </div>
+                <div class="flex justify-end items-center">
+                    <span id="paypalAmount"></span>
+                </div>
+
+                <!-- Second row: VAT and VAT Amount -->
+                <div class="app-eu-resident hidden flex justify-start items-center">
+                    <strong>НДС (<span id="vatPercent"></span>%):</strong>
+                </div>
+                <div class="app-eu-resident hidden flex justify-end items-center">
+                    <span id="vatAmount"></span>
+                </div>
+
+                <!-- Third row: Total Amount -->
+                <div class="flex justify-start items-center">
+                    <strong>Итого к оплате:</strong>
+                </div>
+                <div class="flex justify-end items-center">
+                    <span id="totalAmount"></span>
+                </div>
+            </div>
+
+            <div>
+                <label for="isEuResident">
+                    <input type="checkbox" id="isEuResident" name="isEuResident">
+                    Я являюсь резидентом ЕС
+                </label>
+            </div>
+
+            <!-- Dropdown to select EU country -->
+            <div class="app-eu-resident hidden">
+                <label for="euCountry">Выберите свою страну:</label>
+                <select id="euCountry" name="euCountry" class="w-full p-2 border rounded">
+                    <option value="" disabled selected>Выберите свою страну</option>
+                    <option value="AT">Австрия</option>
+                    <option value="BE">Бельгия</option>
+                    <option value="BG">Болгария</option>
+                    <option value="HR">Хорватия</option>
+                    <option value="CY">Кипр</option>
+                    <option value="CZ">Чехия</option>
+                    <option value="DK">Дания</option>
+                    <option value="EE">Эстония</option>
+                    <option value="FI">Финляндия</option>
+                    <option value="FR">Франция</option>
+                    <option value="DE">Германия</option>
+                    <option value="GR">Греция</option>
+                    <option value="HU">Венгрия</option>
+                    <option value="IE">Ирландия</option>
+                    <option value="IT">Италия</option>
+                    <option value="LV">Латвия</option>
+                    <option value="LT">Литва</option>
+                    <option value="LU">Люксембург</option>
+                    <option value="MT">Мальта</option>
+                    <option value="NL">Нидерланды</option>
+                    <option value="PL">Польша</option>
+                    <option value="PT">Португалия</option>
+                    <option value="RO">Румыния</option>
+                    <option value="SK">Словакия</option>
+                    <option value="SI">Словения</option>
+                    <option value="ES">Испания</option>
+                    <option value="SE">Швеция</option>
+                </select>
+            </div>
+
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4 relative">
             <div id="paypal-button-container"></div>
             <p id="result-message" class="text-center text-sm text-gray-500 mt-2"></p>
         </div>
     </div>
 
-    <script
-            src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&components=buttons&disable-funding=venmo,paylater"
-    ></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&currency={{currency}}"></script>
 
     <script type="module" src="/js/route/subscribe.js"></script>
 

@@ -4,7 +4,6 @@
 export default class Svelters_Back_Web_Handler_A_Home {
     /**
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {Fl64_Web_Session_Back_Manager} session
      * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
@@ -14,12 +13,11 @@ export default class Svelters_Back_Web_Handler_A_Home {
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
             Fl64_Web_Session_Back_Manager$: session,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
+            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         // VARS

@@ -37,7 +37,7 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
             'pageHeader': 'includes/pageHeader.html',
             'pageFooter': 'includes/pageFooter.html',
         };
-        /** @type {Object<string, Object<string, string>>} */
+        /** @type {Object.<string, Object.<string, string>>} */
         const cache = {};
 
         // MAIN
