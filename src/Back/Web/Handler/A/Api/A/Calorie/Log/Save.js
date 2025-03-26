@@ -30,7 +30,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save {
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             Svelters_Shared_Web_Api_Calorie_Log_Save$: endpointDraftSave,
             Fl64_OAuth2_Back_Manager$: oauth2,
-            'Svelters_Shared_Enum_Product_Measure_Type.default': MEASURE,
+            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
         }
     ) {
         // VARS

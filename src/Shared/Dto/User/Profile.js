@@ -99,7 +99,7 @@ export default class Svelters_Shared_Dto_User_Profile {
     constructor(
         {
             TeqFw_Core_Shared_Util_Cast$: cast,
-            'Svelters_Shared_Enum_Data_Type_Sex.default': SEX,
+            Svelters_Shared_Enum_Data_Type_Sex$: SEX,
         }
     ) {
         /**

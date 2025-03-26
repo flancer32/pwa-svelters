@@ -34,8 +34,8 @@ export default class Svelters_Back_Web_Handler_A_Register {
             Fl64_OAuth2_Social_Back_Plugin_Registry_Provider$: regProviders,
             Fl64_OAuth2_Social_Back_Store_Mem_State$: memState,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TMPL,
-            'Fl64_OAuth2_Social_Shared_Enum_Provider_Code.default': PROVIDER,
+            Fl64_Tmpl_Back_Enum_Type$: TMPL,
+            Fl64_OAuth2_Social_Shared_Enum_Provider_Code$: PROVIDER,
         }
     ) {
         // VARS

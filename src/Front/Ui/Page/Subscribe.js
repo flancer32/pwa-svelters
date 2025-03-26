@@ -11,7 +11,7 @@ export default class Svelters_Front_Ui_Page_Subscribe {
         {
             Svelters_Shared_Helper_Subscription$: helpSubs,
             Fl64_Paypal_Front_Ui_Page_Checkout$: pageCheckout,
-            'Svelters_Shared_Enum_Data_Type_Subscription.default': SUBS,
+            Svelters_Shared_Enum_Data_Type_Subscription$: SUBS,
         }
     ) {
         // VARS

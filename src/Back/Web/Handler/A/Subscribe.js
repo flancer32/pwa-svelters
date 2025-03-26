@@ -24,8 +24,8 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
             Fl64_Paypal_Back_Client$: client,
             Svelters_Shared_Helper_Subscription$: helpSubs,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TMPL,
-            'Svelters_Shared_Enum_Data_Type_Subscription.default': SUBS,
+            Fl64_Tmpl_Back_Enum_Type$: TMPL,
+            Svelters_Shared_Enum_Data_Type_Subscription$: SUBS,
         }
     ) {
         // VARS

@@ -11,7 +11,7 @@ export default class Svelters_Shared_Helper_Subscription {
         {
             Svelters_Shared_Defaults$: DEFS,
             Svelters_Shared_Helper_Cast$: helpCast,
-            'Svelters_Shared_Enum_Data_Type_Subscription.default': TYPE,
+            Svelters_Shared_Enum_Data_Type_Subscription$: TYPE,
         }
     ) {
 

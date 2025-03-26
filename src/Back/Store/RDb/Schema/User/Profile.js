@@ -124,7 +124,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Util_Cast$: cast,
             Svelters_Shared_Helper_Cast$: helper,
-            'Svelters_Shared_Enum_Data_Type_Sex.default': SEX,
+            Svelters_Shared_Enum_Data_Type_Sex$: SEX,
         }
     ) {
         // INSTANCE METHODS

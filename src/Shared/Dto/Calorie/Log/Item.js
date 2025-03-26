@@ -61,7 +61,7 @@ export default class Svelters_Shared_Dto_Calorie_Log_Item {
     constructor(
         {
             TeqFw_Core_Shared_Util_Cast$: cast,
-            'Svelters_Shared_Enum_Product_Measure_Type.default': MEASURE,
+            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
         }
     ) {
         /**

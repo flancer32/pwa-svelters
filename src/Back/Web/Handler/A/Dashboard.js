@@ -21,7 +21,7 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Svelters_Shared_Helper_Cast$: helpCast,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
+            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         // VARS

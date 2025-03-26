@@ -20,7 +20,7 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
             Fl64_Tmpl_Back_Act_FindTemplate$: actFind,
             Fl64_Tmpl_Back_Act_LoadTemplate$: actLoad,
             Svelters_Back_Act_User_Profile_Read$: actProfileRead,
-            'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
+            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         // VARS

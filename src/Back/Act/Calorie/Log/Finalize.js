@@ -20,7 +20,7 @@ export default class Svelters_Back_Act_Calorie_Log_Finalize {
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Draft$: repoDraft,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Final$: repoFinal,
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Final_Item$: repoFinalItem,
-            'Svelters_Shared_Enum_Product_Measure_Type.default': MEASURE,
+            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
         }
     ) {
         // VARS

@@ -23,7 +23,7 @@ export default class Svelters_Back_Web_Handler_404 {
             Fl64_Web_Session_Back_Manager$: session,
             Fl64_Tmpl_Back_Service_Render$: tmplRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            'Fl64_Tmpl_Back_Enum_Type.default': TYPE,
+            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         // VARS

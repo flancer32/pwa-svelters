@@ -33,7 +33,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get {
             Svelters_Back_Store_RDb_Repo_Calorie_Log_Final_Item$: repoFinalItem,
             Svelters_Shared_Dto_Calorie_Log$: dtoLog,
             Svelters_Shared_Dto_Calorie_Log_Item$: dtoLogItem,
-            'Svelters_Shared_Enum_Product_Measure_Type.default': MEASURE,
+            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
         }
     ) {
         // VARS
