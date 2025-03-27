@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <!-- System Overview Section -->
+    <div class="max-w-2xl mx-auto text-center">
+        <h1 class="text-3xl font-bold text-gray-900">NutriLog System: Assistant, Dashboard & Logbook</h1>
+        <h2 class="text-2xl font-semibold text-gray-800 mt-4">How it works — in three powerful components</h2>
+        <p class="text-gray-700 mt-4">
+            NutriLog is built around a smart GPT-based Assistant (powered by <strong>OpenAI</strong>), a user-friendly
+            Dashboard, and a secure Logbook that keeps all your nutrition and weight data safe and accessible.
+        </p>
+    </div>
+
+    <!-- Assistant Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6 text-left">
+        <h3 class="text-xl font-semibold text-gray-900 flex items-center"><i data-lucide="brain" class="mr-2"></i>
+            Assistant</h3>
+        <p class="text-gray-700 mt-2">
+            The Assistant is a GPT-powered chatbot developed by <strong>OpenAI</strong>. You interact with it through
+            the ChatGPT app (web or mobile) — no forms, no hassle.
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mt-4">
+            <li>Understands natural language</li>
+            <li>Logs your meals, weight, and goals automatically</li>
+            <li>Supports and guides your progress</li>
+        </ul>
+        <p class="text-gray-700 mt-4 italic">The more you interact, the better it understands your goals.</p>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6 text-left">
+        <h3 class="text-xl font-semibold text-gray-900 flex items-center"><i data-lucide="layout-dashboard"
+                                                                             class="mr-2"></i> Dashboard</h3>
+        <p class="text-gray-700 mt-2">
+            The Dashboard is your personal control panel. It lets you monitor your records and track progress visually.
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mt-4">
+            <li>View food and weight logs</li>
+            <li>Track progress with charts</li>
+            <li>Manage profile and subscription</li>
+            <li>Export your structured data anytime</li>
+        </ul>
+        <p class="text-gray-700 mt-4 italic">Note: all edits and entries are made via the Assistant — the Dashboard is
+            for monitoring and exporting only.</p>
+    </div>
+
+    <!-- Logbook Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6 text-left">
+        <h3 class="text-xl font-semibold text-gray-900 flex items-center"><i data-lucide="book-open-text"
+                                                                             class="mr-2"></i> Logbook</h3>
+        <p class="text-gray-700 mt-2">
+            The Logbook is the secure storage that keeps all your structured data: meals, weight history, goals, and
+            notes.
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mt-4">
+            <li>All data written by the Assistant</li>
+            <li>Used by the Dashboard to visualize progress</li>
+            <li>Protected, private, and always available</li>
+        </ul>
+        <p class="text-gray-700 mt-4 italic">Think of it as your long-term memory — consistent and reliable.</p>
+    </div>
+
+    <!-- Diagram Section -->
+    <div class="max-w-lg mx-auto mt-6">
+        <img src="/img/nutrilog_components.png" alt="NutriLog system diagram" class="w-full rounded-md shadow-md">
+        <p class="text-sm text-center text-gray-500 mt-2">NutriLog: Assistant and Dashboard work together via your
+            private Logbook</p>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="text-center bg-blue-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6">
+        <h3 class="text-lg font-semibold">🚀 Ready to make your data work for you?</h3>
+        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+           class="flex items-center justify-center bg-white hover:bg-gray-200 text-blue-500 font-bold py-3 px-6 rounded-md mt-4">
+            <i data-lucide="rocket" class="mr-2"></i> Try NutriLog in ChatGPT
+        </a>
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>
