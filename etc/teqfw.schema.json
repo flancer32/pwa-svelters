@@ -201,6 +201,102 @@
               }
             }
           }
+        },
+        "weight": {
+          "entity": {
+            "goal": {
+              "comment": "User weight goal change log",
+              "attr": {
+                "user_ref": {
+                  "comment": "Reference to the user",
+                  "type": "ref"
+                },
+                "date": {
+                  "comment": "Date when the goal was set or updated",
+                  "type": "datetime",
+                  "nullable": false,
+                  "default": "current",
+                  "options": {
+                    "dateOnly": true
+                  }
+                },
+                "value": {
+                  "comment": "Target weight value in grams (!)",
+                  "type": "integer"
+                },
+                "note": {
+                  "comment": "Optional comment describing the goal (e.g. 'before vacation')",
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "index": {
+                "PRIMARY": {
+                  "type": "primary",
+                  "attrs": ["user_ref", "date"]
+                }
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {
+                    "path": "/app/user",
+                    "attrs": ["id"]
+                  },
+                  "action": {
+                    "delete": "cascade",
+                    "update": "cascade"
+                  }
+                }
+              }
+            },
+            "log": {
+              "comment": "User weight measurement log",
+              "attr": {
+                "user_ref": {
+                  "comment": "Reference to the user",
+                  "type": "ref"
+                },
+                "date": {
+                  "comment": "Date of weight measurement (no time part)",
+                  "type": "datetime",
+                  "nullable": false,
+                  "default": "current",
+                  "options": {
+                    "dateOnly": true
+                  }
+                },
+                "value": {
+                  "comment": "Weight value in grams (!)",
+                  "type": "integer"
+                },
+                "note": {
+                  "comment": "Optional user comment for the measurement",
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "index": {
+                "PRIMARY": {
+                  "type": "primary",
+                  "attrs": ["user_ref", "date"]
+                }
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {
+                    "path": "/app/user",
+                    "attrs": ["id"]
+                  },
+                  "action": {
+                    "delete": "cascade",
+                    "update": "cascade"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

@@ -40,6 +40,7 @@
     "@teqfw/db": ">=0.24.0 <1.0.0",
     "@teqfw/test": "latest",
     "@teqfw/web": "latest",
+    "openai": "^4.89.1",
     "pg": "^8.13.1"
   },
   "devDependencies": {
