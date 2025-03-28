@@ -17,7 +17,8 @@
   },
   "@teqfw/core": {
     "commands": [
-      "Svelters_Back_Cli_Deepseek"
+      "Svelters_Back_Cli_Deepseek",
+      "Svelters_Back_Cli_OpenAPI"
     ],
     "plugin": {
       "onInit": "Svelters_Back_Plugin_Start",
