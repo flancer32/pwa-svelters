@@ -1,0 +1,3 @@
+### Get goal weight history
+GET https://{{host}}/app/api/weight/goal/get?dateFrom=2025-01-01&dateTo=2025-03-28
+Authorization: Bearer {{authToken}}

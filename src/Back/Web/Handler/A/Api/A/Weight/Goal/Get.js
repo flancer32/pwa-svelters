@@ -1,17 +1,17 @@
 /**
- * Route: `/app/api/weight/log/get`
+ * Route: `/app/api/weight/goal/get`
  */
-export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
+export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Get {
     /**
      * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {TeqFw_Db_Shared_Dto_List_Selection} dbSelect
-     * @param {Svelters_Shared_Web_Api_Weight_Log_Get} endpoint
+     * @param {Svelters_Shared_Web_Api_Weight_Goal_Get} endpoint
      * @param {Fl64_OAuth2_Back_Manager} oauth2
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {Svelters_Back_Store_RDb_Repo_Weight_Log} repoWeight
+     * @param {Svelters_Back_Store_RDb_Repo_Weight_Goal} repoWeight
      * @param {Svelters_Shared_Dto_Weight} dtoItem
      */
     constructor(
@@ -21,10 +21,10 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
             TeqFw_Web_Back_Help_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             TeqFw_Db_Shared_Dto_List_Selection$: dbSelect,
-            Svelters_Shared_Web_Api_Weight_Log_Get$: endpoint,
+            Svelters_Shared_Web_Api_Weight_Goal_Get$: endpoint,
             Fl64_OAuth2_Back_Manager$: oauth2,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Svelters_Back_Store_RDb_Repo_Weight_Log$: repoWeight,
+            Svelters_Back_Store_RDb_Repo_Weight_Goal$: repoWeight,
             Svelters_Shared_Dto_Weight$: dtoItem,
         }
     ) {
@@ -39,7 +39,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
         // FUNCS
 
         /**
-         * Create selection DTO for current weight log entries in a given date range.
+         * Create selection DTO for goal weight entries in a given date range.
          *
          * @param {number} userId
          * @param {string} dateFrom
@@ -84,7 +84,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
         }
 
         /**
-         * Read current weight entries for user in a given date range.
+         * Read goal weight entries for user in a given date range.
          *
          * @param {TeqFw_Db_Back_RDb_ITrans} trx
          * @param {number} userId
@@ -101,7 +101,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
         // MAIN
 
         /**
-         * Handles HTTP requests to retrieve the user's current weight log history.
+         * Handles HTTP requests to retrieve the user's goal weight history.
          *
          * Validates authorization, parses query parameters, loads weight data for the specified period,
          * and returns a structured response.
@@ -122,7 +122,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
                         const {dateFrom, dateTo} = zHelper.parseGetParams(req);
 
                         if (dateFrom && dateTo) {
-                            logger.info(`Received request for current weight log (user #${userId}): ${dateFrom} - ${dateTo}`);
+                            logger.info(`Received request for goal weight history (user #${userId}): ${dateFrom} - ${dateTo}`);
 
                             response.items = await selectItems(trx, userId, dateFrom, dateTo);
                             response.meta.ok = true;
@@ -135,7 +135,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
                                 body,
                             });
 
-                            logger.info(`Response sent with ${response.items.length} current weight entries.`);
+                            logger.info(`Response sent with ${response.items.length} goal weight entries.`);
                         } else {
                             respond.code400_BadRequest({res, body: 'Missing or incomplete date range.'});
                         }

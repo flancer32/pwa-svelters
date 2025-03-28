@@ -339,6 +339,89 @@
         }
       }
     },
+    "/app/api/weight/goal/get": {
+      "get": {
+        "summary": "Get goal weight history.",
+        "description": "Returns a list of target weight values defined by the user for specific dates within the selected range.",
+        "operationId": "Weight_Goal_Get",
+        "parameters": [
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Start date of the period (inclusive). Format: YYYY-MM-DD."
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "End date of the period (inclusive). Format: YYYY-MM-DD."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Goal weight entries successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Weight"
+                      },
+                      "description": "List of user-defined goal weights."
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid query parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/app/api/weight/goal/save": {
       "post": {
         "summary": "Save a goal weight.",
@@ -447,8 +530,8 @@
     },
     "/app/api/weight/log/get": {
       "get": {
-        "summary": "Retrieve current weight logs for a user within a specified period",
-        "description": "This endpoint allows a user to retrieve ...",
+        "summary": "Get current weight history.",
+        "description": "Returns the list of user-submitted weight measurements for a given date range.",
         "operationId": "Weight_Log_Get",
         "parameters": [
           {
@@ -457,9 +540,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date",
-              "description": "The start date of the period (inclusive). Format: YYYY-MM-DD."
-            }
+              "format": "date"
+            },
+            "description": "Start date of the period (inclusive). Format: YYYY-MM-DD."
           },
           {
             "name": "dateTo",
@@ -467,25 +550,25 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date",
-              "description": "The end date of the period (inclusive). Format: YYYY-MM-DD."
-            }
+              "format": "date"
+            },
+            "description": "End date of the period (inclusive). Format: YYYY-MM-DD."
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved the current weight logs.",
+            "description": "Successfully retrieved current weight measurements.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "draftLogs": {
+                    "items": {
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/Weight"
                       },
-                      "description": "Weight logs for the requested period."
+                      "description": "List of recorded current weight entries."
                     },
                     "meta": {
                       "$ref": "#/components/schemas/Response_Meta"
@@ -496,7 +579,7 @@
             }
           },
           "400": {
-            "description": "Bad request due to missing or invalid date parameters.",
+            "description": "Missing or invalid query parameters.",
             "content": {
               "application/json": {
                 "schema": {
@@ -530,8 +613,8 @@
     },
     "/app/api/weight/log/save": {
       "post": {
-        "summary": "Save a weight log.",
-        "description": "This endpoint allows users to save a weight log for a specific date.",
+        "summary": "Save a current weight measurement.",
+        "description": "This endpoint allows users to save or update their current body weight for a specific date.",
         "operationId": "Weight_Log_Save",
         "requestBody": {
           "required": true,
@@ -551,7 +634,7 @@
         },
         "responses": {
           "200": {
-            "description": "Calorie log draft saved successfully.",
+            "description": "Current weight entry saved or updated successfully.",
             "content": {
               "application/json": {
                 "schema": {
