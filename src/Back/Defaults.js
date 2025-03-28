@@ -10,6 +10,8 @@ export default class Svelters_Back_Defaults {
 
     NAME;
 
+    ROUTE_OPENAPI = 'openapi.json';
+
     /** @type {Svelters_Shared_Defaults} */
     SHARED;
 
