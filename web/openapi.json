@@ -339,6 +339,112 @@
         }
       }
     },
+    "/app/api/weight/goal/save": {
+      "post": {
+        "summary": "Save a goal weight.",
+        "description": "This endpoint allows users to save or update their goal weight for a specific date.",
+        "operationId": "Weight_Goal_Save",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "weight": {
+                    "$ref": "#/components/schemas/Weight"
+                  }
+                },
+                "required": ["weight"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Goal weight successfully created or updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  },
+                  "required": ["meta"]
+                },
+                "examples": {
+                  "inserted": {
+                    "summary": "New goal weight entry created",
+                    "value": {
+                      "meta": {
+                        "ok": true,
+                        "code": "SUCCESS_INSERTED"
+                      }
+                    }
+                  },
+                  "updated": {
+                    "summary": "Existing goal weight entry updated",
+                    "value": {
+                      "meta": {
+                        "ok": true,
+                        "code": "SUCCESS_UPDATED"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Missing or invalid data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment required. User does not have an active subscription.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/app/api/weight/log/save": {
       "post": {
         "summary": "Save a weight log.",
