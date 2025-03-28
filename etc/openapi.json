@@ -445,6 +445,89 @@
         }
       }
     },
+    "/app/api/weight/log/get": {
+      "get": {
+        "summary": "Retrieve current weight logs for a user within a specified period",
+        "description": "This endpoint allows a user to retrieve ...",
+        "operationId": "Weight_Log_Get",
+        "parameters": [
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "The start date of the period (inclusive). Format: YYYY-MM-DD."
+            }
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "The end date of the period (inclusive). Format: YYYY-MM-DD."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the current weight logs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "draftLogs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Weight"
+                      },
+                      "description": "Weight logs for the requested period."
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request due to missing or invalid date parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": {
+                      "$ref": "#/components/schemas/Response_Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/app/api/weight/log/save": {
       "post": {
         "summary": "Save a weight log.",

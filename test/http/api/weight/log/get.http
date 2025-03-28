@@ -1,0 +1,3 @@
+### Get weight log history
+GET https://{{host}}/app/api/weight/log/get?dateFrom=2025-03-01&dateTo=2025-03-28
+Authorization: Bearer {{authToken}}
