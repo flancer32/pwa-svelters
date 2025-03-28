@@ -1,0 +1,12 @@
+### Save a weight log
+POST https://{{host}}/app/api/weight/log/save
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "weight": {
+    "date": "2025-03-24",
+    "value": 87.5,
+    "note": "from test request (IDEA)"
+  }
+}
