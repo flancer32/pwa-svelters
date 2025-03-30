@@ -12,6 +12,12 @@
     <p class="text-xs text-gray-500 mt-2">&copy; 2025 "F. Lancer", SIA. All rights reserved.</p>
 </footer>
 
+<script type="module">
+    import('/js/lib/lucide.min.js').then(({createIcons}) => {
+        createIcons();
+    }).catch(console.error);
+</script>
+
 <script>
     function changeLanguage(lang) {
         document.documentElement.lang = lang;
