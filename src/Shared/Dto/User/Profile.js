@@ -4,85 +4,89 @@
  */
 class Dto {
     /**
-     * Date of birth in string format (YYYY-MM-DD).
-     * This field must be a string, not a Date object.
+     * Date of birth in YYYY-MM-DD format. Used for BMR (Basal Metabolic Rate) and age-related calculations.
      * @type {string}
      */
     dateBirth;
 
     /**
-     * Date-time for user registration (JavaScript Date object).
+     * ISO timestamp of profile creation. Indicates the account registration time.
      * @type {Date|string}
      */
     dateCreated;
+
     /**
-     * Date-time when the user's subscription expires.
+     * ISO timestamp indicating when the current subscription expires. Determines access to premium features and data persistence.
      * @type {Date|string}
      */
     dateSubscriptionEnd;
 
     /**
-     * Date-time for the last update (JavaScript Date object).
+     * ISO timestamp of the most recent profile update.
      * @type {Date|string}
      */
     dateUpdated;
 
     /**
-     * User's current goal (e.g., weight loss target).
+     * User-defined wellness goal, such as target weight or deadline. Interpreted by the Assistant for motivation and progress analysis.
      * @type {string}
      */
     goal;
 
     /**
-     * Height in cm (integer).
+     * User's height in centimeters. Used for BMR and calorie goal calculations.
      * @type {number}
      */
     height;
 
     /**
-     * User's locale for language preferences (e.g., 'en', 'fr').
+     * Language preference of the user, in BCP 47 format (e.g., en, fr). Used to personalize Assistant responses.
      * @type {string}
      */
     locale;
 
     /**
-     * Name to display in profile.
+     * User's display name shown in the interface. Not necessarily unique.
      * @type {string}
      */
     name;
 
     /**
-     * Contains a brief context or instruction for the AI to start a new conversation,
-     * taking into account the user's prior conversation history.
+     * Brief context for GPT-based Assistant to resume personalized conversations. Encapsulates prior user goals, preferences, and tone.
      * @type {string}
      */
     promptStart;
 
     /**
-     * Biological sex with values representing male and female categories.
-     *
+     * User's biological sex. Used in metabolic calculations.
      * @type {string}
      * @see Svelters_Shared_Enum_Data_Type_Sex
      */
     sex;
 
     /**
-     * IANA timezone identifier (e.g., 'Europe/Riga').
+     * User's timezone in IANA format (e.g., Europe/Riga). Used for localizing reminders and daily logs.
      * @type {string}
      */
     timezone;
 
     /**
-     * Universally unique identifier as public ID.
+     * Universally unique identifier of the user profile. Used as a public key across all user-related operations.
      * @type {string}
      */
     uuid;
 
     /**
-     * Weight in kilograms (sample: 64.8).
+     * Current body weight in kilograms. Used in progress tracking and metabolic analysis.
      * @type {number}
      */
     weight;
+
+    /**
+     * Current target body weight in kilograms. Used to assess progress toward the user's goal.
+     * @type {number}
+     */
+    weightGoal;
 }
 
 /**
@@ -110,7 +114,7 @@ export default class Svelters_Shared_Dto_User_Profile {
          * @returns {Dto} - A properly structured DTO instance.
          */
         this.create = function (data) {
-           /** @type {Svelters_Shared_Dto_User_Profile.Dto} */
+            /** @type {Svelters_Shared_Dto_User_Profile.Dto} */
             const res = Object.assign(new Dto(), data);
 
             if (data) {
@@ -127,6 +131,7 @@ export default class Svelters_Shared_Dto_User_Profile {
                 res.timezone = cast.string(data.timezone);
                 res.uuid = cast.string(data.uuid);
                 res.weight = cast.decimal(data.weight);
+                res.weightGoal = cast.decimal(data.weightGoal);
             }
 
             return res;

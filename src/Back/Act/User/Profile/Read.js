@@ -9,7 +9,8 @@ export default class Svelters_Back_Act_User_Profile_Read {
      * @param {TeqFw_Db_Shared_Dto_List_Selection} dbSelect
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
-     * @param {Svelters_Back_Store_RDb_Repo_Weight_Log} repoWeight
+     * @param {Svelters_Back_Store_RDb_Repo_Weight_Goal} repoWeightGoal
+     * @param {Svelters_Back_Store_RDb_Repo_Weight_Log} repoWeightLog
      * @param {Svelters_Shared_Dto_User_Profile} dtoProfile
      */
     constructor(
@@ -18,14 +19,16 @@ export default class Svelters_Back_Act_User_Profile_Read {
             TeqFw_Db_Shared_Dto_List_Selection$: dbSelect,
             Svelters_Back_Store_RDb_Repo_User$: repoUser,
             Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
-            Svelters_Back_Store_RDb_Repo_Weight_Log$: repoWeight,
+            Svelters_Back_Store_RDb_Repo_Weight_Goal$: repoWeightGoal,
+            Svelters_Back_Store_RDb_Repo_Weight_Log$: repoWeightLog,
             Svelters_Shared_Dto_User_Profile$: dtoProfile,
         }
     ) {
         // VARS
         const DIR = dbSelect.getDirections();
         const FUNC = dbSelect.getFunctions();
-        const A_WEIGHT = repoWeight.getSchema().getAttributes();
+        const A_WEIGHT_LOG = repoWeightLog.getSchema().getAttributes();
+        const A_WEIGHT_GOAL = repoWeightGoal.getSchema().getAttributes();
 
         // FUNCS
         /**
@@ -38,12 +41,35 @@ export default class Svelters_Back_Act_User_Profile_Read {
             const selection = dbSelect.createDto({
                 filter: {
                     name: FUNC.EQ,
-                    params: [{alias: A_WEIGHT.USER_REF}, {value: userId}],
+                    params: [{alias: A_WEIGHT_LOG.USER_REF}, {value: userId}],
                 },
-                orderBy: [{alias: A_WEIGHT.DATE, dir: DIR.DESC}],
+                orderBy: [{alias: A_WEIGHT_LOG.DATE, dir: DIR.DESC}],
                 rowsLimit: 1,
             });
-            const {records} = await repoWeight.readMany({trx, selection});
+            const {records} = await repoWeightLog.readMany({trx, selection});
+            if (records.length === 1) {
+                const [first] = records;
+                return first.value / 1000;
+            }
+            return null;
+        }
+
+        /**
+         * Read the target weight if exists.
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx
+         * @param {number} userId
+         * @returns {Promise<number|null>}
+         */
+        async function readWeightGoal(trx, userId) {
+            const selection = dbSelect.createDto({
+                filter: {
+                    name: FUNC.EQ,
+                    params: [{alias: A_WEIGHT_GOAL.USER_REF}, {value: userId}],
+                },
+                orderBy: [{alias: A_WEIGHT_GOAL.DATE, dir: DIR.DESC}],
+                rowsLimit: 1,
+            });
+            const {records} = await repoWeightGoal.readMany({trx, selection});
             if (records.length === 1) {
                 const [first] = records;
                 return first.value / 1000;
@@ -79,6 +105,7 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.timezone = foundProfile.timezone;
                 }
                 profile.weight = await readWeight(trx, userId);
+                profile.weightGoal = await readWeightGoal(trx, userId);
                 return {profile};
             });
         };

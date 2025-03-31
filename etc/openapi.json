@@ -834,6 +834,10 @@
           "weight": {
             "type": "number",
             "description": "Current body weight in kilograms. Used in progress tracking and metabolic analysis."
+          },
+          "weightGoal": {
+            "type": "number",
+            "description": "Current target body weight in kilograms. Used to assess progress toward the user's goal."
           }
         },
         "required": [
