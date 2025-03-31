@@ -1,0 +1,3 @@
+### Get profile
+GET https://{{host}}/app/api/profile/get
+Authorization: Bearer {{authToken}}

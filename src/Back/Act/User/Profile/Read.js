@@ -6,18 +6,52 @@
 export default class Svelters_Back_Act_User_Profile_Read {
     /**
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
+     * @param {TeqFw_Db_Shared_Dto_List_Selection} dbSelect
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
+     * @param {Svelters_Back_Store_RDb_Repo_Weight_Log} repoWeight
      * @param {Svelters_Shared_Dto_User_Profile} dtoProfile
      */
     constructor(
         {
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
+            TeqFw_Db_Shared_Dto_List_Selection$: dbSelect,
             Svelters_Back_Store_RDb_Repo_User$: repoUser,
             Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
+            Svelters_Back_Store_RDb_Repo_Weight_Log$: repoWeight,
             Svelters_Shared_Dto_User_Profile$: dtoProfile,
         }
     ) {
+        // VARS
+        const DIR = dbSelect.getDirections();
+        const FUNC = dbSelect.getFunctions();
+        const A_WEIGHT = repoWeight.getSchema().getAttributes();
+
+        // FUNCS
+        /**
+         * Read the current weight if exists.
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx
+         * @param {number} userId
+         * @returns {Promise<number|null>}
+         */
+        async function readWeight(trx, userId) {
+            const selection = dbSelect.createDto({
+                filter: {
+                    name: FUNC.EQ,
+                    params: [{alias: A_WEIGHT.USER_REF}, {value: userId}],
+                },
+                orderBy: [{alias: A_WEIGHT.DATE, dir: DIR.DESC}],
+                rowsLimit: 1,
+            });
+            const {records} = await repoWeight.readMany({trx, selection});
+            if (records.length === 1) {
+                const [first] = records;
+                return first.value / 1000;
+            }
+            return null;
+        }
+
+        // MAIN
         /**
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - External transaction (if provided).
@@ -43,8 +77,8 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.promptStart = foundProfile.prompt_start;
                     profile.sex = foundProfile.sex;
                     profile.timezone = foundProfile.timezone;
-                    // TODO: add weight
                 }
+                profile.weight = await readWeight(trx, userId);
                 return {profile};
             });
         };

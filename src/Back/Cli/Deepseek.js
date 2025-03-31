@@ -254,7 +254,7 @@ ${filePromptTest}
      * @returns {Promise<void>}
      */
     async function action(opts) {
-        const root = join(config.getPathToRoot(), 'tmp', 'agent');
+        const root = join(config.getPathToRoot(), '..', '..', 'docs', 'ai', 'agent');
         const openai = new OpenAI({
             baseURL: 'https://api.deepseek.com',
             apiKey: getApiKey(),

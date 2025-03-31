@@ -106,6 +106,7 @@
         "summary": "Save a draft of a calorie log.",
         "description": "This endpoint allows users to save a draft of their calorie log for a specific date, including a list of consumed items.",
         "operationId": "Calorie_Log_Save",
+        "x-openai-isConsequential": false,
         "requestBody": {
           "required": true,
           "content": {
@@ -200,6 +201,7 @@
         "summary": "Get user profile information.",
         "description": "This endpoint allows users to retrieve their profile information, including metadata and profile details.",
         "operationId": "Profile_Get",
+        "x-openai-isConsequential": false,
         "responses": {
           "200": {
             "description": "User profile retrieved successfully.",
@@ -259,6 +261,7 @@
         "summary": "Update user profile information.",
         "description": "This endpoint updates the user's profile with the provided data.",
         "operationId": "Profile_Update",
+        "x-openai-isConsequential": false,
         "requestBody": {
           "required": true,
           "content": {
@@ -427,6 +430,7 @@
         "summary": "Save a goal weight.",
         "description": "This endpoint allows users to save or update their goal weight for a specific date.",
         "operationId": "Weight_Goal_Save",
+        "x-openai-isConsequential": false,
         "requestBody": {
           "required": true,
           "content": {
@@ -616,6 +620,7 @@
         "summary": "Save a current weight measurement.",
         "description": "This endpoint allows users to save or update their current body weight for a specific date.",
         "operationId": "Weight_Log_Save",
+        "x-openai-isConsequential": false,
         "requestBody": {
           "required": true,
           "content": {
@@ -776,63 +781,63 @@
           "dateBirth": {
             "type": "string",
             "format": "date",
-            "description": "User's date of birth in YYYY-MM-DD format."
+            "description": "Date of birth in YYYY-MM-DD format. Used for BMR (Basal Metabolic Rate) and age-related calculations."
           },
           "dateCreated": {
             "type": "string",
             "format": "date-time",
-            "description": "Date-time when the user registered."
+            "description": "ISO timestamp of profile creation. Indicates the account registration time."
           },
           "dateSubscriptionEnd": {
             "type": "string",
             "format": "date-time",
-            "description": "Date-time when the user's subscription expires."
+            "description": "ISO timestamp indicating when the current subscription expires. Determines access to premium features and data persistence."
           },
           "dateUpdated": {
             "type": "string",
             "format": "date-time",
-            "description": "Date-time of the last profile update."
+            "description": "ISO timestamp of the most recent profile update."
           },
           "goal": {
             "type": "string",
-            "description": "User's current goal (e.g., weight loss target)."
+            "description": "User-defined wellness goal, such as target weight or deadline. Interpreted by the Assistant for motivation and progress analysis."
           },
           "height": {
             "type": "number",
-            "description": "User's height in cm."
+            "description": "User's height in centimeters. Used for BMR and calorie goal calculations."
           },
           "locale": {
             "type": "string",
-            "description": "User's language preference locale (e.g., 'en', 'fr')."
+            "description": "anguage preference of the user, in BCP 47 format (e.g., en, fr). Used to personalize Assistant responses."
           },
           "name": {
             "type": "string",
-            "description": "User's name as displayed in the profile."
+            "description": "User's display name shown in the interface. Not necessarily unique."
           },
           "promptStart": {
             "type": "string",
-            "description": "Contains a brief context or instruction for the AI to start a new conversation, taking into account the user's prior conversation history."
+            "description": "Brief context for GPT-based Assistant to resume personalized conversations. Encapsulates prior user goals, preferences, and tone."
           },
           "sex": {
             "type": "string",
             "enum": ["FEMALE", "MALE", "UNDEFINED"],
-            "description": "Biological sex with values representing male and female categories."
+            "description": "User's biological sex. Used in metabolic calculations."
           },
           "timezone": {
             "type": "string",
-            "description": "User's timezone, formatted as IANA identifier (e.g., 'Europe/Riga')."
+            "description": "User's timezone in IANA format (e.g., Europe/Riga). Used for localizing reminders and daily logs."
           },
           "uuid": {
             "type": "string",
-            "description": "Universally unique identifier as public ID."
+            "description": "Universally unique identifier of the user profile. Used as a public key across all user-related operations."
           },
           "weight": {
             "type": "number",
-            "description": "User's weight in grams."
+            "description": "Current body weight in kilograms. Used in progress tracking and metabolic analysis."
           }
         },
         "required": [
-          "dateBirth", "dateCreated", "goal", "height", "locale", "name", "promptStart", "sex", "timezone", "weight"
+          "dateBirth", "dateCreated", "goal", "height", "locale", "name", "promptStart", "sex", "timezone"
         ],
         "description": "User profile details including personal and physical information."
       },
