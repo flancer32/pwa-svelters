@@ -79,7 +79,7 @@ class Dto {
     uuid;
 
     /**
-     * Weight in grams (integer).
+     * Weight in kilograms (sample: 64.8).
      * @type {number}
      */
     weight;
@@ -110,6 +110,7 @@ export default class Svelters_Shared_Dto_User_Profile {
          * @returns {Dto} - A properly structured DTO instance.
          */
         this.create = function (data) {
+           /** @type {Svelters_Shared_Dto_User_Profile.Dto} */
             const res = Object.assign(new Dto(), data);
 
             if (data) {
@@ -125,7 +126,7 @@ export default class Svelters_Shared_Dto_User_Profile {
                 res.sex = cast.enum(data.sex, SEX);
                 res.timezone = cast.string(data.timezone);
                 res.uuid = cast.string(data.uuid);
-                res.weight = cast.int(data.weight);
+                res.weight = cast.decimal(data.weight);
             }
 
             return res;
