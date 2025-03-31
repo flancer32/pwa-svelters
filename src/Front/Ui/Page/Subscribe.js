@@ -21,7 +21,6 @@ export default class Svelters_Front_Ui_Page_Subscribe {
         const CSS_HIDDEN = 'hidden';
         const PARAM_COUNTRY = 'country';
         const PARAM_EU = 'eu';
-        const PARAM_TYPE = 'type';
 
         const model = new Model();
         // get the elements from the page
@@ -35,7 +34,6 @@ export default class Svelters_Front_Ui_Page_Subscribe {
         const elMsg = document.getElementById('result-message');
         const elVatPercent = document.getElementById('vatPercent');
         const elsEuResident = document.querySelectorAll('.app-eu-resident');
-        const elsSubsType = document.querySelectorAll('input[name="subscriptionType"]');
         const formatEur = new Intl.NumberFormat(navigator.language, {style: 'currency', currency: 'EUR'});
         const formatUsd = new Intl.NumberFormat(navigator.language, {style: 'currency', currency: 'USD'});
 
@@ -73,7 +71,6 @@ export default class Svelters_Front_Ui_Page_Subscribe {
             const urlParams = new URLSearchParams(window.location.search);
             const isEu = elIsEuResident.checked ? '1' : '0';
             urlParams.set(PARAM_EU, isEu);
-            urlParams.set(PARAM_TYPE, model.subscriptionType.toLowerCase());
             if (model.country) urlParams.set(PARAM_COUNTRY, model.country);
             window.location.search = urlParams.toString();
         }
@@ -110,18 +107,10 @@ export default class Svelters_Front_Ui_Page_Subscribe {
             model.amountVat = 0;
             model.country = urlParams.get(PARAM_COUNTRY);
             model.isEuResident = (urlParams.get(PARAM_EU) === '1');
-            model.subscriptionType = (urlParams.get(PARAM_TYPE)?.toUpperCase() === SUBS.MONTH)
-                ? SUBS.MONTH : SUBS.YEAR;
+            model.subscriptionType = SUBS.YEAR;
             // bind listeners
             elIsEuResident.addEventListener('change', switchEu);
             elCountry.addEventListener('change', switchEuCountry);
-            elsSubsType.forEach(radio => {
-                radio.addEventListener('change', function () {
-                    const selected = elsSubsType.values().find((radio) => radio.checked);
-                    model.subscriptionType = (selected.value === SUBS.MONTH) ? SUBS.MONTH : SUBS.YEAR; // see the form
-                    updateModel();
-                });
-            });
             // update model and UI
             updateModel();
         }
@@ -142,9 +131,6 @@ export default class Svelters_Front_Ui_Page_Subscribe {
             elAmountTotal.textContent = cur.format(model.amountTotal);
             elDesc.textContent = model.description;
             elVatPercent.textContent = String(model.vatPercent);
-            elsSubsType.forEach(el => {
-                if (el.value === model.subscriptionType) el.checked = true;
-            });
             if (model.country) elCountry.value = model.country;
             if (model.isEuResident) {
                 elIsEuResident.checked = true;
@@ -181,7 +167,6 @@ class Model {
     country = '';
     description;
     isEuResident;
-    isMonthly;
     subscriptionType = '';
     vatPercent = 0;
 }
