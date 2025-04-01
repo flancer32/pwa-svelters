@@ -8,82 +8,113 @@
 {{> pageHeader}}
 
 <main>
-    <!-- Intro Section -->
-    <div class="max-w-2xl mx-auto text-center">
-        <h1 class="text-3xl font-bold text-gray-900">ChatGPT анализирует ваше питание? NutriLog его запомнит.</h1>
-        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Расширьте возможности ChatGPT в управлении питанием</h2>
+    <!-- Hero Section -->
+    <div class="max-w-2xl mx-auto text-center px-4">
+        <h1 class="text-3xl font-bold text-gray-900">NutriLog — кастомизированный GPT-чат с памятью</h1>
+        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Ориентирован на учёт калорий и контроль веса</h2>
         <p class="text-gray-700 mt-4">
-            Если вы используете ChatGPT для обсуждения диеты, калорий и рациона, NutriLog позволяет
-            <strong>сохранять и структурировать важные данные</strong> на внешнем хранилище.
+            Используете GPT-чат, чтобы говорить о питании и целях? NutriLog добавляет <strong>память</strong> — ваш
+            ассистент запомнит рацион, цели и прогресс.
         </p>
         <p class="text-gray-700 mt-4">
-            Чат остаётся вашим основным инструментом, а NutriLog предоставляет ему доступ к
-            сохранённой информации, помогая анализировать ваши пищевые привычки.
+            Работает в <strong>тексте и голосе</strong>, на <strong>iPhone и Android</strong>. Общайтесь, когда удобно —
+            всё будет зафиксировано.
         </p>
 
-    </div>
-
-    <!-- Eligibility Section -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">📌 Подходит вам, если:</h3>
-        <ul class="list-disc list-inside text-gray-700 mt-4">
-            <li>Вы <strong>ежедневно используете ChatGPT</strong> или готовы использовать его каждый день</li>
-            <li>Вам важно <strong>контролировать свой рацион и питание</strong></li>
-            <li>Вы уже используете или только планируете использовать <strong>ChatGPT для достижения этой цели</strong>
-            </li>
-            <li>Вы уже знаете или хотите узнать, как ИИ может помочь вам в этом</li>
-            <li>Хотите, чтобы <strong>ChatGPT запоминал ваши данные о питании</strong>?</li>
-        </ul>
-
-        <!-- Call-to-Action Section -->
-        <div class="text-center bg-blue-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6">
-            <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
-               class="flex items-center justify-center bg-white hover:bg-gray-200 text-blue-500 font-bold py-3 px-6 rounded-md mt-4">
-                Не теряйте важные данные — подключите NutriLog уже сегодня!
+        <!-- CTA Early -->
+        {{^isAuthenticated}}
+        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
+            <p class="text-lg font-semibold text-green-800">🚀 Бета-доступ открыт</p>
+            <p class="mt-2 text-gray-800">Осталось <span class="font-bold text-green-700">{{betaUsersLeft}}</span>
+                свободных мест из 100</p>
+            <a href="/app/register"
+               class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-200">
+                Присоединиться к бете
             </a>
         </div>
+        {{/isAuthenticated}}
 
+        {{#isAuthenticated}}
+        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
+            <p class="text-lg font-semibold text-green-800">🎉 Вы участвуете в бете!</p>
+            <p class="mt-2 text-gray-800">
+                Спасибо, что стали одним из первых <strong>тестировщиков NutriLog</strong>. Вы помогаете нам создать
+                будущее ИИ-инструментов для контроля питания.
+            </p>
+            <p class="mt-2 text-gray-700">
+                Вы можете открыть своего ассистента в любой момент — память уже активна.
+            </p>
+            <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+               class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-200">
+                Открыть NutriLog в ChatGPT
+            </a>
+        </div>
+        {{/isAuthenticated}}
     </div>
 
-    <!-- How it Works Section -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">📊 Как это работает?</h3>
-        <p class="text-gray-700 mt-2">
-            ChatGPT помогает анализировать питание, но без NutriLog его память ограничена. Теперь вы можете
-            сохранять важные данные и использовать их в любое время.
-        </p>
-        <ol class="list-decimal list-inside text-gray-700 mt-4">
-            <li><strong>Вы обсуждаете питание с ChatGPT</strong> — делитесь приёмами пищи, планируете рацион</li>
-            <li><strong>ChatGPT сохраняет ваши данные в NutriLog</strong>, чтобы использовать их позже</li>
-            <li><strong>Вы в любой момент можете запросить историю питания</strong> и проанализировать прогресс</li>
-            <li><strong>ChatGPT использует сохранённые данные</strong>, чтобы давать персонализированные рекомендации
-            </li>
-        </ol>
-        <p class="text-gray-900 font-bold mt-4">🎯 ChatGPT сам запомнит ваши данные в NutriLog и поможет вам
-            анализировать их.</p>
-    </div>
-
-    <!-- Features Section -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">🛠 Что умеет NutriLog?</h3>
-        <ul class="list-disc list-inside text-gray-700 mt-4">
-            <li><strong>Фиксировать ваши приёмы пищи и состав рациона</strong></li>
-            <li><strong>Запоминать ваши цели и предпочтения в общении с ChatGPT</strong></li>
-            <li><strong>Хранить ваш профиль и изменения веса</strong> для точного расчёта калорийности и метаболизма
-            </li>
-            <li><strong>Восстанавливать контекст беседы при начале нового диалога</strong></li>
-            <li><strong>Помогать ChatGPT учитывать ваш прогресс</strong> в анализе и рекомендациях</li>
+    <!-- Who is this for -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-semibold text-gray-900">👤 NutriLog подойдёт вам, если:</h3>
+        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>У вас есть <strong>активная подписка GPT Plus</strong></li>
+            <li>Вы <strong>ежедневно используете GPT-чат</strong> — в тексте или голосом</li>
+            <li>Следите за своим <strong>весом, питанием или физической формой</strong></li>
+            <li>Устали терять прогресс между чатами — хотите, чтобы GPT <strong>помнил вас</strong></li>
         </ul>
     </div>
 
-    <!-- Call-to-Action Section -->
-    <div class="text-center bg-blue-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-6">
-        <h3 class="text-lg font-semibold">🚀 Начните уже сегодня!</h3>
-        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
-           class="flex items-center justify-center bg-white hover:bg-gray-200 text-blue-500 font-bold py-3 px-6 rounded-md mt-4">
-            <i data-lucide="message-circle" class="mr-2"></i> Попробуй NutriLog из вашего ChatGPT
+    <!-- Memory & Assistant -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-semibold text-gray-900">🧠 Что делает NutriLog?</h3>
+        <p class="text-gray-700 mt-2">
+            NutriLog — это <strong>память и контекст</strong> для вашего GPT-ассистента. Он не заменяет GPT, он <strong>помогает
+            ему стать персональным</strong>.
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>Хранит и восстанавливает данные о рационе, весе, целях</li>
+            <li>Передаёт их вашему GPT между чатами — автоматически</li>
+            <li>Делает рекомендации Ассистента персонализированными</li>
+            <li>Фиксирует разговоры: <strong>текст и голос</strong> — в дороге, на прогулке, в зале</li>
+        </ul>
+        <p class="text-gray-900 font-bold mt-4">🎯 Всё, что может GPT — теперь с памятью о вас.</p>
+    </div>
+
+    <!-- How it works -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-semibold text-gray-900">📈 Как работает NutriLog</h3>
+        <ol class="list-decimal list-inside text-gray-700 mt-4 space-y-1">
+            <li>Открываете NutriLog-чат на GPT (на смартфоне или в браузере)</li>
+            <li>Рассказываете о себе: цели, вес, питание</li>
+            <li>NutriLog сохраняет информацию — текст или голос</li>
+            <li>Ассистент получает доступ к вашему профилю и истории</li>
+            <li>При новом чате он продолжает разговор как будто вы не прерывались</li>
+        </ol>
+        <p class="text-gray-700 font-semibold mt-4">💬 Всё это — без формы и кнопок. Просто живой диалог.</p>
+    </div>
+
+    <!-- CTA Main -->
+    {{^isAuthenticated}}
+    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
+        <h3 class="text-lg font-semibold">🚀 Осталось <span class="font-bold">{{betaUsersLeft}}</span> мест в бета-тесте
+        </h3>
+        <a href="/app/register"
+           class="flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
+            <i data-lucide="zap" class="mr-2"></i> Зарегистрироваться в NutriLog
         </a>
     </div>
+    {{/isAuthenticated}}
+
+    {{#isAuthenticated}}
+    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
+        <h3 class="text-lg font-semibold">🚀 Бета продолжается. Осталось <span class="font-bold">{{betaUsersLeft}}</span>
+            мест</h3>
+        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+           class="flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
+            Открыть NutriLog в ChatGPT
+        </a>
+    </div>
+    {{/isAuthenticated}}
+
 </main>
 
 {{> pageFooter}}
