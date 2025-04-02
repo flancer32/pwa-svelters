@@ -132,6 +132,103 @@
             }
           }
         },
+        "feedback": {
+          "entity": {
+            "inbox": {
+              "comment": "Table for storing user feedback messages",
+              "attr": {
+                "id": {
+                  "comment": "Auto-incremented primary key",
+                  "type": "id"
+                },
+                "date_created": {
+                  "comment": "Timestamp when feedback was created",
+                  "type": "datetime",
+                  "default": "current"
+                },
+                "user_ref": {
+                  "comment": "Reference to the user",
+                  "type": "ref"
+                },
+                "lang": {
+                  "comment": "Original language code (e.g. 'en', 'ru', 'es')",
+                  "type": "string",
+                  "nullable": true,
+                  "options": {
+                    "length": 10
+                  }
+                },
+                "text_en": {
+                  "comment": "Translated text (or original if English) - always populated",
+                  "type": "text"
+                },
+                "text_origin": {
+                  "comment": "Original feedback text in user's language (null if English)",
+                  "type": "text",
+                  "nullable": true
+                },
+                "subject": {
+                  "comment": "Short summary for UI/email display (in English)",
+                  "type": "string"
+                },
+                "meta": {
+                  "comment": "Additional metadata in JSON format",
+                  "type": "json",
+                  "nullable": true
+                },
+                "is_resolved": {
+                  "comment": "Resolution status flag",
+                  "type": "boolean",
+                  "default": false
+                },
+                "date_resolved": {
+                  "comment": "Timestamp when feedback was resolved",
+                  "type": "datetime",
+                  "nullable": true
+                },
+                "resolved_by": {
+                  "comment": "ID of user who resolved the feedback",
+                  "type": "ref",
+                  "nullable": true
+                }
+              },
+              "index": {
+                "created": {
+                  "type": "index",
+                  "attrs": ["date_created"]
+                },
+                "resolved": {
+                  "type": "index",
+                  "attrs": ["is_resolved"]
+                }
+              },
+              "reference": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {
+                    "path": "/app/user",
+                    "attrs": ["id"]
+                  },
+                  "action": {
+                    "delete": "cascade",
+                    "update": "cascade"
+                  }
+                },
+                "resolver": {
+                  "attrs": ["resolved_by"],
+                  "ref": {
+                    "path": "/app/user",
+                    "attrs": ["id"]
+                  },
+                  "action": {
+                    "delete": "cascade",
+                    "update": "cascade"
+                  }
+                }
+              }
+            }
+          }
+        },
         "user": {
           "entity": {
             "profile": {

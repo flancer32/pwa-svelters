@@ -180,48 +180,39 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get {
             const response = endpoint.createRes();
             response.meta.code = RESULT.UNKNOWN;
             response.meta.ok = false;
+            await trxWrapper.execute(null, async (trx) => {
+                // AUTHORIZATION
+                const {isAuthorized, userId} = await oauth2.authorize({req, trx});
+                if (isAuthorized) {
+                    /** @type {Svelters_Shared_Web_Api_Calorie_Log_Get.Request} */
+                    const payload = zHelper.parseGetParams(req);
+                    const dateFrom = payload.dateFrom;
+                    const dateTo = payload.dateTo;
 
-            try {
-                await trxWrapper.execute(null, async (trx) => {
-                    // AUTHORIZATION
-                    const {isAuthorized, userId} = await oauth2.authorize({req, trx});
-                    if (isAuthorized) {
-                        /** @type {Svelters_Shared_Web_Api_Calorie_Log_Get.Request} */
-                        const payload = zHelper.parseGetParams(req);
-                        const dateFrom = payload.dateFrom;
-                        const dateTo = payload.dateTo;
+                    if (dateFrom && dateTo) {
+                        logger.info(`Received a request to retrieve the log records for user #${userId} `
+                            + `(period: ${dateFrom}) - ${dateTo}.`);
 
-                        if (dateFrom && dateTo) {
-                            logger.info(`Received a request to retrieve the log records for user #${userId} `
-                                + `(period: ${dateFrom}) - ${dateTo}.`);
+                        response.draftLogs = await selectDrafts(trx, userId, dateFrom, dateTo);
+                        response.finalLogs = await selectFinal(trx, userId, dateFrom, dateTo);
 
-                            response.draftLogs = await selectDrafts(trx, userId, dateFrom, dateTo);
-                            response.finalLogs = await selectFinal(trx, userId, dateFrom, dateTo);
-
-                            // Send the response
-                            response.meta.ok = true;
-                            response.meta.code = RESULT.SUCCESS;
-                            const body = JSON.stringify(response);
-                            respond.code200_Ok({
-                                res,
-                                headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                                body,
-                            });
-                            logger.info(`Response sent: ${body}`);
-                        } else {
-                            respond.code400_BadRequest({res, body: 'Missed or incomplete period.'});
-                        }
+                        // Send the response
+                        response.meta.ok = true;
+                        response.meta.code = RESULT.SUCCESS;
+                        const body = JSON.stringify(response);
+                        respond.code200_Ok({
+                            res,
+                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                            body,
+                        });
+                        logger.info(`Response sent: ${body}`);
                     } else {
-                        respond.code401_Unauthorized({res});
+                        respond.code400_BadRequest({res, body: 'Missed or incomplete period.'});
                     }
-                });
-            } catch (e) {
-                logger.exception(e);
-                respond.code500_InternalServerError({
-                    res,
-                    body: `Internal server error: ${e?.message}`,
-                });
-            }
+                } else {
+                    respond.code401_Unauthorized({res});
+                }
+            });
         };
     }
 }

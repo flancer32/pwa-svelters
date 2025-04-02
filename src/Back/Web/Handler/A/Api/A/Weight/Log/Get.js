@@ -114,42 +114,33 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
             const response = endpoint.createRes();
             response.meta.code = RESULT.UNKNOWN;
             response.meta.ok = false;
+            await trxWrapper.execute(null, async (trx) => {
+                const {isAuthorized, userId} = await oauth2.authorize({req, trx});
+                if (isAuthorized) {
+                    const {dateFrom, dateTo} = zHelper.parseGetParams(req);
 
-            try {
-                await trxWrapper.execute(null, async (trx) => {
-                    const {isAuthorized, userId} = await oauth2.authorize({req, trx});
-                    if (isAuthorized) {
-                        const {dateFrom, dateTo} = zHelper.parseGetParams(req);
+                    if (dateFrom && dateTo) {
+                        logger.info(`Received request for current weight log (user #${userId}): ${dateFrom} - ${dateTo}`);
 
-                        if (dateFrom && dateTo) {
-                            logger.info(`Received request for current weight log (user #${userId}): ${dateFrom} - ${dateTo}`);
+                        response.items = await selectItems(trx, userId, dateFrom, dateTo);
+                        response.meta.ok = true;
+                        response.meta.code = RESULT.SUCCESS;
 
-                            response.items = await selectItems(trx, userId, dateFrom, dateTo);
-                            response.meta.ok = true;
-                            response.meta.code = RESULT.SUCCESS;
+                        const body = JSON.stringify(response);
+                        respond.code200_Ok({
+                            res,
+                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                            body,
+                        });
 
-                            const body = JSON.stringify(response);
-                            respond.code200_Ok({
-                                res,
-                                headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                                body,
-                            });
-
-                            logger.info(`Response sent with ${response.items.length} current weight entries.`);
-                        } else {
-                            respond.code400_BadRequest({res, body: 'Missing or incomplete date range.'});
-                        }
+                        logger.info(`Response sent with ${response.items.length} current weight entries.`);
                     } else {
-                        respond.code401_Unauthorized({res});
+                        respond.code400_BadRequest({res, body: 'Missing or incomplete date range.'});
                     }
-                });
-            } catch (e) {
-                logger.exception(e);
-                respond.code500_InternalServerError({
-                    res,
-                    body: `Internal server error: ${e?.message}`,
-                });
-            }
+                } else {
+                    respond.code401_Unauthorized({res});
+                }
+            });
         };
     }
 }

@@ -1,0 +1,14 @@
+### Submit a feedback
+POST https://{{host}}/app/api/feedback/submit
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "feedback": {
+    "lang": "ru",
+    "subject": "Feedback on Assistant experience",
+    "textEn": "I really appreciate how the Assistant supports my goals.",
+    "textOrigin": "Мне очень нравится, как Ассистент помогает мне следовать цели."
+  }
+}
+

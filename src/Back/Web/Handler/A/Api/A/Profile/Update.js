@@ -112,57 +112,49 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
             // MAIN
             /** @type {Svelters_Shared_Web_Api_Profile_Update.Request} */
             const payload = await zHelper.parsePostedData(req);
-            try {
-                logger.info(`Payload: ${JSON.stringify(payload)}`);
-                // use one transaction for all DB requests
-                await trxWrapper.execute(null, async (trx) => {
-                    // AUTHORIZATION
-                    const {isAuthorized, userId} = await oauth2.authorize({req, trx});
-                    if (isAuthorized) {
-                        const profile = payload?.profile;
-                        logger.info(`Received a request to update the profile for user #${userId}:`
-                            + ` ${JSON.stringify(profile)}`);
-                        // verify subscription date
-                        const {record: user} = await repoUser.readOne({trx, key: userId});
-                        if (user.date_subscription > new Date()) {
-                            const updatedFields = await updateProfile(trx, profile, userId);
-                            response.meta.code = RESULT.SUCCESS;
-                            response.meta.ok = true;
-                            response.meta.message
-                                = `The following fields were successfully updated: ${JSON.stringify(updatedFields)}`;
-                            // Send the response
-                            const body = JSON.stringify(response);
-                            respond.code200_Ok({
-                                res,
-                                headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                                body,
-                            });
-                            logger.info(`Response sent: ${body}`);
-                        } else {
-                            const date = helpCast.dateString(user.date_subscription);
-                            response.meta.code = RESULT.SUBSCRIPTION_EXPIRED;
-                            response.meta.message
-                                = `The user's subscription expired on ${date}, so the profile couldn't be updated.`;
-                            // Send the response
-                            const body = JSON.stringify(response);
-                            respond.code402_PaymentRequired({
-                                res,
-                                headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                                body,
-                            });
-                            logger.info(`Response sent: ${body}`);
-                        }
+            logger.info(`Payload: ${JSON.stringify(payload)}`);
+            // use one transaction for all DB requests
+            await trxWrapper.execute(null, async (trx) => {
+                // AUTHORIZATION
+                const {isAuthorized, userId} = await oauth2.authorize({req, trx});
+                if (isAuthorized) {
+                    const profile = payload?.profile;
+                    logger.info(`Received a request to update the profile for user #${userId}:`
+                        + ` ${JSON.stringify(profile)}`);
+                    // verify subscription date
+                    const {record: user} = await repoUser.readOne({trx, key: userId});
+                    if (user.date_subscription > new Date()) {
+                        const updatedFields = await updateProfile(trx, profile, userId);
+                        response.meta.code = RESULT.SUCCESS;
+                        response.meta.ok = true;
+                        response.meta.message
+                            = `The following fields were successfully updated: ${JSON.stringify(updatedFields)}`;
+                        // Send the response
+                        const body = JSON.stringify(response);
+                        respond.code200_Ok({
+                            res,
+                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                            body,
+                        });
+                        logger.info(`Response sent: ${body}`);
                     } else {
-                        respond.code401_Unauthorized({res});
+                        const date = helpCast.dateString(user.date_subscription);
+                        response.meta.code = RESULT.SUBSCRIPTION_EXPIRED;
+                        response.meta.message
+                            = `The user's subscription expired on ${date}, so the profile couldn't be updated.`;
+                        // Send the response
+                        const body = JSON.stringify(response);
+                        respond.code402_PaymentRequired({
+                            res,
+                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                            body,
+                        });
+                        logger.info(`Response sent: ${body}`);
                     }
-                });
-            } catch (e) {
-                logger.exception(e);
-                respond.code500_InternalServerError({
-                    res,
-                    body: `Internal server error: ${e?.message}`,
-                });
-            }
+                } else {
+                    respond.code401_Unauthorized({res});
+                }
+            });
         };
     }
 }

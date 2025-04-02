@@ -57,52 +57,46 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Save {
             /** @type {Svelters_Shared_Web_Api_Weight_Goal_Save.Request} */
             const payload = await zHelper.parsePostedData(req);
             const dtoWeight = payload.weight;
+            await trxWrapper.execute(null, async (trx) => {
+                const {isAuthorized, userId} = await oauth2.authorize({req, trx});
+                if (isAuthorized) {
+                    logger.info(`Received request to save a goal weight for user #${userId}:`
+                        + ` ${JSON.stringify(payload)}`);
+                    const grams = Math.round(dtoWeight.value * 1000); // Store weight as integer in grams
 
-            try {
-                await trxWrapper.execute(null, async (trx) => {
-                    const {isAuthorized, userId} = await oauth2.authorize({req, trx});
-                    if (isAuthorized) {
-                        logger.info(`Received request to save a goal weight for user #${userId}:`
-                            + ` ${JSON.stringify(payload)}`);
-                        const grams = Math.round(dtoWeight.value * 1000); // Store weight as integer in grams
+                    const key = {
+                        [A_WEIGHT.DATE]: helpCast.dateString(dtoWeight.date),
+                        [A_WEIGHT.USER_REF]: userId,
+                    };
+                    const {record: updates} = await repoWeightLog.readOne({trx, key});
 
-                        const key = {
-                            [A_WEIGHT.DATE]: helpCast.dateString(dtoWeight.date),
-                            [A_WEIGHT.USER_REF]: userId,
-                        };
-                        const {record: updates} = await repoWeightLog.readOne({trx, key});
-
-                        if (updates) {
-                            updates.note = dtoWeight.note;
-                            updates.value = grams;
-                            await repoWeightLog.updateOne({trx, updates});
-                            logger.info(`Goal weight updated for user #${userId}, date '${updates.date}'.`);
-                            response.meta.code = RESULT.SUCCESS_UPDATED;
-                        } else {
-                            const dto = repoWeightLog.createDto();
-                            dto.user_ref = userId;
-                            dto.date = helpCast.dateString(dtoWeight.date);
-                            dto.note = dtoWeight.note;
-                            dto.value = grams;
-                            await repoWeightLog.createOne({trx, dto});
-                            logger.info(`New goal weight saved for user #${userId}, date '${dto.date}'.`);
-                            response.meta.code = RESULT.SUCCESS_INSERTED;
-                        }
-
-                        response.meta.ok = true;
-                        respond.code200_Ok({
-                            res,
-                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                            body: JSON.stringify(response),
-                        });
+                    if (updates) {
+                        updates.note = dtoWeight.note;
+                        updates.value = grams;
+                        await repoWeightLog.updateOne({trx, updates});
+                        logger.info(`Goal weight updated for user #${userId}, date '${updates.date}'.`);
+                        response.meta.code = RESULT.SUCCESS_UPDATED;
                     } else {
-                        respond.code401_Unauthorized({res});
+                        const dto = repoWeightLog.createDto();
+                        dto.user_ref = userId;
+                        dto.date = helpCast.dateString(dtoWeight.date);
+                        dto.note = dtoWeight.note;
+                        dto.value = grams;
+                        await repoWeightLog.createOne({trx, dto});
+                        logger.info(`New goal weight saved for user #${userId}, date '${dto.date}'.`);
+                        response.meta.code = RESULT.SUCCESS_INSERTED;
                     }
-                });
-            } catch (e) {
-                logger.exception(e);
-                respond.code500_InternalServerError({res, body: e?.message});
-            }
+
+                    response.meta.ok = true;
+                    respond.code200_Ok({
+                        res,
+                        headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                        body: JSON.stringify(response),
+                    });
+                } else {
+                    respond.code401_Unauthorized({res});
+                }
+            });
         };
     }
 }

@@ -25,6 +25,7 @@
     "start": "node ./bin/tequila.mjs web-server-start",
     "stop": "node ./bin/tequila.mjs web-server-stop",
     "test:accept": "mocha ./test/accept --recursive",
+    "test:open-api": "node ./bin/tequila.mjs app-openapi",
     "test:unit": "mocha ./test/unit --recursive"
   },
   "dependencies": {

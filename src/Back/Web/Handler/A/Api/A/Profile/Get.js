@@ -44,36 +44,27 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
             const response = endpoint.createRes();
             response.meta.code = RESULT.UNKNOWN;
             response.meta.ok = false;
-
-            try {
-                await trxWrapper.execute(null, async (trx) => {
-                    // AUTHORIZATION
-                    const {isAuthorized, userId} = await oauth2.authorize({req, trx});
-                    if (isAuthorized) {
-                        logger.info(`Received a request to retrieve the profile for user #${userId}.`);
-                        response.meta.ok = true;
-                        response.meta.code = RESULT.SUCCESS;
-                        const {profile} = await actProfileRead.run({trx, userId});
-                        response.profile = profile;
-                        // Send the response
-                        const body = JSON.stringify(response);
-                        respond.code200_Ok({
-                            res,
-                            headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
-                            body,
-                        });
-                        logger.info(`Response sent: ${body}`);
-                    } else {
-                        respond.code401_Unauthorized({res});
-                    }
-                });
-            } catch (e) {
-                logger.exception(e);
-                respond.code500_InternalServerError({
-                    res,
-                    body: `Internal server error: ${e?.message}`,
-                });
-            }
+            await trxWrapper.execute(null, async (trx) => {
+                // AUTHORIZATION
+                const {isAuthorized, userId} = await oauth2.authorize({req, trx});
+                if (isAuthorized) {
+                    logger.info(`Received a request to retrieve the profile for user #${userId}.`);
+                    response.meta.ok = true;
+                    response.meta.code = RESULT.SUCCESS;
+                    const {profile} = await actProfileRead.run({trx, userId});
+                    response.profile = profile;
+                    // Send the response
+                    const body = JSON.stringify(response);
+                    respond.code200_Ok({
+                        res,
+                        headers: {[HTTP2_HEADER_CONTENT_TYPE]: 'application/json'},
+                        body,
+                    });
+                    logger.info(`Response sent: ${body}`);
+                } else {
+                    respond.code401_Unauthorized({res});
+                }
+            });
         };
     }
 }

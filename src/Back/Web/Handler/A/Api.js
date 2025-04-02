@@ -6,6 +6,7 @@ export default class Svelters_Back_Web_Handler_A_Api {
      * @param {Svelters_Back_Defaults} DEF
      * @param {Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get} aCalorieLogGet
      * @param {Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save} aCalorieLogSave
+     * @param {Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit} aFeedbackSubmit
      * @param {Svelters_Back_Web_Handler_A_Api_A_Profile_Get} aProfileGet
      * @param {Svelters_Back_Web_Handler_A_Api_A_Profile_Update} aProfileUpdate
      * @param {Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Get} aWeighGoalGet
@@ -18,6 +19,7 @@ export default class Svelters_Back_Web_Handler_A_Api {
             Svelters_Back_Defaults$: DEF,
             Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Get$: aCalorieLogGet,
             Svelters_Back_Web_Handler_A_Api_A_Calorie_Log_Save$: aCalorieLogSave,
+            Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit$: aFeedbackSubmit,
             Svelters_Back_Web_Handler_A_Api_A_Profile_Get$: aProfileGet,
             Svelters_Back_Web_Handler_A_Api_A_Profile_Update$: aProfileUpdate,
             Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Get$: aWeighGoalGet,
@@ -42,6 +44,9 @@ export default class Svelters_Back_Web_Handler_A_Api {
                     // /app/api/calorie/log/...
                     if (parts[5] === 'get') await aCalorieLogGet.run(req, res);
                     else if (parts[5] === 'save') await aCalorieLogSave.run(req, res);
+                } else if (parts[3] === 'feedback') {
+                    // /app/api/feedback/...
+                    if (parts[4] === 'submit') await aFeedbackSubmit.run(req, res);
                 } else if (parts[3] === 'profile') {
                     // /app/api/profile/...
                     if (parts[4] === 'get') await aProfileGet.run(req, res);
