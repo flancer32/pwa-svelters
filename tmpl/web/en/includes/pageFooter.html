@@ -12,10 +12,26 @@
     <p class="text-xs text-gray-500 mt-2">&copy; 2025 "F. Lancer", SIA. All rights reserved.</p>
 </footer>
 
+<!-- Consent Notice -->
+<div id="tracking-consent"
+     class="fixed bottom-4 left-4 right-4 max-w-screen-md mx-auto bg-white border border-gray-300 text-gray-800 text-sm px-4 py-3 shadow-lg rounded-md z-[9999] opacity-0 translate-y-4 transition-all duration-500 pointer-events-none">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <span>We use cookies and personal data for analytics and optimization. By continuing, you accept this.</span>
+        <button id="consent-accept"
+                class="w-max bg-green-600 text-white px-4 py-1.5 rounded hover:bg-green-700 text-sm">
+            Accept
+        </button>
+    </div>
+</div>
+
 <script type="module">
     import('/js/lib/lucide.min.js').then(() => {
         lucide.createIcons();
     }).catch(console.error);
+    import('/js/di.js')
+        .then(({container}) => {
+            container.get('Svelters_Front_Ui_Gdpr$');
+        }).catch(console.error);
 </script>
 
 <script>

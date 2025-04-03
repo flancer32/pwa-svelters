@@ -1,6 +1,5 @@
 import {strict as assert} from 'assert';
 import {createLocalContainer, stopApp} from '../../../../common.mjs';
-import Fl64_Paypal_Back_Api_Adapter from '@flancer64/teq-agave-paypal/src/Back/Api/Adapter.js';
 
 // SETUP CONTAINER
 const container = await createLocalContainer();

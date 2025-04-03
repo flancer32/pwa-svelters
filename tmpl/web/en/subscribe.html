@@ -105,7 +105,24 @@
 
     <script src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&currency={{currency}}"></script>
 
-    <script type="module" src="/js/route/subscribe.js"></script>
+    <script type="module">
+        import('/js/di.js')
+            .then(({container}) => {
+                container.get('Svelters_Front_Ui_Page_Subscribe$');
+                /**
+                 * @typedef {Object} CartItem
+                 * @see `purchaseUnits` in https://developer.paypal.com/docs/api/orders/v2/#orders_create
+                 * @property {string} description - Description of the cart item.
+                 * @property {{value: string, currency: string}} amount - Amount details.
+                 */
+
+                /**
+                 * @typedef {Object} CartData
+                 * @property {CartItem[]} cart - List of items in the cart.
+                 * @property {string} discountCode - Applied discount code.
+                 */
+            }).catch(console.error);
+    </script>
 
     {{/canSubscribe}}
 

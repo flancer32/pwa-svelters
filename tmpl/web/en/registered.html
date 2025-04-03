@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<script>gtag('event', 'signup');</script>
+<main>
+    <!-- Success Message -->
+    <div class="text-center max-w-xl mx-auto mt-12">
+        <h2 class="text-3xl font-bold text-green-600">Welcome to NutriLog!</h2>
+        <p class="mt-4 text-gray-700">
+            You’ve successfully registered using your preferred provider.
+        </p>
+        <p class="mt-2 text-gray-700">
+            NutriLog is powered by a custom AI Assistant that helps you track your meals, monitor your weight,
+            and stay motivated on your journey to a healthier lifestyle.
+        </p>
+        <p class="mt-2 text-gray-700">
+            Your Assistant is always available through a pre-configured GPT chat, designed to support you with
+            personalized recommendations and friendly guidance.
+        </p>
+    </div>
+
+    <!-- GPT Chat Link -->
+    <div class="text-center mt-8">
+        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+           class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition">
+            Open NutriLog AI Assistant
+        </a>
+        <p class="mt-3 text-gray-500 text-sm">You’ll be redirected to ChatGPT. A Plus subscription is required.</p>
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>
