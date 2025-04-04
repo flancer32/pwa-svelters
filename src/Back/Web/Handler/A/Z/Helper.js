@@ -33,6 +33,7 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         const MONTHS_RENEW = DEF.SUBSCRIPTION_MONTHS_RENEW;
         const includes = {
             'blockAnon': 'includes/blockAnon.html',
+            'uiBtnGptChat': 'includes/ui/btnGptChat.html',
             'htmlHead': 'includes/htmlHead.html',
             'pageHeader': 'includes/pageHeader.html',
             'pageFooter': 'includes/pageFooter.html',

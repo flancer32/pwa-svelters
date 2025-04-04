@@ -38,15 +38,15 @@
         <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
             <p class="text-lg font-semibold text-green-800">🎉 You're in the beta!</p>
             <p class="mt-2 text-gray-800">
-                Thanks for being one of the first <strong>NutriLog beta testers</strong>. You’re helping shape the future of AI-powered health tools.
+                Thanks for being one of the first <strong>NutriLog beta testers</strong>. You’re helping shape the
+                future of AI-powered health tools.
             </p>
             <p class="mt-2 text-gray-700">
                 You can launch your NutriLog assistant anytime — your memory is active and ready.
             </p>
-            <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
-               class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-200">
-                Open NutriLog in ChatGPT
-            </a>
+            {{> uiBtnGptChat}}
+
+
         </div>
         {{/isAuthenticated}}
 
