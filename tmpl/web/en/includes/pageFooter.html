@@ -30,12 +30,13 @@
     }).catch(console.error);
     import('/js/di.js')
         .then(({container}) => {
-            container.get('Svelters_Front_Ui_Gdpr$');
+            container.get('Svelters_Front_Ui_App$');
         }).catch(console.error);
 </script>
 
 <script>
     function changeLanguage(lang) {
+        // TODO: move this code to `Svelters_Front_Ui_App`
         document.documentElement.lang = lang;
         document.cookie = `locale=${lang}; path=/; max-age=31536000`; // 1 year
         location.reload();

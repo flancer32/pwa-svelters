@@ -22,7 +22,7 @@
     });
 
     // Check if user has previously granted consent and update state early
-    const hasConsent = localStorage.getItem('gdpr_consent_accepted'); // see Svelters_Front_Ui_Gdpr
+    const hasConsent = localStorage.getItem('nl_gdpr_consent_accepted'); // see Svelters_Front_Ui_App_Gdpr
     if (hasConsent) {
         gtag('consent', 'update', {
             ad_personalization: 'granted',
