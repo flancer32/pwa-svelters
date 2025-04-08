@@ -49,7 +49,7 @@ export default class Svelters_Back_Di_Replace_Tmpl_Adapter {
             // cache the loaded partials in production mode
             /** @type {TeqFw_Core_Back_Plugin_Dto_Config_Local.Dto} */
             const cfg = config.getLocal(DEF.MOD_CORE.SHARED.NAME);
-            if (!cfg.devMode) {cache[localeUser] = res;}
+            if (!cfg?.devMode) {cache[localeUser] = res;}
             return res;
         }
 
