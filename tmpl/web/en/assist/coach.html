@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <!-- Hero Section -->
+    <div class="max-w-2xl mx-auto text-center px-4">
+        <h1 class="text-3xl font-bold text-gray-900">Smarter Coaching with AI</h1>
+        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Your personal assistant for habits and health</h2>
+        <p class="text-gray-700 mt-4">
+            NutriLog uses ChatGPT to support your journey with <strong>nutrition, weight</strong>, and <strong>daily
+            decisions</strong>.
+        </p>
+        <p class="text-gray-700 mt-4">
+            Just talk. Your AI coach listens, remembers, and helps you improve — one message at a time.
+        </p>
+
+        <!-- CTA Early -->
+        {{^isAuthenticated}}
+        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
+            <p class="text-lg font-semibold text-green-800">🚀 Limited beta access</p>
+            <p class="mt-2 text-gray-800"><span class="font-bold text-green-700">{{betaUsersLeft}}</span> slots left</p>
+            <a href="/app/register"
+               class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-200">
+                Try NutriLog Now
+            </a>
+        </div>
+        {{/isAuthenticated}}
+
+        {{#isAuthenticated}}
+        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
+            <p class="text-lg font-semibold text-green-800">🎉 You're in!</p>
+            <p class="mt-2 text-gray-800">
+                NutriLog is your AI-powered coach inside ChatGPT. It's time to track and grow with ease.
+            </p>
+            {{> uiBtnGptChat}}
+        </div>
+        {{/isAuthenticated}}
+    </div>
+
+    <!-- Who is it for -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-semibold text-gray-900">👥 Ideal for:</h3>
+        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>ChatGPT users who care about long-term progress</li>
+            <li>People who track habits, meals, or weight</li>
+            <li>Anyone seeking support without extra apps or tools</li>
+            <li>Those who want feedback that gets smarter over time</li>
+        </ul>
+    </div>
+
+    <!-- What it does -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-semibold text-gray-900">🧠 What NutriLog brings</h3>
+        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>Real-time support via chat — with memory</li>
+            <li>Guided tracking of food and fitness</li>
+            <li>Personalized tips based on your history</li>
+            <li>Works via text or voice — anytime, anywhere</li>
+        </ul>
+        <p class="text-gray-900 font-bold mt-4">💡 Think less, log smarter. Let AI do the heavy lifting.</p>
+    </div>
+
+    <!-- How to start -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-semibold text-gray-900">🚀 How to begin</h3>
+        <ol class="list-decimal list-inside text-gray-700 mt-4 space-y-1">
+            <li>Open NutriLog inside ChatGPT</li>
+            <li>Tell your coach your goals or meals</li>
+            <li>It stores everything — even voice input</li>
+            <li>You get continuity and smarter responses</li>
+            <li>No apps. No tracking sheets. Just chat.</li>
+        </ol>
+    </div>
+
+    <!-- CTA Final -->
+    {{^isAuthenticated}}
+    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
+        <h3 class="text-lg font-semibold">💬 Join and talk to your coach today</h3>
+        <a href="/app/register"
+           class="flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
+            <i data-lucide="zap" class="mr-2"></i> Start Free Trial
+        </a>
+    </div>
+    {{/isAuthenticated}}
+
+    {{#isAuthenticated}}
+    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
+        <h3 class="text-lg font-semibold">👟 Continue your progress with AI</h3>
+        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+           class="nl-gpt-chat-link flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
+            Launch Coach in ChatGPT
+        </a>
+    </div>
+    {{/isAuthenticated}}
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

@@ -4,6 +4,8 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
      * @param {typeof import('node:url')} url
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
+     * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
+     * @param {Svelters_Back_Store_RDb_Schema_User} rdbUser
      * @param {Svelters_Shared_Helper_Cast} helpCast
      * @param {Fl64_Tmpl_Back_Act_FindTemplate} actFind
      * @param {Fl64_Tmpl_Back_Act_LoadTemplate} actLoad
@@ -16,6 +18,8 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
             'node:url': url,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
+            TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
+            Svelters_Back_Store_RDb_Schema_User$: rdbUser,
             Svelters_Shared_Helper_Cast$: helpCast,
             Fl64_Tmpl_Back_Act_FindTemplate$: actFind,
             Fl64_Tmpl_Back_Act_LoadTemplate$: actLoad,
@@ -90,7 +94,26 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         };
 
         /**
+         * @param {Object} params
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
+         * @returns {Promise<number>}
+         */
+        this.getUsersCount = async function ({trx: trxOuter} = {}) {
+            return await trxWrapper.execute(trxOuter, async (trx) => {
+                const table = trx.getTableName(rdbUser);
+                /** @type {Knex.QueryBuilder} */
+                const query = trx.createQuery();
+                query.table(table);
+                query.count('*');
+                const [{count}] = await query;
+                return 100 - Number.parseInt(count);
+            });
+        };
+
+        /**
          * @return {Promise<Object<string, string>>}
+         * @deprecated
+         * @see Fl64_Tmpl_Back_Service_Render_Web.perform
          */
         this.loadPartials = async function (localeUser) {
             if (!cache?.[localeUser]) {

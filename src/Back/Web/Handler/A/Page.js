@@ -40,6 +40,7 @@ export default class Svelters_Back_Web_Handler_A_Page {
             const type = TYPE.WEB;
             const {dto} = await session.getFromRequest({req});
             const view = {
+                betaUsersLeft: await zHelper.getUsersCount(),
                 isAuthenticated: !!dto?.user_ref,
             };
             const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
