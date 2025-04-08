@@ -1,0 +1,9 @@
+{
+  "vars": [
+    "isAuthenticated",
+    "isInvalidResponseType",
+    "isMissingParams",
+    "isUnknownError",
+    "isWrongClientId"
+  ]
+}

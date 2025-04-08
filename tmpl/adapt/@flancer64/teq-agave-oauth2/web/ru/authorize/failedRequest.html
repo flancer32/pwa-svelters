@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Ошибка авторизации</h1>
+
+    <div class="alert-error" role="alert">
+        {{#isMissingParams}}
+        <span>В запросе отсутствуют обязательные параметры.</span>
+        {{/isMissingParams}}
+
+        {{#isInvalidResponseType}}
+        <span>Недопустимый тип ответа. Ожидается "code".</span>
+        {{/isInvalidResponseType}}
+
+        {{#isUnknownError}}
+        <span>Произошла непредвиденная ошибка. Проверьте параметры запроса и повторите попытку.</span>
+        {{/isUnknownError}}
+
+        {{#isWrongClientId}}
+        <span>OAuth2-клиент, запрашивающий авторизацию, не зарегистрирован в приложении.</span>
+        {{/isWrongClientId}}
+    </div>
+
+    <div class="btn-center">
+        <a href="/" class="btn-primary">
+            На главную
+        </a>
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

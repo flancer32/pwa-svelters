@@ -1,4 +1,5 @@
 @import url("./style/tailwind.min.css");
+@import url("./style/btn.css");
 
 /* Base styles */
 body {
@@ -53,4 +54,15 @@ main {
     max-width: 48rem; /* 3xl */
     margin: 0 auto;
     padding: 6rem 1rem; /* Vertical and horizontal padding */
+}
+
+/* Error message block */
+.alert-error {
+    background-color: #fee2e2; /* Tailwind: bg-red-100 */
+    border: 1px solid #f87171; /* Tailwind: border-red-400 */
+    color: #b91c1c;            /* Tailwind: text-red-700 */
+    border-radius: 0.5rem;     /* Tailwind: rounded-lg */
+    padding: 0.75rem 1rem;     /* Tailwind: py-3 px-4 */
+    margin-bottom: 1rem;       /* Tailwind: mb-4 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Tailwind: shadow-sm */
 }

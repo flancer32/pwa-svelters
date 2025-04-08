@@ -1,0 +1,10 @@
+{
+  "vars": [
+    "clientName",
+    "code",
+    "isAuthenticated",
+    "redirectUri",
+    "scopes",
+    "state"
+  ]
+}

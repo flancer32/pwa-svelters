@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Authorization Error</h1>
+
+    <div class="alert-error" role="alert">
+        {{#isMissingParams}}
+        <span>The request is missing required parameters.</span>
+        {{/isMissingParams}}
+
+        {{#isInvalidResponseType}}
+        <span>The response type is invalid. Expected "code".</span>
+        {{/isInvalidResponseType}}
+
+        {{#isUnknownError}}
+        <span>An unexpected error occurred. Please check your request and try
+        again.</span>
+        {{/isUnknownError}}
+
+        {{#isWrongClientId}}
+        <span>The OAuth2 client requesting authorization is not registered in the application.</span>
+        {{/isWrongClientId}}
+    </div>
+
+
+    <div class="btn-center">
+        <a href="/" class="btn-primary">
+            Go to Homepage
+        </a>
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

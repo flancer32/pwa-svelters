@@ -5,6 +5,8 @@ export default class Svelters_Back_Defaults {
 
     CLI_PREFIX = 'app';
 
+    /** @type {TeqFw_Core_Back_Defaults} */
+    MOD_CORE;
     /** @type {TeqFw_Web_Back_Defaults} */
     MOD_WEB;
 
@@ -22,15 +24,18 @@ export default class Svelters_Back_Defaults {
     SUBSCRIPTION_USERS_MAX = 100; // Total number of users to get promo
 
     /**
+     * @param {TeqFw_Core_Back_Defaults} MOD_CORE
      * @param {TeqFw_Web_Back_Defaults} MOD_WEB
      * @param {Svelters_Shared_Defaults} SHARED
      */
     constructor(
         {
+            TeqFw_Core_Back_Defaults$: MOD_CORE,
             TeqFw_Web_Back_Defaults$: MOD_WEB,
             Svelters_Shared_Defaults$: SHARED
         }
     ) {
+        this.MOD_CORE = MOD_CORE;
         this.MOD_WEB = MOD_WEB;
         this.SHARED = SHARED;
 
