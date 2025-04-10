@@ -12,6 +12,7 @@ const MODE = {
     RDB_DEM: 'RDB_DEM',
     RDB_REPO: 'RDB_REPO',
     RDB_SCHEMA: 'RDB_SCHEMA',
+    TEST: 'TEST',
 };
 
 // MAIN
@@ -30,6 +31,7 @@ const MODE = {
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Dem} aRdbDem
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Repo} aRdbRepo
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Schema} aRdbSchema
+ * @param {Svelters_Back_Cli_Deepseek_A_Test} aTest
  *
  * @returns {TeqFw_Core_Back_Api_Dto_Command}
  */
@@ -47,6 +49,7 @@ export default function Factory(
         Svelters_Back_Cli_Deepseek_A_Rdb_Dem$: aRdbDem,
         Svelters_Back_Cli_Deepseek_A_Rdb_Repo$: aRdbRepo,
         Svelters_Back_Cli_Deepseek_A_Rdb_Schema$: aRdbSchema,
+        Svelters_Back_Cli_Deepseek_A_Test$: aTest,
     }
 ) {
     // VARS
@@ -82,6 +85,9 @@ export default function Factory(
                 break;
             case MODE.RDB_SCHEMA:
                 await aRdbSchema.run(rootWork, rootDocs);
+                break;
+            case MODE.TEST:
+                await aTest.run(rootWork, rootDocs);
                 break;
         }
         await app.stop();

@@ -53,23 +53,29 @@ No explanations, comments, or extra text. Only the file block. Output must be co
         // MAIN LOGIC
 
         this.chatAsFile = async function (message, pathResult) {
-            const api = getOpenAI();
-            logger.info(`Starting a request to LLM...`);
-            const completion = await api.chat.completions.create({
-                model: AI_MODEL,
-                messages: [SYSTEM_FILE, message],
-            });
-            logger.info(`The LLM request is completed.`);
-            const content = completion.choices[0].message.content;
-            const match = content.match(/---FILE: (.+?)---\n([\s\S]+?)\n---END FILE---/);
-            if (!match) {
-                logger.error('Failed to extract generated file from response.');
-                return;
+            try {
+                const api = getOpenAI();
+                logger.info(`Starting a request to LLM...`);
+                const completion = await api.chat.completions.create({
+                    model: AI_MODEL,
+                    messages: [SYSTEM_FILE, message],
+                });
+                logger.info(`The LLM request is completed.`);
+                const content = completion.choices[0].message.content;
+                const match = content.match(/---FILE: (.+?)---\n([\s\S]+?)\n---END FILE---/);
+                if (!match) {
+                    logger.error('Failed to extract generated file from response.');
+                    return;
+                }
+                const [, , textResult] = match;
+                await fs.writeFile(pathResult, textResult, 'utf8');
+                logger.info(`Generated result saved to '${pathResult}'`);
+                return textResult;
+            } catch (e) {
+                logger.exception(e);
+                throw e;
             }
-            const [, , textResult] = match;
-            await fs.writeFile(pathResult, textResult, 'utf8');
-            logger.info(`Generated result saved to '${pathResult}'`);
-            return textResult;
+
         };
 
         /**

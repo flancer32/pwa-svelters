@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>About NutriLog</h1>
+
+    <p>
+        <img
+                src="/img/avatar_air_500px.webp"
+                alt="Alex Gusev"
+                class="w-32 h-32 rounded-full float-left mr-4 mb-2"
+        >
+        My name is Alex Gusev. I'm a web developer from Latvia with over 25 years of experience. NutriLog is my personal
+        experiment in integrating AI into everyday life. It started from a practical need — I used GPT chat to track my
+        weight but struggled with the lack of memory and context. That led me to build a system where GPT can "remember"
+        the user and their goals through external storage and a connected interface.
+    </p>
+
+    <p>
+        NutriLog stores key data — weight, diet, goals — and makes it available directly within the conversation.
+        Instead of forms and buttons, users interact naturally with the assistant. The system is based on the model
+        <strong>Custom GPT → Actions → Tools</strong> and is implemented using <strong>TeqFW</strong> — a platform
+        reflecting my development philosophy: modularity, JavaScript at all levels, flexible architecture, ease of
+        maintenance, and LLM readiness.
+    </p>
+
+    <p>
+        I was inspired by my friend Dmitry, who made real progress through a low-calorie diet. I realized that success
+        comes not only from AI support, but also from the feeling of being part of a community — real people facing the
+        same challenges. That’s why NutriLog is not just a tool, but an attempt to build infrastructure that connects
+        such users.
+    </p>
+
+    <p>
+        I don't position myself as a blogger or influencer. I'm a developer who built a solution for myself and is happy
+        to help others. If you’re looking for a similar setup tailored to your needs, I’m open to collaboration.
+    </p>
+
+    <p>
+        The project is currently in open beta. <strong>{{betaUsersLeft}} out of 100 free beta slots are still
+        available</strong>. Join in — you'll get 3 months of free access. Feedback, suggestions, and honest critique are
+        very welcome.
+    </p>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>
