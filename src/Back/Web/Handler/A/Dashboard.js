@@ -33,10 +33,12 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
          * @returns {Svelters_Shared_Dto_User_Profile.Dto}
          */
         function normProfile(profile) {
-            profile.dateBirth = helpCast.dateString(profile.dateBirth);
-            profile.dateCreated = helpCast.dateString(profile.dateCreated);
-            profile.dateSubscriptionEnd = helpCast.dateString(profile.dateSubscriptionEnd);
-            profile.dateUpdated = helpCast.dateString(profile.dateUpdated);
+            if (profile) {
+                profile.dateBirth = helpCast.dateString(profile.dateBirth);
+                profile.dateCreated = helpCast.dateString(profile.dateCreated);
+                profile.dateSubscriptionEnd = helpCast.dateString(profile.dateSubscriptionEnd);
+                profile.dateUpdated = helpCast.dateString(profile.dateUpdated);
+            }
             return profile;
         }
 
