@@ -6,23 +6,18 @@ export default class Svelters_Back_Web_Handler_A_Page {
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {Fl64_Web_Session_Back_Manager} session
-     * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
+     * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Web_Back_Help_Respond$: respond,
             Fl64_Web_Session_Back_Manager$: session,
-            Fl64_Tmpl_Back_Service_Render$: tmplRender,
+            Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
-        // VARS
-
-        // MAIN
         /**
          * Handles incoming HTTP requests.
          *
@@ -33,17 +28,17 @@ export default class Svelters_Back_Web_Handler_A_Page {
          * @return {Promise<void>}
          */
         this.run = async function (req, res, relativePath) {
-            const localeApp = DEF.SHARED.LOCALE;
-            const localeUser = zHelper.getLocale(req);
-            const name = relativePath;
-            const partials = await zHelper.loadPartials(localeUser);
-            const type = TYPE.WEB;
             const {dto} = await session.getFromRequest({req});
             const view = {
                 betaUsersLeft: await zHelper.getUsersCount(),
                 isAuthenticated: !!dto?.user_ref,
             };
-            const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
+            const {content: body} = await srvRender.perform({
+                name: relativePath,
+                localePkg: DEF.SHARED.LOCALE,
+                view,
+                req,
+            });
             if (body) {
                 respond.code200_Ok({res, body});
             }

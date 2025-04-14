@@ -7,9 +7,8 @@ export default class Svelters_Back_Web_Handler_A_Home {
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Fl64_Web_Session_Back_Manager} session
-     * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
+     * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
      */
     constructor(
         {
@@ -17,9 +16,8 @@ export default class Svelters_Back_Web_Handler_A_Home {
             TeqFw_Web_Back_Help_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Web_Session_Back_Manager$: session,
-            Fl64_Tmpl_Back_Service_Render$: tmplRender,
+            Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         /**
@@ -32,17 +30,18 @@ export default class Svelters_Back_Web_Handler_A_Home {
          */
         this.run = async function (req, res) {
             return await trxWrapper.execute(null, async (trx) => {
-                const localeApp = DEF.SHARED.LOCALE;
-                const localeUser = zHelper.getLocale(req);
-                const name = 'home.html';
-                const partials = await zHelper.loadPartials(localeUser);
-                const type = TYPE.WEB;
                 const {dto} = await session.getFromRequest({trx, req});
                 const view = {
                     betaUsersLeft: await zHelper.getUsersCount({trx}),
                     isAuthenticated: !!dto?.user_ref,
                 };
-                const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
+                const {content: body} = await srvRender.perform({
+                    name: 'home.html',
+                    localePkg: DEF.SHARED.LOCALE,
+                    view,
+                    req,
+                    trx,
+                });
                 respond.code200_Ok({res, body});
             });
 

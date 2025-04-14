@@ -7,10 +7,9 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
      * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
      * @param {Fl64_Web_Session_Back_Manager} session
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
-     * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
+     * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      * @param {Svelters_Shared_Helper_Cast} helpCast
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
      */
     constructor(
         {
@@ -18,10 +17,9 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
             TeqFw_Web_Back_Help_Respond$: respond,
             Fl64_Web_Session_Back_Manager$: session,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-            Fl64_Tmpl_Back_Service_Render$: tmplRender,
+            Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
             Svelters_Shared_Helper_Cast$: helpCast,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         // VARS
@@ -53,11 +51,6 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
          */
         this.run = async function (req, res) {
             return await trxWrapper.execute(null, async (trx) => {
-                const localeApp = DEF.SHARED.LOCALE;
-                const localeUser = zHelper.getLocale(req);
-                const name = 'dashboard.html';
-                const partials = await zHelper.loadPartials(localeUser);
-                const type = TYPE.WEB;
                 const {dto} = await session.getFromRequest({trx, req});
                 const isAuthenticated = !!dto?.user_ref;
                 const profile = (isAuthenticated)
@@ -70,7 +63,13 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
                     isAuthenticated,
                     profile: normProfile(profile),
                 };
-                const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
+                const {content: body} = await srvRender.perform({
+                    name: 'dashboard.html',
+                    localePkg: DEF.SHARED.LOCALE,
+                    view,
+                    req,
+                    trx,
+                });
                 if (body) {
                     respond.code200_Ok({res, body});
                 }

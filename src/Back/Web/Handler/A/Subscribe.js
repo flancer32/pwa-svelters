@@ -7,11 +7,10 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
      * @param {TeqFw_Web_Back_Help_Respond} respond
      * @param {Fl64_Web_Session_Back_Manager} session
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
-     * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
+     * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      * @param {Fl64_Paypal_Back_Client} client
      * @param {Svelters_Shared_Helper_Subscription} helpSubs
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TMPL
      * @param {typeof Svelters_Shared_Enum_Data_Type_Subscription} SUBS
      */
     constructor(
@@ -20,11 +19,10 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
             TeqFw_Web_Back_Help_Respond$: respond,
             Fl64_Web_Session_Back_Manager$: session,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-            Fl64_Tmpl_Back_Service_Render$: tmplRender,
+            Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
             Fl64_Paypal_Back_Client$: client,
             Svelters_Shared_Helper_Subscription$: helpSubs,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Fl64_Tmpl_Back_Enum_Type$: TMPL,
             Svelters_Shared_Enum_Data_Type_Subscription$: SUBS,
         }
     ) {
@@ -44,11 +42,6 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
         this.run = async function (req, res) {
             return await trxWrapper.execute(null, async (trx) => {
                 let amount, currency, description, dateSubscriptionEnd;
-                const localeApp = DEF.SHARED.LOCALE;
-                const localeUser = zHelper.getLocale(req);
-                const name = 'subscribe.html';
-                const partials = await zHelper.loadPartials(localeUser);
-                const type = TMPL.WEB;
                 const {dto} = await session.getFromRequest({trx, req});
                 const isAuthenticated = !!dto?.user_ref;
                 const profile = (isAuthenticated)
@@ -73,7 +66,13 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
                     isAuthenticated,
                     paypalClientId: client.getClientId(),
                 };
-                const {content: body} = await tmplRender.perform({name, type, localeUser, localeApp, view, partials});
+                const {content: body} = await srvRender.perform({
+                    name: 'subscribe.html',
+                    localePkg: DEF.SHARED.LOCALE,
+                    view,
+                    req,
+                    trx,
+                });
                 if (body) {
                     respond.code200_Ok({res, body});
                 }

@@ -10,9 +10,7 @@ export default class Svelters_Back_Web_Handler_404 {
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Web_Back_Help_Respond} respond
      * @param {Fl64_Web_Session_Back_Manager} session
-     * @param {Fl64_Tmpl_Back_Service_Render} tmplRender
-     * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
+     * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      */
     constructor(
         {
@@ -21,9 +19,7 @@ export default class Svelters_Back_Web_Handler_404 {
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
             Fl64_Web_Session_Back_Manager$: session,
-            Fl64_Tmpl_Back_Service_Render$: tmplRender,
-            Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
-            Fl64_Tmpl_Back_Enum_Type$: TYPE,
+            Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
         }
     ) {
         // VARS
@@ -46,22 +42,15 @@ export default class Svelters_Back_Web_Handler_404 {
                     const file = shares[DEF.MOD_WEB.SHARE_RES_FILE];
                     const body = shares[DEF.MOD_WEB.SHARE_RES_BODY];
                     if (!statusCode && !file && !body) {
-                        const localeApp = DEF.SHARED.LOCALE;
-                        const localeUser = zHelper.getLocale(req);
-                        const name = '404.html';
-                        const partials = await zHelper.loadPartials(localeUser);
-                        const type = TYPE.WEB;
                         const {dto} = await session.getFromRequest({req});
                         const view = {
                             isAuthenticated: !!dto?.user_ref,
                         };
-                        const {content: body} = await tmplRender.perform({
-                            name,
-                            type,
-                            localeUser,
-                            localeApp,
+                        const {content: body} = await srvRender.perform({
+                            name: '404.html',
+                            localePkg: DEF.SHARED.LOCALE,
                             view,
-                            partials
+                            req,
                         });
                         respond.code404_NotFound({
                             res, body, headers: {
