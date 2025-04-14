@@ -34,13 +34,15 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
             HTTP2_METHOD_POST,
         } = http2.constants;
         const {URLSearchParams} = url;
+        const COOKIE = DEF.SHARED.COOKIE_LOCALE;
         const MONTHS_RENEW = DEF.SUBSCRIPTION_MONTHS_RENEW;
         const includes = {
             'blockAnon': 'includes/blockAnon.html',
-            'uiBtnGptChat': 'includes/ui/btnGptChat.html',
             'htmlHead': 'includes/htmlHead.html',
-            'pageHeader': 'includes/pageHeader.html',
+            'lang': 'includes/lang.html',
             'pageFooter': 'includes/pageFooter.html',
+            'pageHeader': 'includes/pageHeader.html',
+            'uiBtnGptChat': 'includes/ui/btnGptChat.html',
         };
         /** @type {Object.<string, Object.<string, string>>} */
         const cache = {};
@@ -72,10 +74,10 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
          */
         this.getLocale = function (req) {
             let res = DEF.SHARED.LOCALE;
-
             // Check locale in cookies
             const cookies = req.headers.cookie || '';
-            const cookieMatch = cookies.match(/locale=([^;]+)/);
+            const matcher = new RegExp(`${COOKIE}=([^;]+)`);
+            const cookieMatch = cookies.match(matcher);
             if (cookieMatch) {
                 const cookieLocale = cookieMatch[1];
                 if (DEF.SHARED.LOCALE_AVAILABLE.includes(cookieLocale)) res = cookieLocale;

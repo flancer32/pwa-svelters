@@ -25,10 +25,11 @@ export default class Svelters_Back_Di_Replace_Tmpl_Adapter {
         // VARS
         const includes = {
             'blockAnon': 'includes/blockAnon.html',
-            'uiBtnGptChat': 'includes/ui/btnGptChat.html',
             'htmlHead': 'includes/htmlHead.html',
-            'pageHeader': 'includes/pageHeader.html',
+            'lang': 'includes/lang.html',
             'pageFooter': 'includes/pageFooter.html',
+            'pageHeader': 'includes/pageHeader.html',
+            'uiBtnGptChat': 'includes/ui/btnGptChat.html',
         };
         /** @type {Object.<string, Object.<string, string>>} */
         const cache = {};

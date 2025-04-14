@@ -1,13 +1,19 @@
 /**
- * TODO
+ * Entry point UI module for initializing application-wide client-side behavior.
+ *
+ * Sets up event listeners for GDPR handling and tracking of GPT assistant usage.
+ * Specifically, registers `click` event handlers on links to the assistant
+ * and sends analytics data to Google Analytics (`gtag`) once per session.
  */
 export default class Svelters_Front_Ui_App {
     /**
      * @param {Svelters_Front_Ui_App_Gdpr}  appGdpr
+     * @param {Svelters_Front_Ui_App_Lang} appLang
      */
     constructor(
         {
-            Svelters_Front_Ui_App_Gdpr$, // just import the module
+            Svelters_Front_Ui_App_Gdpr$: appGdpr, // just import the module
+            Svelters_Front_Ui_App_Lang$: appLang, // just import the module
         }
     ) {
         // VARS

@@ -2,6 +2,9 @@
  * Plugin constants (hardcoded configuration) for shared code.
  */
 export default class Svelters_Shared_Defaults {
+
+    COOKIE_LOCALE = 'locale';
+
     LOCALE = 'en'; // default locale for the app
     LOCALE_AVAILABLE = ['en', 'ru'];
 

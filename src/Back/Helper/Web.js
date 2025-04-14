@@ -24,6 +24,7 @@ export default class Svelters_Back_Helper_Web {
         const {
             HTTP2_HEADER_ACCEPT_LANGUAGE,
         } = http2.constants;
+        const COOKIE = DEF.SHARED.COOKIE_LOCALE;
 
         // FUNCS
         /**
@@ -118,7 +119,8 @@ export default class Svelters_Back_Helper_Web {
 
             // Check locale in cookies
             const cookies = req.headers.cookie || '';
-            const cookieMatch = cookies.match(/locale=([^;]+)/);
+            const matcher = new RegExp(`${COOKIE}=([^;]+)`);
+            const cookieMatch = cookies.match(matcher);
             if (cookieMatch) {
                 const cookieLocale = cookieMatch[1];
                 if (DEF.SHARED.LOCALE_AVAILABLE.includes(cookieLocale)) res = cookieLocale;
