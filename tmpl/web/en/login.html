@@ -33,10 +33,13 @@
             <input type="hidden" name="xsrf_token" id="xsrf_token" value="{{xsrfToken}}">
 
             <p id="success-msg" class="hidden text-green-600">An authentication link has been sent to your email.</p>
-            <p id="error-EMAIL_NOT_ALLOWED" class="hidden text-red-600">This email is not allowed.</p>
-            <p id="error-EMAIL_NOT_SENT" class="hidden text-red-600">Failed to send verification email.</p>
-            <p id="error-WRONG_XSRF" class="hidden text-red-600">Invalid security token. Please reload the page.</p>
-            <p id="error-UNDEFINED" class="hidden text-red-600">Unexpected server error. Please try again later.</p>
+            <p id="error-EMAIL_NOT_ALLOWED" class="error-message hidden text-red-600">This email is not allowed.</p>
+            <p id="error-EMAIL_NOT_SENT" class="error-message hidden text-red-600">Failed to send verification
+                email.</p>
+            <p id="error-WRONG_XSRF" class="error-message hidden text-red-600">Invalid security token. Please reload the
+                page.</p>
+            <p id="error-UNDEFINED" class="error-message hidden text-red-600">Unexpected server error. Please try again
+                later.</p>
 
             <div id="loading" class="hidden text-gray-500">Processing...</div>
         </form>
@@ -68,11 +71,10 @@
 </main>
 
 <script type="module">
-    /** @type {TeqFw_Di_Container} */
-    import containerOtp from '/web/@flancer64/teq-agave-auth-otp/js/di.js';
-
-    /** @type {Fl64_Auth_Otp_Front_Ui_Page_Login} */
-    const page = await containerOtp.get('Fl64_Auth_Otp_Front_Ui_Page_Login$');
+    import('/js/di.js')
+        .then(({container}) => {
+            container.get('Fl64_Auth_Otp_Front_Ui_Page_Login$');
+        }).catch(console.error);
 </script>
 
 {{> pageFooter}}
