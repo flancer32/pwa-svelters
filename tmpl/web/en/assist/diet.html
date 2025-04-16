@@ -11,16 +11,16 @@
     <!-- Hero Section -->
     <div class="max-w-2xl mx-auto text-center px-4">
         <h1 class="text-3xl font-bold text-gray-900">Meet your GPT-Powered Diet Coach</h1>
-        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Track calories and goals in natural conversation</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Stay on track through honest, daily conversation</h2>
         <p class="text-gray-700 mt-4">
-            NutriLog connects with ChatGPT to help you stay on track with <strong>nutrition</strong>, <strong>weight
-            goals</strong>, and <strong>daily habits</strong>.
+            NutriLog connects with ChatGPT to help you manage your <strong>nutrition</strong>, <strong>weight
+            goals</strong>, and <strong>daily habits</strong> — one message at a time.
         </p>
         <p class="text-gray-700 mt-4">
-            Your AI assistant remembers what you eat, how you feel, and what you want to achieve — in text or voice.
+            Your assistant remembers what you eat, how you feel, and what you aim for — in natural text or voice. But it
+            only works if you do.
         </p>
 
-        <!-- CTA Early -->
         {{^isAuthenticated}}
         <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
             <p class="text-lg font-semibold text-green-800">🚀 Join the beta program</p>
@@ -36,45 +36,64 @@
         <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
             <p class="text-lg font-semibold text-green-800">🎉 You’re in the beta!</p>
             <p class="mt-2 text-gray-800">
-                NutriLog is now your <strong>AI diet coach</strong>. Talk to it like you talk to ChatGPT — only smarter.
+                NutriLog is now your <strong>AI diet coach</strong>. Talk to it like you talk to ChatGPT — but keep it
+                real.
             </p>
             {{> uiBtnGptChat}}
         </div>
         {{/isAuthenticated}}
     </div>
 
-    <!-- For Whom -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">👤 NutriLog is ideal if you:</h3>
-        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
-            <li>Use ChatGPT regularly to explore goals or manage your lifestyle</li>
-            <li>Want to track calories and weight with zero friction</li>
-            <li>Prefer talking over tapping — use voice anytime</li>
-            <li>Wish your AI could <strong>remember you</strong> across sessions</li>
+    <!-- Sharp Filter Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left border-l-4 border-red-500">
+        <h3 class="text-xl font-bold text-gray-900">⛔ Not for everyone</h3>
+        <p class="mt-4 text-gray-700">
+            NutriLog is not a passive app. It’s a system for people who are ready to take full ownership of their
+            nutrition and mindset.
+        </p>
+        <p class="mt-4 text-gray-700">
+            This is for you if you’re willing to:
+        </p>
+        <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <li>Log every meal — no skipping, no excuses</li>
+            <li>Be radically honest about what you eat and how you feel</li>
+            <li>Check in daily — even when it's uncomfortable</li>
+            <li>Accept that results come from consistent effort, not motivation</li>
         </ul>
+        <p class="mt-4 text-gray-700">
+            If you’re looking for a quick fix or plan to “try it later” — NutriLog isn’t for you.
+        </p>
+        <p class="mt-4 font-semibold text-gray-900">
+            But if you’re ready to show up and commit — I’ll meet you there. Every day.
+        </p>
+        <p class="mt-4 text-sm text-gray-600">
+            <a href="/app/playbook/start.html" class="text-green-700 underline hover:text-green-900">
+                Learn exactly how it works →
+            </a>
+        </p>
     </div>
 
     <!-- What it does -->
     <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">🧠 Smarter coaching through memory</h3>
+        <h3 class="text-xl font-semibold text-gray-900">🧠 A coach that learns with you</h3>
         <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
-            <li>Knows your eating patterns and goals</li>
-            <li>Tracks progress automatically</li>
-            <li>Supports check-ins, reflection, and motivation</li>
-            <li>Accessible in ChatGPT — from your phone or laptop</li>
+            <li>Knows your eating patterns and long-term goals</li>
+            <li>Tracks your daily progress and holds you accountable</li>
+            <li>Helps you reflect and course-correct — when needed</li>
+            <li>Works directly in ChatGPT on your phone or laptop</li>
         </ul>
-        <p class="text-gray-900 font-bold mt-4">🎯 A diet tool that learns with you — not just from you.</p>
+        <p class="text-gray-900 font-bold mt-4">🎯 No forms. No guilt. Just a system that rewards your effort.</p>
     </div>
 
     <!-- How it works -->
     <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">📈 How to start</h3>
+        <h3 class="text-xl font-semibold text-gray-900">📈 How to get started</h3>
         <ol class="list-decimal list-inside text-gray-700 mt-4 space-y-1">
             <li>Launch NutriLog in ChatGPT</li>
-            <li>Tell your assistant about your habits and goals</li>
-            <li>Track food by voice or text — no app switching</li>
-            <li>Let AI handle reminders and analysis</li>
-            <li>See your history, progress, and patterns grow</li>
+            <li>Introduce yourself and your weight goal</li>
+            <li>Log your meals with text or voice — honestly and consistently</li>
+            <li>Let AI track, analyze, and guide you</li>
+            <li>See your progress unfold, one message at a time</li>
         </ol>
     </div>
 
@@ -98,6 +117,15 @@
         </a>
     </div>
     {{/isAuthenticated}}
+
+    <!-- Call to Learn More -->
+    <div class="text-center mt-16 mb-8">
+        <a href="/app/playbook/start.html"
+           class="inline-block text-green-700 font-semibold text-base hover:text-green-900 transition-colors duration-200">
+            👉 Learn how NutriLog actually works — Start Your Journey →
+        </a>
+    </div>
+
 </main>
 
 {{> pageFooter}}

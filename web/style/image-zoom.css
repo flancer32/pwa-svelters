@@ -1,0 +1,53 @@
+.image-zoom {
+    display: inline-block;
+    position: relative;
+    cursor: zoom-in;
+}
+
+.image-zoom input {
+    display: none;
+}
+
+.image-zoom img {
+    max-width: 100px;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* Активный режим — через :checked */
+.image-zoom input:checked ~ .zoom-overlay {
+    display: flex;
+}
+
+/* Затемнённый фон + центрирование */
+.zoom-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    cursor: zoom-out;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Изображение в центре */
+.zoom-overlay img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+/* Плавное появление фона */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

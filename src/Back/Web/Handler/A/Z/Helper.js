@@ -3,49 +3,29 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
      * @param {typeof import('node:http2')} http2
      * @param {typeof import('node:url')} url
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Svelters_Back_Store_RDb_Schema_User} rdbUser
      * @param {Svelters_Shared_Helper_Cast} helpCast
-     * @param {Fl64_Tmpl_Back_Act_FindTemplate} actFind
-     * @param {Fl64_Tmpl_Back_Act_LoadTemplate} actLoad
      * @param {Svelters_Back_Act_User_Profile_Read} actProfileRead
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TYPE
      */
     constructor(
         {
             'node:http2': http2,
             'node:url': url,
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Back_Store_RDb_Schema_User$: rdbUser,
             Svelters_Shared_Helper_Cast$: helpCast,
-            Fl64_Tmpl_Back_Act_FindTemplate$: actFind,
-            Fl64_Tmpl_Back_Act_LoadTemplate$: actLoad,
             Svelters_Back_Act_User_Profile_Read$: actProfileRead,
-            Fl64_Tmpl_Back_Enum_Type$: TYPE,
         }
     ) {
         // VARS
         const {
-            HTTP2_HEADER_ACCEPT_LANGUAGE,
             HTTP2_HEADER_CONTENT_TYPE,
             HTTP2_METHOD_POST,
         } = http2.constants;
         const {URLSearchParams} = url;
-        const COOKIE = DEF.SHARED.COOKIE_LOCALE;
         const MONTHS_RENEW = DEF.SUBSCRIPTION_MONTHS_RENEW;
-        const includes = {
-            'blockAnon': 'includes/blockAnon.html',
-            'htmlHead': 'includes/htmlHead.html',
-            'lang': 'includes/lang.html',
-            'pageFooter': 'includes/pageFooter.html',
-            'pageHeader': 'includes/pageHeader.html',
-            'uiBtnGptChat': 'includes/ui/btnGptChat.html',
-        };
-        /** @type {Object.<string, Object.<string, string>>} */
-        const cache = {};
 
         // MAIN
 
@@ -67,35 +47,6 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         this.castDate = helpCast.dateString;
 
         /**
-         * Extracts the locale from the HTTP request or falls back to a default locale.
-         *
-         * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
-         * @returns {string} - Extracted or default locale.
-         */
-        this.getLocale = function (req) {
-            let res = DEF.SHARED.LOCALE;
-            // Check locale in cookies
-            const cookies = req.headers.cookie || '';
-            const matcher = new RegExp(`${COOKIE}=([^;]+)`);
-            const cookieMatch = cookies.match(matcher);
-            if (cookieMatch) {
-                const cookieLocale = cookieMatch[1];
-                if (DEF.SHARED.LOCALE_AVAILABLE.includes(cookieLocale)) res = cookieLocale;
-            } else {
-                // Check locale in Accept-Language header
-                const acceptLanguage = req.headers[HTTP2_HEADER_ACCEPT_LANGUAGE];
-                if (acceptLanguage) {
-                    const locales = acceptLanguage
-                        .split(',')
-                        .map((lang) => lang.split(';')[0].trim().split('-')[0]); // Extract base locale (e.g., 'lv' from 'lv-LV')
-                    const validLocale = locales.find((locale) => DEF.SHARED.LOCALE_AVAILABLE.includes(locale));
-                    if (validLocale) res = validLocale;
-                }
-            }
-            return res;
-        };
-
-        /**
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @returns {Promise<number>}
@@ -110,28 +61,6 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
                 const [{count}] = await query;
                 return 100 - Number.parseInt(count);
             });
-        };
-
-        /**
-         * @return {Promise<Object<string, string>>}
-         * @deprecated
-         * @see Fl64_Tmpl_Back_Service_Render_Web.perform
-         */
-        this.loadPartials = async function (localeUser) {
-            if (!cache?.[localeUser]) {
-                cache[localeUser] = {};
-                const keys = Object.keys(includes);
-                for (const key of keys) {
-                    const localeApp = DEF.SHARED.LOCALE;
-                    const name = includes[key];
-                    const type = TYPE.WEB;
-                    const {path} = await actFind.run({type, name, localeUser, localeApp});
-                    const {content} = await actLoad.run({path});
-                    cache[localeUser][key] = content;
-                    logger.info(`Template '${name}' is loaded from '${path}' for locale '${localeUser}'.`);
-                }
-            }
-            return cache[localeUser];
         };
 
         /**

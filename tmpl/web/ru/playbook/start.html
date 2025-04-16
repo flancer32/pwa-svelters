@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {{> htmlHead}}
+    <link rel="stylesheet" href="/style/playbook/start.css">
+    <script type="module" src="/js/comp/zoom-img.js"></script>
+    <script type="module" src="/js/comp/ext-link.js"></script>
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Начните путь к себе — вместе с NutriLog и GPT</h1>
+
+    <p>
+        <strong>NutriLog</strong> — это мощное расширение GPT-чата, которое помогает структурировать данные о питании,
+        отслеживать калорийность и управлять весом. GPT усиливает ваши возможности — NutriLog усиливает GPT.
+    </p>
+
+    <div class="a-card a-card-fit-check">
+        <h2>Подходит ли вам NutriLog?</h2>
+        <p><strong>NutriLog — система для тех, кто готов действовать.</strong></p>
+        <p>Этот инструмент подойдёт вам, если вы:</p>
+        <ul>
+            <li>готовы ежедневно фиксировать всё, что съедаете — без исключений;</li>
+            <li>ведёте записи честно и точно;</li>
+            <li>воспринимаете GPT как помощника, а не как развлечение;</li>
+            <li>сосредоточены на результате, а не ждёте вдохновения.</li>
+        </ul>
+        <p>Если вы не готовы взять на себя ответственность — NutriLog не даст результата.</p>
+        <p><strong>Если вы готовы — добро пожаловать. Это работает, когда работаете вы.</strong></p>
+    </div>
+
+    <div class="a-card">
+        <h2>Что нужно для начала</h2>
+        <ul>
+            <li><strong>Аккаунт ChatGPT Plus:</strong> NutriLog работает через кастомный GPT-ассистент.</li>
+            <li><strong>Учётная запись NutriLog:</strong> для безопасного хранения и визуального отслеживания данных.
+            </li>
+            <li><strong>Желание меняться:</strong> через регулярный контроль калорий и ежедневную работу.
+                NutriLog — это инструмент, который помогает GPT помогать вам.
+            </li>
+        </ul>
+    </div>
+
+    <div class="a-card">
+        <h2>Как начать</h2>
+
+        <div class="a-start-grid">
+            <div class="a-panel">
+                <div>
+                    <div class="title">
+                        <ext-link href="/app/register">1. Зарегистрируйтесь в NutriLog</ext-link>
+                    </div>
+                    <div class="desc">
+                        После регистрации вы попадёте в личный кабинет, где сможете визуально отслеживать данные,
+                        которые Ассистент сохраняет для вас.
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/005_app_dashboard.png" alt="панель управления"
+                          width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">
+                        <ext-link href="https://chatgpt.com/g/g-faoravhde-nutrilog">2. Откройте Ассистента</ext-link>
+                    </div>
+                    <div class="desc">
+                        Перейдите в кастомный GPT-чат на смартфоне или в браузере.
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/010_gpt_start.png" alt="ассистент nutrilog в gpt"
+                          width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">3. Начните диалог с Ассистентом</div>
+                    <div class="desc">
+                        Нажмите на кнопку "Help me get started".
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/020_gpt_started.png" alt="ответ ассистента" width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">4. Представьтесь Ассистенту</div>
+                    <div class="desc">
+                        Например: <em>"Привет, я Алекс. Мне 52 года, вешу 88 кг при росте 175 см."</em>
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/030_gpt_intro.png" alt="представление ассистенту"
+                          width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">5. Сформулируйте цель</div>
+                    <div class="desc">
+                        <div>Например: <em>"Хочу достичь 77 кг к концу июня."</em></div>
+                        <div>Ассистент предложит сохранить цель в Дневнике. Понадобится авторизация GPT-чата.</div>
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/040_gpt_goal.png" alt="цель пользователя" width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">6. Авторизуйте Ассистента</div>
+                    <div class="desc">
+                        Разрешите GPT-чату читать и записывать данные в ваш Дневник.
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/050_app_authorize.png" alt="авторизация" width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">7. Разрешите отправку данных</div>
+                    <div class="desc">
+                        GPT запросит разрешение на отправку данных на внешние серверы. Рекомендуется выбрать <em>"Always
+                        Allow"</em>.
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/060_gpt_allow.png" alt="разрешение на передачу"
+                          width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">8. Ассистент сохранит ваши данные</div>
+                    <div class="desc">
+                        Ассистент сохранит в Дневник ваши цели, текущий и целевой вес — с помощью доступных ему
+                        инструментов.
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/070_gpt_saved.png" alt="данные в дневнике" width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">9. Сообщайте, что вы едите</div>
+                    <div class="desc">
+                        <div>Например: <em>"На завтрак съел мороженое, примерно 100 ккал."</em></div>
+                        <div>Ассистент занесёт продукты и их калорийность в Дневник.</div>
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/080_gpt_ice_cream.png" alt="добавление продукта"
+                          width="100px"></zoom-img>
+            </div>
+
+            <div class="a-panel">
+                <div>
+                    <div class="title">10. Проверяйте, что съели</div>
+                    <div class="desc">
+                        <div>Просто спросите: <em>"Что я ел сегодня?"</em></div>
+                        <div>Ассистент получит данные за день или период. Покажет динамику, калории, БЖУ, даст
+                            рекомендации.
+                        </div>
+                    </div>
+                </div>
+                <zoom-img src="/img/playbook/start/090_gpt_report.png" alt="отчёт о рационе" width="100px"></zoom-img>
+            </div>
+        </div>
+    </div>
+
+    <div class="a-card">
+        <h2>Советы для успеха</h2>
+        <ul>
+            <li>Общайтесь с Ассистентом как с партнёром. Это диалог, а не форма.</li>
+            <li>Будьте конкретны и честны — Ассистент слушает, уточняет и запоминает важное.</li>
+            <li>NutriLog работает, когда работаете вы. Это не волшебная кнопка, а система фокуса и дисциплины.</li>
+            <li>Результат приходит не от вдохновения, а от рутины. Записывайте всё — каждый день, без пропусков.</li>
+            <li>Если вы действительно хотите изменений — доверьтесь процессу. Пусть Ассистент станет частью вашей
+                жизни.
+            </li>
+        </ul>
+    </div>
+
+    <div class="text-center">
+        {{^isAuthenticated}}
+        {{> uiBtnAppSignUp}}
+        {{/isAuthenticated}}
+
+        {{#isAuthenticated}}
+        {{> uiBtnGptChat}}
+        {{/isAuthenticated}}
+    </div>
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

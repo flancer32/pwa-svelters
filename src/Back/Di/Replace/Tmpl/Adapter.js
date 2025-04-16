@@ -29,6 +29,7 @@ export default class Svelters_Back_Di_Replace_Tmpl_Adapter {
             'lang': 'includes/lang.html',
             'pageFooter': 'includes/pageFooter.html',
             'pageHeader': 'includes/pageHeader.html',
+            'uiBtnAppSignUp': 'includes/ui/btnAppSignUp.html',
             'uiBtnGptChat': 'includes/ui/btnGptChat.html',
         };
         /** @type {Object.<string, Object.<string, string>>} */

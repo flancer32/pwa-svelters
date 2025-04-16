@@ -13,12 +13,9 @@
     </a>
 
     <!-- Desktop Navigation -->
-    <!-- nav class="hidden md:flex space-x-6">
-        <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
-        <a href="/app/use-cases.html" class="text-gray-600 hover:text-gray-900">Use Cases</a>
-        <a href="/app/pricing.html" class="text-gray-600 hover:text-gray-900">Pricing</a>
-        <a href="/app/videos.html" class="text-gray-600 hover:text-gray-900">Videos</a>
-    </nav -->
+    <nav class="desktop-nav">
+        <a href="/app/playbook/start.html">Start Your Journey</a>
+    </nav>
 
     <!-- Authentication Buttons -->
     <div class="hidden md:flex space-x-4">
@@ -53,10 +50,9 @@
 </header>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="hidden md:hidden fixed top-16 left-0 w-full bg-white shadow-lg py-4 px-6">
+<div id="mobile-menu">
+    <a href="/app/playbook/start.html" class="block text-gray-700 py-2">Start Your Journey</a>
     <!--
-    <a href="/" class="block text-gray-700 py-2">Home</a>
-    <a href="/app/use-cases.html" class="block text-gray-700 py-2">Use Cases</a>
     <a href="/app/pricing.html" class="block text-gray-700 py-2">Pricing</a>
     <a href="/app/videos.html" class="block text-gray-700 py-2">Videos</a>
     -->
@@ -84,7 +80,7 @@
     const menuButton = document.getElementById('menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('active');
     });
 
     // User dropdown menu toggle

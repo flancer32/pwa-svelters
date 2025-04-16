@@ -1,0 +1,64 @@
+/* Grid container: single column by default, two columns on medium screens */
+.a-start-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem; /* Equivalent to Tailwind's gap-4 */
+}
+
+@media (min-width: 768px) {
+    .a-start-grid {
+        grid-template-columns: 1fr 1fr; /* Equivalent to md:grid-cols-2 */
+    }
+}
+
+/* Card style: padding, border, rounded corners, and white background */
+.a-panel {
+    background-color: #ffffff; /* Equivalent to Tailwind's bg-white */
+    border-radius: 0.5rem; /* Equivalent to Tailwind's rounded */
+    border: 1px solid #d1d5db; /* Matches Tailwind's border-gray-300 */
+    box-sizing: border-box;
+    display: flex; /* Enables vertical layout */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Push first child to top, last to bottom */
+    max-width: 100%;
+    min-height: 100%; /* Ensures full height in grid context */
+    overflow-wrap: break-word;
+    padding: 1rem; /* Equivalent to Tailwind's p-4 */
+    word-break: break-word;
+}
+
+/* First block: text aligns to the top by default */
+
+/* Second block: image aligned to bottom and centered horizontally */
+.a-panel > div:last-child {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-end; /* Align to bottom of the parent */
+}
+
+.a-panel .title {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.a-panel .desc {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.625; /* relaxed line-height */
+    color: #4B5563; /* Tailwind gray-600 */
+}
+
+.a-panel zoom-img {
+    padding: 1rem; /* Equivalent to Tailwind's p-4 */
+    background-color: #e4e4e7; /* Tailwind's bg-zinc-200 */
+}
+
+.a-card-fit-check {
+    background-color: #f5fdf7; /* мягкий зелёный оттенок */
+    border-left: 6px solid #4CAF50; /* насыщенный зелёный */
+    padding: 1.5em;
+    margin-top: 1.5em;
+}
+
+.a-card-fit-check h2 {
+    color: #2e7d32;
+}

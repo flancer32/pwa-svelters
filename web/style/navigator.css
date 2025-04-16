@@ -1,0 +1,88 @@
+/* Navigation Styles (navigator.css) */
+
+/* === Desktop Navigation === */
+nav.desktop-nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    nav.desktop-nav {
+        display: flex;
+        font-weight: 600;
+        gap: 1.5rem; /* space-x-6 */
+    }
+
+    nav.desktop-nav a {
+        color: #4CAF50;
+        /*color: #4B5563; !* text-gray-600 *!*/
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease-in-out;
+    }
+
+    nav.desktop-nav a:hover {
+        color: #388E3C; /* Darker green on hover */
+    }
+}
+
+/* === Mobile Menu Base === */
+#mobile-menu {
+    display: none;
+    position: fixed;
+    top: 4rem; /* top-16 */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem; /* py-4 px-6 */
+    z-index: 50;
+}
+
+/* Visible state triggered by JavaScript */
+#mobile-menu.active {
+    display: block;
+}
+
+/* Mobile menu content styling */
+#mobile-menu a {
+    display: block;
+    color: #374151; /* text-gray-700 */
+    padding: 0.5rem 0;
+    text-decoration: none;
+}
+
+#mobile-menu a:hover {
+    background-color: #F3F4F6; /* hover:bg-gray-100 */
+}
+
+#mobile-menu .btn-login {
+    background-color: #E5E7EB; /* bg-gray-200 */
+    color: #374151;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    margin-top: 1rem;
+}
+
+#mobile-menu .btn-login:hover {
+    background-color: #D1D5DB; /* hover:bg-gray-300 */
+}
+
+#mobile-menu .btn-register {
+    background-color: #10B981; /* bg-green-500 */
+    color: white;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    margin-top: 0.5rem;
+}
+
+#mobile-menu .btn-register:hover {
+    background-color: #059669; /* hover:bg-green-600 */
+}
+
+#mobile-menu .user-block {
+    border-top: 1px solid #E5E7EB; /* border-gray-200 */
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
