@@ -78,12 +78,14 @@ class Dto {
      * @type {string}
      */
     name;
+
     /**
      * Contains a brief context or instruction for the AI to start a new conversation, taking into account
      * the user's prior conversation history.
      * @type {string}
      */
     prompt_start;
+
     /**
      * Biological sex with values representing male and female categories.
      *

@@ -1,0 +1,7 @@
+{
+  "RESULT": {
+    "SUCCESS": "Your request to delete the account has been received. Your data will be permanently erased after 7 days.",
+    "UNKNOWN": "An undefined failure is occurred.",
+    "XSRF_TOKEN_INVALID": "The XSRF token is invalid or not provided."
+  }
+}

@@ -4,6 +4,7 @@
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
+<ui-toast></ui-toast>
 
 <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fixed top-0 w-full z-50">
     <!-- Logo -->
@@ -20,8 +21,8 @@
     <!-- Authentication Buttons -->
     <div class="hidden md:flex space-x-4">
         {{^isAuthenticated}}
-        <a href="/app/login" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">Войти</a>
-        <a href="/app/register" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">Регистрация</a>
+        <a href="/app/login" class="btn-gray">Войти</a>
+        <a href="/app/register" class="btn-green">Регистрация</a>
         {{/isAuthenticated}}
 
         {{#isAuthenticated}}

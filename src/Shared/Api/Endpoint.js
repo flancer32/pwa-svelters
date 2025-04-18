@@ -22,9 +22,15 @@ export default class Svelters_Shared_Api_Endpoint {
     createRes(data = null) {}
 
     /**
-     * Get object with result codes.
+     * Get an object with result codes.
      *
      * @returns {object} Object containing result codes.
      */
     getResultCodes() {}
+
+    /**
+     * Provides access to the route for this endpoint.
+     * @returns {string}
+     */
+    getRoute() {}
 }

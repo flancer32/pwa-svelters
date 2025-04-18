@@ -20,6 +20,7 @@ const ATTR = {
     DATE_CREATED: 'date_created',
     DATE_SUBSCRIPTION: 'date_subscription',
     ID: 'id',
+    STATE: 'state',
     UUID: 'uuid',
 };
 Object.freeze(ATTR);
@@ -53,6 +54,14 @@ class Dto {
     id;
 
     /**
+     * Defines possible statuses of the user account.
+     *
+     * @type {string}
+     * @see Svelters_Shared_Enum_User_State
+     */
+    state;
+
+    /**
      * Universally unique identifier as public ID.
      *
      * @type {string}
@@ -70,11 +79,13 @@ export default class Svelters_Back_Store_RDb_Schema_User {
      *
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Util_Cast} cast
+     * @param {typeof Svelters_Shared_Enum_User_State} STATE
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Util_Cast$: cast
+            TeqFw_Core_Shared_Util_Cast$: cast,
+            Svelters_Shared_Enum_User_State$: STATE,
         }
     ) {
         // INSTANCE METHODS
@@ -89,6 +100,7 @@ export default class Svelters_Back_Store_RDb_Schema_User {
                 res.date_created = cast.date(data.date_created);
                 res.date_subscription = cast.date(data.date_subscription);
                 res.id = cast.int(data.id);
+                res.state = cast.enum(data.state, STATE);
                 res.uuid = cast.string(data.uuid);
             }
             return res;

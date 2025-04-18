@@ -20,7 +20,7 @@
         <p>Requested permissions:</p>
         <ul>
             {{#scopes}}
-            <li>{{.}}</li>
+            <li><strong>{{.}}</strong></li>
             {{/scopes}}
         </ul>
         {{/scopes}}
@@ -30,10 +30,10 @@
             <input type="hidden" name="code" value="{{code}}">
 
             <div class="btn-center">
-                <button type="submit" name="decision" value="approve" class="btn-primary">
+                <button type="submit" name="decision" value="approve" class="btn-green">
                     Authorize
                 </button>
-                <button type="button" onclick="window.location.href='/'" class="btn-primary btn-decline">
+                <button type="button" onclick="window.location.href='/'" class="btn-red">
                     Decline
                 </button>
             </div>

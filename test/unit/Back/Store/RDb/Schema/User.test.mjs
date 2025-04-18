@@ -13,6 +13,7 @@ describe('Svelters_Back_Store_RDb_Schema_User', () => {
         'date_created',
         'date_subscription',
         'id',
+        'state',
         'uuid',
     ];
 

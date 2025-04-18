@@ -85,7 +85,8 @@ If no inconsistencies are found, confirm coherence and explain briefly **why the
                 const completion = await api.chat.completions.create({
                     model: AI_MODEL_DS_CHAT,
                     // model: AI_MODEL_OAI_4_1,
-                    messages: [SYSTEM_GENERAL, message],
+                    // messages: [SYSTEM_GENERAL, message],
+                    messages: [SYSTEM_FILE, message],
                 });
                 logger.info(`The LLM request is completed.`);
                 const content = completion.choices[0].message.content;

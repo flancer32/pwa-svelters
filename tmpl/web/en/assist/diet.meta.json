@@ -1,6 +1,6 @@
 {
-  "vars": [
-    "betaUsersLeft",
-    "isAuthenticated"
-  ]
+  "vars": {
+    "betaUsersLeft": "number",
+    "isAuthenticated": "boolean"
+  }
 }

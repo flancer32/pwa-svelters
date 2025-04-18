@@ -1,0 +1,6 @@
+{
+  "subject": "Your NutriLog account is scheduled for deletion",
+  "variables": {
+    "verifyLink": "string"
+  }
+}

@@ -4,7 +4,7 @@
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
-
+<ui-toast></ui-toast>
 <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fixed top-0 w-full z-50">
     <!-- Logo -->
     <a href="/" class="flex items-center space-x-2 text-2xl font-semibold text-gray-800">
@@ -20,8 +20,8 @@
     <!-- Authentication Buttons -->
     <div class="hidden md:flex space-x-4">
         {{^isAuthenticated}}
-        <a href="/app/login" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md">Login</a>
-        <a href="/app/register" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">Join Free</a>
+        <a href="/app/login" class="btn-gray">Login</a>
+        <a href="/app/register" class="btn-green">Join Free</a>
         {{/isAuthenticated}}
 
         {{#isAuthenticated}}

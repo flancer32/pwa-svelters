@@ -28,6 +28,11 @@ class Dto {
     dateUpdated;
 
     /**
+     * User's email address (optional).
+     */
+    email;
+
+    /**
      * User-defined wellness goal, such as target weight or deadline. Interpreted by the Assistant for motivation and progress analysis.
      * @type {string}
      */
@@ -122,6 +127,7 @@ export default class Svelters_Shared_Dto_User_Profile {
                 res.dateCreated = cast.date(data.dateCreated);
                 res.dateSubscriptionEnd = cast.date(data.dateSubscriptionEnd);
                 res.dateUpdated = cast.date(data.dateUpdated);
+                res.email = cast.string(data.email);
                 res.goal = cast.string(data.goal);
                 res.height = cast.int(data.height);
                 res.locale = cast.string(data.locale);

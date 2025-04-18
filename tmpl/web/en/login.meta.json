@@ -1,8 +1,8 @@
 {
-  "vars": [
-    "urlGithub",
-    "urlGoogle",
-    "urlX",
-    "xsrfToken"
-  ]
+  "vars": {
+    "urlGithub": "string",
+    "urlGoogle": "string",
+    "urlX": "string",
+    "xsrfToken": "string"
+  }
 }

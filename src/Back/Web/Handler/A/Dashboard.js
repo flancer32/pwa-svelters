@@ -22,25 +22,6 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
         }
     ) {
-        // VARS
-        // FUNCS
-
-        /**
-         * Normalize some props (convert to short strings for UI).
-         * @param {Svelters_Shared_Dto_User_Profile.Dto} profile
-         * @returns {Svelters_Shared_Dto_User_Profile.Dto}
-         */
-        function normProfile(profile) {
-            if (profile) {
-                profile.dateBirth = helpCast.dateString(profile.dateBirth);
-                profile.dateCreated = helpCast.dateString(profile.dateCreated);
-                profile.dateSubscriptionEnd = helpCast.dateString(profile.dateSubscriptionEnd);
-                profile.dateUpdated = helpCast.dateString(profile.dateUpdated);
-            }
-            return profile;
-        }
-
-        // MAIN
         /**
          * Handles incoming HTTP requests.
          *
@@ -54,14 +35,14 @@ export default class Svelters_Back_Web_Handler_A_Dashboard {
                 const {dto} = await session.getFromRequest({trx, req});
                 const isAuthenticated = !!dto?.user_ref;
                 const profile = (isAuthenticated)
-                    ? await zHelper.readProfile({trx, userId: dto.user_ref}) : null;
+                    ? await zHelper.readProfileUi({trx, userId: dto.user_ref}) : null;
                 const canSubscribe = zHelper.calcUserCanSubscribe({
                     dateSubscriptionEnd: profile?.dateSubscriptionEnd
                 });
                 const view = {
                     canSubscribe,
                     isAuthenticated,
-                    profile: normProfile(profile),
+                    profile,
                 };
                 const {content: body} = await srvRender.perform({
                     name: 'dashboard.html',

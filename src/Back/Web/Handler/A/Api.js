@@ -1,5 +1,8 @@
 /**
- * TODO: add JSDoc
+ * HTTP request handler for API-related routes.
+ *
+ * Designed for server-side use within the backend.
+ * Dispatches incoming requests based on the URL structure and default route settings.
  */
 export default class Svelters_Back_Web_Handler_A_Api {
     /**

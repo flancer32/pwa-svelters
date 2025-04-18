@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+    <script type="module" src="/js/comp/ext-link.js"></script>
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Delete Account</h1>
+
+    {{> blockAnon}}
+
+    {{#isAuthenticated}}
+    <p class="text-lg">
+        You are about to permanently delete your account. This action is immediate and cannot be undone.
+    </p>
+
+    <div class="a-card">
+        <h2>Your Profile</h2>
+        <ul class="space-y-1">
+            <li><strong>Name:</strong> {{profile.name}}</li>
+            {{#profile.email}}
+            <li><strong>Email:</strong> {{profile.email}}</li>
+            {{/profile.email}}
+            <li><strong>Registered on:</strong> {{profile.dateCreated}}</li>
+            <li><strong>Subscription ends:</strong> {{profile.dateSubscriptionEnd}}</li>
+        </ul>
+    </div>
+
+    <div class="a-card a-warn">
+        <h2>What will be deleted</h2>
+        <ul class="list-disc list-inside">
+            <li>Your profile and personal information</li>
+            <li>Food and weight history</li>
+            <li>Goal settings</li>
+            <li>Linked login methods (email, social accounts)</li>
+        </ul>
+        <div class="mt-2 font-semibold text-red-600">
+            This action is irreversible. No backup is stored.
+        </div>
+        <label class="block mt-2">
+            <input id="chk-confirm" type="checkbox" class="mr-2">
+            I understand that my account will be deleted immediately and permanently.
+        </label>
+        <input type="hidden" id="xsrf-token" value="{{xsrfToken}}">
+    </div>
+
+    <div class="btn-center">
+        <button id="btn-delete" class="btn-red" disabled>Delete My Account</button>
+    </div>
+
+    <script type="module">
+        import('/js/di.js')
+            .then(({container}) => {
+                container.get('Svelters_Front_Ui_Page_Account_Delete$');
+            }).catch(console.error);
+    </script>
+
+    {{/isAuthenticated}}
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

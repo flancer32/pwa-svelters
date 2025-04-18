@@ -7,6 +7,14 @@
           "attr": {
             "id": {"type": "id", "comment": "Internal ID used in foreign keys."},
             "uuid": {"type": "string", "comment": "Universally unique identifier as public ID."},
+            "state": {
+              "type": "enum",
+              "comment": "Defines possible statuses of the user account.",
+              "options": {
+                "values": ["ACTIVE", "DELETING", "LOCKED"]
+              },
+              "default": "ACTIVE"
+            },
             "date_created": {
               "comment": "Date-time for user registration.",
               "type": "datetime",

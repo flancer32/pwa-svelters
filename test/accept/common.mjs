@@ -40,6 +40,8 @@ export async function dbCreateFkEntities(container) {
     // Use app entities for testing
     /** @type {Svelters_Back_Store_RDb_Repo_User} */
     const repoUser = await container.get('Svelters_Back_Store_RDb_Repo_User$');
+    /** @type {typeof Svelters_Shared_Enum_User_State} */
+    const STATE = await container.get('Svelters_Shared_Enum_User_State$');
 
     // Create an app user
     let user;
@@ -51,6 +53,7 @@ export async function dbCreateFkEntities(container) {
         const dto = repoUser.createDto();
         dto.date_created = new Date();
         dto.date_subscription = new Date();
+        dto.state = STATE.ACTIVE;
         dto.uuid = 'UUID';
         const {primaryKey: key} = await repoUser.createOne({trx, dto});
         const {record} = await repoUser.readOne({trx, key});

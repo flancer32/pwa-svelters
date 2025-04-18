@@ -109,7 +109,8 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         };
 
         /**
-         * The action is wrapped as a function with complex input and simple output arguments.
+         * Simplifies the usage of the universal action for retrieving user profiles
+         * by adapting it to specific conditions within the application.
          *
          * @param {Object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
@@ -118,6 +119,25 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
          */
         this.readProfile = async function ({trx, userId}) {
             const {profile} = await actProfileRead.run({trx, userId});
+            return profile;
+        };
+
+        /**
+         * Normalizes user profile data for UI output.
+         *
+         * @param {Object} params
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
+         * @param {number} params.userId
+         * @returns {Promise<Svelters_Shared_Dto_User_Profile.Dto>}
+         */
+        this.readProfileUi = async function ({trx, userId}) {
+            const {profile} = await actProfileRead.run({trx, userId});
+            if (profile) {
+                profile.dateBirth = helpCast.dateString(profile.dateBirth);
+                profile.dateCreated = helpCast.dateString(profile.dateCreated);
+                profile.dateSubscriptionEnd = helpCast.dateString(profile.dateSubscriptionEnd);
+                profile.dateUpdated = helpCast.dateString(profile.dateUpdated);
+            }
             return profile;
         };
 

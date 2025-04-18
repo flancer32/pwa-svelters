@@ -9,6 +9,8 @@ await initConfig(container);
 // SETUP ENVIRONMENT
 /** @type {Svelters_Back_Store_RDb_Repo_User} */
 const repoUser = await container.get('Svelters_Back_Store_RDb_Repo_User$');
+/** @type {typeof Svelters_Shared_Enum_User_State} */
+const STATE = await container.get('Svelters_Shared_Enum_User_State$');
 const ATTR = repoUser.getSchema().getAttributes();
 
 // TEST CONSTANTS
@@ -33,6 +35,7 @@ describe('Svelters_Back_Store_RDb_Repo_User', () => {
         const dto = repoUser.createDto();
         dto.date_created = DATE_CREATED;
         dto.date_subscription = DATE_SUBSCRIPTION;
+        dto.state = STATE.ACTIVE;
         dto.uuid = UUID;
 
         const {primaryKey} = await repoUser.createOne({dto});

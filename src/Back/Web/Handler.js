@@ -9,6 +9,7 @@ export default class Svelters_Back_Web_Handler {
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Web_Back_Help_Respond} respond
+     * @param {Svelters_Back_Web_Handler_A_Account} aAccount
      * @param {Svelters_Back_Web_Handler_A_Api} aApi
      * @param {Svelters_Back_Web_Handler_A_Dashboard} aDashboard
      * @param {Svelters_Back_Web_Handler_A_Home} aHome
@@ -24,6 +25,7 @@ export default class Svelters_Back_Web_Handler {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Web_Back_Help_Respond$: respond,
+            Svelters_Back_Web_Handler_A_Account$: aAccount,
             Svelters_Back_Web_Handler_A_Api$: aApi,
             Svelters_Back_Web_Handler_A_Dashboard$: aDashboard,
             Svelters_Back_Web_Handler_A_Home$: aHome,
@@ -60,6 +62,9 @@ export default class Svelters_Back_Web_Handler {
                         break;
                     case DEF.ROUTE_OPENAPI:
                         await aOpenApi.run(req, res);
+                        break;
+                    case DEF.SHARED.ROUTE_ACCOUNT:
+                        await aAccount.run(req, res);
                         break;
                     case DEF.SHARED.ROUTE_API:
                         await aApi.run(req, res);

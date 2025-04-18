@@ -1,15 +1,9 @@
 {{^isAuthenticated}}
-<div class="bg-white shadow-md rounded-lg p-6 text-center max-w-md mx-auto">
-    <p class="text-gray-700 mb-4">Вы не авторизованы. Войдите или зарегистрируйтесь.</p>
+<div class="a-card">
+    <div class="text-center mb-4">Вы не авторизованы. Войдите или зарегистрируйтесь.</div>
     <div class="flex w-fit flex-col sm:flex-row mx-auto space-y-2 sm:space-y-0 sm:space-x-4">
-        <a href="/app/login"
-           class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-md">
-            <i data-lucide="log-in" class="mr-2"></i> Войти
-        </a>
-        <a href="/app/register"
-           class="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-md">
-            <i data-lucide="user-plus" class="mr-2"></i> Зарегистрироваться
-        </a>
+        <a href="/app/login" class="btn-gray">Войти</a>
+        <a href="/app/register" class="btn-green">Регистрация</a>
     </div>
 </div>
 {{/isAuthenticated}}

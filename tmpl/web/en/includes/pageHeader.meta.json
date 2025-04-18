@@ -1,5 +1,5 @@
 {
-  "vars": [
-    "isAuthenticated"
-  ]
+  "vars": {
+    "isAuthenticated": "boolean"
+  }
 }

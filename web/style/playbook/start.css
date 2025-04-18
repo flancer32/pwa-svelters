@@ -51,14 +51,3 @@
     padding: 1rem; /* Equivalent to Tailwind's p-4 */
     background-color: #e4e4e7; /* Tailwind's bg-zinc-200 */
 }
-
-.a-card-fit-check {
-    background-color: #f5fdf7; /* мягкий зелёный оттенок */
-    border-left: 6px solid #4CAF50; /* насыщенный зелёный */
-    padding: 1.5em;
-    margin-top: 1.5em;
-}
-
-.a-card-fit-check h2 {
-    color: #2e7d32;
-}

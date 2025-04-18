@@ -1,0 +1,7 @@
+{
+  "vars": {
+    "isAuthenticated": "boolean",
+    "otp": "string",
+    "profile": "Svelters_Shared_Dto_User_Profile.Dto"
+  }
+}

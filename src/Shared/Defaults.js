@@ -11,6 +11,8 @@ export default class Svelters_Shared_Defaults {
     // should be the same as `name` property in `./package.json`
     NAME = '@flancer32/pwa-svelters';
 
+    ROUTE_ACCOUNT = 'account';
+    ROUTE_ACCOUNT_DELETE = 'delete';
     ROUTE_API = 'api';
     ROUTE_DASHBOARD = 'dashboard';
     ROUTE_LOGIN = 'login';

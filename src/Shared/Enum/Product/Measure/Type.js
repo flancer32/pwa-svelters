@@ -7,5 +7,4 @@ const Svelters_Shared_Enum_Product_Measure_Type = {
     MILLILITERS: 'MILLILITERS',
     PIECES: 'PIECES',
 };
-Object.freeze(Svelters_Shared_Enum_Product_Measure_Type);
 export default Svelters_Shared_Enum_Product_Measure_Type;

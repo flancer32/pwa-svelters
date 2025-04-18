@@ -2,22 +2,42 @@
 <html lang="en">
 <head>
     {{> htmlHead}}
+    <script type="module" src="/js/comp/ext-link.js"></script>
 </head>
 <body>
 
 {{> pageHeader}}
 
 <main>
-    <h1>Empty Page</h1>
+    <h1>The page header.</h1>
     <p>
-        This is a page for styling. Below are examples of a list and a link.
+        This is a sample paragraph. It's a placeholder for a page header. You can replace it with your own content,
+        or delete it entirely..
     </p>
 
-    <ul>
-        <li><strong>Feature One:</strong> A simple and clean layout with Tailwind CSS.</li>
-        <li><strong>Feature Two:</strong> Responsive design that adapts to mobile and desktop screens.</li>
-        <li><strong>Feature Three:</strong> Minimalistic typography inspired by OpenAI.</li>
-    </ul>
+    <div class="a-card">
+        <h2>A simple card.</h2>
+        <ul>
+            <li><strong>Feature One:</strong> A simple and clean layout with Tailwind CSS.</li>
+            <li><strong>Feature Two:</strong> Responsive design that adapts to mobile and desktop screens.</li>
+            <li><strong>Feature Three:</strong> Minimalistic typography inspired by OpenAI.</li>
+        </ul>
+
+        <div>
+            <ext-link href="http://wiredgeese.com/">An external link.</ext-link>
+        </div>
+    </div>
+
+    <div class="a-card a-info">
+        <h2>An info card</h2>
+        <div>Text is here...</div>
+    </div>
+
+    <div class="a-card a-warn">
+        <h2>A warn card</h2>
+        <div>Text is here...</div>
+    </div>
+
 
     <p>
         Learn more about our design principles on the
@@ -29,7 +49,7 @@
     </div>
 
     <div class="btn-center">
-        <a href="/" class="btn-primary">Go to Homepage</a>
+        <a href="/" class="btn-green">Go to Homepage</a>
     </div>
 </main>
 

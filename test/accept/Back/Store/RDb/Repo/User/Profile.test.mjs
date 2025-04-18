@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {createContainer} from '@teqfw/test';
-import {dbConnect, dbDisconnect, dbReset, initConfig} from '../../../../../common.mjs';
+import {dbConnect, dbDisconnect, dbReset, initConfig, dbCreateFkEntities} from '../../../../../common.mjs';
 
 // SETUP CONTAINER
 const container = await createContainer();
@@ -9,9 +9,6 @@ await initConfig(container);
 // SETUP ENVIRONMENT
 /** @type {Svelters_Back_Store_RDb_Repo_User_Profile} */
 const repoUserProfile = await container.get('Svelters_Back_Store_RDb_Repo_User_Profile$');
-/** @type {Svelters_Back_Store_RDb_Repo_User} */
-const repoUser = await container.get('Svelters_Back_Store_RDb_Repo_User$');
-const ATTR_USER = repoUser.getSchema().getAttributes();
 
 // TEST CONSTANTS
 const DATE_BIRTH = new Date('1990-01-01');
@@ -27,13 +24,9 @@ let USER_REF;
 describe('Svelters_Back_Store_RDb_Repo_User_Profile', () => {
     before(async () => {
         await dbReset(container);
+        const {user} = await dbCreateFkEntities(container);
+        USER_REF = user.id;
         await dbConnect(container);
-        const dto = repoUser.getSchema().createDto();
-        dto.date_created = new Date();
-        dto.date_subscription = new Date();
-        dto.uuid = 'uuid';
-        const {primaryKey} = await repoUser.createOne({dto});
-        USER_REF = primaryKey[ATTR_USER.ID];
     });
 
     after(async () => {

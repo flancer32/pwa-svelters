@@ -9,6 +9,7 @@ const MODE = {
     API_SHARED: 'API_SHARED',
     NEW_CLASS: 'NEW_CLASS',
     NEW_DTO: 'NEW_DTO',
+    NEW_ENUM: 'NEW_ENUM',
     RDB_DEM: 'RDB_DEM',
     RDB_REPO: 'RDB_REPO',
     RDB_SCHEMA: 'RDB_SCHEMA',
@@ -28,6 +29,7 @@ const MODE = {
  * @param {Svelters_Back_Cli_Deepseek_A_Api_Shared} aApiShared
  * @param {Svelters_Back_Cli_Deepseek_A_New_Class} aNewClass
  * @param {Svelters_Back_Cli_Deepseek_A_New_Dto} aNewDto
+ * @param {Svelters_Back_Cli_Deepseek_A_New_Enum} aNewEnum
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Dem} aRdbDem
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Repo} aRdbRepo
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Schema} aRdbSchema
@@ -46,6 +48,7 @@ export default function Factory(
         Svelters_Back_Cli_Deepseek_A_Api_Shared$: aApiShared,
         Svelters_Back_Cli_Deepseek_A_New_Class$: aNewClass,
         Svelters_Back_Cli_Deepseek_A_New_Dto$: aNewDto,
+        Svelters_Back_Cli_Deepseek_A_New_Enum$: aNewEnum,
         Svelters_Back_Cli_Deepseek_A_Rdb_Dem$: aRdbDem,
         Svelters_Back_Cli_Deepseek_A_Rdb_Repo$: aRdbRepo,
         Svelters_Back_Cli_Deepseek_A_Rdb_Schema$: aRdbSchema,
@@ -76,6 +79,9 @@ export default function Factory(
                 break;
             case MODE.NEW_DTO:
                 await aNewDto.run(rootWork, rootDocs);
+                break;
+            case MODE.NEW_ENUM:
+                await aNewEnum.run(rootWork, rootDocs);
                 break;
             case MODE.RDB_DEM:
                 await aRdbDem.run(rootWork, rootDocs);

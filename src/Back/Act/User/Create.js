@@ -11,6 +11,7 @@ export default class Svelters_Back_Act_User_Create {
      * @param {TeqFw_Core_Shared_Api_Logger} logger
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
+     * @param {typeof Svelters_Shared_Enum_User_State} STATE
      */
     constructor(
         {
@@ -19,6 +20,7 @@ export default class Svelters_Back_Act_User_Create {
             TeqFw_Core_Shared_Api_Logger$$: logger,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Back_Store_RDb_Repo_User$: repoUser,
+            Svelters_Shared_Enum_User_State$: STATE,
         }
     ) {
         // VARS
@@ -91,6 +93,7 @@ export default class Svelters_Back_Act_User_Create {
                 const dto = repoUser.createDto();
                 dto.date_created = new Date();
                 dto.date_subscription = await getSubscriptionEnd(trx);
+                dto.state = STATE.ACTIVE;
                 dto.uuid = await generateUniqueUUID(trx);
                 const {primaryKey: key} = await repoUser.createOne({trx, dto});
                 const userId = key[A_USER.ID];

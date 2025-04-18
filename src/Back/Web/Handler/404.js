@@ -46,12 +46,27 @@ export default class Svelters_Back_Web_Handler_404 {
                         const view = {
                             isAuthenticated: !!dto?.user_ref,
                         };
-                        const {content: body} = await srvRender.perform({
-                            name: '404.html',
+                        const fullPath = req.url.split('?')[0];
+                        const baseIndex = fullPath.indexOf(DEF.SHARED.SPACE);
+                        const relativePath = fullPath.slice(baseIndex + DEF.SHARED.SPACE.length + 1);
+                        let body;
+                        const {content: bodyPage} = await srvRender.perform({
+                            name: relativePath + '.html',
                             localePkg: DEF.SHARED.LOCALE,
                             view,
                             req,
                         });
+                        if (bodyPage) {
+                            body = bodyPage;
+                        } else {
+                            const {content: body404} = await srvRender.perform({
+                                name: '404.html',
+                                localePkg: DEF.SHARED.LOCALE,
+                                view,
+                                req,
+                            });
+                            body = body404;
+                        }
                         respond.code404_NotFound({
                             res, body, headers: {
                                 [HTTP2_HEADER_CONTENT_TYPE]: 'text/html; charset=utf-8',

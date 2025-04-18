@@ -7,6 +7,8 @@ export default class Svelters_Back_Act_User_Profile_Read {
     /**
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {TeqFw_Db_Shared_Dto_List_Selection} dbSelect
+     * @param {Fl64_Auth_Otp_Back_Store_RDb_Repo_Email} repoOtpEmail
+     * @param {Fl64_OAuth2_Social_Back_Store_RDb_Repo_User_Identity} repoIdentity
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
      * @param {Svelters_Back_Store_RDb_Repo_Weight_Goal} repoWeightGoal
@@ -17,6 +19,8 @@ export default class Svelters_Back_Act_User_Profile_Read {
         {
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             TeqFw_Db_Shared_Dto_List_Selection$: dbSelect,
+            Fl64_Auth_Otp_Back_Store_RDb_Repo_Email$: repoOtpEmail,
+            Fl64_OAuth2_Social_Back_Store_RDb_Repo_User_Identity$: repoIdentity,
             Svelters_Back_Store_RDb_Repo_User$: repoUser,
             Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
             Svelters_Back_Store_RDb_Repo_Weight_Goal$: repoWeightGoal,
@@ -27,8 +31,10 @@ export default class Svelters_Back_Act_User_Profile_Read {
         // VARS
         const DIR = dbSelect.getDirections();
         const FUNC = dbSelect.getFunctions();
-        const A_WEIGHT_LOG = repoWeightLog.getSchema().getAttributes();
+        const A_IDENTITY = repoIdentity.getSchema().getAttributes();
+        const A_OTP_EMAIL = repoOtpEmail.getSchema().getAttributes();
         const A_WEIGHT_GOAL = repoWeightGoal.getSchema().getAttributes();
+        const A_WEIGHT_LOG = repoWeightLog.getSchema().getAttributes();
 
         // FUNCS
         /**
@@ -103,6 +109,26 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.promptStart = foundProfile.prompt_start;
                     profile.sex = foundProfile.sex;
                     profile.timezone = foundProfile.timezone;
+                    // read email
+                    const {record: foundOtpEmail} = await repoOtpEmail.readOne({
+                        trx,
+                        key: {[A_OTP_EMAIL.USER_REF]: userId}
+                    });
+                    if (foundOtpEmail) {
+                        profile.email = foundOtpEmail.email;
+                    } else {
+                        const selection = dbSelect.createDto({
+                            filter: {
+                                name: FUNC.EQ,
+                                params: [{alias: A_IDENTITY.USER_REF}, {value: userId}],
+                            },
+                            rowsLimit: 1,
+                        });
+                        const {records} = await repoIdentity.readMany({trx, selection});
+                        if (records[0]) {
+                            profile.email = records[0].uid;
+                        }
+                    }
                 }
                 profile.weight = await readWeight(trx, userId);
                 profile.weightGoal = await readWeightGoal(trx, userId);
