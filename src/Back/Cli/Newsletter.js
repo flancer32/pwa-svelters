@@ -2,10 +2,7 @@
  * Factory function for a CLI command that sends newsletters to subscribers.
  * @namespace Svelters_Back_Cli_Newsletter
  *
- * @param {typeof import('node:path')} path - Node.js path module
- * @param {typeof import('@readme/openapi-parser')} openApiParser - OpenAPI parser and validator
  * @param {Svelters_Back_Defaults} DEF - Global application defaults
- * @param {TeqFw_Core_Back_Config} config - Application configuration service
  * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger service
  * @param {TeqFw_Core_Back_Api_Dto_Command.Factory} fCommand - Factory for CLI command DTOs
  * @param {TeqFw_Core_Back_Api_Dto_Command_Option.Factory} fOpt - Factory for CLI command option DTOs
@@ -20,9 +17,7 @@
  */
 export default function Factory(
     {
-        'node:path': path,
         Svelters_Back_Defaults$: DEF,
-        TeqFw_Core_Back_Config$: config,
         TeqFw_Core_Shared_Api_Logger$$: logger,
         'TeqFw_Core_Back_Api_Dto_Command.Factory$': fCommand,
         'TeqFw_Core_Back_Api_Dto_Command_Option.Factory$': fOpt,
@@ -35,7 +30,6 @@ export default function Factory(
     }
 ) {
     // VARS
-    const {join} = path;
     const LOCALE = DEF.SHARED.LOCALE;
 
     // FUNCS
@@ -46,8 +40,7 @@ export default function Factory(
      * @returns {Promise<void>}
      */
     async function action(opts) {
-        const TMPL_NAME = '/news/20250422_clean';
-        const specPath = join(config.getPathToRoot(), 'etc', 'openapi.json');
+        const TMPL_NAME = '/news/20250422_start';
         try {
             return await trxWrapper.execute(null, async (trx) => {
 
@@ -87,8 +80,6 @@ export default function Factory(
                 }
 
                 // MAIN
-                const emails = await selectEmails(trx);
-
                 const {content: html} = await servRender.perform({
                     type: TMPL.EMAIL,
                     name: TMPL_NAME + '/body.html',
@@ -104,19 +95,17 @@ export default function Factory(
                     name: TMPL_NAME + '/meta.json',
                     localeApp: LOCALE,
                 });
-                debugger
                 const subject = JSON.parse(meta).subject;
-
-                const email = `akjfhkjshfkdljfhlskdfs-flancer64@gmail.com`;
-                // const email = `noreply@klientuklubs.lv`;
-                const {success} = await actSend.act({
-                    to: email,
-                    subject,
-                    text,
-                    html,
-                });
-                logger.info(`Newsletter email to '${email}' is ${success ? 'sent' : 'failed'}`);
-                debugger
+                const emails = await selectEmails(trx);
+                for (const email of emails) {
+                    const {success} = await actSend.act({
+                        to: email,
+                        subject,
+                        text,
+                        html,
+                    });
+                    logger.info(`Newsletter email to '${email}' is ${success ? 'sent' : 'failed'}`);
+                }
             });
         } catch (err) {
             logger.error(err.message);

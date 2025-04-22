@@ -1,0 +1,63 @@
+Hi there! I'm Alex, the creator of NutriLog.
+
+Back in the fall of 2024, I weighed almost 220 pounds at 5'9".
+I decided to lose weight using a low-calorie diet — and tracked everything with the help of a GPT chat. It worked.
+
+As a web developer, I built a tool that connects a customized GPT assistant with a web app to automate the routine and make daily tracking less of a chore.
+
+That’s how NutriLog was born — and now it’s open for others to try.
+
+What it’s all about
+
+NutriLog is for people who use GPT chats to help manage their nutrition:
+some are losing weight, some maintaining, some gaining.
+
+The goal isn’t just weight management — it’s collaboration.
+If you're exploring how AI can support your journey — and want tools like progress tracking, profile storage, and visual analytics — NutriLog is for you.
+
+I’m sharing my experience. In fact, this project is that experience, made public.
+And if you have questions — you can ask directly through the GPT assistant. It knows how to reach me.
+
+Important: To use NutriLog fully, you’ll need an active ChatGPT Plus subscription from OpenAI.
+Without it, the assistant won't work properly.
+
+What’s new
+
+I’ve been thinking for a while about how to show the way I use GPT inside NutriLog.
+This email is my first attempt at telling that story.
+
+Here’s a short intro page I put together:
+https://nutrilog.app.wiredgeese.com/app/playbook/start.html
+
+No video yet — just text and screenshots.
+I’d love to know if this kind of format works for you.
+
+How to send feedback
+
+NutriLog has a built-in feedback tool the assistant can use to contact me.
+
+Once you authorize your GPT assistant to use NutriLog tools, you can simply say:
+"I want to send something to the project author."
+
+Write in any language — GPT will translate and email it to me.
+I read every message.
+
+One request
+
+NutriLog is currently in beta, and spots are limited.
+If you signed up by mistake or realized it’s not for you, please delete your account:
+https://nutrilog.app.wiredgeese.com/app/account/delete
+
+That frees up space for someone who really wants to be part of the experiment.
+
+Thanks for reading this far.
+
+NutriLog is, first and foremost, an experiment — though I do hope it will eventually pay for itself.
+The real goal is to explore how people and AI can work together in meaningful, practical ways.
+
+If you're curious about how far human–AI collaboration can go — you're more than welcome to join the journey.
+
+Warm regards,
+Alex Gusev
+creator of NutriLog
+developer, GPT user, human
