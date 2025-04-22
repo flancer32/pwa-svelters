@@ -90,6 +90,7 @@ If no inconsistencies are found, confirm coherence and explain briefly **why the
                 });
                 logger.info(`The LLM request is completed.`);
                 const content = completion.choices[0].message.content;
+                logger.info(`LLM usage: ${JSON.stringify(completion.usage)}`)
                 const match = content.match(/---FILE: (.+?)---\n([\s\S]+?)\n---END FILE---/);
                 if (!match) {
                     logger.error('Failed to extract generated file from response.');

@@ -11,6 +11,7 @@ const MODE = {
     NEW_DTO: 'NEW_DTO',
     NEW_ENUM: 'NEW_ENUM',
     RDB_DEM: 'RDB_DEM',
+    RDB_QUERY: 'RDB_QUERY',
     RDB_REPO: 'RDB_REPO',
     RDB_SCHEMA: 'RDB_SCHEMA',
     TEST: 'TEST',
@@ -31,6 +32,7 @@ const MODE = {
  * @param {Svelters_Back_Cli_Deepseek_A_New_Dto} aNewDto
  * @param {Svelters_Back_Cli_Deepseek_A_New_Enum} aNewEnum
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Dem} aRdbDem
+ * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Query} aRdbQuery
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Repo} aRdbRepo
  * @param {Svelters_Back_Cli_Deepseek_A_Rdb_Schema} aRdbSchema
  * @param {Svelters_Back_Cli_Deepseek_A_Test} aTest
@@ -50,6 +52,7 @@ export default function Factory(
         Svelters_Back_Cli_Deepseek_A_New_Dto$: aNewDto,
         Svelters_Back_Cli_Deepseek_A_New_Enum$: aNewEnum,
         Svelters_Back_Cli_Deepseek_A_Rdb_Dem$: aRdbDem,
+        Svelters_Back_Cli_Deepseek_A_Rdb_Query$: aRdbQuery,
         Svelters_Back_Cli_Deepseek_A_Rdb_Repo$: aRdbRepo,
         Svelters_Back_Cli_Deepseek_A_Rdb_Schema$: aRdbSchema,
         Svelters_Back_Cli_Deepseek_A_Test$: aTest,
@@ -86,6 +89,9 @@ export default function Factory(
             case MODE.RDB_DEM:
                 await aRdbDem.run(rootWork, rootDocs);
                 break;
+            case MODE.RDB_QUERY:
+                await aRdbQuery.run(rootWork, rootDocs);
+                break;
             case MODE.RDB_REPO:
                 await aRdbRepo.run(rootWork, rootDocs);
                 break;
@@ -102,13 +108,13 @@ export default function Factory(
     const res = fCommand.create();
     res.realm = DEF.CLI_PREFIX;
     res.name = 'deepseek';
-    res.desc = 'A test command to use LLM as code generators.';
+    res.desc = 'a test command to use LLM as code generators.';
     res.action = action;
 
     // Define the --name option
     const optMode = fOpt.create();
     optMode.flags = `-m, --${OPT_MODE} [${Object.keys(MODE).join('|')}]`;
-    optMode.description = 'A mode for the used prompts and generated results.';
+    optMode.description = 'a mode for the used prompts and generated results.';
     res.opts.push(optMode);
 
     return res;
