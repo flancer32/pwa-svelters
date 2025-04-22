@@ -18,6 +18,7 @@
   "@teqfw/core": {
     "commands": [
       "Svelters_Back_Cli_Deepseek",
+      "Svelters_Back_Cli_Newsletter",
       "Svelters_Back_Cli_OpenAPI"
     ],
     "plugin": {

@@ -10,7 +10,7 @@ export default class Svelters_Back_Email_Account_Delete_Init {
      * @param {Fl64_Tmpl_Back_Service_Render} servRender
      * @param {TeqFw_Email_Back_Act_Send} actSend
      * @param {Svelters_Back_Act_User_Profile_Read} actProfileRead
-     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TMPL_TYPE
+     * @param {typeof Fl64_Tmpl_Back_Enum_Type} TMPL
      */
     constructor(
         {
@@ -20,7 +20,7 @@ export default class Svelters_Back_Email_Account_Delete_Init {
             Fl64_Tmpl_Back_Service_Render$: servRender,
             TeqFw_Email_Back_Act_Send$: actSend,
             Svelters_Back_Act_User_Profile_Read$: actProfileRead,
-            Fl64_Tmpl_Back_Enum_Type$: TMPL_TYPE,
+            Fl64_Tmpl_Back_Enum_Type$: TMPL,
         }
     ) {
         // VARS
@@ -39,21 +39,21 @@ export default class Svelters_Back_Email_Account_Delete_Init {
             const localeApp = DEF.SHARED.LOCALE;
 
             const {content: html} = await servRender.perform({
-                type: TMPL_TYPE.EMAIL,
+                type: TMPL.EMAIL,
                 name: TMPL_NAME + '.html',
                 localeUser: locale,
                 localeApp,
             });
 
             const {content: text} = await servRender.perform({
-                type: TMPL_TYPE.EMAIL,
+                type: TMPL.EMAIL,
                 name: TMPL_NAME + '.txt',
                 localeUser: locale,
                 localeApp,
             });
 
             const {content: meta} = await servRender.perform({
-                type: TMPL_TYPE.EMAIL,
+                type: TMPL.EMAIL,
                 name: TMPL_NAME + '.meta.json',
                 localeUser: locale,
                 localeApp,

@@ -8,7 +8,11 @@ export default class Svelters_Back_Cli_Newsletter_A_Dto_Item {
     /**
      * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type casting.
      */
-    constructor({TeqFw_Core_Shared_Util_Cast$: cast}) {
+    constructor(
+        {
+            TeqFw_Core_Shared_Util_Cast$: cast
+        }
+    ) {
         /**
          * Create a validated DTO instance from raw input.
          *
@@ -19,7 +23,6 @@ export default class Svelters_Back_Cli_Newsletter_A_Dto_Item {
             const res = Object.assign(new Dto(), data);
             if (data) {
                 res.id = cast.int(data.id);
-                res.state = cast.string(data.state);
                 res.otpEmail = cast.string(data.otpEmail);
                 res.uid = cast.string(data.uid);
             }
@@ -43,7 +46,6 @@ export default class Svelters_Back_Cli_Newsletter_A_Dto_Item {
  */
 const ATTR = {
     ID: 'id',
-    STATE: 'state',
     OTP_EMAIL: 'otpEmail',
     UID: 'uid',
 };
@@ -60,8 +62,6 @@ const ATTR = {
 class Dto {
     /** @type {number} */
     id;
-    /** @type {string} */
-    state;
     /** @type {string} */
     otpEmail;
     /** @type {string} */

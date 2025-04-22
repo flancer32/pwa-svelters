@@ -1,0 +1,15 @@
+Dear NutriLog user,
+
+NutriLog is currently in open beta, and we're looking for active users to help us improve the app.
+
+We understand the project may feel unclear at first — that’s why we’ve prepared a short introduction to help you get started:
+https://nutrilog.app.wiredgeese.com/app/playbook/start.html
+
+If you can, please try using the food diary together with the Assistant (GPT chat) sometime this week.
+Your feedback and activity are incredibly valuable.
+
+Thank you for being part of the experiment.
+
+Best regards,
+Alex Gusev
+Creator of NutriLog

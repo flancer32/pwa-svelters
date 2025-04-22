@@ -81,7 +81,7 @@ export default class Svelters_Back_Cli_Newsletter_A_Query {
          * Build the base query to select items.
          * @param {TeqFw_Db_Back_RDb_ITrans} trx
          * @param {object} [opts]
-         * @returns {Knex.QueryBuilder}
+         * @returns {Knex.QueryBuilder|Promise<Svelters_Back_Cli_Newsletter_A_Dto_Item.Dto[]>}
          */
         this.build = function (trx, opts = {}) {
             const res = init(trx, opts);

@@ -42,17 +42,17 @@
     "@teqfw/db": ">=0.25.0 <1.0.0",
     "@teqfw/test": "latest",
     "@teqfw/web": "latest",
-    "openai": "^4.89.1",
+    "openai": "^4.95.1",
     "pg": "^8.13.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
+    "@eslint/js": "^9.25.0",
     "@teqfw/test": ">=0.20.1 <1.0.0",
     "@types/knex": "^0.15.2",
     "autoprefixer": "^10.4.21",
     "better-sqlite3": "^11.5.0",
     "dotenv": "^16.4.7",
-    "eslint": "^9.23.0",
+    "eslint": "^9.25.0",
     "eslint-plugin-jsdoc": "^50.6.8",
     "globals": "^16.0.0",
     "mocha": "^11.1.0",
@@ -60,6 +60,6 @@
     "tailwindcss": "^3.4.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }
