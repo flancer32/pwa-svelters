@@ -108,13 +108,13 @@ export default function Factory(
     const res = fCommand.create();
     res.realm = DEF.CLI_PREFIX;
     res.name = 'deepseek';
-    res.desc = 'a test command to use LLM as code generators.';
+    res.desc = 'a test command to use LLM as code generators';
     res.action = action;
 
     // Define the --name option
     const optMode = fOpt.create();
     optMode.flags = `-m, --${OPT_MODE} [${Object.keys(MODE).join('|')}]`;
-    optMode.description = 'a mode for the used prompts and generated results.';
+    optMode.description = 'a mode for the used prompts and generated results';
     res.opts.push(optMode);
 
     return res;

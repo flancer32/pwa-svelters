@@ -42,11 +42,11 @@ export default class Svelters_Back_Act_Account_Delete_Init {
          *
          * @param {Object} [params={}] - Optional parameters.
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - External transaction (if provided).
+         * @param {string} params.emailTmpl - Email template to use for the confirmation email (`/account/delete/init/cli`).
          * @returns {Promise<{ok: boolean}>}
          */
-        this.run = async function ({trx: trxOuter, userId} = {}) {
+        this.run = async function ({trx: trxOuter, userId, emailTmpl} = {}) {
             return await trxWrapper.execute(trxOuter, async (trx) => {
-                let ok = false;
                 logger.info(`Processing account deletion request for user #${userId}.`);
                 // set the state for the user
                 const {record: foundUser} = await repoUser.readOne({trx, key: userId});
@@ -65,9 +65,8 @@ export default class Svelters_Back_Act_Account_Delete_Init {
                     await repoSession.deleteOne({trx, key: record[A_SESS.ID]});
                     logger.info(`Session #${record[A_SESS.ID]} has been deleted.`);
                 }
-                await emailInit.perform({trx, userId});
-                ok = true;
-                return {ok};
+                await emailInit.perform({trx, userId, emailTmpl});
+                return {ok: true};
             });
         };
 

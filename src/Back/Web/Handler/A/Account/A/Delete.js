@@ -82,7 +82,7 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Delete {
                     const xsrfToken = payload.xsrfToken;
                     const foundToken = memXsrfToken.get({key: xsrfToken});
                     if (foundToken) {
-                        await actInit.run({trx, userId: dto.user_ref});
+                        await actInit.run({trx, userId: dto.user_ref, emailTmpl: '/account/delete/init/ui'});
                         // memXsrfToken.delete({key: xsrfToken});
                         response.meta.code = RESULT.SUCCESS;
                         respond.code200_Ok({

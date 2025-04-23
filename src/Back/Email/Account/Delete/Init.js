@@ -23,38 +23,35 @@ export default class Svelters_Back_Email_Account_Delete_Init {
             Fl64_Tmpl_Back_Enum_Type$: TMPL,
         }
     ) {
-        // VARS
-        const TMPL_NAME = '/account/delete/init';
-
         // FUNCS
 
         /**
          * Renders the email content for account deletion request.
-         * @param {TeqFw_Db_Back_RDb_ITrans} trx
          * @param {Svelters_Shared_Dto_User_Profile.Dto} profile
+         * @param {string} template - path to the folder with the template files (`/account/delete/init/cli`).
          * @returns {Promise<{html: string, text: string, subject: string}>}
          */
-        async function prepareContent(trx, profile) {
+        async function prepareContent(profile, template) {
             const {locale} = profile;
             const localeApp = DEF.SHARED.LOCALE;
 
             const {content: html} = await servRender.perform({
                 type: TMPL.EMAIL,
-                name: TMPL_NAME + '.html',
+                name: template + '/body.html',
                 localeUser: locale,
                 localeApp,
             });
 
             const {content: text} = await servRender.perform({
                 type: TMPL.EMAIL,
-                name: TMPL_NAME + '.txt',
+                name: template + '/body.txt',
                 localeUser: locale,
                 localeApp,
             });
 
             const {content: meta} = await servRender.perform({
                 type: TMPL.EMAIL,
-                name: TMPL_NAME + '.meta.json',
+                name: template + '/meta.json',
                 localeUser: locale,
                 localeApp,
             });
@@ -71,9 +68,10 @@ export default class Svelters_Back_Email_Account_Delete_Init {
          * @param {Object} [params={}] - Optional parameters.
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - Optional transaction context.
          * @param {number} params.userId - ID of the user to notify.
+         * @param {string} params.emailTmpl - Email template to use for the confirmation email (`/account/delete/init/cli`).
          * @returns {Promise<{resultCode: string}>}
          */
-        this.perform = async function ({trx: trxOuter, userId}) {
+        this.perform = async function ({trx: trxOuter, userId, emailTmpl}) {
             let resultCode = RESULT_CODES.UNKNOWN_ERROR;
 
             await trxWrapper.execute(trxOuter, async function (trx) {
@@ -90,7 +88,7 @@ export default class Svelters_Back_Email_Account_Delete_Init {
                     return;
                 }
 
-                const {html, text, subject} = await prepareContent(trx, profile);
+                const {html, text, subject} = await prepareContent(profile, emailTmpl);
                 const {success} = await actSend.act({
                     to: profile.email,
                     subject,
