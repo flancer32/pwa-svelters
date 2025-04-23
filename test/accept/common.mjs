@@ -4,7 +4,7 @@ import {join} from 'node:path';
 // import 'dotenv/config';
 
 /**
- * @param {TeqFw_Di_Api_Container} container
+ * @param {TeqFw_Di_Container} container
  * @return {Promise<void>}
  */
 export async function dbConnect(container) {
@@ -15,7 +15,7 @@ export async function dbConnect(container) {
 }
 
 /**
- * @param {TeqFw_Di_Api_Container} container
+ * @param {TeqFw_Di_Container} container
  * @return {Promise<void>}
  */
 export async function dbDisconnect(container) {
@@ -33,7 +33,7 @@ export async function dbDisconnect(container) {
  */
 
 /**
- * @param {TeqFw_Di_Api_Container} container
+ * @param {TeqFw_Di_Container} container
  * @return {Promise<{user: UserDto}>}
  */
 export async function dbCreateFkEntities(container) {
@@ -66,7 +66,7 @@ export async function dbCreateFkEntities(container) {
 }
 
 /**
- * @param {TeqFw_Di_Api_Container} container
+ * @param {TeqFw_Di_Container} container
  * @return {Promise<void>}
  */
 export async function dbReset(container) {
@@ -104,7 +104,7 @@ export async function dbReset(container) {
 }
 
 /**
- * @param {TeqFw_Di_Api_Container} container
+ * @param {TeqFw_Di_Container} container
  * @return {Promise<void>}
  */
 export async function initConfig(container) {
