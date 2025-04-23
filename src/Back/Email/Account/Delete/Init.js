@@ -65,7 +65,7 @@ export default class Svelters_Back_Email_Account_Delete_Init {
 
         /**
          * Sends an account deletion confirmation message to the user.
-         * @param {Object} [params={}] - Optional parameters.
+         * @param {object} [params={}] - Optional parameters.
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - Optional transaction context.
          * @param {number} params.userId - ID of the user to notify.
          * @param {string} params.emailTmpl - Email template to use for the confirmation email (`/account/delete/init/cli`).

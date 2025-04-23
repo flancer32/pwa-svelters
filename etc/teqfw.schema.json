@@ -239,6 +239,52 @@
         },
         "user": {
           "entity": {
+            "delete": {
+              "comment": "Table for tracking user deletion status",
+              "attr": {
+                "user_ref": {
+                  "comment": "Reference to the user being deleted",
+                  "type": "ref"
+                },
+                "date_created": {
+                  "comment": "Timestamp when the deletion record was created",
+                  "type": "datetime",
+                  "default": "current"
+                },
+                "date_updated": {
+                  "comment": "Timestamp when the deletion record was last updated",
+                  "type": "datetime",
+                  "default": "current"
+                },
+                "state": {
+                  "comment": "Current state of the deletion process",
+                  "type": "enum",
+                  "default": "ACTIVE",
+                  "options": {
+                    "values": ["ACTIVE", "LOCKED"]
+                  }
+                }
+              },
+              "index": {
+                "app_user_delete_pk": {
+                  "type": "primary",
+                  "attrs": ["user_ref"]
+                }
+              },
+              "relation": {
+                "app_user_delete_fk_user": {
+                  "attrs": ["user_ref"],
+                  "ref": {
+                    "path": "/app/user",
+                    "attrs": ["id"]
+                  },
+                  "action": {
+                    "delete": "cascade",
+                    "update": "cascade"
+                  }
+                }
+              }
+            },
             "profile": {
               "comment": "User data specific for the app.",
               "attr": {
