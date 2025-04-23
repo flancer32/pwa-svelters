@@ -23,6 +23,8 @@ export default class Svelters_Back_Defaults {
     SUBSCRIPTION_MONTHS_RENEW = 1; // Subscription period for renewal
     SUBSCRIPTION_USERS_MAX = 100; // Total number of users to get promo
 
+    URI_403 = '/app/403.html';
+
     /**
      * @param {TeqFw_Core_Back_Defaults} MOD_CORE
      * @param {TeqFw_Web_Back_Defaults} MOD_WEB

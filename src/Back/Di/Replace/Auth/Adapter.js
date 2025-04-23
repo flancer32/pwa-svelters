@@ -8,16 +8,29 @@
 export default class Svelters_Back_Di_Replace_Auth_Adapter {
     /**
      * @param {Svelters_Back_Defaults} DEF
+     * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
+     * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Act_User_Create} actCreate
+     * @param {typeof Svelters_Shared_Enum_User_State} STATE
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
+            TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
+            Svelters_Back_Store_RDb_Repo_User$: repoUser,
             Svelters_Back_Act_User_Create$: actCreate,
-
+            Svelters_Shared_Enum_User_State$: STATE,
         }
     ) {
         // MAIN
+
+        this.canAuthenticateUser = async function ({trx: trxOuter, userId}) {
+            return await trxWrapper.execute(trxOuter, async (trx) => {
+                const {record: foundUser} = await repoUser.readOne({trx, key: userId});
+                return {ok: (foundUser?.state === STATE.ACTIVE), uri403: DEF.URI_403};
+            });
+        };
+
         this.canRegisterEmail = async function ({trx: trxOuter, email}) {
             let allowed = true;
             let reason = null;
