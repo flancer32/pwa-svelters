@@ -1,0 +1,26 @@
+Hi there,
+
+Thank you for joining NutriLog — an experiment in human–AI collaboration.
+
+To activate your beta account and start using NutriLog, please confirm your email by clicking the link below:
+
+{{{verifyLink}}}
+
+If the link doesn’t work, simply copy and paste it into your browser.
+
+This confirmation link is valid for 24 hours.
+
+As a beta tester, you’ll receive **3 months of full access** — completely free.
+It’s our way of saying thanks for being among the first to try the system and share your thoughts.
+
+Important:  
+If you don’t confirm your email within **3 days**, your account will be automatically deleted to free up space for others.
+
+NutriLog is built for people who use GPT Plus chats to manage nutrition, track goals, and explore how AI can help in real life.
+
+If you didn’t request this registration, you can safely ignore this message.
+
+See you inside,  
+Alex Gusev  
+creator of NutriLog  
+developer, GPT user, human

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> htmlHead}}
+
+    {{#isSuccess}}
+    <script>
+        setTimeout(() => {
+            window.location.href = '/app/dashboard';
+        }, 4000);
+    </script>
+    {{/isSuccess}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Authentication Result</h1>
+
+    {{#isSuccess}}
+    <div class="a-card a-info">
+        <h2>Welcome back!</h2>
+        <p>You have been successfully authenticated.</p>
+        <p>You’ll be redirected to your <a href="/app/dashboard">dashboard</a> shortly...</p>
+    </div>
+    {{/isSuccess}}
+
+    {{#isWrongOtp}}
+    <div class="a-card a-warn">
+        <h2>Invalid Link</h2>
+        <p>The link you used is invalid or has expired. Please request a new one-time login link.</p>
+    </div>
+    {{/isWrongOtp}}
+
+    {{#isUnknownError}}
+    <div class="alert-error" role="alert">
+        <span>An unexpected error occurred. Please try again later.</span>
+    </div>
+    {{/isUnknownError}}
+
+    <div class="btn-center">
+        <a href="/" class="btn-green">Go to Homepage</a>
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

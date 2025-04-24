@@ -27,7 +27,7 @@ export default class Svelters_Back_Di_Replace_Auth_Adapter {
         this.canAuthenticateUser = async function ({trx: trxOuter, userId}) {
             return await trxWrapper.execute(trxOuter, async (trx) => {
                 const {record: foundUser} = await repoUser.readOne({trx, key: userId});
-                return {ok: (foundUser?.state === STATE.ACTIVE), uri403: DEF.URI_403};
+                return {ok: (foundUser?.state === STATE.ACTIVE), uri401: DEF.URI_401};
             });
         };
 

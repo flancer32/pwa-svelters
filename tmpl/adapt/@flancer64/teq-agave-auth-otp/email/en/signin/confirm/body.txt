@@ -1,0 +1,14 @@
+Hi there,
+
+Your one-time login was successful — you’re now signed in to your NutriLog account.
+
+This link can’t be reused, and no further action is needed.
+
+If this wasn’t you, or if you think someone else tried to access your account, please let me know right away.
+
+NutriLog is a tool for people who use GPT chats to manage nutrition, track progress, and explore what’s possible in collaboration with AI.
+
+See you inside,
+Alex Gusev
+creator of NutriLog
+developer, GPT user, human

@@ -13,55 +13,75 @@
             line-height: 1.6;
         }
 
-        .email-wrapper {
+        .wrap {
             max-width: 600px;
             margin: 2rem auto;
-            padding: 1.5rem;
+            padding: 2rem;
             background-color: #ffffff;
             border-radius: 1rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .email-heading {
+        .head {
             font-size: 1.25rem;
             font-weight: 600;
             color: #22c55e;
-            margin-bottom: 1rem;
+            padding-bottom: 1rem;
         }
 
-        .email-text {
+        .txt {
             font-size: 1rem;
+            padding-bottom: 1rem;
         }
 
-        .email-link {
+        .link {
             color: #22c55e;
             text-decoration: underline;
             word-break: break-word;
         }
 
-        .email-signature {
-            margin-top: 2rem;
+        .brand {
+            color: #22c55e;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .sig {
+            font-size: 1rem;
+            padding-top: 2rem;
         }
     </style>
 </head>
 <body>
-<div class="email-wrapper">
-    <div class="email-heading">Dear NutriLog user,</div>
-    <div class="email-text">
-        We have received your request to delete your NutriLog account.
-        <br/><br/>
+<div class="wrap">
+    <div class="head">Dear <a class="brand" href="https://nutrilog.app.wiredgeese.com">NutriLog</a> user,</div>
+
+    <div class="txt">
+        We have received your request to delete your <a class="brand" href="https://nutrilog.app.wiredgeese.com">NutriLog</a>
+        account.
+    </div>
+
+    <div class="txt">
         Your access has been disabled. Your data will be permanently erased in 7 days.
-        <br/><br/>
+    </div>
+
+    <div class="txt">
         If you change your mind, feel free to contact us here:<br/>
-        <a class="email-link" href="https://nutrilog.app.wiredgeese.com/app/contact.html">
+        <a class="link" href="https://nutrilog.app.wiredgeese.com/app/contact.html">
             https://nutrilog.app.wiredgeese.com/app/contact.html
         </a>
-        <div class="email-signature">
-            Thank you for being with us — we wish you all the best.
-            <br/><br/>
-            Best regards,<br/>
-            <strong>The NutriLog Team</strong>
-        </div>
+    </div>
+
+    <div class="txt">
+        Thank you for being with <a class="brand" href="https://nutrilog.app.wiredgeese.com">NutriLog</a> — we wish you
+        all the best.
+    </div>
+
+    <div class="sig">
+        See you again,<br/><br/>
+        Alex Gusev<br/>
+        creator of <a class="brand" href="https://nutrilog.app.wiredgeese.com">NutriLog</a><br/>
+        developer, GPT user, human
     </div>
 </div>
 </body>

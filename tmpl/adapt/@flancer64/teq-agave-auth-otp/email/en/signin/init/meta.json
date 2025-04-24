@@ -1,0 +1,6 @@
+{
+  "subject": "Your NutriLog one-time login link",
+  "variables": [
+    "signInLink"
+  ]
+}

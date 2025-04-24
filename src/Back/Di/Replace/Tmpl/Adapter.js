@@ -7,18 +7,22 @@ export default class Svelters_Back_Di_Replace_Tmpl_Adapter {
     /**
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Back_Config} config
+     * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Fl64_Tmpl_Back_Helper} helpTmpl
      * @param {Fl64_Tmpl_Back_Dto_Context} dtoContext
      * @param {Fl64_Web_Session_Back_Manager} session
+     * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
      * @param {Svelters_Back_Helper_Web} helpWeb
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Back_Config$: config,
+            TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Tmpl_Back_Helper$: helpTmpl,
             Fl64_Tmpl_Back_Dto_Context$: dtoContext,
             Fl64_Web_Session_Back_Manager$: session,
+            Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
             Svelters_Back_Helper_Web$: helpWeb,
         }
     ) {
@@ -56,15 +60,28 @@ export default class Svelters_Back_Di_Replace_Tmpl_Adapter {
         }
 
         // MAIN
-        this.getLocales = async function ({req}) {
-            const localeUser = helpWeb.getLocale(req);
-            return {localeUser, localeApp: DEF.SHARED.LOCALE};
+
+        this.getEmailContext = async function ({pkg, tmpl, userId, trx: trxOuter, req}) {
+            const res = dtoContext.create();
+            res.locale.app = DEF.SHARED.LOCALE;
+            res.locale.user = DEF.SHARED.LOCALE;
+            res.partials = {};
+            res.view = {};
+            // get the user locale from HTTP request of from the user profile
+            if (req) res.locale.user = helpWeb.getLocale(req);
+            if (userId) {
+                await trxWrapper.execute(trxOuter, async (trx) => {
+                    const {record: foundProfile} = await repoProfile.readOne({trx, key: userId});
+                    if (foundProfile) res.locale.user = foundProfile.locale;
+                });
+            }
+            return res;
         };
 
         this.getWebContext = async function ({req, trx}) {
             const res = dtoContext.create();
-            const {localeApp, localeUser} = await this.getLocales({req});
-            res.locale.app = localeApp;
+            const localeUser = helpWeb.getLocale(req);
+            res.locale.app = DEF.SHARED.LOCALE;
             res.locale.user = localeUser;
             res.partials = await loadPartials(localeUser);
             const {dto} = await session.getFromRequest({trx, req});

@@ -1,0 +1,7 @@
+{
+  "vars": {
+    "isSuccess": "boolean",
+    "isUnknownError": "boolean",
+    "isWrongOtp": "boolean"
+  }
+}
