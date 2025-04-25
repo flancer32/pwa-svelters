@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-param-names */
 /**
  * Factory function for a CLI command that initiates the account deletion process.
  * The account will be deactivated and scheduled for permanent removal after 7 days.

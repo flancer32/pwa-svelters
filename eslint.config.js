@@ -25,7 +25,7 @@ export default defineConfig([
             'no-unused-vars': 'warn',
             'no-console': 'off',
             'eqeqeq': 'error',
-            'curly': 'error',
+            'curly': ['error', 'multi-line'],
             'semi': ['error', 'always'],
             // Your JSDoc rules
             'jsdoc/check-alignment': 'error',
