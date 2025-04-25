@@ -109,27 +109,29 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.promptStart = foundProfile.prompt_start;
                     profile.sex = foundProfile.sex;
                     profile.timezone = foundProfile.timezone;
-                    // read email
-                    const {record: foundOtpEmail} = await repoOtpEmail.readOne({
-                        trx,
-                        key: {[A_OTP_EMAIL.USER_REF]: userId}
+                }
+                // read emails
+                // read email
+                const {record: foundOtpEmail} = await repoOtpEmail.readOne({
+                    trx,
+                    key: {[A_OTP_EMAIL.USER_REF]: userId}
+                });
+                if (foundOtpEmail) {
+                    profile.email = foundOtpEmail.email;
+                } else {
+                    const selection = dbSelect.createDto({
+                        filter: {
+                            name: FUNC.EQ,
+                            params: [{alias: A_IDENTITY.USER_REF}, {value: userId}],
+                        },
+                        rowsLimit: 1,
                     });
-                    if (foundOtpEmail) {
-                        profile.email = foundOtpEmail.email;
-                    } else {
-                        const selection = dbSelect.createDto({
-                            filter: {
-                                name: FUNC.EQ,
-                                params: [{alias: A_IDENTITY.USER_REF}, {value: userId}],
-                            },
-                            rowsLimit: 1,
-                        });
-                        const {records} = await repoIdentity.readMany({trx, selection});
-                        if (records[0]) {
-                            profile.email = records[0].uid;
-                        }
+                    const {records} = await repoIdentity.readMany({trx, selection});
+                    if (records[0]) {
+                        profile.email = records[0].uid;
                     }
                 }
+                // read weights
                 profile.weight = await readWeight(trx, userId);
                 profile.weightGoal = await readWeightGoal(trx, userId);
                 return {profile};
