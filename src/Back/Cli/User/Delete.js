@@ -33,7 +33,7 @@ export default function Factory(
      * CLI command action to initiate account deletion.
      * Disables access and schedules the account for permanent deletion.
      *
-     * @param {Object} opts - Options provided by the CLI
+     * @param {object} opts - Options provided by the CLI
      * @param {string} opts.id - ID of the user to be scheduled for deletion
      * @returns {Promise<void>}
      */

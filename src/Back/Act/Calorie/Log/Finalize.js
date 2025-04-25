@@ -70,7 +70,7 @@ export default class Svelters_Back_Act_Calorie_Log_Finalize {
 
         // MAIN
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @returns {Promise<Object>}
          */

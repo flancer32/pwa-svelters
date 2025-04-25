@@ -24,7 +24,7 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Inserts a new record into the database.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto} [params.dto]
          * @returns {Promise<{primaryKey: Object<string, string|number>}>}
@@ -36,9 +36,9 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Deletes multiple records matching conditions.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.conditions
+         * @param {object} params.conditions
          * @returns {Promise<{deletedCount: number}>}
          */
         this.deleteMany = async function ({trx, conditions}) {
@@ -48,9 +48,9 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Deletes a record by primary key.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.key
+         * @param {object} params.key
          * @returns {Promise<{deletedCount: number}>}
          */
         this.deleteOne = async function ({trx, key}) {
@@ -67,10 +67,10 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Reads multiple records matching conditions.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {TeqFw_Db_Shared_Dto_List_Selection.Dto} [params.selection]
-         * @param {Object} [params.conditions]
+         * @param {object} [params.conditions]
          * @param {Object<string, 'asc'|'desc'>} [params.sorting]
          * @param {{limit: number, offset: number}} [params.pagination]
          * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto>}>}
@@ -82,9 +82,9 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Reads a single record by primary key.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.key
+         * @param {object} params.key
          * @param {Array<string>} [params.select]
          * @returns {Promise<{record: Svelters_Back_Store_RDb_Schema_Calorie_Log_Final.Dto|null}>}
          */
@@ -95,10 +95,10 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Updates multiple records matching conditions.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.conditions
-         * @param {Object} params.updates
+         * @param {object} params.conditions
+         * @param {object} params.updates
          * @returns {Promise<{updatedCount: number}>}
          */
         this.updateMany = async function ({trx, conditions, updates}) {
@@ -108,10 +108,10 @@ export default class Svelters_Back_Store_RDb_Repo_Calorie_Log_Final {
         /**
          * Updates a record by primary key.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.key
-         * @param {Object} params.updates
+         * @param {object} params.key
+         * @param {object} params.updates
          * @returns {Promise<{updatedCount: number}>}
          */
         this.updateOne = async function ({trx, key, updates}) {

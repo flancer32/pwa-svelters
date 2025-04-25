@@ -66,7 +66,7 @@ export default function Factory(
     /**
      * Handles the creation of a new OAuth2 client.
      *
-     * @param {Object} opts - Command-line options provided by the user
+     * @param {object} opts - Command-line options provided by the user
      * @returns {Promise<void>}
      */
     async function action(opts) {

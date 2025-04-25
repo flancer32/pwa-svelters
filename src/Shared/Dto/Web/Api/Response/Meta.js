@@ -39,7 +39,7 @@ export default class Svelters_Shared_Dto_Web_Api_Response_Meta {
     ) {
         /**
          * Factory method to create a new instance of Dto.
-         * @param {Object} [data]
+         * @param {object} [data]
          * @returns {Svelters_Shared_Dto_Web_Api_Response_Meta.Dto} A new instance of Dto with the provided data.
          */
         this.create = function (data) {

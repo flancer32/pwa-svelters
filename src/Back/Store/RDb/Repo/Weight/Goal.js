@@ -20,7 +20,7 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         this.createDto = (dto) => schema.createDto(dto);
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {Svelters_Back_Store_RDb_Schema_Weight_Goal.Dto} [params.dto]
          * @returns {Promise<{primaryKey: Object<string, string|number>}>}
@@ -30,9 +30,9 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         };
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} [params.conditions]
+         * @param {object} [params.conditions]
          * @returns {Promise<{deletedCount: number}>}
          */
         this.deleteMany = async function ({trx, conditions}) {
@@ -40,9 +40,9 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         };
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.key
+         * @param {object} params.key
          * @returns {Promise<{deletedCount: number}>}
          */
         this.deleteOne = async function ({trx, key}) {
@@ -55,10 +55,10 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         this.getSchema = () => schema;
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {TeqFw_Db_Shared_Dto_List_Selection.Dto} [params.selection]
-         * @param {Object} [params.conditions]
+         * @param {object} [params.conditions]
          * @param {Object<string, 'asc'|'desc'>} [params.sorting]
          * @param {{limit: number, offset: number}} [params.pagination]
          * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_Weight_Goal.Dto>}>}
@@ -68,9 +68,9 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         };
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} params.key
+         * @param {object} params.key
          * @param {Array<string>} [params.select]
          * @returns {Promise<{record: Svelters_Back_Store_RDb_Schema_Weight_Goal.Dto|null}>}
          */
@@ -79,10 +79,10 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         };
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} [params.conditions]
-         * @param {Object} params.updates
+         * @param {object} [params.conditions]
+         * @param {object} params.updates
          * @returns {Promise<{updatedCount: number}>}
          */
         this.updateMany = async function ({trx, conditions, updates}) {
@@ -90,10 +90,10 @@ export default class Svelters_Back_Store_RDb_Repo_Weight_Goal {
         };
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {Object} [params.key]
-         * @param {Object} params.updates
+         * @param {object} [params.key]
+         * @param {object} params.updates
          * @returns {Promise<{updatedCount: number}>}
          */
         this.updateOne = async function ({trx, key, updates}) {

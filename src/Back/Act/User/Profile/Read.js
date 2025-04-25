@@ -85,7 +85,7 @@ export default class Svelters_Back_Act_User_Profile_Read {
 
         // MAIN
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - External transaction (if provided).
          * @param {number} params.userId
          * @returns {Promise<{profile: Svelters_Shared_Dto_User_Profile.Dto}>}

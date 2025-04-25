@@ -36,7 +36,7 @@ export default class Svelters_Back_Di_Replace_Social_UserManager {
         // MAIN
         /**
          * Creates a new user in the application's database.
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - The transaction context.
          * @returns {Promise<{id: number|null, redirectUrl:string}>} - The unique identifier of the created user & redirect URL.
          */

@@ -27,7 +27,7 @@ export default class Svelters_Back_Act_User_Subscription_Info {
         // MAIN
 
         /**
-         * @param {Object} params
+         * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {number} [params.userId]
          * @returns {Promise<{user: Svelters_Back_Store_RDb_Schema_User.Dto}>}

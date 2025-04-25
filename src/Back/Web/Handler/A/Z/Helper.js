@@ -1,4 +1,9 @@
+/**
+ * Helper class that provides backend functionalities for handling user data,
+ * profiles, and requests in a Svelters-based application.
+ */
 export default class Svelters_Back_Web_Handler_A_Z_Helper {
+    /* eslint-disable jsdoc/require-param-description,jsdoc/check-param-names */
     /**
      * @param {typeof import('node:http2')} http2
      * @param {typeof import('node:url')} url
@@ -7,6 +12,7 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
      * @param {Svelters_Back_Store_RDb_Schema_User} rdbUser
      * @param {Svelters_Shared_Helper_Cast} helpCast
      * @param {Svelters_Back_Act_User_Profile_Read} actProfileRead
+     * @param {typeof Svelters_Shared_Enum_User_State} STATE
      */
     constructor(
         {
@@ -17,8 +23,10 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
             Svelters_Back_Store_RDb_Schema_User$: rdbUser,
             Svelters_Shared_Helper_Cast$: helpCast,
             Svelters_Back_Act_User_Profile_Read$: actProfileRead,
+            Svelters_Shared_Enum_User_State$: STATE,
         }
     ) {
+        /* eslint-enable jsdoc/require-param-description */
         // VARS
         const {
             HTTP2_HEADER_CONTENT_TYPE,
@@ -26,13 +34,16 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         } = http2.constants;
         const {URLSearchParams} = url;
         const MONTHS_RENEW = DEF.SUBSCRIPTION_MONTHS_RENEW;
+        const A_USER = rdbUser.getAttributes();
 
         // MAIN
 
         /**
+         * Check if the user is allowed to renew their subscription.
          *
-         * @param {Date|string} dateSubscriptionEnd
-         * @returns {boolean}
+         * @param {object} params - Parameters object.
+         * @param {Date|string} params.dateSubscriptionEnd - Current subscription expiration date.
+         * @returns {boolean} `true` if the user can renew now, otherwise `false`.
          */
         this.calcUserCanSubscribe = function ({dateSubscriptionEnd}) {
             if (dateSubscriptionEnd) {
@@ -40,16 +51,18 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
                 const end = new Date(dateSubscriptionEnd);
                 renew.setMonth(renew.getMonth() + MONTHS_RENEW);
                 return (renew > end);
-            } else
-                return false;
+            } else {return false;}
         };
 
         this.castDate = helpCast.dateString;
 
         /**
-         * @param {Object} params
-         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @returns {Promise<number>}
+         * Get the number of available subscription slots (out of 100),
+         * counting only users with the ACTIVE state.
+         *
+         * @param {object} params - Parameters object.
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - Optional transaction context.
+         * @returns {Promise<number>} Number of available slots.
          */
         this.getUsersCount = async function ({trx: trxOuter} = {}) {
             return await trxWrapper.execute(trxOuter, async (trx) => {
@@ -57,6 +70,7 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
                 /** @type {Knex.QueryBuilder} */
                 const query = trx.createQuery();
                 query.table(table);
+                query.where(A_USER.STATE, STATE.ACTIVE);
                 query.count('*');
                 const [{count}] = await query;
                 return 100 - Number.parseInt(count);
@@ -64,21 +78,22 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         };
 
         /**
-         * Parses the GET parameters from the URL query string.
+         * Parse GET parameters from the request URL.
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
-         * @return {*} Parsed GET parameters as an object.
+         * @returns {object} Parsed query parameters as a key-value object.
          */
         this.parseGetParams = function (req) {
-            const url = new URL(req.url, `http://${req.headers.host}`);
+            const url = new URL(req.url, `https://${req.headers.host}`);
             return Object.fromEntries(url.searchParams.entries());
         };
 
         /**
-         * Parses the request body, supporting both JSON and x-www-form-urlencoded formats.
+         * Parse POST body data from the request.
+         * Supports JSON and URL-encoded form data.
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
-         * @return {Promise<*>} Parsed request body as an object.
+         * @returns {Promise<object>} Parsed body content.
          */
         this.parsePostedData = async function (req) {
             let body = {};
@@ -109,13 +124,12 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         };
 
         /**
-         * Simplifies the usage of the universal action for retrieving user profiles
-         * by adapting it to specific conditions within the application.
+         * Read the user profile from the database using the internal action.
          *
-         * @param {Object} params
-         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {number} params.userId
-         * @returns {Promise<Svelters_Shared_Dto_User_Profile.Dto>}
+         * @param {object} params - Parameters object.
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - Optional transaction context.
+         * @param {number} params.userId - ID of the user.
+         * @returns {Promise<Svelters_Shared_Dto_User_Profile.Dto>} User profile DTO.
          */
         this.readProfile = async function ({trx, userId}) {
             const {profile} = await actProfileRead.run({trx, userId});
@@ -123,12 +137,12 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
         };
 
         /**
-         * Normalizes user profile data for UI output.
+         * Read and normalize the user profile for UI presentation.
          *
-         * @param {Object} params
-         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
-         * @param {number} params.userId
-         * @returns {Promise<Svelters_Shared_Dto_User_Profile.Dto>}
+         * @param {object} params - Parameters object.
+         * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - Optional transaction context.
+         * @param {number} params.userId - ID of the user.
+         * @returns {Promise<Svelters_Shared_Dto_User_Profile.Dto>} Normalized user profile DTO.
          */
         this.readProfileUi = async function ({trx, userId}) {
             const {profile} = await actProfileRead.run({trx, userId});

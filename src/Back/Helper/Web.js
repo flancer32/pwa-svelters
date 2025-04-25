@@ -29,12 +29,12 @@ export default class Svelters_Back_Helper_Web {
         // FUNCS
         /**
          * Makes an HTTP request and returns structured response data.
-         * @param {Object} params - Request parameters.
+         * @param {object} params - Request parameters.
          * @param {string} params.hostname - The hostname of the server.
          * @param {string} params.path - The path of the resource.
          * @param {string} params.method - The HTTP method (e.g., 'GET', 'POST').
-         * @param {Object} [params.body] - The request body (for POST requests).
-         * @param {Object} params.headers - Headers to include in the request.
+         * @param {object} [params.body] - The request body (for POST requests).
+         * @param {object} params.headers - Headers to include in the request.
          * @param {number} params.timeout - Timeout in milliseconds.
          * @returns {Promise<{body: string, headers: Object, statusCode: number}>} - Structured response.
          */
@@ -91,10 +91,10 @@ export default class Svelters_Back_Helper_Web {
 
         /**
          * Performs a GET request.
-         * @param {Object} params - Parameters for the GET request.
+         * @param {object} params - Parameters for the GET request.
          * @param {string} params.hostname - The hostname of the server.
          * @param {string} params.path - The path of the resource.
-         * @param {Object} [params.headers] - Headers to include in the request.
+         * @param {object} [params.headers] - Headers to include in the request.
          * @param {number} [params.timeout=5000] - Timeout in milliseconds.
          * @returns {Promise<{body: string, headers: Object, statusCode: number}>} - Structured response.
          */
@@ -140,11 +140,11 @@ export default class Svelters_Back_Helper_Web {
 
         /**
          * Performs a POST request.
-         * @param {Object} params - Parameters for the POST request.
+         * @param {object} params - Parameters for the POST request.
          * @param {string} params.hostname - The hostname of the server.
          * @param {string} params.path - The path of the resource.
-         * @param {Object} params.payload - The data to send in the request body.
-         * @param {Object} params.headers - Headers to include in the request.
+         * @param {object} params.payload - The data to send in the request body.
+         * @param {object} params.headers - Headers to include in the request.
          * @param {number} [params.timeout=5000] - Timeout in milliseconds.
          * @returns {Promise<{body: string, headers: Object, statusCode: number}>} - Structured response.
          */

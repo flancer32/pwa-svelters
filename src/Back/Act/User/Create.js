@@ -83,7 +83,7 @@ export default class Svelters_Back_Act_User_Create {
          * Runs the process of creating a new user record inside a transaction.
          * Ensures the user has a unique UUID and assigns an appropriate subscription date.
          *
-         * @param {Object} [params={}] - Optional parameters.
+         * @param {object} [params={}] - Optional parameters.
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx] - External transaction (if provided).
          * @returns {Promise<{user: Svelters_Back_Store_RDb_Schema_User.Dto}>} - The newly created user record.
          */

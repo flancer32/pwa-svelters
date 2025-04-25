@@ -72,7 +72,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
         /**
          * Convert raw record to DTO.
          *
-         * @param {Object} record
+         * @param {object} record
          * @returns {Svelters_Shared_Dto_Weight.Dto}
          */
         function makeItemDto(record) {

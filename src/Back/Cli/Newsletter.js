@@ -36,7 +36,7 @@ export default function Factory(
     /**
      * Action executed when the CLI command is invoked.
      *
-     * @param {Object} opts - Options provided by the CLI environment
+     * @param {object} opts - Options provided by the CLI environment
      * @returns {Promise<void>}
      */
     async function action(opts) {

@@ -105,7 +105,7 @@ export default class Svelters_Back_Web_Handler {
         /**
          * Checks if the request can be handled by this instance.
          *
-         * @param {Object} params
+         * @param {object} params
          * @param {string} params.method
          * @param {TeqFw_Web_Back_Dto_Address} params.address
          * @returns {boolean}

@@ -65,9 +65,9 @@ export default class Svelters_Back_Di_Replace_Paypal_Adapter {
          * Processes a successful payment by validating the order, updating the user's subscription,
          * and logging necessary information.
          *
-         * @param {Object} params - Input parameters.
+         * @param {object} params - Input parameters.
          * @param {string} params.orderId - The PayPal order ID.
-         * @param {Object} params.paypalResponse - The full response from PayPal.
+         * @param {object} params.paypalResponse - The full response from PayPal.
          * @returns {Promise<void>}
          */
         this.processSuccessfulPayment = async function ({orderId, paypalResponse}) {
