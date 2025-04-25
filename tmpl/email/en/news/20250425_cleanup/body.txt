@@ -1,0 +1,32 @@
+Hi there,
+
+Thank you for signing up for NutriLog — a tool that connects a GPT assistant with a web app to help you track your nutrition and collaborate with AI.
+
+NutriLog is currently in beta, with a limited number of available accounts. Our goal is to support 100 active users — people who are experimenting, engaging, and exploring how GPT can help manage nutrition.
+
+Why you're receiving this:
+
+You have an account, but we haven’t seen any activity yet.
+That means there's no saved profile or food log in the system.
+
+To keep the beta focused, we will automatically remove inactive accounts in 7 days.
+
+What you need to know:
+
+- If you registered by mistake or decided NutriLog isn’t for you — no action is needed. Your account will be removed automatically.
+- If you’re curious and want to try NutriLog — just start using it. Create a profile or log a meal through the assistant.
+- If you've made up your mind and prefer to delete your account now, you can do that here:
+  https://nutrilog.app.wiredgeese.com/app/account/delete
+
+Why this matters:
+
+NutriLog is an experiment — and your participation helps shape it.
+
+If you’re someone who uses GPT regularly and wants to explore how it can support long-term goals like weight management, NutriLog was made for you.
+
+Thanks again for being part of this journey.
+
+Warm regards,
+Alex Gusev
+Creator of NutriLog
+developer, GPT user, human

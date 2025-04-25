@@ -40,7 +40,7 @@ export default function Factory(
      * @returns {Promise<void>}
      */
     async function action(opts) {
-        const TMPL_NAME = '/news/20250422_start';
+        const TMPL_NAME = '/news/20250425_cleanup';
         try {
             return await trxWrapper.execute(null, async (trx) => {
 
