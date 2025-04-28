@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {request} from 'https';
 import {appendFile} from 'fs/promises';
 import {performance} from 'node:perf_hooks';

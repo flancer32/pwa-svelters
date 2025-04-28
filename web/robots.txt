@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /app/account/
+Disallow: /app/dashboard/
+
+Sitemap: https://nutrilog.app.wiredgeese.com/sitemap.xml
+
