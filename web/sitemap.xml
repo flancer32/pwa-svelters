@@ -16,6 +16,27 @@
     </url>
 
     <url>
+        <loc>https://nutrilog.app.wiredgeese.com/app/assist/coach.html</loc>
+        <lastmod>2025-04-29</lastmod>
+        <priority>0.5</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://nutrilog.app.wiredgeese.com/app/assist/diet.html</loc>
+        <lastmod>2025-04-29</lastmod>
+        <priority>0.5</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://nutrilog.app.wiredgeese.com/app/assist/practice.html</loc>
+        <lastmod>2025-04-29</lastmod>
+        <priority>1.0</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
         <loc>https://nutrilog.app.wiredgeese.com/app/contact.html</loc>
         <lastmod>2025-04-28</lastmod>
         <priority>0.5</priority>

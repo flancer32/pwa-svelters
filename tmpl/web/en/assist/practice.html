@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NutriLog – Structure your ChatGPT weight-tracking practice</title>
+    <meta name="description"
+          content="NutriLog helps ChatGPT Plus users track nutrition and weight goals more effectively by organizing and analyzing their progress through natural conversation. Join the beta and get 3 months free.">
+    <meta name="keywords"
+          content="NutriLog, ChatGPT Plus, weight tracking, nutrition logging, GPT assistant, calorie log, beta program, AI diet tool">
+
+    <meta property="og:title" content="NutriLog – Structure your ChatGPT weight-tracking practice">
+    <meta property="og:description"
+          content="Join the NutriLog beta and get 3 months free access. Built for ChatGPT Plus users who already track their nutrition and weight through conversation.">
+    <meta property="og:url" content="https://nutrilog.app.wiredgeese.com/app/assist/practice.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://nutrilog.app.wiredgeese.com/img/og/practice.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NutriLog – Structure your ChatGPT weight-tracking practice">
+    <meta name="twitter:description"
+          content="Join the beta and organize your AI-powered health tracking. NutriLog helps you systematize progress through conversation.">
+    <meta name="twitter:image" content="https://nutrilog.app.wiredgeese.com/img/og/practice.jpg">
+
+    <link rel="canonical" href="https://nutrilog.app.wiredgeese.com/app/assist/practice.html">
+    <meta name="robots" content="index, follow">
+
+    {{> htmlHead}}
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+
+    <!-- Hero Section -->
+    <div class="max-w-2xl mx-auto text-center px-4">
+        <h1 class="text-3xl font-bold text-gray-900">Expand your ChatGPT practice with NutriLog</h1>
+        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Track your nutrition and weight through conversation — and
+            never lose your progress.</h2>
+        <p class="text-gray-700 mt-4">
+            NutriLog adds structured data tracking and analysis to your ChatGPT experience. Keep your food logs, weight
+            history, and goals organized without changing the way you interact.
+        </p>
+
+        {{^isAuthenticated}}
+        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
+            <p class="text-lg font-semibold text-green-800">🚀 Beta Test Now Open</p>
+            <p class="mt-2 text-gray-800">Get <span class="font-bold text-green-700">3 months free</span> access during
+                beta.</p>
+            <a href="/app/register"
+               class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-200">
+                Join the Beta — Free
+            </a>
+        </div>
+        {{/isAuthenticated}}
+
+        {{#isAuthenticated}}
+        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
+            <p class="text-lg font-semibold text-green-800">🎉 You're already in!</p>
+            <p class="mt-2 text-gray-800">
+                Start tracking and analyzing your nutrition with NutriLog and ChatGPT.
+            </p>
+            {{> uiBtnGptChat}}
+        </div>
+        {{/isAuthenticated}}
+    </div>
+
+    <!-- What is NutriLog Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-bold text-gray-900">🛠 What NutriLog Does</h3>
+        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+            <li>Connects your food logs and weight changes directly to your ChatGPT sessions.</li>
+            <li>Stores your progress securely for long-term tracking and analysis.</li>
+            <li>Helps you maintain focus on your goals through structured conversational updates.</li>
+            <li>Lets you stay in your natural ChatGPT workflow — no complex apps to manage.</li>
+        </ul>
+    </div>
+
+    <!-- Why It Matters Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left border-l-4 border-green-500">
+        <h3 class="text-xl font-bold text-gray-900">🎯 Why It Matters</h3>
+        <p class="mt-4 text-gray-700">
+            Tracking through conversation feels natural — but without a structured memory, your data gets lost. NutriLog
+            preserves and organizes your journey so you can build consistent habits and see your real progress over
+            time.
+        </p>
+    </div>
+
+    <!-- How to Start Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
+        <h3 class="text-xl font-bold text-gray-900">🚀 How to Start</h3>
+        <ol class="list-decimal list-inside text-gray-700 mt-4 space-y-1">
+            <li>Register for free beta access (3 months).</li>
+            <li>Connect NutriLog to your ChatGPT account.</li>
+            <li>Start logging your meals, weight updates, and goals in natural conversations.</li>
+            <li>Analyze your data and adjust your strategy over time — without breaking your routine.</li>
+        </ol>
+    </div>
+
+    <!-- Final CTA -->
+    {{^isAuthenticated}}
+    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
+        <h3 class="text-lg font-semibold">🎟 Limited Beta Access</h3>
+        <p class="mt-2">Get 3 months of NutriLog — free during beta testing.</p>
+        <a href="/app/register"
+           class="flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
+            Join Now
+        </a>
+    </div>
+    {{/isAuthenticated}}
+
+    {{#isAuthenticated}}
+    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
+        <h3 class="text-lg font-semibold">✅ You're In</h3>
+        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
+           class="nl-gpt-chat-link flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
+            Start with ChatGPT
+        </a>
+    </div>
+    {{/isAuthenticated}}
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>
+
+
