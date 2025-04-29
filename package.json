@@ -16,7 +16,7 @@
   },
   "repository": "github:flancer32/pwa-svelters",
   "scripts": {
-    "build-css": "npx tailwindcss -i ./tmpl/web/tailwind.css -o ./web/style/tailwind.min.css --minify",
+    "build-css": "npx tailwindcss -i ./tmpl/web/tailwind.css -o ./web/css/tailwind.min.css --minify",
     "db-export": "node ./bin/tequila.mjs db-export -f ./var/data.json",
     "db-import": "node ./bin/tequila.mjs db-import -f ./var/data.json",
     "db-init": "node ./bin/tequila.mjs db-init",

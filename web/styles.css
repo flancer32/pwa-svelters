@@ -1,7 +1,7 @@
-@import url("./style/tailwind.min.css");
-@import url("./style/btn.css");
-@import url("./style/image-zoom.css");
-@import url("./style/navigator.css");
+@import url("./css/tailwind.min.css");
+@import url("./css/btn.css");
+@import url("./css/image-zoom.css");
+@import url("./css/navigator.css");
 
 /* Base styles */
 body {

@@ -16,4 +16,4 @@
 /var/data.json
 /var/store/**
 /web/download/
-/web/style/tailwind.min.css
+/web/css/tailwind.min.css
