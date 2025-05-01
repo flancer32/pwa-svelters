@@ -1,9 +1,20 @@
+/**
+ * @extends TeqFw_Core_Shared_Util_Cast
+ * Utility class that extends basic casting functionality with additional helpers.
+ */
 export default class Svelters_Shared_Helper_Cast {
-    constructor() {
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast} cast
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Util_Cast$: cast
+        }
+    ) {
         /**
          * Cast input data into a 'Date' data type if the input is defined.
          * The date part is returned as a string in 'YYYY-MM-DD' format.
-         * This cast is required to convert PostgreSQL date-only data into a string, accounting for the local timezone.
+         * This cast is required to convert PostgresSQL date-only data into a string, accounting for the local timezone.
          *
          * @param {Date|string|number} data
          * @param {string} [sep]
@@ -36,8 +47,16 @@ export default class Svelters_Shared_Helper_Cast {
             return undefined;
         };
 
+        // Return a proxy to delegate unknown methods to the original cast object
+        return new Proxy(this, {
+            get(target, prop, receiver) {
+                // If the method is defined in this instance, return it
+                if (prop in target) return Reflect.get(target, prop, receiver);
+                // Otherwise delegate to the cast object (bind functions if needed)
+                return typeof cast[prop] === 'function'
+                    ? cast[prop].bind(cast)
+                    : cast[prop];
+            }
+        });
     }
 }
-
-
-

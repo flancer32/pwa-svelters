@@ -1,7 +1,0 @@
-{
-  "vars": {
-    "canSubscribe": "boolean",
-    "isAuthenticated": "boolean",
-    "profile": "Svelters_Shared_Dto_User_Profile.Dto"
-  }
-}

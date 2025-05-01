@@ -1,0 +1,10 @@
+{
+  "vars": {
+    "canSubscribe": "boolean",
+    "dataChecks": "Svelters_Back_Web_Handler_A_Account_A_Dashboard.DtoDataChecks",
+    "hasFullData": "boolean",
+    "isAuthenticated": "boolean",
+    "kpiCards": "Svelters_Back_Web_Handler_A_Account_A_Dashboard.DtoKpiCards",
+    "profile": "Svelters_Shared_Dto_User_Profile.Dto"
+  }
+}

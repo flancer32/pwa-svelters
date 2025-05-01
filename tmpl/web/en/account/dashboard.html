@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NutriLog - Dashboard</title>
+    {{> htmlHead}}
+    <link rel="stylesheet" href="/css/account/dashboard.css">
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Welcome to your dashboard</h1>
+
+    {{> blockAnon}}
+
+    {{#isAuthenticated}}
+    {{! this is a section for authenticated users only}}
+
+    <!-- Beta tester badge -->
+    <div class="nl-text-note text-center mb-2">
+        🎉 You are one of our first beta testers. Thank you for helping us shape the future of NutriLog!
+    </div>
+
+    {{^hasFullData}}
+    {{! this is a section for the checklist of empty data}}
+
+    <!-- Highlighted block -->
+    <div class="nl-card text-center">
+        <div>
+            NutriLog is a conversation-first app.
+            Use the AI Assistant to start tracking your health journey — weight, calories, and goals.
+        </div>
+        {{> uiBtnGptChat}}
+    </div>
+
+    <!-- Empty state checklist -->
+    <div class="nl-card">
+        <h3>You're just getting started...</h3>
+        <ul>
+            {{#dataChecks.noProfile}}
+            <li>❌ No <strong>profile</strong> data yet (age, height, weight)</li>
+            {{/dataChecks.noProfile}}
+            {{^dataChecks.noProfile}}
+            <li>✅ <strong>Profile</strong> is filled out</li>
+            {{/dataChecks.noProfile}}
+
+            {{#dataChecks.noGoal}}
+            <li>❌ No <strong>goals</strong> defined</li>
+            {{/dataChecks.noGoal}}
+            {{^dataChecks.noGoal}}
+            <li>✅ <strong>Goal</strong> is defined</li>
+            {{/dataChecks.noGoal}}
+
+            {{#dataChecks.noCalories}}
+            <li>❌ No <strong>calorie logs</strong> added</li>
+            {{/dataChecks.noCalories}}
+            {{^dataChecks.noCalories}}
+            <li>✅ <strong>Calorie log</strong> contains entries</li>
+            {{/dataChecks.noCalories}}
+
+            {{#dataChecks.noWeight}}
+            <li>❌ No <strong>weight records</strong></li>
+            {{/dataChecks.noWeight}}
+            {{^dataChecks.noWeight}}
+            <li>✅ <strong>Weight tracking</strong> is active</li>
+            {{/dataChecks.noWeight}}
+        </ul>
+
+        <p class="nl-text-note text-center">
+            Everything here is added by talking to the Assistant — type or use your voice.
+            Not sure what to do? Send a screenshot to the Assistant, and it’ll sort it out with you.
+        </p>
+    </div>
+    {{/hasFullData}}
+
+    <!-- KPI CARDS -->
+    <div class="nl-kpi">
+        <div class="kpi-card">
+            <p class="kpi-label">Calories Logged</p>
+            <p class="kpi-value">
+                {{#kpiCards.lastCaloriesTotal}}{{kpiCards.lastCaloriesTotal}} kcal{{/kpiCards.lastCaloriesTotal}}
+                {{^kpiCards.lastCaloriesTotal}}–{{/kpiCards.lastCaloriesTotal}}
+            </p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">Last Log</p>
+            <p class="kpi-value">
+                {{#kpiCards.lastCaloriesDate}}{{kpiCards.lastCaloriesDate}}{{/kpiCards.lastCaloriesDate}}
+                {{^kpiCards.lastCaloriesDate}}–{{/kpiCards.lastCaloriesDate}}
+            </p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">BMR</p>
+            <p class="kpi-value">
+                {{#kpiCards.bmr}}{{kpiCards.bmr}} kcal/day{{/kpiCards.bmr}}
+                {{^kpiCards.bmr}}–{{/kpiCards.bmr}}
+            </p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">Current Weight</p>
+            <p class="kpi-value">
+                {{#kpiCards.currentWeight}}{{kpiCards.currentWeight}} kg{{/kpiCards.currentWeight}}
+                {{^kpiCards.currentWeight}}–{{/kpiCards.currentWeight}}
+            </p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">Goal Weight</p>
+            <p class="kpi-value">
+                {{#kpiCards.goalWeight}}{{kpiCards.goalWeight}} kg{{/kpiCards.goalWeight}}
+                {{^kpiCards.goalWeight}}–{{/kpiCards.goalWeight}}
+            </p>
+        </div>
+
+        <div class="kpi-card">
+            <p class="kpi-label">Difference</p>
+            <p class="kpi-value">
+                {{#kpiCards.remaining}}
+                {{#kpiCards.isPositive}}+{{/kpiCards.isPositive}}
+                {{^kpiCards.isPositive}}–{{/kpiCards.isPositive}}
+                {{kpiCards.remaining}} kg
+                {{/kpiCards.remaining}}
+                {{^kpiCards.remaining}}–{{/kpiCards.remaining}}
+            </p>
+        </div>
+    </div>
+
+    {{/isAuthenticated}}
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

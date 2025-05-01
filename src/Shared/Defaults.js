@@ -8,11 +8,12 @@ export default class Svelters_Shared_Defaults {
     LOCALE = 'en'; // default locale for the app
     LOCALE_AVAILABLE = ['en', 'ru'];
 
-    // should be the same as `name` property in `./package.json`
+    // should be the same as the ` name ` property in `./package.json`
     NAME = '@flancer32/pwa-svelters';
 
     ROUTE_ACCOUNT = 'account';
     ROUTE_ACCOUNT_DELETE = 'delete';
+    ROUTE_ACCOUNT_DASHBOARD = 'dashboard';
     ROUTE_API = 'api';
     ROUTE_DASHBOARD = 'dashboard';
     ROUTE_LOGIN = 'login';

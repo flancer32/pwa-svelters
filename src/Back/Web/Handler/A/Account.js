@@ -7,11 +7,13 @@
 export default class Svelters_Back_Web_Handler_A_Account {
     /**
      * @param {Svelters_Back_Defaults} DEF
+     * @param {Svelters_Back_Web_Handler_A_Account_A_Dashboard} aDashboard
      * @param {Svelters_Back_Web_Handler_A_Account_A_Delete} aDelete
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
+            Svelters_Back_Web_Handler_A_Account_A_Dashboard$: aDashboard,
             Svelters_Back_Web_Handler_A_Account_A_Delete$: aDelete,
         }
     ) {
@@ -29,6 +31,8 @@ export default class Svelters_Back_Web_Handler_A_Account {
             if (parts[2] === DEF.SHARED.ROUTE_ACCOUNT) {
                 if (parts[3] === DEF.SHARED.ROUTE_ACCOUNT_DELETE) {
                     await aDelete.run(req, res);
+                } else if (parts[3] === DEF.SHARED.ROUTE_ACCOUNT_DASHBOARD) {
+                    await aDashboard.run(req, res);
                 }
             }
         };

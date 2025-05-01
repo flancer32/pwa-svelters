@@ -81,7 +81,7 @@ export default class Svelters_Back_Web_Handler_A_Login {
                             .getAuthorizationUrl({clientId: x.clientId, state,});
 
                     // set the URL to redirect to after authentication
-                    const redirectUrl = `/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_DASHBOARD}`;
+                    const redirectUrl = `/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_ACCOUNT}/${DEF.SHARED.ROUTE_ACCOUNT_DASHBOARD}`;
                     const {headers: headRedirect} = await session.storeRedirectUrl({redirectUrl});
                     // load template and render the page
                     const {content: body} = await srvRender.perform({

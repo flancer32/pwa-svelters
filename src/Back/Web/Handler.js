@@ -11,7 +11,6 @@ export default class Svelters_Back_Web_Handler {
      * @param {TeqFw_Web_Back_Help_Respond} respond
      * @param {Svelters_Back_Web_Handler_A_Account} aAccount
      * @param {Svelters_Back_Web_Handler_A_Api} aApi
-     * @param {Svelters_Back_Web_Handler_A_Dashboard} aDashboard
      * @param {Svelters_Back_Web_Handler_A_Home} aHome
      * @param {Svelters_Back_Web_Handler_A_Login} aLogin
      * @param {Svelters_Back_Web_Handler_A_OpenApi} aOpenApi
@@ -27,7 +26,6 @@ export default class Svelters_Back_Web_Handler {
             TeqFw_Web_Back_Help_Respond$: respond,
             Svelters_Back_Web_Handler_A_Account$: aAccount,
             Svelters_Back_Web_Handler_A_Api$: aApi,
-            Svelters_Back_Web_Handler_A_Dashboard$: aDashboard,
             Svelters_Back_Web_Handler_A_Home$: aHome,
             Svelters_Back_Web_Handler_A_Login$: aLogin,
             Svelters_Back_Web_Handler_A_OpenApi$: aOpenApi,
@@ -70,7 +68,12 @@ export default class Svelters_Back_Web_Handler {
                         await aApi.run(req, res);
                         break;
                     case DEF.SHARED.ROUTE_DASHBOARD:
-                        await aDashboard.run(req, res);
+                        respond.code301_MovedPermanently({
+                            res,
+                            headers: {
+                                Location: `/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_ACCOUNT}/${DEF.SHARED.ROUTE_ACCOUNT_DASHBOARD}/`,
+                            }
+                        });
                         break;
                     case DEF.SHARED.ROUTE_LOGIN:
                         await aLogin.run(req, res);

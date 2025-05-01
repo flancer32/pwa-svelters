@@ -6,35 +6,36 @@
 export default class Svelters_Back_Act_User_Profile_Read {
     /**
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
-     * @param {TeqFw_Db_Shared_Dto_List_Selection} dbSelect
+     * @param {TeqFw_Db_Shared_Util_Select} utilSelect
      * @param {Fl64_Auth_Otp_Back_Store_RDb_Repo_Email} repoOtpEmail
      * @param {Fl64_OAuth2_Social_Back_Store_RDb_Repo_User_Identity} repoIdentity
      * @param {Svelters_Back_Store_RDb_Repo_User} repoUser
      * @param {Svelters_Back_Store_RDb_Repo_User_Profile} repoProfile
      * @param {Svelters_Back_Store_RDb_Repo_Weight_Goal} repoWeightGoal
      * @param {Svelters_Back_Store_RDb_Repo_Weight_Log} repoWeightLog
+     * @param {Svelters_Back_Act_Calorie_Log_GetLast} actLogGetLast
      * @param {Svelters_Shared_Dto_User_Profile} dtoProfile
      */
     constructor(
         {
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
-            TeqFw_Db_Shared_Dto_List_Selection$: dbSelect,
+            TeqFw_Db_Shared_Util_Select$: utilSelect,
             Fl64_Auth_Otp_Back_Store_RDb_Repo_Email$: repoOtpEmail,
             Fl64_OAuth2_Social_Back_Store_RDb_Repo_User_Identity$: repoIdentity,
             Svelters_Back_Store_RDb_Repo_User$: repoUser,
             Svelters_Back_Store_RDb_Repo_User_Profile$: repoProfile,
             Svelters_Back_Store_RDb_Repo_Weight_Goal$: repoWeightGoal,
             Svelters_Back_Store_RDb_Repo_Weight_Log$: repoWeightLog,
+            Svelters_Back_Act_Calorie_Log_GetLast$: actLogGetLast,
             Svelters_Shared_Dto_User_Profile$: dtoProfile,
         }
     ) {
         // VARS
-        const DIR = dbSelect.getDirections();
-        const FUNC = dbSelect.getFunctions();
         const A_IDENTITY = repoIdentity.getSchema().getAttributes();
         const A_OTP_EMAIL = repoOtpEmail.getSchema().getAttributes();
         const A_WEIGHT_GOAL = repoWeightGoal.getSchema().getAttributes();
         const A_WEIGHT_LOG = repoWeightLog.getSchema().getAttributes();
+        const DIR = utilSelect.getDirections();
 
         // FUNCS
         /**
@@ -44,13 +45,10 @@ export default class Svelters_Back_Act_User_Profile_Read {
          * @returns {Promise<number|null>}
          */
         async function readWeight(trx, userId) {
-            const selection = dbSelect.createDto({
-                filter: {
-                    name: FUNC.EQ,
-                    params: [{alias: A_WEIGHT_LOG.USER_REF}, {value: userId}],
-                },
-                orderBy: [{alias: A_WEIGHT_LOG.DATE, dir: DIR.DESC}],
-                rowsLimit: 1,
+            const selection = utilSelect.compose({
+                conditions: {[A_WEIGHT_LOG.USER_REF]: userId},
+                sorting: {[A_WEIGHT_LOG.DATE]: DIR.DESC},
+                pagination: {limit: 1, offset: 0},
             });
             const {records} = await repoWeightLog.readMany({trx, selection});
             if (records.length === 1) {
@@ -67,13 +65,10 @@ export default class Svelters_Back_Act_User_Profile_Read {
          * @returns {Promise<number|null>}
          */
         async function readWeightGoal(trx, userId) {
-            const selection = dbSelect.createDto({
-                filter: {
-                    name: FUNC.EQ,
-                    params: [{alias: A_WEIGHT_GOAL.USER_REF}, {value: userId}],
-                },
-                orderBy: [{alias: A_WEIGHT_GOAL.DATE, dir: DIR.DESC}],
-                rowsLimit: 1,
+            const selection = utilSelect.compose({
+                conditions: {[A_WEIGHT_GOAL.USER_REF]: userId},
+                sorting: {[A_WEIGHT_GOAL.DATE]: DIR.DESC},
+                pagination: {limit: 1, offset: 0},
             });
             const {records} = await repoWeightGoal.readMany({trx, selection});
             if (records.length === 1) {
@@ -111,7 +106,6 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.timezone = foundProfile.timezone;
                 }
                 // read emails
-                // read email
                 const {record: foundOtpEmail} = await repoOtpEmail.readOne({
                     trx,
                     key: {[A_OTP_EMAIL.USER_REF]: userId}
@@ -119,12 +113,9 @@ export default class Svelters_Back_Act_User_Profile_Read {
                 if (foundOtpEmail) {
                     profile.email = foundOtpEmail.email;
                 } else {
-                    const selection = dbSelect.createDto({
-                        filter: {
-                            name: FUNC.EQ,
-                            params: [{alias: A_IDENTITY.USER_REF}, {value: userId}],
-                        },
-                        rowsLimit: 1,
+                    const selection = utilSelect.compose({
+                        conditions: {[A_IDENTITY.USER_REF]: userId},
+                        pagination: {limit: 1, offset: 0},
                     });
                     const {records} = await repoIdentity.readMany({trx, selection});
                     if (records[0]) {
@@ -134,6 +125,12 @@ export default class Svelters_Back_Act_User_Profile_Read {
                 // read weights
                 profile.weight = await readWeight(trx, userId);
                 profile.weightGoal = await readWeightGoal(trx, userId);
+                // read calories
+                const {date, totalCalories} = await actLogGetLast.run({trx, userRef: userId});
+                if (date) {
+                    profile.lastCaloriesDate = date;
+                    profile.lastCaloriesTotal = totalCalories;
+                }
                 return {profile};
             });
         };

@@ -1,6 +1,59 @@
 /**
+ * Factory class for user profile information.
+ *
+ * @implements TeqFw_Core_Shared_Api_Factory
+ */
+export default class Svelters_Shared_Dto_User_Profile {
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
+     * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Util_Cast$: cast,
+            Svelters_Shared_Enum_Data_Type_Sex$: SEX,
+        }
+    ) {
+        /**
+         * Creates a new DTO instance with properly casted attributes.
+         * Ensures valid values for enums and numerical fields.
+         *
+         * @param {Dto|object} [data] - Raw input data for the DTO.
+         * @returns {Dto} - A properly structured DTO instance.
+         */
+        this.create = function (data) {
+            /** @type {Svelters_Shared_Dto_User_Profile.Dto} */
+            const res = Object.assign(new Dto(), data);
+
+            if (data) {
+                res.dateBirth = cast.string(data.dateBirth);
+                res.dateCreated = cast.date(data.dateCreated);
+                res.dateSubscriptionEnd = cast.date(data.dateSubscriptionEnd);
+                res.dateUpdated = cast.date(data.dateUpdated);
+                res.email = cast.string(data.email);
+                res.goal = cast.string(data.goal);
+                res.height = cast.int(data.height);
+                res.lastCaloriesDate = cast.string(data.lastCaloriesDate);
+                res.lastCaloriesTotal = cast.decimal(data.lastCaloriesTotal);
+                res.locale = cast.string(data.locale);
+                res.name = cast.string(data.name);
+                res.promptStart = cast.string(data.promptStart);
+                res.sex = cast.enum(data.sex, SEX);
+                res.timezone = cast.string(data.timezone);
+                res.uuid = cast.string(data.uuid);
+                res.weight = cast.decimal(data.weight);
+                res.weightGoal = cast.decimal(data.weightGoal);
+            }
+
+            return res;
+        };
+    }
+}
+
+/**
+ * The user profile information.
+ *
  * @memberOf Svelters_Shared_Dto_User_Profile
- * DTO class for user profile information.
  */
 class Dto {
     /**
@@ -43,6 +96,20 @@ class Dto {
      * @type {number}
      */
     height;
+
+    /**
+     * The date of the most recent calorie log entry, in YYYY-MM-DD format.
+     * Used for tracking logging activity and showing progress on the dashboard.
+     * @type {string}
+     */
+    lastCaloriesDate;
+
+    /**
+     * Total calories recorded in the most recent log entry.
+     * Helps visualize dietary input on the dashboard.
+     * @type {number}
+     */
+    lastCaloriesTotal;
 
     /**
      * Language preference of the user, in BCP 47 format (e.g., en, fr). Used to personalize Assistant responses.
@@ -92,55 +159,4 @@ class Dto {
      * @type {number}
      */
     weightGoal;
-}
-
-/**
- * Factory class for creating instances of `Svelters_Shared_Dto_User_Profile`.
- * Ensures type conversion and validation.
- *
- * @implements TeqFw_Core_Shared_Api_Factory
- */
-export default class Svelters_Shared_Dto_User_Profile {
-    /**
-     * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
-     * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
-     */
-    constructor(
-        {
-            TeqFw_Core_Shared_Util_Cast$: cast,
-            Svelters_Shared_Enum_Data_Type_Sex$: SEX,
-        }
-    ) {
-        /**
-         * Creates a new DTO instance with properly casted attributes.
-         * Ensures valid values for enums and numerical fields.
-         *
-         * @param {Dto|object} [data] - Raw input data for the DTO.
-         * @returns {Dto} - A properly structured DTO instance.
-         */
-        this.create = function (data) {
-            /** @type {Svelters_Shared_Dto_User_Profile.Dto} */
-            const res = Object.assign(new Dto(), data);
-
-            if (data) {
-                res.dateBirth = cast.string(data.dateBirth);
-                res.dateCreated = cast.date(data.dateCreated);
-                res.dateSubscriptionEnd = cast.date(data.dateSubscriptionEnd);
-                res.dateUpdated = cast.date(data.dateUpdated);
-                res.email = cast.string(data.email);
-                res.goal = cast.string(data.goal);
-                res.height = cast.int(data.height);
-                res.locale = cast.string(data.locale);
-                res.name = cast.string(data.name);
-                res.promptStart = cast.string(data.promptStart);
-                res.sex = cast.enum(data.sex, SEX);
-                res.timezone = cast.string(data.timezone);
-                res.uuid = cast.string(data.uuid);
-                res.weight = cast.decimal(data.weight);
-                res.weightGoal = cast.decimal(data.weightGoal);
-            }
-
-            return res;
-        };
-    }
 }

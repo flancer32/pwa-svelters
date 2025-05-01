@@ -35,6 +35,7 @@ export default class Svelters_Back_Di_Replace_Tmpl_Adapter {
             'pageHeader': 'includes/pageHeader.html',
             'uiBtnAppSignUp': 'includes/ui/btnAppSignUp.html',
             'uiBtnGptChat': 'includes/ui/btnGptChat.html',
+            'uiBtnGptChatWhite': 'includes/ui/btnGptChatWhite.html',
         };
         /** @type {Object.<string, Object.<string, string>>} */
         const cache = {};

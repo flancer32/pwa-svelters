@@ -10,27 +10,27 @@ class ExtLink extends HTMLElement {
         shadow.innerHTML = `
             <style>
                 a {
-                    color: #4CAF50; /* Default green */
-                    display: inline-flex;
                     align-items: center;
+                    color: var(--color-green-600);
+                    display: inline-flex;
                     text-decoration: none;
                 }
 
+                a:hover {
+                    color: var(--color-green-700);
+                    text-decoration: underline;
+                }
+                
                 svg {
                     fill: none;
-                    height: 1.25em;
-                    margin-left: 0.25em;  
+                    height: var(--size-5);
+                    margin-left: var(--size-1);  
                     stroke-linecap: round;
                     stroke-linejoin: round;
                     stroke-width: 2.5; /* Thicker stroke */
                     stroke: currentColor;
                     transition: color 0.2s ease, stroke 0.2s ease;
-                    width: 1.25em; /* Slightly larger */
-                }
-
-                a:hover {
-                    color: #388E3C; /* Darker green on hover */
-                    text-decoration: underline;
+                    width: var(--size-5); 
                 }
             </style>
             <a href="${href}" target="_blank" rel="noopener noreferrer" title="${title}">

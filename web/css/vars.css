@@ -1,0 +1,78 @@
+:root {
+    /* === Grayscale === */
+    --color-gray-100: #f3f4f6; /* !!Tailwind: gray-100 */
+    --color-gray-200: #e5e7eb; /* Tailwind: gray-200 */
+    --color-gray-300: #d1d5db; /* Tailwind: gray-300 */
+    --color-gray-500: #6b7280; /* !!Tailwind: gray-500 */
+    --color-gray-600: #4b5563; /* Tailwind: gray-600 */
+    --color-gray-700: #374151; /* Tailwind: gray-700 */
+    --color-gray-800: #1f2937; /* Tailwind: gray-800 */
+    --color-gray-900: #111827; /* !!Tailwind: gray-900 */
+    --color-white: #ffffff; /* Tailwind: white */
+
+    /* === Green === */
+    --color-green-500: #22c55e; /* !!Tailwind: green-500 */
+    --color-green-600: #16a34a; /* Tailwind: green-600 */
+    --color-green-700: #15803d; /* !!Tailwind: green-700 */
+    --color-green-800: #166534; /* Tailwind: green-800 */
+    --color-green-brand: #4CAF50; /* Material green / Tailwind-like: emerald-500 */
+    --color-green-brand-dark: #388E3C; /* Darker material green */
+    --color-green-foreground: #f5fdf7; /* Light green background (info cards) */
+
+    /* === Red === */
+    --color-red-100: #fee2e2; /* Tailwind: red-100 */
+    --color-red-400: #f87171; /* Tailwind: red-400 (border) */
+    --color-red-600: #dc2626; /* Tailwind: red-600 */
+    --color-red-700: #b91c1c; /* Tailwind: red-700 */
+
+    /* === Yellow === */
+    --color-yellow-50: #fefce8; /* Tailwind: yellow-50 */
+    --color-yellow-400: #facc15; /* Tailwind: yellow-400 */
+    --color-yellow-700: #ca8a04; /* Tailwind: yellow-700 */
+
+    /* === Zinc / Neutral === */
+    --color-zinc-200: #e4e4e7; /* Tailwind: zinc-200 */
+
+    /* === Overlay / Shadow === */
+    --color-overlay: rgba(0, 0, 0, 0.85); /* Zoom overlay */
+    --color-shadow-xs: rgba(0, 0, 0, 0.05); /* Tailwind: shadow-sm */
+    --color-shadow-sm: rgba(0, 0, 0, 0.1); /* Tailwind: shadow */
+    --color-shadow-md: rgba(0, 0, 0, 0.2); /* Tailwind: shadow-md */
+    --color-shadow-lg: rgba(0, 0, 0, 0.5); /* Deep hover shadow */
+
+}
+
+:root {
+    /* === Spacing (rem) === */
+    --size-1: 0.25rem;  /* 4px   → Tailwind: *-1 */
+    --size-2: 0.5rem;   /* 8px   → Tailwind: *-2 */
+    --size-3: 0.75rem;  /* 12px  → Tailwind: *-3 */
+    --size-4: 1rem;     /* 16px  → Tailwind: *-4 */
+    --size-5: 1.25rem;  /* 20px  → Tailwind: *-5 */
+    --size-6: 1.5rem;   /* 24px  → Tailwind: *-6 */
+    --size-7: 1.75rem;  /* 28px  → Tailwind: *-7 */
+    --size-8: 2rem;     /* 32px  → Tailwind: *-8 */
+
+    /* === Font Sizes (rem) === */
+    --text-xs: 0.75rem;     /* 12px  → Tailwind: text-xs */
+    --text-sm: 0.875rem;    /* 14px  → Tailwind: text-sm */
+    --text-base: 1rem;      /* 16px  → Tailwind: text-base */
+    --text-lg: 1.125rem;    /* 18px  → Tailwind: text-lg */
+    --text-xl: 1.25rem;     /* 20px  → Tailwind: text-xl */
+    --text-2xl: 1.5rem;     /* 24px  → Tailwind: text-2xl */
+    --text-3xl: 1.875rem;   /* 30px  → Tailwind: text-3xl */
+    --text-4xl: 2.25rem;    /* 36px  → Tailwind: text-4xl */
+}
+
+:root {
+    /* === Font Weights === */
+    --size-font-thin: 100;       /* Tailwind: font-thin */
+    --size-font-extralight: 200; /* Tailwind: font-extralight */
+    --size-font-light: 300;      /* Tailwind: font-light */
+    --size-font-normal: 400;     /* Tailwind: font-normal */
+    --size-font-medium: 500;     /* Tailwind: font-medium */
+    --size-font-semibold: 600;   /* Tailwind: font-semibold */
+    --size-font-bold: 700;       /* Tailwind: font-bold */
+    --size-font-extrabold: 800;  /* Tailwind: font-extrabold */
+    --size-font-black: 900;      /* Tailwind: font-black */
+}

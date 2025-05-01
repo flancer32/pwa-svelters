@@ -39,15 +39,14 @@
     "@paypal/paypal-server-sdk": "^0.6.1",
     "@readme/openapi-parser": "^3.0.1",
     "@teqfw/core": ">=0.34.1 <1.0.0",
-    "@teqfw/db": ">=0.25.0 <1.0.0",
-    "@teqfw/test": "latest",
+    "@teqfw/db": ">=0.26.0 <1.0.0",
     "@teqfw/web": "latest",
     "openai": "^4.95.1",
     "pg": "^8.13.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
-    "@teqfw/test": ">=0.20.1 <1.0.0",
+    "@teqfw/test": ">=0.24.0 <1.0.0",
     "@types/knex": "^0.15.2",
     "autoprefixer": "^10.4.21",
     "better-sqlite3": "^11.5.0",

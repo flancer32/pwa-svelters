@@ -64,7 +64,8 @@ class Dto {
     /**
      * Draft list of consumed food items in a flexible JSON format.
      *
-     * @type {string}
+     * @type {string} - an array of items as JSON string
+     * @see Svelters_Shared_Dto_Calorie_Log_Item.Dto
      */
     items;
 
