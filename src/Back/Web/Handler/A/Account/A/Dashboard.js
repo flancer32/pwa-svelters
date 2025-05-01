@@ -148,8 +148,6 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
                 view.kpiCards = calcDataKpi(profile, cast);
                 view.profile = profile;
 
-                view.hasFullData = false;
-
                 const {content: body} = await srvRender.perform({
                     name: 'account/dashboard.html',
                     localePkg: DEF.SHARED.LOCALE,
