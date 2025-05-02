@@ -69,7 +69,7 @@ export default class Svelters_Back_Store_RDb_Repo_User_Profile {
          * @param {object} params
          * @param {TeqFw_Db_Back_RDb_ITrans} [params.trx]
          * @param {TeqFw_Db_Shared_Dto_List_Selection.Dto} [params.selection]
-         * @param {object} params.conditions
+         * @param {object} [params.conditions]
          * @param {Object<string, 'asc'|'desc'>} [params.sorting]
          * @param {{limit: number, offset: number}} [params.pagination]
          * @returns {Promise<{records: Array<Svelters_Back_Store_RDb_Schema_User_Profile.Dto>}>}

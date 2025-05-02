@@ -20,7 +20,8 @@
       "Svelters_Back_Cli_Deepseek",
       "Svelters_Back_Cli_Newsletter",
       "Svelters_Back_Cli_OpenAPI",
-      "Svelters_Back_Cli_User_Delete"
+      "Svelters_Back_Cli_User_Delete",
+      "Svelters_Back_Cli_User_Delete_Inactive"
     ],
     "plugin": {
       "onInit": "Svelters_Back_Plugin_Start",
