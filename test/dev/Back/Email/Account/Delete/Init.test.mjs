@@ -21,7 +21,7 @@ describe('Svelters_Back_Email_Account_Delete_Init', function () {
     });
 
     it('should perform the service', async function () {
-        await service.perform({userId: 3});
+        await service.perform({userId: 3, emailTmpl: '/account/delete/init/cli'});
         assert.ok(true, 'The service is performed successfully.');
     });
 
