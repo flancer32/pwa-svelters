@@ -25,9 +25,7 @@ describe('Svelters_Back_Act_Calorie_Log_GetLast', function () {
             result === null ||
             (
                 typeof result === 'object' &&
-                typeof result.date === 'string' &&
-                typeof result.totalCalories === 'number' &&
-                typeof result.source === 'string'
+                typeof result.log === 'object'
             ),
             'The action must return null or a valid result object'
         );

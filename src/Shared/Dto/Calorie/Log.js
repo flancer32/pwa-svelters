@@ -2,40 +2,6 @@
  * Represents a single entry in a daily calorie log.
  * This DTO is used to transfer structured information about the products consumed in one day.
  *
- * @memberOf Svelters_Shared_Dto_Calorie_Log
- */
-class Dto {
-    /**
-     * The date of the record in 'YYYY-MM-DD' format.
-     * @type {string}
-     */
-    date;
-
-    /**
-     * The date when the data was committed to the log.
-     * @type {Date}
-     */
-    dateCommitted;
-    /**
-     * The list of food items recorded in the daily calorie log.
-     * @type {Svelters_Shared_Dto_Calorie_Log_Item.Dto[]}
-     */
-    items;
-
-    /**
-     * The total number of calories consumed on this date.
-     * This should be equal to the sum of calories of all food items recorded for the day.
-     *
-     * @type {number}
-     */
-    totalCalories;
-}
-
-
-/**
- * Factory class for creating instances of `Svelters_Shared_Dto_Calorie_Log`.
- * Ensures type conversion and validation.
- *
  * @implements TeqFw_Core_Shared_Api_Factory
  */
 export default class Svelters_Shared_Dto_Calorie_Log {
@@ -63,10 +29,39 @@ export default class Svelters_Shared_Dto_Calorie_Log {
             // Create DTO properties even without initial data.
             res.date = castApp.dateString(data?.date);
             res.dateCommitted = cast.date(data?.dateCommitted);
-            res.isFinal = cast.boolean(data?.isFinal);
             res.items = cast.arrayOfObj(data?.items, dtoItem.create);
             res.totalCalories = cast.int(data?.totalCalories);
             return res;
         };
     }
+}
+
+/**
+ * @memberOf Svelters_Shared_Dto_Calorie_Log
+ */
+class Dto {
+    /**
+     * The date of the record in 'YYYY-MM-DD' format.
+     * @type {string}
+     */
+    date;
+
+    /**
+     * The date when the data was committed to the log.
+     * @type {Date}
+     */
+    dateCommitted;
+    /**
+     * The list of food items recorded in the daily calorie log.
+     * @type {Svelters_Shared_Dto_Calorie_Log_Item.Dto[]}
+     */
+    items;
+
+    /**
+     * The total number of calories consumed on this date.
+     * This should be equal to the sum of calories of all food items recorded for the day.
+     *
+     * @type {number}
+     */
+    totalCalories;
 }

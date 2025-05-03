@@ -29,6 +29,26 @@
     color: var(--color-gray-500);
 }
 
+.nl-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.nl-table th,
+.nl-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+.nl-table th.text-right,
+.nl-table td.text-right {
+    text-align: right;
+}
+
+
 @media (min-width: 768px) {
     .nl-kpi {
         grid-template-columns: repeat(3, 1fr);

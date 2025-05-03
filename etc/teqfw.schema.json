@@ -114,7 +114,16 @@
                           "type": "enum",
                           "comment": "The unit of measurement for the product quantity.",
                           "options": {
-                            "values": ["GRAMS", "MILLILITERS", "PIECES"]
+                            "values": [
+                              "GRAMS",
+                              "MILLILITERS",
+                              "PIECES",
+                              "OUNCES",
+                              "FLUID_OUNCES",
+                              "CUPS",
+                              "TABLESPOONS",
+                              "TEASPOONS"
+                            ]
                           },
                           "default": "GRAMS"
                         },

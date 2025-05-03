@@ -126,11 +126,8 @@ export default class Svelters_Back_Act_User_Profile_Read {
                 profile.weight = await readWeight(trx, userId);
                 profile.weightGoal = await readWeightGoal(trx, userId);
                 // read calories
-                const {date, totalCalories} = await actLogGetLast.run({trx, userRef: userId});
-                if (date) {
-                    profile.lastCaloriesDate = date;
-                    profile.lastCaloriesTotal = totalCalories;
-                }
+                const {log} = await actLogGetLast.run({trx, userRef: userId});
+                profile.lastCaloriesLog = log;
                 return {profile};
             });
         };

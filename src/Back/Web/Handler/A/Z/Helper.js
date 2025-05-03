@@ -151,7 +151,8 @@ export default class Svelters_Back_Web_Handler_A_Z_Helper {
                 profile.dateCreated = helpCast.dateString(profile.dateCreated);
                 profile.dateSubscriptionEnd = helpCast.dateString(profile.dateSubscriptionEnd);
                 profile.dateUpdated = helpCast.dateString(profile.dateUpdated);
-                profile.lastCaloriesDate = helpCast.dateString(profile.lastCaloriesDate);
+                if (profile?.lastCaloriesLog?.date)
+                    profile.lastCaloriesLog.date = helpCast.dateString(profile.lastCaloriesLog.date);
             }
             return profile;
         };

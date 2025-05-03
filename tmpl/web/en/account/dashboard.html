@@ -137,6 +137,37 @@
     </div>
 
 
+    <!-- Food Log Table -->
+    <div class="nl-card mt-6">
+        <h3>Food Log – Last Day</h3>
+        {{#lastDayCalories.length}}
+        <table class="nl-table">
+            <thead>
+            <tr>
+                <th>Food</th>
+                <th class="text-right">Serving</th>
+                <th class="text-right">kcal/unit</th>
+                <th class="text-right">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#lastDayCalories}}
+            <tr>
+                <td>{{food}}</td>
+                <td class="text-right">{{quantity}}&nbsp;{{measure}}</td>
+                <td class="text-right">{{unitCalories}}</td>
+                <td class="text-right">{{totalCalories}}</td>
+            </tr>
+            {{/lastDayCalories}}
+            </tbody>
+        </table>
+        {{/lastDayCalories.length}}
+        {{^lastDayCalories.length}}
+        <p class="nl-text-note text-center">No food entries for the last day yet.</p>
+        {{/lastDayCalories.length}}
+    </div>
+
+
     {{/isAuthenticated}}
 
 </main>

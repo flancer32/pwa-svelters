@@ -10,8 +10,10 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      * @param {Svelters_Shared_Helper_Cast} cast
+     * @param {Svelters_Shared_Helper_Measure} helpMeasure
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
      * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
+     * @param {typeof Svelters_Shared_Enum_Product_Measure_Type} MEASURE
      */
     constructor(
         {
@@ -21,13 +23,39 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
             Svelters_Shared_Helper_Cast$: cast,
+            Svelters_Shared_Helper_Measure$: helpMeasure,
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             Svelters_Shared_Enum_Data_Type_Sex$: SEX,
+            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
         }
     ) {
         /* eslint-enable jsdoc/require-param-description,jsdoc/check-param-names */
 
         // FUNCS
+
+        /**
+         * @param {Svelters_Shared_Dto_User_Profile.Dto} profile
+         * @returns {Svelters_Shared_Dto_Calorie_Log.Dto[]}
+         */
+        function calcCalories(profile) {
+            const res = [];
+            const items = profile?.lastCaloriesLog?.items ?? [];
+            for (const item of items) {
+                if (item.measure === MEASURE.GRAMS) {
+                    item.measure = MEASURE.OUNCES;
+                    item.quantity = helpMeasure.gramsToOunces(item.quantity);
+                    item.unitCalories = helpMeasure.kcalPer100gToPerOunce(item.unitCalories);
+                } else if (item.measure === MEASURE.MILLILITERS) {
+                    item.measure = MEASURE.FLUID_OUNCES;
+                    item.quantity = helpMeasure.mlToFluidOunces(item.quantity);
+                    item.unitCalories = helpMeasure.kcalPer100mlToPerFluidOunce(item.unitCalories);
+                }
+                item.measure = helpMeasure.getUnitSymbol(item.measure);
+                res.push(item);
+            }
+            return res;
+        }
+
         /**
          * Validates the user's profile data and returns an object with the validation results.
          *
@@ -36,7 +64,7 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
          */
         function calcDataChecks(profile) {
             const checks = new DtoDataChecks();
-            checks.noCalories = !profile?.lastCaloriesDate;
+            checks.noCalories = !profile?.lastCaloriesLog?.date;
             checks.noGoal = !profile?.goal;
             checks.noProfile = !profile?.dateBirth || !profile?.height || !profile?.sex;
             checks.noWeight = !profile?.weight || !profile?.weightGoal;
@@ -92,21 +120,21 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
 
             if (!isNaN(weight)) {
                 dto.currentWeight = weight;
-                dto.currentWeightLbs = Math.round(weight * KG_TO_LBS);
+                dto.currentWeightLbs = helpMeasure.kgToLbs(weight);
             }
             if (!isNaN(goal)) {
                 dto.goalWeight = goal;
-                dto.goalWeightLbs = Math.round(goal * KG_TO_LBS);
+                dto.goalWeightLbs = helpMeasure.kgToLbs(goal);
             }
 
             if (!isNaN(weight) && !isNaN(goal)) {
                 dto.remaining = Math.round(Math.abs(weight - goal) * 10) / 10;
-                dto.remainingLbs = Math.round(dto.remaining * KG_TO_LBS);
+                dto.remainingLbs = helpMeasure.kgToLbs(dto.remaining);
                 dto.isPositive = (weight >= goal);
             }
 
-            dto.lastCaloriesDate = profile?.lastCaloriesDate || null;
-            dto.lastCaloriesTotal = cast.decimal(profile?.lastCaloriesTotal);
+            dto.lastCaloriesDate = profile?.lastCaloriesLog?.date || null;
+            dto.lastCaloriesTotal = cast.decimal(profile?.lastCaloriesLog?.totalCalories);
 
             // BMR
             const height = cast.decimal(profile?.height);
@@ -153,6 +181,7 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
                 view.hasFullData = calcHasFullData(view.dataChecks);
                 view.isAuthenticated = isAuthenticated;
                 view.kpiCards = calcDataKpi(profile, cast);
+                view.lastDayCalories = calcCalories(profile, cast);
                 view.profile = profile;
 
                 const {content: body} = await srvRender.perform({
@@ -171,9 +200,6 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
     }
 }
 
-// VARS
-const KG_TO_LBS = 2.20462;
-
 // CLASSES
 /**
  * DTO class for the template variables.
@@ -190,6 +216,8 @@ class DtoVar {
     isAuthenticated;
     /** @type {DtoKpiCards} */
     kpiCards = new DtoKpiCards();
+    /** @type {Svelters_Shared_Dto_Calorie_Log.Dto[]} */
+    lastDayCalories = [];
     /** @type {Svelters_Shared_Dto_User_Profile.Dto} */
     profile;
 }

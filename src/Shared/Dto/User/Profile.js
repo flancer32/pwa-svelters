@@ -110,6 +110,10 @@ class Dto {
      * @type {number}
      */
     lastCaloriesTotal;
+    /**
+     * @type {Svelters_Shared_Dto_Calorie_Log.Dto}
+     */
+    lastCaloriesLog;
 
     /**
      * Language preference of the user, in BCP 47 format (e.g., en, fr). Used to personalize Assistant responses.

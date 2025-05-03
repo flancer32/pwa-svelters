@@ -2,6 +2,43 @@
  * Represents a single food item in a daily calorie log.
  * This DTO is used to transfer structured information about consumed products.
  *
+ * @implements TeqFw_Core_Shared_Api_Factory
+ */
+export default class Svelters_Shared_Dto_Calorie_Log_Item {
+    /**
+     * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
+     * @param {typeof Svelters_Shared_Enum_Product_Measure_Type} MEASURE - Enumeration of valid measurement units.
+     */
+    constructor(
+        {
+            TeqFw_Core_Shared_Util_Cast$: cast,
+            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
+        }
+    ) {
+        /**
+         * Creates a new DTO instance with properly casted attributes.
+         * Ensures valid values for enums and numerical fields.
+         *
+         * @param {object} [data] - Raw input data for the DTO.
+         * @returns {Dto} - A properly structured DTO instance.
+         */
+        this.create = function (data) {
+            const res = Object.assign(new Dto(), data);
+
+            if (data) {
+                res.food = cast.string(data.food);
+                res.measure = cast.enum(data.measure, MEASURE);
+                res.quantity = cast.int(data.quantity);
+                res.totalCalories = cast.int(data.totalCalories);
+                res.unitCalories = cast.int(data.unitCalories);
+            }
+
+            return res;
+        };
+    }
+}
+
+/**
  * @memberOf Svelters_Shared_Dto_Calorie_Log_Item
  */
 class Dto {
@@ -45,44 +82,4 @@ class Dto {
      * @type {number}
      */
     totalCalories;
-}
-
-/**
- * Factory class for creating instances of `Svelters_Shared_Dto_Calorie_Log_Item`.
- * Ensures type conversion and validation.
- *
- * @implements TeqFw_Core_Shared_Api_Factory
- */
-export default class Svelters_Shared_Dto_Calorie_Log_Item {
-    /**
-     * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
-     * @param {typeof Svelters_Shared_Enum_Product_Measure_Type} MEASURE - Enumeration of valid measurement units.
-     */
-    constructor(
-        {
-            TeqFw_Core_Shared_Util_Cast$: cast,
-            Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
-        }
-    ) {
-        /**
-         * Creates a new DTO instance with properly casted attributes.
-         * Ensures valid values for enums and numerical fields.
-         *
-         * @param {object} [data] - Raw input data for the DTO.
-         * @returns {Dto} - A properly structured DTO instance.
-         */
-        this.create = function (data) {
-            const res = Object.assign(new Dto(), data);
-
-            if (data) {
-                res.food = cast.string(data.food);
-                res.measure = cast.enum(data.measure, MEASURE);
-                res.quantity = cast.int(data.quantity);
-                res.totalCalories = cast.int(data.totalCalories);
-                res.unitCalories = cast.int(data.unitCalories);
-            }
-
-            return res;
-        };
-    }
 }
