@@ -77,57 +77,65 @@
     <!-- KPI CARDS -->
     <div class="nl-kpi mt-6">
         <div class="kpi-card">
-            <p class="kpi-label">Calories Logged</p>
-            <p class="kpi-value">
+            <div class="kpi-label">Calories Logged</div>
+            <div class="kpi-value">
                 {{#kpiCards.lastCaloriesTotal}}{{kpiCards.lastCaloriesTotal}} kcal{{/kpiCards.lastCaloriesTotal}}
                 {{^kpiCards.lastCaloriesTotal}}–{{/kpiCards.lastCaloriesTotal}}
-            </p>
+            </div>
         </div>
 
         <div class="kpi-card">
-            <p class="kpi-label">Last Log</p>
-            <p class="kpi-value">
+            <div class="kpi-label">Last Log</div>
+            <div class="kpi-value">
                 {{#kpiCards.lastCaloriesDate}}{{kpiCards.lastCaloriesDate}}{{/kpiCards.lastCaloriesDate}}
                 {{^kpiCards.lastCaloriesDate}}–{{/kpiCards.lastCaloriesDate}}
-            </p>
+            </div>
         </div>
 
         <div class="kpi-card">
-            <p class="kpi-label">BMR</p>
-            <p class="kpi-value">
+            <div class="kpi-label">BMR</div>
+            <div class="kpi-value">
                 {{#kpiCards.bmr}}{{kpiCards.bmr}} kcal/day{{/kpiCards.bmr}}
                 {{^kpiCards.bmr}}–{{/kpiCards.bmr}}
-            </p>
+            </div>
         </div>
 
         <div class="kpi-card">
-            <p class="kpi-label">Current Weight</p>
-            <p class="kpi-value">
-                {{#kpiCards.currentWeight}}{{kpiCards.currentWeight}} kg{{/kpiCards.currentWeight}}
-                {{^kpiCards.currentWeight}}–{{/kpiCards.currentWeight}}
-            </p>
+            <div class="kpi-label">Current Weight</div>
+            <div class="kpi-value">
+                {{#kpiCards.currentWeightLbs}}{{kpiCards.currentWeightLbs}} lbs{{/kpiCards.currentWeightLbs}}
+                <div class="kpi-subtext">
+                    {{#kpiCards.currentWeight}}({{kpiCards.currentWeight}} kg){{/kpiCards.currentWeight}}
+                </div>
+            </div>
         </div>
 
         <div class="kpi-card">
-            <p class="kpi-label">Goal Weight</p>
-            <p class="kpi-value">
-                {{#kpiCards.goalWeight}}{{kpiCards.goalWeight}} kg{{/kpiCards.goalWeight}}
-                {{^kpiCards.goalWeight}}–{{/kpiCards.goalWeight}}
-            </p>
+            <div class="kpi-label">Goal Weight</div>
+            <div class="kpi-value">
+                {{#kpiCards.goalWeightLbs}}{{kpiCards.goalWeightLbs}} lbs{{/kpiCards.goalWeightLbs}}
+                <div class="kpi-subtext">
+                    {{#kpiCards.goalWeight}}({{kpiCards.goalWeight}} kg){{/kpiCards.goalWeight}}
+                </div>
+            </div>
         </div>
 
         <div class="kpi-card">
-            <p class="kpi-label">Difference</p>
-            <p class="kpi-value">
+            <div class="kpi-label">Difference</div>
+            <div class="kpi-value">
                 {{#kpiCards.remaining}}
                 {{#kpiCards.isPositive}}+{{/kpiCards.isPositive}}
                 {{^kpiCards.isPositive}}–{{/kpiCards.isPositive}}
-                {{kpiCards.remaining}} kg
+                {{kpiCards.remainingLbs}} lbs
+                <div class="kpi-subtext">
+                    ({{kpiCards.remaining}} kg)
+                </div>
                 {{/kpiCards.remaining}}
                 {{^kpiCards.remaining}}–{{/kpiCards.remaining}}
-            </p>
+            </div>
         </div>
     </div>
+
 
     {{/isAuthenticated}}
 

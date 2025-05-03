@@ -90,11 +90,18 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
             const weight = cast.decimal(profile?.weight);
             const goal = cast.decimal(profile?.weightGoal);
 
-            if (!isNaN(weight)) dto.currentWeight = weight;
-            if (!isNaN(goal)) dto.goalWeight = goal;
+            if (!isNaN(weight)) {
+                dto.currentWeight = weight;
+                dto.currentWeightLbs = Math.round(weight * KG_TO_LBS);
+            }
+            if (!isNaN(goal)) {
+                dto.goalWeight = goal;
+                dto.goalWeightLbs = Math.round(goal * KG_TO_LBS);
+            }
 
             if (!isNaN(weight) && !isNaN(goal)) {
                 dto.remaining = Math.round(Math.abs(weight - goal) * 10) / 10;
+                dto.remainingLbs = Math.round(dto.remaining * KG_TO_LBS);
                 dto.isPositive = (weight >= goal);
             }
 
@@ -164,7 +171,10 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
     }
 }
 
-// INTERNAL CLASSES
+// VARS
+const KG_TO_LBS = 2.20462;
+
+// CLASSES
 /**
  * DTO class for the template variables.
  * @memberOf Svelters_Back_Web_Handler_A_Account_A_Dashboard
@@ -211,13 +221,22 @@ class DtoKpiCards {
     currentWeight = null;
 
     /** @type {number|null} */
+    currentWeightLbs = null;
+
+    /** @type {number|null} */
     goalWeight = null;
+
+    /** @type {number|null} */
+    goalWeightLbs = null;
 
     /** @type {boolean|null} */
     isPositive = null;
 
     /** @type {number|null} */
     remaining = null;
+
+    /** @type {number|null} */
+    remainingLbs = null;
 
     /** @type {number|null} */
     bmr = null;
