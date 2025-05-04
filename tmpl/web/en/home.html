@@ -1,118 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>NutriLog</title>
+    <title>NutriLog – from GPT to fat loss</title>
     {{> htmlHead}}
+    <script type="module" src="/js/comp/ext-link.js"></script>
+    <script type="module" src="/js/comp/zoom-img.js"></script>
 </head>
 <body>
 
 {{> pageHeader}}
 
 <main>
-    <!-- Hero Section -->
-    <div class="max-w-2xl mx-auto text-center px-4">
-        <h1 class="text-3xl font-bold text-gray-900">NutriLog — a custom GPT chat with memory</h1>
-        <h2 class="text-2xl font-semibold text-gray-800 mt-4">Focused on calorie tracking and weight control</h2>
-        <p class="text-gray-700 mt-4">
-            Do you use GPT chat to talk about nutrition and goals? NutriLog adds <strong>memory</strong> — your
-            assistant will remember your meals, goals, and progress.
+
+    <!-- Introduction -->
+    <h1>NutriLog — a custom GPT chat with memory</h1>
+    <div class="nl-text-note text-center">12 kg lost in 7 months — with GPT as my assistant and NutriLog as its
+        memory.
+    </div>
+    <div style="overflow-x: auto;">
+        <img src="/img/home/weight_chart.svg" alt="Weight history graph"
+             style="min-width: 319px; height: auto;">
+    </div>
+    <div>
+        <p>
+            I’m a developer. When I quit smoking 15 years ago, I gained about 55 pounds in six months — and never really
+            lost them.
+            At 5’9”, I’ve often weighed close to 220 lbs.
         </p>
-        <p class="text-gray-700 mt-4">
-            Works with <strong>text and voice</strong>, on <strong>iPhone and Android</strong>. Chat anytime —
-            everything will be saved.
+        <p>
+            Since 2020, I’ve tracked my weight with mixed results. I had the data, but not the consistency.
         </p>
-
-        <!-- CTA Early -->
-        {{^isAuthenticated}}
-        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
-            <p class="text-lg font-semibold text-green-800">🚀 Beta access is open</p>
-            <p class="mt-2 text-gray-800"><span class="font-bold text-green-700">{{betaUsersLeft}}</span> spots left out
-                of 100</p>
-            <a href="/app/register"
-               class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-200">
-                Join the beta
-            </a>
-        </div>
-        {{/isAuthenticated}}
-
-        {{#isAuthenticated}}
-        <div class="bg-white border border-green-300 shadow-md rounded-lg mt-6 p-6 max-w-lg mx-auto">
-            <p class="text-lg font-semibold text-green-800">🎉 You're in the beta!</p>
-            <p class="mt-2 text-gray-800">
-                Thanks for being one of the first <strong>NutriLog beta testers</strong>. You’re helping shape the
-                future of AI-powered health tools.
-            </p>
-            <p class="mt-2 text-gray-700">
-                You can launch your NutriLog assistant anytime — your memory is active and ready.
-            </p>
-            {{> uiBtnGptChat}}
-
-
-        </div>
-        {{/isAuthenticated}}
-
+        <p>
+            In October 2024, I tried a basic low-calorie diet. What helped me stick with it was using GPT chat — as my
+            assistant.
+            It tracked what I ate, calculated my BMR and TDEE, kept a running log of my meals and macros, and even
+            remembered the weight of my kitchen bowls.
+        </p>
+        <p>
+            As a developer, I connected GPT to a small web app — giving it memory. That turned it from a chatbot into a
+            real tool.
+        </p>
+        <p>
+            I’ve lost 26 pounds in 7 months. If this approach worked for me, maybe it can help someone else too.
+        </p>
     </div>
 
-    <!-- Who is this for -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">👤 NutriLog is for you if:</h3>
-        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
-            <li>You have an <strong>active GPT Plus subscription</strong></li>
-            <li>You <strong>use GPT chat daily</strong> — in text or voice</li>
-            <li>You track your <strong>weight, nutrition, or fitness goals</strong></li>
-            <li>You’re tired of losing progress between chats — and want GPT to <strong>remember you</strong></li>
+    <!-- How I use NutriLog -->
+    <div class="nl-card">
+        <h2 class="text-center">How I use NutriLog</h2>
+        <ul>
+            <li>I speak or type my meals into GPT — like: <em>"Cheese omelet, toast with butter, banana, coffee with
+                sugar"</em>.
+            </li>
+            <li>The assistant calculates calories and macros, then saves it to my food log automatically.</li>
+            <li>My web app keeps track of weight, calorie balance, and goals — and gives me real-time feedback.</li>
+            <li>I can ask GPT: <em>"How many calories do I have left today?"</em> or <em>"What’s my weight trend this
+                week?"</em></li>
+            <li>All data is stored outside GPT, so it has real memory between sessions — not just chat history.</li>
+        </ul>
+        <div class="mt-4 flex flex-row justify-center gap-4">
+            <div class="text-center">
+                <zoom-img
+                        src="/img/assist/practice/01_assistant.png"
+                        alt="NutriLog meal logging screenshot"
+                        width="100px"
+                ></zoom-img>
+                <p class="text-sm text-gray-600 mt-2 text-center">Talking to your AI Assistant</p>
+            </div>
+
+            <div class="text-center">
+                <zoom-img
+                        src="/img/assist/practice/02_dashboard.png"
+                        alt="NutriLog daily recall screenshot"
+                        width="100px"
+                ></zoom-img>
+                <p class="text-sm text-gray-600 mt-2 text-center">Tracking your calories & progress</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Under the hood -->
+    <div class="nl-card nl-info">
+        <h2 class="text-center">Under the hood</h2>
+        <ul>
+            <li>
+                <ext-link href="https://openai.com/index/introducing-gpts">Custom GPT chat</ext-link>
+                — tuned to track your meals, weight, and calories through conversation.
+            </li>
+            <li>
+                You interact using any OpenAI client — voice or text, mobile or desktop.
+            </li>
+            <li>
+                Your data is saved and retrieved through a web app that handles user registration, GPT authorization
+                (via OAuth2), and data storage in a shared relational database.
+            </li>
+            <li>
+                The same app gives you a control panel to inspect, verify, and analyze what the assistant has
+                remembered.
+            </li>
+            <li>
+                Communication between the assistant and the app is done via a structured OpenAPI interface.
+            </li>
         </ul>
     </div>
 
-    <!-- Memory & Assistant -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">🧠 What does NutriLog do?</h3>
-        <p class="text-gray-700 mt-2">
-            NutriLog adds <strong>memory and context</strong> to your GPT assistant. It doesn’t replace GPT — it
-            <strong>makes it personal</strong>.
-        </p>
-        <ul class="list-disc list-inside text-gray-700 mt-4 space-y-2">
-            <li>Stores and restores your nutrition, weight, and goal data</li>
-            <li>Transfers it between chats — automatically</li>
-            <li>Helps GPT tailor its suggestions and feedback</li>
-            <li>Captures both <strong>text and voice input</strong> — on the go, while walking, or at the gym</li>
+
+    <!-- Who it’s for -->
+    <div class="nl-card">
+        <h2 class="text-center">Who it’s for</h2>
+        <ul>
+            <li>You already use GPT and like working with it.</li>
+            <li>You want to lose weight by tracking calories — not by following trendy diets.</li>
+            <li>You prefer tools over apps — and conversations over dashboards.</li>
+            <li>You want to stay in control, not be controlled.</li>
+            <li>You’re curious what a well-tuned assistant with memory can actually do.</li>
         </ul>
-        <p class="text-gray-900 font-bold mt-4">🎯 Everything GPT can do — now with memory of you.</p>
     </div>
 
-    <!-- How it works -->
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 text-left">
-        <h3 class="text-xl font-semibold text-gray-900">📈 How NutriLog works</h3>
-        <ol class="list-decimal list-inside text-gray-700 mt-4 space-y-1">
-            <li>Open the NutriLog chat in GPT (on your phone or in a browser)</li>
-            <li>Tell it about your goals, weight, and nutrition</li>
-            <li>NutriLog saves your info — text or voice</li>
-            <li>The assistant gets access to your profile and history</li>
-            <li>When you start a new chat, it picks up the conversation as if nothing was lost</li>
-        </ol>
-        <p class="text-gray-700 font-semibold mt-4">💬 No forms. No buttons. Just a natural conversation.</p>
+    <!-- Playbook -->
+    <div class="nl-text-note text-center">
+        Curious how it all works in real life?<br>
+        <a href="/app/playbook/start.html">Take a look at the usage playbook</a>.
     </div>
 
-    <!-- CTA Main -->
-    {{^isAuthenticated}}
-    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
-        <h3 class="text-lg font-semibold">🚀 <span class="font-bold">{{betaUsersLeft}}</span> beta spots remaining</h3>
+    <!-- Sign Up -->
+    <div class="text-center bg-white border border-green-300 shadow-md rounded-lg mt-6 p-4 max-w-md mx-auto">
+        <p class="text-center text-base font-semibold text-green-800">🚀 Beta Access</p>
+        <p class="mt-1 text-gray-800 text-sm text-center">
+            Join now and get <span class="font-bold text-green-700">3 months free</span> during the beta.
+        </p>
         <a href="/app/register"
-           class="flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
-            <i data-lucide="zap" class="mr-2"></i> Register for NutriLog
+           class="text-center inline-block mt-3 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-5 rounded-md transition-colors duration-200">
+            Join the Beta — Free
         </a>
     </div>
-    {{/isAuthenticated}}
 
-    {{#isAuthenticated}}
-    <div class="text-center bg-green-500 text-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-10 mb-10">
-        <h3 class="text-lg font-semibold">🚀 <span class="font-bold">{{betaUsersLeft}}</span> beta spots remaining</h3>
-        <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog"
-           class="gtm-gpt-link nl-gpt-chat-link flex items-center justify-center bg-white hover:bg-gray-200 text-green-600 font-bold py-3 px-6 rounded-md mt-4 transition-colors duration-200">
-            Open NutriLog in ChatGPT
-        </a>
-    </div>
-    {{/isAuthenticated}}
+
 </main>
 
 {{> pageFooter}}

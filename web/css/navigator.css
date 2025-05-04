@@ -20,9 +20,6 @@ nav.desktop-nav {
         transition: color 0.2s ease-in-out;
     }
 
-    nav.desktop-nav a:hover {
-        color: #388E3C; /* Darker green on hover */
-    }
 }
 
 /* === Mobile Menu Base === */
