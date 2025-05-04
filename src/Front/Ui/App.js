@@ -17,7 +17,7 @@ export default class Svelters_Front_Ui_App {
         }
     ) {
         // VARS
-        const CSS_GPT_LINK = 'nl-gpt-chat-link';
+        const CSS_GPT_LINK = 'gtm-gpt-link';
         const GTAG_GPT_OPENED = 'evt_gpt_opened';
         const STORAGE_KEY = 'nl_ads_gpt_opened';
 

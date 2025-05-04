@@ -95,6 +95,17 @@ footer {
 }
 
 .nl-gpt-chat-link:hover {
-    background-color: var(--color-green-600);
+    background-color: var(--color-green-700);
     color: var(--color-gray-100);
+}
+
+
+.nl-btn-white {
+    background-color: var(--color-white);
+    color: var(--color-green-700);
+}
+
+.nl-btn-white:hover {
+    background-color: var(--color-gray-200);
+    color: var(--color-green-700);
 }
