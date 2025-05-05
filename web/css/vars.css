@@ -12,7 +12,7 @@
 
     /* === Green === */
     --color-green-500: #22c55e; /* !!Tailwind: green-500 */
-    --color-green-600: #16a34a; /* Tailwind: green-600 */
+    --color-green-600: #16a34a; /* !!Tailwind: green-600 */
     --color-green-700: #15803d; /* !!Tailwind: green-700 */
     --color-green-800: #166534; /* Tailwind: green-800 */
     --color-green-brand: #4CAF50; /* Material green / Tailwind-like: emerald-500 */

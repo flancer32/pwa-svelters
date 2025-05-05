@@ -42,7 +42,7 @@ p {
 /* Links */
 
 a {
-    color: var(--color-green-500);
+    color: var(--color-green-700);
     font-weight: var(--size-font-medium);
     text-decoration: none;
 

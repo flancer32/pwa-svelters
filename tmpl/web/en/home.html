@@ -124,16 +124,28 @@
     </div>
 
     <!-- Sign Up -->
-    <div class="text-center bg-white border border-green-300 shadow-md rounded-lg mt-6 p-4 max-w-md mx-auto">
-        <p class="text-center text-base font-semibold text-green-800">🚀 Beta Access</p>
-        <p class="mt-1 text-gray-800 text-sm text-center">
+    {{^isAuthenticated}}
+    <div class="nl-card nl-bordered text-center max-w-md mx-auto">
+        <h3 class="text-green-700">🚀 Beta Access</h3>
+        <p class="text-center">
             Join now and get <span class="font-bold text-green-700">3 months free</span> during the beta.
         </p>
+        <p class="nl-text-note text-center">
+            <span class="font-bold">{{betaUsersLeft}}</span> beta spots remaining
+        </p>
         <a href="/app/register"
-           class="text-center inline-block mt-3 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 px-5 rounded-md transition-colors duration-200">
+           class="text-center nl-gpt-chat-link">
             Join the Beta — Free
         </a>
     </div>
+    {{/isAuthenticated}}
+
+    {{#isAuthenticated}}
+    <div class="nl-card nl-bordered text-center max-w-md mx-auto">
+        <h3 class="text-green-700">🎉 You're in!</h3>
+        {{> uiBtnGptChat}}
+    </div>
+    {{/isAuthenticated}}
 
 
 </main>

@@ -20,9 +20,9 @@ footer {
 }
 
 /* Card block (use `nl-` prefix instead of `a-`) */
-.nl-card, .a-card {
-    background-color: #ffffff; /* Tailwind: bg-white */
-    border-radius: 1rem; /* Tailwind: rounded-2xl */
+.nl-card {
+    background-color: var(--color-white);
+    border-radius: var(--size-4);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Tailwind: shadow */
     display: block;
     margin-top: 1.5em;
@@ -30,11 +30,11 @@ footer {
     transition: box-shadow 0.2s ease-in-out;
 }
 
-.nl-card:hover, .a-card:hover {
+.nl-card:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-md */
 }
 
-.nl-card, .a-card {
+.nl-card {
     & h2 {
         color: #4CAF50;
         font-size: 1.25rem;
@@ -63,6 +63,10 @@ footer {
             color: #ca8a04;
         }
     }
+}
+
+.nl-bordered {
+    border: 1px solid var(--color-green-500);
 }
 
 .nl-text-note {
@@ -95,7 +99,7 @@ footer {
 }
 
 .nl-gpt-chat-link:hover {
-    background-color: var(--color-green-700);
+    background-color: var(--color-green-600);
     color: var(--color-gray-100);
 }
 
