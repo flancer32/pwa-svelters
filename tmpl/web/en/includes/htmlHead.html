@@ -11,7 +11,7 @@
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
 
-    // Default consent fallback (used if user has not yet given permission)
+    // Default consent fallback (used if the user has not yet given permission)
     gtag('consent', 'default', {
         ad_personalization: 'denied',
         ad_storage: 'denied',
@@ -22,7 +22,7 @@
         security_storage: 'granted'
     });
 
-    // Check if user has previously granted consent and update state early
+    // Check if a user has previously granted consent and update the state early
     const hasConsent = localStorage.getItem('nl_gdpr_consent_accepted'); // see Svelters_Front_Ui_App_Gdpr
     if (hasConsent) {
         gtag('consent', 'update', {

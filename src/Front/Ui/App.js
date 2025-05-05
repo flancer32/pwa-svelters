@@ -18,7 +18,7 @@ export default class Svelters_Front_Ui_App {
     ) {
         // VARS
         const CSS_GPT_LINK = 'gtm-gpt-link';
-        const GTAG_GPT_OPENED = 'evt_gpt_opened';
+        const GTAG_GPT_OPENED = 'gpt_opened';
         const STORAGE_KEY = 'nl_ads_gpt_opened';
 
         // FUNCS
@@ -26,7 +26,8 @@ export default class Svelters_Front_Ui_App {
             // FUNCS
             function handleClickOnce() {
                 if (!localStorage.getItem(STORAGE_KEY)) {
-                    gtag('event', GTAG_GPT_OPENED, {method: 'link_click'});
+                    dataLayer.push({event: GTAG_GPT_OPENED});
+                    // gtag('event', GTAG_GPT_OPENED, {method: 'link_click'});
                     localStorage.setItem(STORAGE_KEY, '1');
                 }
             }
