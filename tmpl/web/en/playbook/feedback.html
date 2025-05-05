@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NutriLog</title>
+    {{> htmlHead}}
+    <link rel="stylesheet" href="/css/playbook/start.css">
+    <script type="module" src="/js/comp/zoom-img.js"></script>
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Send Feedback — Right from the Conversation</h1>
+
+    <p>
+        <strong>NutriLog</strong> is a powerful extension for GPT chat that helps you structure your nutrition data,
+        track calorie intake, and manage your weight. GPT amplifies your potential — NutriLog amplifies GPT.
+    </p>
+
+    <!-- Feedback Section -->
+    <div class="nl-card">
+
+        <p>
+            You don’t need to fill out forms or write emails to share your thoughts about NutriLog.
+            If something feels off, unclear, or frustrating, you can just say so — during your regular conversation with
+            the Assistant.
+        </p>
+
+        <p>
+            The Assistant understands your intent, translates your message into English if needed, and sends it to the
+            NutriLog team.
+            It’s part of how we use real-time human–AI interaction to improve the system together.
+        </p>
+
+        <p class="font-semibold">Here’s how it works:</p>
+        <ul>
+            <li>🗣️ You say something like: <em>“No me gusta el resumen de alimentos — ¿puedes enviar eso como comentario
+                al equipo?”</em></li>
+            <li>📩 We receive your message in English — ready to review and act on it.</li>
+        </ul>
+
+        <div class="mt-4 flex flex-row justify-center gap-4">
+            <div class="text-center">
+                <zoom-img
+                        src="/img/playbook/feedback/request.png"
+                        alt="User sending feedback in Spanish"
+                        width="160px"
+                ></zoom-img>
+                <p class="text-sm text-gray-600 mt-2">User message in Spanish (Assistant chat)</p>
+            </div>
+
+            <div class="text-center">
+                <zoom-img
+                        src="/img/playbook/feedback/email.png"
+                        alt="Translated feedback email"
+                        width="160px"
+                ></zoom-img>
+                <p class="text-sm text-gray-600 mt-2">English message received by the team</p>
+            </div>
+        </div>
+
+        <p class="mt-4">
+            You don’t have to switch tools or change your language — just speak naturally, and the Assistant will handle
+            the rest.
+            Your feedback helps us improve NutriLog for everyone.
+        </p>
+    </div>
+
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

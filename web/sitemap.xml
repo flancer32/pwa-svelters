@@ -3,14 +3,14 @@
 
     <url>
         <loc>https://nutrilog.app.wiredgeese.com/</loc>
-        <lastmod>2025-04-28</lastmod>
+        <lastmod>2025-05-05</lastmod>
         <priority>1.0</priority>
         <changefreq>weekly</changefreq>
     </url>
 
     <url>
         <loc>https://nutrilog.app.wiredgeese.com/app/about.html</loc>
-        <lastmod>2025-04-28</lastmod>
+        <lastmod>2025-05-05</lastmod>
         <priority>1.0</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -79,8 +79,15 @@
     </url>
 
     <url>
+        <loc>https://nutrilog.app.wiredgeese.com/app/playbook/feedback.html</loc>
+        <lastmod>2025-05-05</lastmod>
+        <priority>1.0</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
         <loc>https://nutrilog.app.wiredgeese.com/app/playbook/start.html</loc>
-        <lastmod>2025-04-28</lastmod>
+        <lastmod>2025-05-05</lastmod>
         <priority>1.0</priority>
         <changefreq>weekly</changefreq>
     </url>

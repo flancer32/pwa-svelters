@@ -37,12 +37,16 @@
             </button>
 
             <!-- Dropdown Menu -->
-            <div id="user-menu" class="hidden absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2">
+            <div id="user-menu" class="hidden absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-md py-2">
+                <a href="/app/playbook/start.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Start Your Journey</a>
                 <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog" target="_blank"
                    class="gtm-gpt-link block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     AI Assistant
                 </a>
                 <a href="/app/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+                <a href="/app/playbook/feedback.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Send Feedback</a>
                 <a href="/fl64-web-session/logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
             </div>
         </div>
@@ -58,10 +62,7 @@
 <!-- Mobile Menu -->
 <div id="mobile-menu">
     <a href="/app/playbook/start.html" class="block text-gray-700 py-2">Start Your Journey</a>
-    <!--
-    <a href="/app/pricing.html" class="block text-gray-700 py-2">Pricing</a>
-    <a href="/app/videos.html" class="block text-gray-700 py-2">Videos</a>
-    -->
+
     {{^isAuthenticated}}
     <a href="/app/login"
        class="block bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-center mt-4">Login</a>
@@ -71,6 +72,7 @@
 
     {{#isAuthenticated}}
     <div class="border-t border-gray-200 mt-4 pt-4">
+        <a href="/app/playbook/feedback.html" class="block text-gray-700 py-2">Send Feedback</a>
         <a href="https://chatgpt.com/g/g-FaoraVhde-nutrilog" target="_blank"
            class="gtm-gpt-link block text-gray-700 py-2">
             AI Assistant
