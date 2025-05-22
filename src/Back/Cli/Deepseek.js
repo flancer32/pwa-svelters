@@ -7,6 +7,7 @@ const OPT_MODE = 'mode';
 
 const MODE = {
     API_SHARED: 'API_SHARED',
+    JSDOC: 'JSDOC',
     NEW_CLASS: 'NEW_CLASS',
     NEW_DTO: 'NEW_DTO',
     NEW_ENUM: 'NEW_ENUM',
@@ -28,6 +29,7 @@ const MODE = {
  * @param {TeqFw_Core_Back_Api_Dto_Command_Option.Factory} fOpt
  * @param {TeqFw_Core_Back_App} app - Provides lifecycle management for the application
  * @param {Svelters_Back_Cli_Deepseek_A_Api_Shared} aApiShared
+ * @param {Svelters_Back_Cli_Deepseek_A_JSDoc} aJSDoc
  * @param {Svelters_Back_Cli_Deepseek_A_New_Class} aNewClass
  * @param {Svelters_Back_Cli_Deepseek_A_New_Dto} aNewDto
  * @param {Svelters_Back_Cli_Deepseek_A_New_Enum} aNewEnum
@@ -48,6 +50,7 @@ export default function Factory(
         'TeqFw_Core_Back_Api_Dto_Command_Option.Factory$': fOpt,
         TeqFw_Core_Back_App$: app,
         Svelters_Back_Cli_Deepseek_A_Api_Shared$: aApiShared,
+        Svelters_Back_Cli_Deepseek_A_JSDoc$: aJSDoc,
         Svelters_Back_Cli_Deepseek_A_New_Class$: aNewClass,
         Svelters_Back_Cli_Deepseek_A_New_Dto$: aNewDto,
         Svelters_Back_Cli_Deepseek_A_New_Enum$: aNewEnum,
@@ -77,6 +80,9 @@ export default function Factory(
             case MODE.API_SHARED:
                 await aApiShared.run(rootWork, rootDocs);
                 break;
+            case MODE.JSDOC:
+                await aJSDoc.run(rootWork);
+                break;
             case MODE.NEW_CLASS:
                 await aNewClass.run(rootWork, rootDocs);
                 break;
@@ -99,7 +105,7 @@ export default function Factory(
                 await aRdbSchema.run(rootWork, rootDocs);
                 break;
             case MODE.TEST:
-                await aTest.run(rootWork, rootDocs);
+                await aTest.run(rootWork);
                 break;
         }
         await app.stop();

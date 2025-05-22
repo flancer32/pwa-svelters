@@ -1,7 +1,7 @@
 /**
- * A class for generating some test response via Deepseek as part of CLI command.
+ * A class for generating JSDoc annotations for a script via Deepseek as part of CLI command.
  */
-export default class Svelters_Back_Cli_Deepseek_A_Test {
+export default class Svelters_Back_Cli_Deepseek_A_JSDoc {
     /**
      * @param {typeof import('node:path')} path
      * @param {TeqFw_Core_Shared_Api_Logger} logger
@@ -24,7 +24,7 @@ export default class Svelters_Back_Cli_Deepseek_A_Test {
          * @returns {Promise<void>}
          */
         this.run = async function (rootWork) {
-            const pathWork = join(rootWork, 'test');
+            const pathWork = join(rootWork, 'jsdoc');
             const [
                 prompt,
                 inputMd,
@@ -46,7 +46,7 @@ ${prompt}
 `
             };
             debugger
-            const fileResult = `${pathWork}/result.txt`;
+            const fileResult = `${pathWork}/result.js`;
             logger.info(`Generate an output data.`);
             await helper.chatAsFile(msg, fileResult);
         };
