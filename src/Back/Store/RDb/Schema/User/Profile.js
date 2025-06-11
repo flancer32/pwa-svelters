@@ -22,6 +22,7 @@ const ATTR = {
     GOAL: 'goal',
     HEIGHT: 'height',
     LOCALE: 'locale',
+    MEASURE_SYSTEM: 'measure_system',
     NAME: 'name',
     PROMPT_START: 'prompt_start',
     SEX: 'sex',
@@ -73,6 +74,14 @@ class Dto {
     locale;
 
     /**
+     * Preferred measurement system (METRIC or IMPERIAL).
+     *
+     * @type {string}
+     * @see Svelters_Shared_Enum_Data_Measure_System
+     */
+    measure_system;
+
+    /**
      * Name to display in profile.
      *
      * @type {string}
@@ -120,6 +129,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
      * @param {TeqFw_Core_Shared_Util_Cast} cast
      * @param {Svelters_Shared_Helper_Cast} helper
      * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
+     * @param {typeof Svelters_Shared_Enum_Data_Measure_System} MEASURE_SYSTEM
      */
     constructor(
         {
@@ -127,6 +137,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
             TeqFw_Core_Shared_Util_Cast$: cast,
             Svelters_Shared_Helper_Cast$: helper,
             Svelters_Shared_Enum_Data_Type_Sex$: SEX,
+            Svelters_Shared_Enum_Data_Measure_System$: MEASURE_SYSTEM,
         }
     ) {
         // INSTANCE METHODS
@@ -143,6 +154,7 @@ export default class Svelters_Back_Store_RDb_Schema_User_Profile {
                 res.goal = cast.string(data.goal);
                 res.height = cast.int(data.height);
                 res.locale = cast.string(data.locale);
+                res.measure_system = cast.enum(data.measure_system, MEASURE_SYSTEM);
                 res.name = cast.string(data.name);
                 res.prompt_start = cast.string(data.prompt_start);
                 res.sex = cast.enum(data.sex, SEX);

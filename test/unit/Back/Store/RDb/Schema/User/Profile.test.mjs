@@ -6,6 +6,8 @@ import assert from 'assert';
 const DEF = await container.get('Svelters_Back_Defaults$');
 /** @type {Svelters_Back_Store_RDb_Schema_User_Profile} */
 const schema = await container.get('Svelters_Back_Store_RDb_Schema_User_Profile$');
+/** @type {typeof Svelters_Shared_Enum_Data_Measure_System} */
+const MEASURE_SYSTEM = await container.get('Svelters_Shared_Enum_Data_Measure_System$');
 
 describe('Svelters_Back_Store_RDb_Schema_User_Profile', () => {
     const ATTR = schema.getAttributes();
@@ -15,6 +17,7 @@ describe('Svelters_Back_Store_RDb_Schema_User_Profile', () => {
         'goal',
         'height',
         'locale',
+        'measure_system',
         'name',
         'prompt_start',
         'sex',
@@ -51,5 +54,24 @@ describe('Svelters_Back_Store_RDb_Schema_User_Profile', () => {
     it('should have the correct ENTITY name and primary key', () => {
         assert.equal(schema.getEntityName(), `${DEF.NAME}/app/user/profile`, 'Entity name should match the expected path');
         assert.deepStrictEqual(schema.getPrimaryKey(), [ATTR.USER_REF], 'Primary key should be set to USER_REF');
+    });
+
+    describe('measure_system field validation', () => {
+        it('should correctly implement measure_system field in the schema', () => {
+            // Check field exists in DTO
+            const dto = schema.createDto();
+            assert('measure_system' in dto, 'measure_system should exist in DTO');
+
+            // Check enum values are accepted
+            const metricDto = schema.createDto({measure_system: MEASURE_SYSTEM.METRIC});
+            assert.strictEqual(metricDto.measure_system, MEASURE_SYSTEM.METRIC, 'Should accept METRIC value');
+
+            const imperialDto = schema.createDto({measure_system: MEASURE_SYSTEM.IMPERIAL});
+            assert.strictEqual(imperialDto.measure_system, MEASURE_SYSTEM.IMPERIAL, 'Should accept IMPERIAL value');
+
+            // Check invalid value is silently ignored (remains undefined)
+            const invalidDto = schema.createDto({measure_system: 'INVALID'});
+            assert.strictEqual(invalidDto.measure_system, undefined, 'Invalid value should result in undefined measure_system');
+        });
     });
 });

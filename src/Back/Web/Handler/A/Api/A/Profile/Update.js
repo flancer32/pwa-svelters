@@ -58,17 +58,19 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
              * @param {number} userId
              * @returns {Promise<string[]>}
              */
-            async function updateProfile(trx, profile, userId,) {
+            async function updateProfile(trx, profile, userId) {
                 const updatedFields = [];
-                if (Object.keys(profile)) {
+                if (Object.keys(profile).length) {
                     // update app profile
                     const {record: foundProfile} = await repoProfile.readOne({trx, key: userId});
                     const dto = foundProfile ?? repoProfile.createDto();
+
                     if (profile.dateBirth !== dto.date_birth) {
                         dto.date_birth = profile.dateBirth;
                         updatedFields.push('dateBirth');
                     }
                     dto.date_updated = new Date();
+
                     if (profile.goal) {
                         dto.goal = profile.goal;
                         updatedFields.push('goal');
@@ -97,14 +99,25 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
                         dto.timezone = profile.timezone;
                         updatedFields.push('timezone');
                     }
+
+                    // New: support for measureSystem (metric/imperial)
+                    if (profile.measureSystem) {
+                        // Convert camelCase to snake_case for DB field
+                        const measureSystemValue = profile.measureSystem.toUpperCase();
+                        if (measureSystemValue !== dto.measure_system) {
+                            dto.measure_system = measureSystemValue;
+                            updatedFields.push('measureSystem');
+                        }
+                    }
+
                     dto.user_ref = userId;
+
                     // persist updates
                     if (!foundProfile) {
                         await repoProfile.createOne({trx, dto});
                     } else {
                         await repoProfile.updateOne({trx, updates: dto});
                     }
-
                 }
                 return updatedFields;
             }
@@ -113,22 +126,23 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
             /** @type {Svelters_Shared_Web_Api_Profile_Update.Request} */
             const payload = await zHelper.parsePostedData(req);
             logger.info(`Payload: ${JSON.stringify(payload)}`);
+
             // use one transaction for all DB requests
             await trxWrapper.execute(null, async (trx) => {
                 // AUTHORIZATION
                 const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                 if (isAuthorized) {
                     const profile = payload?.profile;
-                    logger.info(`Received a request to update the profile for user #${userId}:`
-                        + ` ${JSON.stringify(profile)}`);
+                    logger.info(`Received a request to update the profile for user #${userId}: ${JSON.stringify(profile)}`);
+
                     // verify subscription date
                     const {record: user} = await repoUser.readOne({trx, key: userId});
                     if (user.date_subscription > new Date()) {
                         const updatedFields = await updateProfile(trx, profile, userId);
                         response.meta.code = RESULT.SUCCESS;
                         response.meta.ok = true;
-                        response.meta.message
-                            = `The following fields were successfully updated: ${JSON.stringify(updatedFields)}`;
+                        response.meta.message = `The following fields were successfully updated: ${JSON.stringify(updatedFields)}`;
+
                         // Send the response
                         const body = JSON.stringify(response);
                         respond.code200_Ok({
@@ -140,8 +154,8 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
                     } else {
                         const date = helpCast.dateString(user.date_subscription);
                         response.meta.code = RESULT.SUBSCRIPTION_EXPIRED;
-                        response.meta.message
-                            = `The user's subscription expired on ${date}, so the profile couldn't be updated.`;
+                        response.meta.message = `The user's subscription expired on ${date}, so the profile couldn't be updated.`;
+
                         // Send the response
                         const body = JSON.stringify(response);
                         respond.code402_PaymentRequired({

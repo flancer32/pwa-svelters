@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "NutriLog API",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "NutriLog API for facilitating communication between the GPT chat assistant and the NutriLog platform, enabling actions such as calorie tracking, goal monitoring, and personalized guidance."
   },
   "servers": [
@@ -906,7 +906,12 @@
           },
           "locale": {
             "type": "string",
-            "description": "anguage preference of the user, in BCP 47 format (e.g., en, fr). Used to personalize Assistant responses."
+            "description": "Language preference of the user, in BCP 47 format (e.g., en, fr). Used to personalize Assistant responses."
+          },
+          "measureSystem": {
+            "type": "string",
+            "enum": ["METRIC", "IMPERIAL"],
+            "description": "User's preferred measurement system for displaying weight and other metrics."
           },
           "name": {
             "type": "string",

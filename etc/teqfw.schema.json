@@ -338,6 +338,12 @@
                   "type": "string",
                   "nullable": true
                 },
+                "measure_system": {
+                  "type": "enum",
+                  "comment": "Preferred measurement system for displaying user data.",
+                  "options": {"values": ["METRIC", "IMPERIAL"]},
+                  "default": "METRIC"
+                },
                 "goal": {
                   "comment": "User's current goal (e.g., weight loss target).",
                   "type": "text",

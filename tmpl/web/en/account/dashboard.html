@@ -15,7 +15,7 @@
     {{> blockAnon}}
 
     {{#isAuthenticated}}
-    {{! this is a section for authenticated users only}}
+    {{! section for authenticated users only }}
 
     <!-- Beta tester badge -->
     <div class="nl-text-note text-center mb-2">
@@ -23,9 +23,8 @@
     </div>
 
     {{^hasFullData}}
-    {{! this is a section for the checklist of empty data}}
+    {{! checklist of missing data }}
 
-    <!-- Highlighted block -->
     <div class="nl-card text-center">
         <div>
             NutriLog is a conversation-first app.
@@ -34,7 +33,6 @@
         {{> uiBtnGptChat}}
     </div>
 
-    <!-- Empty state checklist -->
     <div class="nl-card">
         <h3>You're just getting started...</h3>
         <ul>
@@ -103,20 +101,24 @@
         <div class="kpi-card">
             <div class="kpi-label">Current Weight</div>
             <div class="kpi-value">
+                {{#useImperial}}
                 {{#kpiCards.currentWeightLbs}}{{kpiCards.currentWeightLbs}} lbs{{/kpiCards.currentWeightLbs}}
-                <div class="kpi-subtext">
-                    {{#kpiCards.currentWeight}}({{kpiCards.currentWeight}} kg){{/kpiCards.currentWeight}}
-                </div>
+                {{/useImperial}}
+                {{^useImperial}}
+                {{#kpiCards.currentWeight}}{{kpiCards.currentWeight}} kg{{/kpiCards.currentWeight}}
+                {{/useImperial}}
             </div>
         </div>
 
         <div class="kpi-card">
             <div class="kpi-label">Goal Weight</div>
             <div class="kpi-value">
+                {{#useImperial}}
                 {{#kpiCards.goalWeightLbs}}{{kpiCards.goalWeightLbs}} lbs{{/kpiCards.goalWeightLbs}}
-                <div class="kpi-subtext">
-                    {{#kpiCards.goalWeight}}({{kpiCards.goalWeight}} kg){{/kpiCards.goalWeight}}
-                </div>
+                {{/useImperial}}
+                {{^useImperial}}
+                {{#kpiCards.goalWeight}}{{kpiCards.goalWeight}} kg{{/kpiCards.goalWeight}}
+                {{/useImperial}}
             </div>
         </div>
 
@@ -126,16 +128,17 @@
                 {{#kpiCards.remaining}}
                 {{#kpiCards.isPositive}}+{{/kpiCards.isPositive}}
                 {{^kpiCards.isPositive}}–{{/kpiCards.isPositive}}
+                {{#useImperial}}
                 {{kpiCards.remainingLbs}} lbs
-                <div class="kpi-subtext">
-                    ({{kpiCards.remaining}} kg)
-                </div>
+                {{/useImperial}}
+                {{^useImperial}}
+                {{kpiCards.remaining}} kg
+                {{/useImperial}}
                 {{/kpiCards.remaining}}
                 {{^kpiCards.remaining}}–{{/kpiCards.remaining}}
             </div>
         </div>
     </div>
-
 
     <!-- Food Log Table -->
     <div class="nl-card mt-6">
@@ -166,7 +169,6 @@
         <p class="nl-text-note text-center">No food entries for the last day yet.</p>
         {{/lastDayCalories.length}}
     </div>
-
 
     {{/isAuthenticated}}
 

@@ -7,11 +7,13 @@ export default class Svelters_Shared_Dto_User_Profile {
     /**
      * @param {TeqFw_Core_Shared_Util_Cast} cast - Utility for type conversions.
      * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
+     * @param {typeof Svelters_Shared_Enum_Data_Measure_System} MEASURE_SYSTEM
      */
     constructor(
         {
             TeqFw_Core_Shared_Util_Cast$: cast,
             Svelters_Shared_Enum_Data_Type_Sex$: SEX,
+            Svelters_Shared_Enum_Data_Measure_System$: MEASURE_SYSTEM,
         }
     ) {
         /**
@@ -36,6 +38,7 @@ export default class Svelters_Shared_Dto_User_Profile {
                 res.lastCaloriesDate = cast.string(data.lastCaloriesDate);
                 res.lastCaloriesTotal = cast.decimal(data.lastCaloriesTotal);
                 res.locale = cast.string(data.locale);
+                res.measureSystem = cast.enum(data.measureSystem, MEASURE_SYSTEM);
                 res.name = cast.string(data.name);
                 res.promptStart = cast.string(data.promptStart);
                 res.sex = cast.enum(data.sex, SEX);
@@ -120,6 +123,14 @@ class Dto {
      * @type {string}
      */
     locale;
+
+    /**
+     * Preferred measurement system for displaying data (METRIC or IMPERIAL).
+     * Affects UI formatting of weight, height and other measurements.
+     * @type {string}
+     * @see Svelters_Shared_Enum_Data_Measure_System
+     */
+    measureSystem;
 
     /**
      * User's display name shown in the interface. Not necessarily unique.

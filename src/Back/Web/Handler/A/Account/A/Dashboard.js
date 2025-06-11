@@ -14,6 +14,7 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
      * @param {Svelters_Back_Web_Handler_A_Z_Helper} zHelper
      * @param {typeof Svelters_Shared_Enum_Data_Type_Sex} SEX
      * @param {typeof Svelters_Shared_Enum_Product_Measure_Type} MEASURE
+     * @param {typeof Svelters_Shared_Enum_Data_Measure_System} SYSTEM
      */
     constructor(
         {
@@ -27,6 +28,7 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
             Svelters_Back_Web_Handler_A_Z_Helper$: zHelper,
             Svelters_Shared_Enum_Data_Type_Sex$: SEX,
             Svelters_Shared_Enum_Product_Measure_Type$: MEASURE,
+            Svelters_Shared_Enum_Data_Measure_System$: SYSTEM,
         }
     ) {
         /* eslint-enable jsdoc/require-param-description,jsdoc/check-param-names */
@@ -40,18 +42,23 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
         function calcCalories(profile) {
             const res = [];
             const items = profile?.lastCaloriesLog?.items ?? [];
+            const useImperial = profile?.measureSystem === SYSTEM.IMPERIAL;
+
             for (const item of items) {
-                if (item.measure === MEASURE.GRAMS) {
-                    item.measure = MEASURE.OUNCES;
-                    item.quantity = helpMeasure.gramsToOunces(item.quantity);
-                    item.unitCalories = helpMeasure.kcalPer100gToPerOunce(item.unitCalories);
-                } else if (item.measure === MEASURE.MILLILITERS) {
-                    item.measure = MEASURE.FLUID_OUNCES;
-                    item.quantity = helpMeasure.mlToFluidOunces(item.quantity);
-                    item.unitCalories = helpMeasure.kcalPer100mlToPerFluidOunce(item.unitCalories);
+                const copy = {...item};
+                if (useImperial) {
+                    if (copy.measure === MEASURE.GRAMS) {
+                        copy.measure = MEASURE.OUNCES;
+                        copy.quantity = helpMeasure.gramsToOunces(copy.quantity);
+                        copy.unitCalories = helpMeasure.kcalPer100gToPerOunce(copy.unitCalories);
+                    } else if (copy.measure === MEASURE.MILLILITERS) {
+                        copy.measure = MEASURE.FLUID_OUNCES;
+                        copy.quantity = helpMeasure.mlToFluidOunces(copy.quantity);
+                        copy.unitCalories = helpMeasure.kcalPer100mlToPerFluidOunce(copy.unitCalories);
+                    }
                 }
-                item.measure = helpMeasure.getUnitSymbol(item.measure);
-                res.push(item);
+                copy.measure = helpMeasure.getUnitSymbol(copy.measure);
+                res.push(copy);
             }
             return res;
         }
@@ -117,19 +124,20 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
 
             const weight = cast.decimal(profile?.weight);
             const goal = cast.decimal(profile?.weightGoal);
+            const useImperial = profile?.measureSystem === SYSTEM.IMPERIAL;
 
             if (!isNaN(weight)) {
                 dto.currentWeight = weight;
-                dto.currentWeightLbs = helpMeasure.kgToLbs(weight);
+                dto.currentWeightLbs = useImperial ? helpMeasure.kgToLbs(weight) : null;
             }
             if (!isNaN(goal)) {
                 dto.goalWeight = goal;
-                dto.goalWeightLbs = helpMeasure.kgToLbs(goal);
+                dto.goalWeightLbs = useImperial ? helpMeasure.kgToLbs(goal) : null;
             }
 
             if (!isNaN(weight) && !isNaN(goal)) {
                 dto.remaining = Math.round(Math.abs(weight - goal) * 10) / 10;
-                dto.remainingLbs = helpMeasure.kgToLbs(dto.remaining);
+                dto.remainingLbs = useImperial ? helpMeasure.kgToLbs(dto.remaining) : null;
                 dto.isPositive = (weight >= goal);
             }
 
@@ -181,8 +189,9 @@ export default class Svelters_Back_Web_Handler_A_Account_A_Dashboard {
                 view.hasFullData = calcHasFullData(view.dataChecks);
                 view.isAuthenticated = isAuthenticated;
                 view.kpiCards = calcDataKpi(profile, cast);
-                view.lastDayCalories = calcCalories(profile, cast);
+                view.lastDayCalories = calcCalories(profile);
                 view.profile = profile;
+                view.useImperial = profile?.measureSystem === SYSTEM.IMPERIAL;
 
                 const {content: body} = await srvRender.perform({
                     name: 'account/dashboard.html',

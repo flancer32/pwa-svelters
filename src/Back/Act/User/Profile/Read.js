@@ -100,6 +100,7 @@ export default class Svelters_Back_Act_User_Profile_Read {
                     profile.goal = foundProfile.goal;
                     profile.height = foundProfile.height;
                     profile.locale = foundProfile.locale;
+                    profile.measureSystem = foundProfile.measure_system; // Add preferred measurement system
                     profile.name = foundProfile.name;
                     profile.promptStart = foundProfile.prompt_start;
                     profile.sex = foundProfile.sex;
@@ -131,6 +132,5 @@ export default class Svelters_Back_Act_User_Profile_Read {
                 return {profile};
             });
         };
-
     }
 }
