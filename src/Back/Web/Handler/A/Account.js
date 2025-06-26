@@ -23,18 +23,19 @@ export default class Svelters_Back_Web_Handler_A_Account {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @return {Promise<void>}
+         * @return {Promise<boolean>}
          */
         this.run = async function (req, res) {
             const url = new URL(req.url, `https://${req.headers.host}`);
             const parts = url.pathname.split('/'); // /app/account/...
             if (parts[2] === DEF.SHARED.ROUTE_ACCOUNT) {
                 if (parts[3] === DEF.SHARED.ROUTE_ACCOUNT_DELETE) {
-                    await aDelete.run(req, res);
+                    return await aDelete.run(req, res);
                 } else if (parts[3] === DEF.SHARED.ROUTE_ACCOUNT_DASHBOARD) {
-                    await aDashboard.run(req, res);
+                    return await aDashboard.run(req, res);
                 }
             }
+            return false;
         };
 
     }

@@ -10,6 +10,7 @@ export default class Svelters_Back_Helper_Web {
      * @param {typeof import('querystring')} querystring
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
+     * @param {Fl32_Cms_Back_Config} cfgCms
      */
     constructor(
         {
@@ -17,7 +18,8 @@ export default class Svelters_Back_Helper_Web {
             'node:https': https,
             'node:querystring': querystring,
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Shared_Api_Logger$$: logger
+            TeqFw_Core_Shared_Api_Logger$$: logger,
+            Fl32_Cms_Back_Config$: cfgCms,
         }
     ) {
         // VARS
@@ -90,6 +92,37 @@ export default class Svelters_Back_Helper_Web {
         // MAIN
 
         /**
+         * Extracts locale and clean path from an HTTP request.
+         *
+         * Removes optional locale prefix and SPACE segment from the URL path.
+         *
+         * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
+         * @returns {{locale: string, cleanPath: string}} - Locale and clean template path.
+         */
+        this.extractRoutingInfo = function (req) {
+            const locale = this.getLocale(req);
+            const allowed = cfgCms.getLocaleAllowed();
+            const space = DEF.SHARED.SPACE.toLowerCase();
+
+            const path = (req.url || '').split('?')[0]; // remove query string
+            const segments = path.split('/').filter(Boolean); // remove empty strings
+
+            let i = 0;
+
+            // Skip locale prefix if present
+            if (allowed.includes(segments[i]?.toLowerCase())) i++;
+
+            // Skip SPACE segment if present
+            if (segments[i]?.toLowerCase() === space) i++;
+
+            // Collect the rest as clean path
+            const cleanPath = '/' + segments.slice(i).join('/');
+
+            return {locale, cleanPath};
+        };
+
+
+        /**
          * Performs a GET request.
          * @param {object} params - Parameters for the GET request.
          * @param {string} params.hostname - The hostname of the server.
@@ -109,13 +142,22 @@ export default class Svelters_Back_Helper_Web {
         };
 
         /**
-         * Extracts the locale from the HTTP request or falls back to a default locale.
+         * Extracts the locale based on URL prefix, cookies, or Accept-Language header.
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request.
          * @returns {string} - Extracted or default locale.
          */
         this.getLocale = function (req) {
-            let res = DEF.SHARED.LOCALE;
+            let res = cfgCms.getLocaleBaseWeb();
+            const allowed = cfgCms.getLocaleAllowed();
+            // Check locale in URL path prefix (e.g., '/ru/', '/en/')
+            const url = req.url || '';
+            const pathSegments = url.split('/');
+            const firstSegment = pathSegments[1]?.toLowerCase();
+            if (allowed.includes(firstSegment)) {
+                res = firstSegment;
+                return res;
+            }
 
             // Check locale in cookies
             const cookies = req.headers.cookie || '';
@@ -123,18 +165,26 @@ export default class Svelters_Back_Helper_Web {
             const cookieMatch = cookies.match(matcher);
             if (cookieMatch) {
                 const cookieLocale = cookieMatch[1];
-                if (DEF.SHARED.LOCALE_AVAILABLE.includes(cookieLocale)) res = cookieLocale;
-            } else {
-                // Check locale in Accept-Language header
-                const acceptLanguage = req.headers[HTTP2_HEADER_ACCEPT_LANGUAGE];
-                if (acceptLanguage) {
-                    const locales = acceptLanguage
-                        .split(',')
-                        .map((lang) => lang.split(';')[0].trim().split('-')[0]); // Extract base locale (e.g., 'lv' from 'lv-LV')
-                    const validLocale = locales.find((locale) => DEF.SHARED.LOCALE_AVAILABLE.includes(locale));
-                    if (validLocale) res = validLocale;
+                if (allowed.includes(cookieLocale)) {
+                    res = cookieLocale;
+                    return res;
                 }
             }
+
+            // Check locale in Accept-Language header
+            const acceptLanguage = req.headers[HTTP2_HEADER_ACCEPT_LANGUAGE];
+            if (acceptLanguage) {
+                const locales = acceptLanguage
+                    .split(',')
+                    .map((lang) => lang.split(';')[0].trim().split('-')[0].toLowerCase());
+                const validLocale = locales.find((locale) => allowed.includes(locale));
+                if (validLocale) {
+                    res = validLocale;
+                    return res;
+                }
+            }
+
+            // Fallback to default
             return res;
         };
 

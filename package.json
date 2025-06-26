@@ -36,6 +36,8 @@
     "@flancer64/teq-agave-paypal": "git+ssh://git@github.com:flancer64/teq-agave-paypal.git",
     "@flancer64/teq-agave-tmpl": "git+ssh://git@github.com:flancer64/teq-agave-tmpl.git",
     "@flancer64/teq-agave-web-session": "git+ssh://git@github.com:flancer64/teq-agave-web-session.git",
+    "@flancer32/teq-cms": "^0.4.0",
+    "@flancer32/teq-web": "^0.2.0",
     "@paypal/paypal-server-sdk": "^0.6.1",
     "@readme/openapi-parser": "^3.0.1",
     "@teqfw/core": ">=0.34.1 <1.0.0",
@@ -59,7 +61,14 @@
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.1"
   },
+  "overrides": {
+    "whatwg-url": "13.0.0"
+  },
   "engines": {
     "node": ">=22"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/teqfw"
   }
 }

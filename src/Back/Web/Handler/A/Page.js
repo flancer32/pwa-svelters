@@ -25,7 +25,7 @@ export default class Svelters_Back_Web_Handler_A_Page {
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          * @param {string} relativePath
          *
-         * @return {Promise<void>}
+         * @return {Promise<boolean>}
          */
         this.run = async function (req, res, relativePath) {
             const {dto} = await session.getFromRequest({req});
@@ -41,6 +41,7 @@ export default class Svelters_Back_Web_Handler_A_Page {
             });
             if (body) {
                 respond.code200_Ok({res, body});
+                return true;
             }
         };
 

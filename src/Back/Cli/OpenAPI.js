@@ -78,7 +78,7 @@ export default function Factory(
     const res = fCommand.create();
     res.realm = DEF.CLI_PREFIX;
     res.name = 'openapi';
-    res.desc = 'validates an OpenAPI specification.';
+    res.desc = 'validates an OpenAPI specification';
     res.action = action;
 
     return res;

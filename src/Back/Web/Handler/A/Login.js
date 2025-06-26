@@ -46,19 +46,19 @@ export default class Svelters_Back_Web_Handler_A_Login {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @return {Promise<void>}
+         * @return {Promise<boolean>}
          */
         this.run = async function (req, res) {
             // FUNCS
             /**
              * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
              * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
-             * @returns {Promise<void>}
+             * @returns {Promise<boolean>}
              */
             async function doGet(req, res) {
                 /* Prepare data for page rendering. */
                 const view = {};
-                await trxWrapper.execute(null, async (trx) => {
+                return trxWrapper.execute(null, async (trx) => {
                     // generate XSRF token for OTP section
                     const xsrfToken = randomUUID();
                     memXsrfToken.set({key: xsrfToken});
@@ -97,12 +97,13 @@ export default class Svelters_Back_Web_Handler_A_Login {
                             [HTTP2_HEADER_CONTENT_TYPE]: 'text/html'
                         }
                     });
+                    return true;
                 });
             }
 
             // MAIN
             if (req.method === HTTP2_METHOD_GET) {
-                await doGet(req, res);
+              return  doGet(req, res);
             }
         };
 

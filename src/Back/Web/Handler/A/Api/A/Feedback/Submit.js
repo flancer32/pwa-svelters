@@ -48,7 +48,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit {
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
-         * @returns {Promise<void>}
+         * @returns {Promise<boolean>}
          */
         this.run = async function (req, res) {
             const response = endpoint.createRes();
@@ -58,7 +58,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit {
             const payload = await zHelper.parsePostedData(req);
             const dtoFeedback = payload.feedback;
 
-            await trxWrapper.execute(null, async (trx) => {
+            return trxWrapper.execute(null, async (trx) => {
                 const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                 if (isAuthorized) {
                     logger.info(`Received feedback from user #${userId}: ${JSON.stringify(payload)}`);
@@ -90,6 +90,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit {
                 } else {
                     respond.code401_Unauthorized({res});
                 }
+                return true;
             });
         };
     }

@@ -2,10 +2,17 @@
   "@teqfw/di": {
     "autoload": {
       "ns": "Svelters",
-      "path": "./src"
+      "path": "./src",
+      "extra": [
+        {"ns": "Fl32_Cms_", "path": "./node_modules/@flancer32/teq-cms/src"},
+        {"ns": "Fl32_Tmpl_", "path": "./node_modules/@flancer32/teq-tmpl/src"},
+        {"ns": "Fl32_Web_", "path": "./node_modules/@flancer32/teq-web/src"}
+      ]
     },
     "replaces": {
       "back": {
+        "Fl32_Cms_Back_Api_Adapter": "Svelters_Back_Di_Replace_Cms_Adapter",
+        "Fl32_Tmpl_Back_Api_Engine": "Fl32_Tmpl_Back_Service_Engine_Mustache",
         "Fl64_Auth_Otp_Back_Api_Adapter": "Svelters_Back_Di_Replace_Auth_Adapter",
         "Fl64_OAuth2_Back_Api_Adapter": "Svelters_Back_Di_Replace_OAuth2_Adapter",
         "Fl64_OAuth2_Social_Back_Api_App_UserManager": "Svelters_Back_Di_Replace_Social_UserManager",
@@ -17,6 +24,7 @@
   },
   "@teqfw/core": {
     "commands": [
+      "Svelters_Back_Cli_Cms",
       "Svelters_Back_Cli_Deepseek",
       "Svelters_Back_Cli_Newsletter",
       "Svelters_Back_Cli_OpenAPI",
@@ -27,20 +35,5 @@
       "onInit": "Svelters_Back_Plugin_Start",
       "onStop": "Svelters_Back_Plugin_Stop"
     }
-  },
-  "@teqfw/web": {
-    "handlers": {
-      "Svelters_Back_Web_Handler": {
-        "before": ["TeqFw_Web_Back_App_Server_Handler_Static"],
-        "spaces": ["app"]
-      },
-      "Svelters_Back_Web_Handler_404": {
-        "before": ["TeqFw_Web_Back_App_Server_Handler_Final"],
-        "after": ["TeqFw_Web_Back_App_Server_Handler_Static"]
-      }
-    }
-  },
-  "@teqfw/web-api": {
-    "services": []
   }
 }

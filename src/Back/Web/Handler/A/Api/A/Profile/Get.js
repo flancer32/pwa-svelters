@@ -37,14 +37,14 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @returns {Promise<void>}
+         * @returns {Promise<boolean>}
          */
         this.run = async function (req, res) {
             // VARS
             const response = endpoint.createRes();
             response.meta.code = RESULT.UNKNOWN;
             response.meta.ok = false;
-            await trxWrapper.execute(null, async (trx) => {
+            return trxWrapper.execute(null, async (trx) => {
                 // AUTHORIZATION
                 const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                 if (isAuthorized) {
@@ -64,6 +64,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Get {
                 } else {
                     respond.code401_Unauthorized({res});
                 }
+                return true;
             });
         };
     }

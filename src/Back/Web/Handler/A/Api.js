@@ -37,7 +37,7 @@ export default class Svelters_Back_Web_Handler_A_Api {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @return {Promise<void>}
+         * @return {Promise<boolean>}
          */
         this.run = async function (req, res) {
             const url = new URL(req.url, `https://${req.headers.host}`);
@@ -45,28 +45,28 @@ export default class Svelters_Back_Web_Handler_A_Api {
             if (parts[2] === DEF.SHARED.ROUTE_API) {
                 if ((parts[3] === 'calorie') && (parts[4] === 'log')) {
                     // /app/api/calorie/log/...
-                    if (parts[5] === 'get') await aCalorieLogGet.run(req, res);
-                    else if (parts[5] === 'save') await aCalorieLogSave.run(req, res);
+                    if (parts[5] === 'get') return aCalorieLogGet.run(req, res);
+                    else if (parts[5] === 'save') return aCalorieLogSave.run(req, res);
                 } else if (parts[3] === 'feedback') {
                     // /app/api/feedback/...
-                    if (parts[4] === 'submit') await aFeedbackSubmit.run(req, res);
+                    if (parts[4] === 'submit') return aFeedbackSubmit.run(req, res);
                 } else if (parts[3] === 'profile') {
                     // /app/api/profile/...
-                    if (parts[4] === 'get') await aProfileGet.run(req, res);
-                    else if (parts[4] === 'update') await aProfileUpdate.run(req, res);
+                    if (parts[4] === 'get') return aProfileGet.run(req, res);
+                    else if (parts[4] === 'update') return aProfileUpdate.run(req, res);
                 } else if (parts[3] === 'weight') {
                     // /app/api/weight/...
                     if (parts[4] === 'log') {
                         if (parts[5] === 'save') {
-                            await aWeighLogSave.run(req, res);
+                            return aWeighLogSave.run(req, res);
                         } else if (parts[5] === 'get') {
-                            await aWeighLogGet.run(req, res);
+                            return aWeighLogGet.run(req, res);
                         }
                     } else if (parts[4] === 'goal') {
                         if (parts[5] === 'save') {
-                            await aWeighGoalSave.run(req, res);
+                            return aWeighGoalSave.run(req, res);
                         } else if (parts[5] === 'get') {
-                            await aWeighGoalGet.run(req, res);
+                            return aWeighGoalGet.run(req, res);
                         }
                     }
                 }

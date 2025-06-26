@@ -108,13 +108,13 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
          *
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
-         * @returns {Promise<void>}
+         * @returns {Promise<boolean>}
          */
         this.run = async function (req, res) {
             const response = endpoint.createRes();
             response.meta.code = RESULT.UNKNOWN;
             response.meta.ok = false;
-            await trxWrapper.execute(null, async (trx) => {
+            return trxWrapper.execute(null, async (trx) => {
                 const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                 if (isAuthorized) {
                     const {dateFrom, dateTo} = zHelper.parseGetParams(req);
@@ -140,6 +140,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Get {
                 } else {
                     respond.code401_Unauthorized({res});
                 }
+                return true;
             });
         };
     }

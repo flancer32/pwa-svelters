@@ -42,7 +42,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @returns {Promise<void>}
+         * @returns {Promise<boolean>}
          */
         this.run = async function (req, res) {
             // VARS
@@ -128,7 +128,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
             logger.info(`Payload: ${JSON.stringify(payload)}`);
 
             // use one transaction for all DB requests
-            await trxWrapper.execute(null, async (trx) => {
+            return trxWrapper.execute(null, async (trx) => {
                 // AUTHORIZATION
                 const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                 if (isAuthorized) {
@@ -168,6 +168,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
                 } else {
                     respond.code401_Unauthorized({res});
                 }
+                return true;
             });
         };
     }

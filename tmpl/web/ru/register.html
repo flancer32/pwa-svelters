@@ -73,10 +73,10 @@
 
 <script type="module">
     /** @type {TeqFw_Di_Container} */
-    import containerOtp from '/web/@flancer64/teq-agave-auth-otp/js/di.js';
+    import {container}  from '/web/@flancer64/teq-agave-auth-otp/js/di.js';
 
     /** @type {Fl64_Auth_Otp_Front_Ui_Page_Register} */
-    const page = await containerOtp.get('Fl64_Auth_Otp_Front_Ui_Page_Register$');
+    const page = await container.get('Fl64_Auth_Otp_Front_Ui_Page_Register$');
 </script>
 
 {{> pageFooter}}

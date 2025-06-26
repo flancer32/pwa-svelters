@@ -37,6 +37,9 @@ mkdir -p "${DIR_OWN}/@flancer32/"
 mkdir -p "${DIR_OWN}/@flancer64/"
 mkdir -p "${DIR_OWN}/@teqfw/"
 
+processRepo "flancer32/teq-cms" &
+processRepo "flancer32/teq-tmpl" &
+processRepo "flancer32/teq-web" &
 processRepo "flancer64/oauth2-social-login" &
 processRepo "flancer64/teq-agave-auth-otp" &
 processRepo "flancer64/teq-agave-oauth2" &

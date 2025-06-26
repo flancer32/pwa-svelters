@@ -1,5 +1,6 @@
 /**
  * Dispatcher for handling authentication-related HTTP requests.
+ * @implements Fl32_Web_Back_Api_Handler
  */
 export default class Svelters_Back_Web_Handler {
     /**
@@ -8,7 +9,9 @@ export default class Svelters_Back_Web_Handler {
      * @param {typeof import('node:http2')} http2
      * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Shared_Api_Logger} logger
-     * @param {TeqFw_Web_Back_Help_Respond} respond
+     * @param {Fl32_Web_Back_Helper_Respond} respond
+     * @param {Svelters_Back_Helper_Web} helpWeb
+     * @param {Fl32_Web_Back_Dto_Handler_Info} dtoInfo
      * @param {Svelters_Back_Web_Handler_A_Account} aAccount
      * @param {Svelters_Back_Web_Handler_A_Api} aApi
      * @param {Svelters_Back_Web_Handler_A_Home} aHome
@@ -17,13 +20,16 @@ export default class Svelters_Back_Web_Handler {
      * @param {Svelters_Back_Web_Handler_A_Page} aPage
      * @param {Svelters_Back_Web_Handler_A_Register} aRegister
      * @param {Svelters_Back_Web_Handler_A_Subscribe} aSubscribe
+     * @param {typeof Fl32_Web_Back_Enum_Stage} STAGE
      */
     constructor(
         {
             'node:http2': http2,
             Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
+            Svelters_Back_Helper_Web$: helpWeb,
+            Fl32_Web_Back_Dto_Handler_Info$: dtoInfo,
             Svelters_Back_Web_Handler_A_Account$: aAccount,
             Svelters_Back_Web_Handler_A_Api$: aApi,
             Svelters_Back_Web_Handler_A_Home$: aHome,
@@ -32,6 +38,7 @@ export default class Svelters_Back_Web_Handler {
             Svelters_Back_Web_Handler_A_Page$: aPage,
             Svelters_Back_Web_Handler_A_Register$: aRegister,
             Svelters_Back_Web_Handler_A_Subscribe$: aSubscribe,
+            Fl32_Web_Back_Enum_Stage$: STAGE,
         }
     ) {
         // VARS
@@ -40,87 +47,53 @@ export default class Svelters_Back_Web_Handler {
             HTTP2_METHOD_POST,
         } = http2.constants;
 
-        // FUNCS
-        /**
-         * Handles incoming HTTP requests and delegates processing to specific handlers.
-         *
-         * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req
-         * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res
-         */
-        async function process(req, res) {
-            try {
-                const fullPath = req.url.split('?')[0];
-                const baseIndex = fullPath.indexOf(DEF.SHARED.SPACE);
-                const relativePath = fullPath.slice(baseIndex + DEF.SHARED.SPACE.length + 1);
-                const endpoint = relativePath.split('/')[0];
-
-                switch (endpoint) {
-                    case '':
-                        await aHome.run(req, res);
-                        break;
-                    case DEF.ROUTE_OPENAPI:
-                        await aOpenApi.run(req, res);
-                        break;
-                    case DEF.SHARED.ROUTE_ACCOUNT:
-                        await aAccount.run(req, res);
-                        break;
-                    case DEF.SHARED.ROUTE_API:
-                        await aApi.run(req, res);
-                        break;
-                    case DEF.SHARED.ROUTE_DASHBOARD:
-                        respond.code301_MovedPermanently({
-                            res,
-                            headers: {
-                                Location: `/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_ACCOUNT}/${DEF.SHARED.ROUTE_ACCOUNT_DASHBOARD}/`,
-                            }
-                        });
-                        break;
-                    case DEF.SHARED.ROUTE_LOGIN:
-                        await aLogin.run(req, res);
-                        break;
-                    case DEF.SHARED.ROUTE_REGISTER:
-                        await aRegister.run(req, res);
-                        break;
-                    case DEF.SHARED.ROUTE_SUBSCRIBE:
-                        await aSubscribe.run(req, res);
-                        break;
-                    default:
-                        await aPage.run(req, res, relativePath);
-                }
-            } catch (error) {
-                logger.exception(error);
-                respond.code500_InternalServerError({res, body: error.message});
-            }
-        }
+        const _info = dtoInfo.create();
+        _info.name = this.constructor.name;
+        _info.stage = STAGE.PROCESS;
+        _info.before = ['Fl32_Cms_Back_Web_Handler_Template'];
+        Object.freeze(_info);
 
         // MAIN
-        /**
-         * Provides the function to process requests.
-         * @returns {Function}
-         */
-        this.getProcessor = () => process;
+
+        /** @returns {Fl32_Web_Back_Dto_Handler_Info.Dto} */
+        this.getRegistrationInfo = () => _info;
 
         /**
-         * Placeholder for initialization logic.
+         * @param {import('http').IncomingMessage|import('http2').Http2ServerRequest} req
+         * @param {import('http').ServerResponse|import('http2').Http2ServerResponse} res
+         * @returns {Promise<boolean>}
          */
-        this.init = async function () { };
+        this.handle = async function (req, res) {
+            if (!respond.isWritable(res)) return false;
 
-        /**
-         * Checks if the request can be handled by this instance.
-         *
-         * @param {object} params
-         * @param {string} params.method
-         * @param {TeqFw_Web_Back_Dto_Address} params.address
-         * @returns {boolean}
-         */
-        this.canProcess = function ({method, address} = {}) {
-            return (
-                ((method === HTTP2_METHOD_GET) || (method === HTTP2_METHOD_POST))
-                && (
-                    (address?.space === DEF.SHARED.SPACE)
-                    || ((address?.space === undefined) && (address.route === '/'))
-                )
-            );
+            const {cleanPath} = helpWeb.extractRoutingInfo(req);
+            const endpoint = cleanPath.split('/')[1];
+
+            switch (endpoint) {
+                case DEF.ROUTE_OPENAPI:
+                    return aOpenApi.run(req, res);
+                case DEF.SHARED.ROUTE_ACCOUNT:
+                    return aAccount.run(req, res);
+                case DEF.SHARED.ROUTE_API:
+                    return aApi.run(req, res);
+                case DEF.SHARED.ROUTE_DASHBOARD:
+                    respond.code301_MovedPermanently({
+                        res,
+                        headers: {
+                            Location: `/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_ACCOUNT}/${DEF.SHARED.ROUTE_ACCOUNT_DASHBOARD}/`,
+                        }
+                    });
+                    break;
+                case DEF.SHARED.ROUTE_LOGIN:
+                    return aLogin.run(req, res);
+                case DEF.SHARED.ROUTE_REGISTER:
+                    return aRegister.run(req, res);
+                case DEF.SHARED.ROUTE_SUBSCRIBE:
+                    return aSubscribe.run(req, res);
+                // default:
+                //     await aPage.run(req, res, relativePath);
+            }
         };
+
     }
 }

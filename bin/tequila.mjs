@@ -2,6 +2,7 @@
 'use strict';
 /** Create and run teq-app as a Node.js program. */
 // IMPORT
+import dotenv from 'dotenv';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import teq from '@teqfw/core';
@@ -14,5 +15,6 @@ const bin = dirname(script);
 const path = join(bin, '..');
 
 // MAIN
+dotenv.config();
 /* Run the teq-app from the given root path. */
 teq({path}).catch((e) => console.error(e));

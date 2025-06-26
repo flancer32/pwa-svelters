@@ -45,7 +45,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Save {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @returns {Promise<void>}
+         * @returns {Promise<boolean>}
          */
         this.run = async function (req, res) {
             // VARS
@@ -56,7 +56,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Save {
             /** @type {Svelters_Shared_Web_Api_Weight_Log_Save.Request} */
             const payload = await zHelper.parsePostedData(req);
             const dtoWeight = payload.weight;
-            await trxWrapper.execute(null, async (trx) => {
+            return trxWrapper.execute(null, async (trx) => {
                 // Get authorization info
                 const {isAuthorized, userId} = await oauth2.authorize({req, trx});
                 if (isAuthorized) {
@@ -95,6 +95,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Log_Save {
                 } else {
                     respond.code401_Unauthorized({res});
                 }
+                return true;
             });
         };
 

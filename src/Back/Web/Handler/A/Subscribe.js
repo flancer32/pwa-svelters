@@ -37,10 +37,10 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
          * @param {module:http.IncomingMessage|module:http2.Http2ServerRequest} req - Incoming HTTP request
          * @param {module:http.ServerResponse|module:http2.Http2ServerResponse} res - HTTP response object
          *
-         * @return {Promise<void>}
+         * @return {Promise<boolean>}
          */
         this.run = async function (req, res) {
-            return await trxWrapper.execute(null, async (trx) => {
+            return trxWrapper.execute(null, async (trx) => {
                 let amount, currency, description, dateSubscriptionEnd;
                 const {dto} = await session.getFromRequest({trx, req});
                 const isAuthenticated = !!dto?.user_ref;
@@ -75,6 +75,7 @@ export default class Svelters_Back_Web_Handler_A_Subscribe {
                 });
                 if (body) {
                     respond.code200_Ok({res, body});
+                    return true;
                 }
             });
         };
