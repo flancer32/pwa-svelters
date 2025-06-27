@@ -78,6 +78,7 @@ jobs:
           script: |
             cd "${{env.APP_DIR}}"
             rm -fr prod.old  
+            rm -fr prod.new  
             mkdir prod.new
             unzip ${{env.PRJ}}.zip -d ./prod.new/ &> /dev/null
 
