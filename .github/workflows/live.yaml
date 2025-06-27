@@ -28,7 +28,7 @@ jobs:
       - name: Verify archive creation
         run: ls -lh
 
-  validate-connection:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -41,11 +41,9 @@ jobs:
           script: |
             pwd
             whoami
+      - name: Verify archive
+        run: ls -lh
 
-  deploy:
-    needs: validate-connection
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy archive to remote server
         uses: appleboy/scp-action@master
         with:
