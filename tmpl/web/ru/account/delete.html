@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>NutriLog</title>
+    {{> htmlHead}}
+    <script type="module" src="/js/comp/ext-link.js"></script>
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Удаление аккаунта</h1>
+
+    {{> blockAnon}}
+
+    {{#isAuthenticated}}
+    <p class="text-lg">
+        Вы собираетесь навсегда удалить свой аккаунт. Это действие выполняется немедленно и не может быть отменено.
+    </p>
+
+    <div class="nl-card">
+        <h2>Ваш профиль</h2>
+        <ul class="space-y-1">
+            <li><strong>Имя:</strong> {{profile.name}}</li>
+            {{#profile.email}}
+            <li><strong>Email:</strong> {{profile.email}}</li>
+            {{/profile.email}}
+            <li><strong>Дата регистрации:</strong> {{profile.dateCreated}}</li>
+            <li><strong>Окончание подписки:</strong> {{profile.dateSubscriptionEnd}}</li>
+        </ul>
+    </div>
+
+    <div class="nl-card nl-warn">
+        <h2>Что будет удалено</h2>
+        <ul class="list-disc list-inside">
+            <li>Ваш профиль и персональные данные</li>
+            <li>История питания и веса</li>
+            <li>Настройки целей</li>
+            <li>Привязанные способы входа (email, социальные сети)</li>
+        </ul>
+        <div class="mt-2 font-semibold text-red-600">
+            Это действие необратимо. Резервная копия не сохраняется.
+        </div>
+        <label class="block mt-2">
+            <input id="chk-confirm" type="checkbox" class="mr-2">
+            Я понимаю, что мой аккаунт будет удалён немедленно и безвозвратно.
+        </label>
+        <input type="hidden" id="xsrf-token" value="{{xsrfToken}}">
+    </div>
+
+    <div class="btn-center">
+        <button id="btn-delete" class="btn-red" disabled>Удалить мой аккаунт</button>
+    </div>
+
+    <script type="module">
+        import('/js/di.js')
+            .then(({container}) => {
+                container.get('Svelters_Front_Ui_Page_Account_Delete$');
+            }).catch(console.error);
+    </script>
+
+    {{/isAuthenticated}}
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>NutriLog - Панель управления</title>
+    {{> htmlHead}}
+    <link rel="stylesheet" href="/css/account/dashboard.css">
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Добро пожаловать в панель управления</h1>
+
+    {{> blockAnon}}
+
+    {{#isAuthenticated}}
+    {{! раздел только для авторизованных пользователей }}
+
+    <!-- Бейдж бета-тестера -->
+    <div class="nl-text-note text-center mb-2">
+        🎉 Вы один из наших первых бета-тестеров. Спасибо, что помогаете нам формировать будущее NutriLog!
+    </div>
+
+    {{^hasFullData}}
+    {{! список недостающих данных }}
+
+    <div class="nl-card text-center">
+        <div>
+            NutriLog — это приложение, ориентированное на общение.
+            Используйте AI-ассистента, чтобы начать отслеживать ваше здоровье — вес, калории и цели.
+        </div>
+        {{> uiBtnGptChat}}
+    </div>
+
+    <div class="nl-card">
+        <h3>Вы только начинаете...</h3>
+        <ul>
+            {{#dataChecks.noProfile}}
+            <li>❌ Нет данных в <strong>профиле</strong> (возраст, рост, вес)</li>
+            {{/dataChecks.noProfile}}
+            {{^dataChecks.noProfile}}
+            <li>✅ <strong>Профиль</strong> заполнен</li>
+            {{/dataChecks.noProfile}}
+
+            {{#dataChecks.noGoal}}
+            <li>❌ Не определены <strong>цели</strong></li>
+            {{/dataChecks.noGoal}}
+            {{^dataChecks.noGoal}}
+            <li>✅ <strong>Цель</strong> определена</li>
+            {{/dataChecks.noGoal}}
+
+            {{#dataChecks.noCalories}}
+            <li>❌ Нет записей о <strong>калориях</strong></li>
+            {{/dataChecks.noCalories}}
+            {{^dataChecks.noCalories}}
+            <li>✅ Есть записи в <strong>дневнике калорий</strong></li>
+            {{/dataChecks.noCalories}}
+
+            {{#dataChecks.noWeight}}
+            <li>❌ Нет записей о <strong>весе</strong></li>
+            {{/dataChecks.noWeight}}
+            {{^dataChecks.noWeight}}
+            <li>✅ <strong>Отслеживание веса</strong> активно</li>
+            {{/dataChecks.noWeight}}
+        </ul>
+
+        <p class="nl-text-note text-center">
+            Все данные добавляются через общение с Ассистентом — печатайте или используйте голос.
+            Не знаете, что делать? Отправьте скриншот Ассистенту, и он поможет вам разобраться.
+        </p>
+    </div>
+    {{/hasFullData}}
+
+    <!-- КАРТОЧКИ ПОКАЗАТЕЛЕЙ -->
+    <div class="nl-kpi mt-6">
+        <div class="kpi-card">
+            <div class="kpi-label">Записано калорий</div>
+            <div class="kpi-value">
+                {{#kpiCards.lastCaloriesTotal}}{{kpiCards.lastCaloriesTotal}} ккал{{/kpiCards.lastCaloriesTotal}}
+                {{^kpiCards.lastCaloriesTotal}}–{{/kpiCards.lastCaloriesTotal}}
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-label">Последняя запись</div>
+            <div class="kpi-value">
+                {{#kpiCards.lastCaloriesDate}}{{kpiCards.lastCaloriesDate}}{{/kpiCards.lastCaloriesDate}}
+                {{^kpiCards.lastCaloriesDate}}–{{/kpiCards.lastCaloriesDate}}
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-label">BMR</div>
+            <div class="kpi-value">
+                {{#kpiCards.bmr}}{{kpiCards.bmr}} ккал/день{{/kpiCards.bmr}}
+                {{^kpiCards.bmr}}–{{/kpiCards.bmr}}
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-label">Текущий вес</div>
+            <div class="kpi-value">
+                {{#useImperial}}
+                {{#kpiCards.currentWeightLbs}}{{kpiCards.currentWeightLbs}} фунтов{{/kpiCards.currentWeightLbs}}
+                {{/useImperial}}
+                {{^useImperial}}
+                {{#kpiCards.currentWeight}}{{kpiCards.currentWeight}} кг{{/kpiCards.currentWeight}}
+                {{/useImperial}}
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-label">Целевой вес</div>
+            <div class="kpi-value">
+                {{#useImperial}}
+                {{#kpiCards.goalWeightLbs}}{{kpiCards.goalWeightLbs}} фунтов{{/kpiCards.goalWeightLbs}}
+                {{/useImperial}}
+                {{^useImperial}}
+                {{#kpiCards.goalWeight}}{{kpiCards.goalWeight}} кг{{/kpiCards.goalWeight}}
+                {{/useImperial}}
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-label">Разница</div>
+            <div class="kpi-value">
+                {{#kpiCards.remaining}}
+                {{#kpiCards.isPositive}}+{{/kpiCards.isPositive}}
+                {{^kpiCards.isPositive}}–{{/kpiCards.isPositive}}
+                {{#useImperial}}
+                {{kpiCards.remainingLbs}} фунтов
+                {{/useImperial}}
+                {{^useImperial}}
+                {{kpiCards.remaining}} кг
+                {{/useImperial}}
+                {{/kpiCards.remaining}}
+                {{^kpiCards.remaining}}–{{/kpiCards.remaining}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Таблица записей о еде -->
+    <div class="nl-card mt-6">
+        <h3>Дневник питания – Последний день</h3>
+        {{#lastDayCalories.length}}
+        <table class="nl-table">
+            <thead>
+            <tr>
+                <th>Продукт</th>
+                <th class="text-right">Порция</th>
+                <th class="text-right">ккал/ед.</th>
+                <th class="text-right">Всего</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#lastDayCalories}}
+            <tr>
+                <td>{{food}}</td>
+                <td class="text-right">{{quantity}}&nbsp;{{measure}}</td>
+                <td class="text-right">{{unitCalories}}</td>
+                <td class="text-right">{{totalCalories}}</td>
+            </tr>
+            {{/lastDayCalories}}
+            </tbody>
+        </table>
+        {{/lastDayCalories.length}}
+        {{^lastDayCalories.length}}
+        <p class="nl-text-note text-center">Пока нет записей о питании за последний день.</p>
+        {{/lastDayCalories.length}}
+    </div>
+
+    {{/isAuthenticated}}
+
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>

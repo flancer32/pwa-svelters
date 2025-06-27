@@ -1,0 +1,52 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png">
+<!-- TODO: удалить dev-версию Tailwind -->
+<!--<script src="https://cdn.tailwindcss.com"></script>-->
+<link rel="stylesheet" href="/styles.css">
+<script type="module" src="/js/comp/ui-toast.js"></script>
+
+<!-- Инициализация Consent Mode (должна быть объявлена перед GTM) -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+
+    // Стандартные настройки согласия (используются, если пользователь еще не дал разрешение)
+    gtag('consent', 'default', {
+        ad_personalization: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted'
+    });
+
+    // Проверяем, давал ли пользователь согласие ранее, и обновляем состояние заранее
+    const hasConsent = localStorage.getItem('nl_gdpr_consent_accepted'); // см. Svelters_Front_Ui_App_Gdpr
+    if (hasConsent) {
+        gtag('consent', 'update', {
+            ad_personalization: 'granted',
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            analytics_storage: 'granted',
+            functionality_storage: 'granted',
+            personalization_storage: 'granted',
+            security_storage: 'granted'
+        });
+    }
+    <!-- Google Tag Manager -->
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l !== 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WB5KTHQ7');
+</script>

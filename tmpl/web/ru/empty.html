@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>NutriLog - Пустая страница</title>
+    {{> htmlHead}}
+    <!-- Удалите, если не используете WebComponent `<ext-link>` -->
+    <script type="module" src="/js/comp/ext-link.js"></script>
+    <script type="module" src="/js/comp/zoom-img.js"></script>
+</head>
+<body>
+
+{{> pageHeader}}
+
+<main>
+    <h1>Заголовок страницы</h1>
+    <h2>Заголовок раздела</h2>
+    <p>
+        Это пример абзаца. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat.
+    </p>
+    <p>
+        <a href="#">Это ссылка в другом абзаце.</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+
+    <div class="nl-card">
+        <h2>Простая карточка</h2>
+        <ul>
+            <li><strong>Особенность первая:</strong> Простой и чистый макет с Tailwind CSS.</li>
+            <li><strong>Особенность вторая:</strong> Адаптивный дизайн для мобильных и десктопных экранов.</li>
+            <li><strong>Особенность третья:</strong> Минималистичная типографика в стиле OpenAI.</li>
+        </ul>
+
+        <div>
+            <ext-link href="http://wiredgeese.com/">Внешняя ссылка</ext-link>
+        </div>
+    </div>
+
+    <div class="nl-card nl-info">
+        <h2>Информационная карточка</h2>
+        <div>Текст здесь...</div>
+    </div>
+
+    <div class="nl-card nl-warn">
+        <h2>Предупреждающая карточка</h2>
+        <div>Текст здесь...</div>
+    </div>
+
+
+    <p>
+        Узнайте больше о наших принципах дизайна на
+        <a href="/app/about.html">странице "О нас"</a>.
+    </p>
+
+    <div class="alert-error" role="alert">
+        <span>OAuth2 клиент, запрашивающий авторизацию, не зарегистрирован в приложении.</span>
+    </div>
+
+    <div class="btn-center">
+        <a href="/" class="btn-green">На главную</a>
+    </div>
+</main>
+
+{{> pageFooter}}
+
+</body>
+</html>
