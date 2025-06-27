@@ -52,7 +52,6 @@ processRepo "teqfw/db" &
 processRepo "teqfw/di" &
 processRepo "teqfw/email" &
 processRepo "teqfw/test" &
-processRepo "teqfw/web" &
 wait
 
 echo ""
