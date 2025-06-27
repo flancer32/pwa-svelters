@@ -1,38 +1,38 @@
 name: LIVE - Update and Restart the `NutriLog` App
 
-# Trigger action manually
 on: workflow_dispatch
 
 env:
-  APP_DIR: /home/${{vars.USER}}/inst/app/nutrilog/  # Directory of the application
-  PRJ: nutrilog  # The name of the project
-  SERVICE: appNutriLog.service  # The name of the service to manage
+  APP_DIR: /home/${{vars.USER}}/inst/app/nutrilog/
+  PRJ: nutrilog
+  SERVICE: appNutriLog.service
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out the repository on the GitHub environment.
+      - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Install dependencies and build the project.
+      - name: Install dependencies and build the project
         run: |
           npm install --omit=optional
           npm run build-css
           npm prune --omit=dev
 
-      - name: Add application files to the archive.
+      - name: Archive application files
         uses: montudor/action-zip@v1
         with:
           args: zip -qq --exclude=*.git* -r ${{env.PRJ}}.zip ./
 
-      - name: Validate the existence of the archive.
-        run: |
-          pwd
-          ls -lh 
+      - name: Verify archive creation
+        run: ls -lh
 
-      - name: Validate SSH connection.
+  validate-connection:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate SSH connection
         uses: appleboy/ssh-action@master
         with:
           host: ${{vars.HOST}}
@@ -42,7 +42,11 @@ jobs:
             pwd
             whoami
 
-      - name: Copy files to Remote Server.
+  deploy:
+    needs: validate-connection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy archive to remote server
         uses: appleboy/scp-action@master
         with:
           host: ${{vars.HOST}}
@@ -51,40 +55,40 @@ jobs:
           source: ${{env.PRJ}}.zip
           target: ${{env.APP_DIR}}
 
-      - name: Extract files on Remote Server and switch site to the new instance.
+  release:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract and restart application on remote server
         uses: appleboy/ssh-action@master
         with:
           host: ${{vars.HOST}}
           username: ${{vars.USER}}
           key: ${{secrets.SSH_KEY}}
           script: |
-            cd "${{env.APP_DIR}}/"
+            cd "${{env.APP_DIR}}"
             rm -fr prod.old  
             mkdir prod.new
             unzip ${{env.PRJ}}.zip -d ./prod.new/ &> /dev/null
 
-            # Load nvm and set up node
             source ~/.nvm/nvm.sh
             nvm use node
 
-            # Generate a timestamp
             TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
-            # Stop the service and run database export to separate backup file
             sudo /bin/systemctl stop ${{env.SERVICE}}
             node ./prod/bin/tequila.mjs db-export -f data_nutrilog-${TIMESTAMP}.json
-            
-            # Switch the app version then reset the db structure (export / init / import)
+
             mv ./prod ./prod.old
             mv ./prod.new ./prod
             cp ./prod.old/cfg/local* ./prod/cfg/
+            cp ./prod.old/.env ./prod/
+
             node ./prod/bin/tequila.mjs db-init
             node ./prod/bin/tequila.mjs db-import -f data_nutrilog-${TIMESTAMP}.json
-            
-            # Start the service
+
             sudo /bin/systemctl start ${{env.SERVICE}}
-            
-            # Rename the archive with a timestamp
+
             mv ${{env.PRJ}}.zip ${{env.PRJ}}-${TIMESTAMP}.zip
-            echo "Archive renamed to: ${{env.PRJ}}-${TIMESTAMP}.zip"            
+            echo "Archive renamed to: ${{env.PRJ}}-${TIMESTAMP}.zip"
             ls -lh ${{env.APP_DIR}}
