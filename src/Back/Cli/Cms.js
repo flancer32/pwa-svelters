@@ -4,21 +4,14 @@
  */
 
 // MAIN
-import Fl64_Paypal_Back_Web_Handler from '@flancer64/teq-agave-paypal/src/Back/Web/Handler.js';
-
 /**
  * Factory function for a CLI command that validates OpenAPI specs.
  *
  * @param {typeof import('node:path')} path - Node.js path module
- * @param {typeof import('@readme/openapi-parser')} openApiParser - OpenAPI parser and validator
  * @param {Svelters_Back_Defaults} DEF - Global application defaults
  * @param {TeqFw_Core_Back_Config} config - Application configuration service
- * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger service
  * @param {TeqFw_Core_Back_Api_Dto_Command.Factory} fCommand - Factory for CLI command DTOs
- * @param {TeqFw_Core_Back_Api_Dto_Command_Option.Factory} fOpt - Factory for CLI command option DTOs
- * @param {TeqFw_Core_Back_App} app - Application lifecycle manager
  * @param {Fl32_Cms_Back_Cli_Command} cmsCmd
- * @param {Fl32_Cms_Back_Cli_Command_Web} cmsWeb
  * @param {Fl32_Web_Back_Dispatcher} dispatcher
  * @param {Fl32_Web_Back_Handler_Static} handStatic
  * @param {Fl64_Auth_Otp_Back_Web_Handler} handOtp
@@ -38,11 +31,8 @@ export default function Factory(
         'node:path': path,
         Svelters_Back_Defaults$: DEF,
         TeqFw_Core_Back_Config$: config,
-        TeqFw_Core_Shared_Api_Logger$$: logger,
         'TeqFw_Core_Back_Api_Dto_Command.Factory$': fCommand,
-        TeqFw_Core_Back_App$: app,
         Fl32_Cms_Back_Cli_Command$: cmsCmd,
-        Fl32_Cms_Back_Cli_Command_Web$: cmsWeb,
         Fl32_Web_Back_Dispatcher$: dispatcher,
         Fl32_Web_Back_Handler_Static$: handStatic,
         Fl64_Auth_Otp_Back_Web_Handler$: handOtp,
