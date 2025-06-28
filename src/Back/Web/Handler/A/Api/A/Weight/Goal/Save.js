@@ -8,7 +8,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Save {
     /**
      * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger
-     * @param {TeqFw_Web_Back_Help_Respond} respond
+     * @param {Fl32_Web_Back_Helper_Respond} respond
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Svelters_Shared_Helper_Cast} helpCast
      * @param {Svelters_Back_Store_RDb_Repo_Weight_Goal} repoWeightLog
@@ -20,7 +20,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Save {
         {
             'node:http2': http2,
             TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Shared_Helper_Cast$: helpCast,
             Svelters_Back_Store_RDb_Repo_Weight_Goal$: repoWeightLog,

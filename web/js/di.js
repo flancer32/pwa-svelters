@@ -17,7 +17,6 @@ resolver.addNamespaceRoot('Iabtcf_Core_', '/src/@iabtcf', 'js');
 resolver.addNamespaceRoot('Svelters_', '/src/@flancer32/pwa-svelters');
 resolver.addNamespaceRoot('TeqFw_Core_', '/src/@teqfw/core', 'mjs');
 resolver.addNamespaceRoot('TeqFw_Di_', '/src/@teqfw/di', 'js');
-resolver.addNamespaceRoot('TeqFw_Web_', '/src/@teqfw/web', 'mjs');
 
 // Export the shared container instance for use across modules.
 Object.freeze(container);

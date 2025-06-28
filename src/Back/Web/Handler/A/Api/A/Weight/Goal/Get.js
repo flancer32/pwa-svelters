@@ -5,7 +5,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Get {
     /**
      * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
-     * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
+     * @param {Fl32_Web_Back_Helper_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {TeqFw_Db_Shared_Dto_List_Selection} dbSelect
      * @param {Svelters_Shared_Web_Api_Weight_Goal_Get} endpoint
@@ -18,7 +18,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Weight_Goal_Get {
         {
             'node:http2': http2,
             TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             TeqFw_Db_Shared_Dto_List_Selection$: dbSelect,
             Svelters_Shared_Web_Api_Weight_Goal_Get$: endpoint,

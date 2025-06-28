@@ -5,7 +5,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
     /**
      * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger - Logger instance
-     * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
+     * @param {Fl32_Web_Back_Helper_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Svelters_Shared_Web_Api_Profile_Update} endpoint
      * @param {Fl64_OAuth2_Back_Manager} oauth2
@@ -18,7 +18,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Profile_Update {
         {
             'node:http2': http2,
             TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Svelters_Shared_Web_Api_Profile_Update$: endpoint,
             Fl64_OAuth2_Back_Manager$: oauth2,

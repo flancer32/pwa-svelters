@@ -5,17 +5,17 @@ export default class Svelters_Back_Web_Handler_A_OpenApi {
     /**
      * @param {typeof import('node:fs')} fs
      * @param {typeof import('node:path')} path
-     * @param {Svelters_Back_Defaults} DEF
      * @param {TeqFw_Core_Back_Config} config
-     * @param {TeqFw_Web_Back_Help_Respond} respond
+     * @param {Fl32_Web_Back_Helper_Respond} respond
+     * @param {Fl32_Cms_Back_Config} cfgCms
      */
     constructor(
         {
             'node:fs': fs,
             'node:path': path,
-            Svelters_Back_Defaults$: DEF,
             TeqFw_Core_Back_Config$: config,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
+            Fl32_Cms_Back_Config$: cfgCms,
         }
     ) {
         // VARS
@@ -42,9 +42,7 @@ export default class Svelters_Back_Web_Handler_A_OpenApi {
          */
         function getOpenApiSpec() {
             if (!SPEC) {
-                /** @type {TeqFw_Web_Back_Plugin_Dto_Config_Local.Dto} */
-                const cfgWeg = config.getLocal(DEF.MOD_WEB.SHARED.NAME);
-                const host = cfgWeg.urlBase;
+                const host = cfgCms.getBaseUrl();
                 const root = config.getPathToRoot();
                 const path = join(root, 'etc', 'openapi.json');
                 const tmpl = readFileSync(path, 'utf8');

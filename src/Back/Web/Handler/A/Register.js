@@ -6,7 +6,7 @@ export default class Svelters_Back_Web_Handler_A_Register {
      * @param {typeof import('node:crypto')} crypto
      * @param {typeof import('node:http2')} http2
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
+     * @param {Fl32_Web_Back_Helper_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper - Database transaction wrapper
      * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
      * @param {Fl64_Auth_Otp_Back_Store_Mem_XsrfToken} memXsrfToken
@@ -20,7 +20,7 @@ export default class Svelters_Back_Web_Handler_A_Register {
             'node:crypto': crypto,
             'node:http2': http2,
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Tmpl_Back_Service_Render_Web$: srvRender,
             Fl64_Auth_Otp_Back_Store_Mem_XsrfToken$: memXsrfToken,

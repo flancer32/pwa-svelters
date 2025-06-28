@@ -10,7 +10,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit {
     /**
      * @param {typeof import('node:http2')} http2
      * @param {TeqFw_Core_Shared_Api_Logger} logger
-     * @param {TeqFw_Web_Back_Help_Respond} respond
+     * @param {Fl32_Web_Back_Helper_Respond} respond
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {TeqFw_Email_Back_Act_Send} actEmail
      * @param {Fl64_OAuth2_Back_Manager} oauth2
@@ -22,7 +22,7 @@ export default class Svelters_Back_Web_Handler_A_Api_A_Feedback_Submit {
         {
             'node:http2': http2,
             TeqFw_Core_Shared_Api_Logger$$: logger,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             TeqFw_Email_Back_Act_Send$: actEmail,
             Fl64_OAuth2_Back_Manager$: oauth2,

@@ -4,7 +4,7 @@
 export default class Svelters_Back_Web_Handler_A_Home {
     /**
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Web_Back_Help_Respond} respond - Error response helper
+     * @param {Fl32_Web_Back_Helper_Respond} respond - Error response helper
      * @param {TeqFw_Db_Back_App_TrxWrapper} trxWrapper
      * @param {Fl64_Web_Session_Back_Manager} session
      * @param {Fl64_Tmpl_Back_Service_Render_Web} srvRender
@@ -13,7 +13,7 @@ export default class Svelters_Back_Web_Handler_A_Home {
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Web_Back_Help_Respond$: respond,
+            Fl32_Web_Back_Helper_Respond$: respond,
             TeqFw_Db_Back_App_TrxWrapper$: trxWrapper,
             Fl64_Web_Session_Back_Manager$: session,
             Fl64_Tmpl_Back_Service_Render_Web$: srvRender,

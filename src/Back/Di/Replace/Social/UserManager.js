@@ -9,13 +9,13 @@
 export default class Svelters_Back_Di_Replace_Social_UserManager {
     /**
      * @param {Svelters_Back_Defaults} DEF
-     * @param {TeqFw_Core_Back_Config} config
+     * @param {Fl32_Cms_Back_Config} cfgCms
      * @param {Svelters_Back_Act_User_Create} actCreate
      */
     constructor(
         {
             Svelters_Back_Defaults$: DEF,
-            TeqFw_Core_Back_Config$: config,
+            Fl32_Cms_Back_Config$: cfgCms,
             Svelters_Back_Act_User_Create$: actCreate,
         }
     ) {
@@ -25,10 +25,8 @@ export default class Svelters_Back_Di_Replace_Social_UserManager {
         // FUNCS
         function getRedirectUrl() {
             if (!URL) {
-                /** @type {TeqFw_Web_Back_Plugin_Dto_Config_Local.Dto} */
-                const webCfg = config.getLocal(DEF.MOD_WEB.SHARED.NAME);
-                const domain = webCfg.urlBase;
-                URL = `//${domain}/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_REGISTERED}.html`;
+                const domain = cfgCms.getBaseUrl();
+                URL = `${domain}/${DEF.SHARED.SPACE}/${DEF.SHARED.ROUTE_REGISTERED}.html`;
             }
             return URL;
         }
