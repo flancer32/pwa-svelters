@@ -9,6 +9,7 @@
 /cfg/local.*
 /composer.lock
 /http-client.env.json
+/var/teq-cms
 /tmp/
 /var/*.pid
 /var/data.json
