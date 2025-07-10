@@ -1,5 +1,5 @@
 import {strict as assert} from 'assert';
-import {createLocalContainer, stopApp} from '../common.mjs';
+import {createLocalContainer, stopApp} from './common.mjs';
 
 // SETUP CONTAINER
 const container = await createLocalContainer();

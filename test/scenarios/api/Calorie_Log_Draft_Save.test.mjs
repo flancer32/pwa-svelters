@@ -1,4 +1,4 @@
-import {createLocalContainer, stopApp} from '../../common.mjs';
+import {createLocalContainer, stopApp} from '../common.mjs';
 import {strict as assert} from 'assert';
 
 // SETUP CONTAINER

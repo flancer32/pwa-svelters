@@ -5,6 +5,7 @@ import {dirname} from 'path';
 import {configDto} from '@teqfw/test';
 
 // VARS
+/** @type {TeqFw_Di_Container} */
 let container;
 
 // MAIN
@@ -18,6 +19,7 @@ export async function createLocalContainer() {
     const ROOT = join(scriptPath, '..', '..');
     // Initialize the DI container, then add `AppTest_` namespace
     container = await initContainer(ROOT);
+    container.enableTestMode();
     const resolver = container.getResolver();
     const src = join(ROOT, 'test', 'dev', 'src');
     resolver.addNamespaceRoot('AppTest_', src, 'js');

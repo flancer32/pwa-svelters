@@ -37,7 +37,7 @@
     "@flancer64/teq-agave-paypal": "git+ssh://git@github.com:flancer64/teq-agave-paypal.git",
     "@flancer64/teq-agave-tmpl": "git+ssh://git@github.com:flancer64/teq-agave-tmpl.git",
     "@flancer64/teq-agave-web-session": "git+ssh://git@github.com:flancer64/teq-agave-web-session.git",
-    "@flancer32/teq-cms": "^0.5.1",
+    "@flancer32/teq-cms": "^0.5.2",
     "@paypal/paypal-server-sdk": "^0.6.1",
     "@readme/openapi-parser": "^3.0.1",
     "@teqfw/core": ">=0.35.0 <1.0.0",

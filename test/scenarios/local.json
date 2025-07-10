@@ -1,0 +1,15 @@
+{
+  "@teqfw/db": {
+    "client": "better-sqlite3",
+    "connection": {
+      "filename": "./test/scenarios/db.sqlite3"
+    },
+    "useNullAsDefault": true
+  },
+  "@teqfw/web": {
+    "server": {
+      "port": 3000
+    },
+    "urlBase": "localhost"
+  }
+}
